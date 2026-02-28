@@ -49,7 +49,9 @@
     <Compile Include="Stores\NavigationService.cs" />
     <Compile Include="Stores\SettingsStore.cs" />
     <Compile Include="Stores\TimeStore.cs" />
+    <Compile Include="ViewModels\BooksViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IBooksViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IHomeViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\ILayoutViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\ILoginViewModel.cs" />
