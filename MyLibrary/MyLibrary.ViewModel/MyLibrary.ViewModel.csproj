@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Commands\CheckDatabaseCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\LoansCommands\CloseModalCommand.cs" />
     <Compile Include="Commands\LoansCommands\LoadLoansCommand.cs" />
     <Compile Include="Commands\LoansCommands\NavigateLoansCommand.cs" />
     <Compile Include="Commands\LoansCommands\ReloadLoansListCommand.cs" />
