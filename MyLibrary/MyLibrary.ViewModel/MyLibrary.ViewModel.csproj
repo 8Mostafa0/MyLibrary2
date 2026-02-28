@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stores\BooksStore.cs" />
     <Compile Include="Stores\ClientsStore.cs" />
     <Compile Include="Stores\LoanStore.cs" />
     <Compile Include="Stores\ModalNavigationStore.cs" />
