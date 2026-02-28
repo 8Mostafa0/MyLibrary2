@@ -50,6 +50,8 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
+    <Compile Include="ViewModels\ReservedBooksViewModels\AddEditReserveBookViewModel.cs" />
+    <Compile Include="ViewModels\ReservedBooksViewModels\ReservedBooksViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModels\LoanSettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModels\MainLayoutSettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModels\SecuritySettingsViewModel.cs" />

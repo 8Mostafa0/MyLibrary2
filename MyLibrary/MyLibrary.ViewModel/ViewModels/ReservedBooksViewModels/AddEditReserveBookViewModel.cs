@@ -1,0 +1,203 @@
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
+
+namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
+{
+    public class AddEditeReserveBookViewModel : ViewModelBase
+    {
+        #region Dependencies
+        private ModalNavigationStore _modalNavigationStore;
+        private ReservedBooksStore _reservedBooksStore;
+        private ClientsStore _clientsStore;
+        private BooksStore _booksStore;
+        private Book _selectedBook;
+        private Client _selectedClient;
+        private ReservedBook _selectedReservedBook;
+        private string _bookName;
+        private string _clientName;
+        private int _bookSubject;
+
+        private ObservableCollection<Book> _books;
+        private ObservableCollection<Client> _clients;
+
+        public IEnumerable<Book> Books => _books;
+        public IEnumerable<Client> Clients => _clients;
+
+        public string BookName
+        {
+            get => _bookName;
+            set
+            {
+                _bookName = value;
+                _booksStore.SearchBookName = value;
+                OnProperychanged(nameof(BookName));
+            }
+        }
+
+        public string ClientName
+        {
+            get => _clientName;
+            set
+            {
+                _clientName = value;
+                _clientsStore.SearchClientName = value;
+                OnProperychanged(nameof(ClientName));
+            }
+        }
+
+        public Book SelectedBook
+        {
+            get => _selectedBook;
+            set
+            {
+
+                _selectedBook = value;
+                OnProperychanged(nameof(SelectedBook));
+            }
+        }
+
+        public Client SelectedClient
+        {
+            get => _selectedClient;
+            set
+            {
+                _selectedClient = value;
+                OnProperychanged(nameof(SelectedClient));
+            }
+        }
+
+        public ReservedBook SelectedReservedBook
+        {
+            get => _selectedReservedBook;
+            set
+            {
+                _selectedReservedBook = value;
+                SetDataOfSelectedReservedBook();
+            }
+        }
+        public int BookSubject
+        {
+            get => _bookSubject;
+            set
+            {
+                _bookSubject = value;
+                _booksStore.SearchSubject = value;
+                OnProperychanged(nameof(BookSubject));
+            }
+        }
+
+        public string TitleOfLoanScreen { get; set; }
+
+        #endregion
+
+        #region Commands
+
+        public ICommand CloseModalCommand { get; }
+        public ICommand SaveReservedBookDataCommand { get; }
+        public ICommand SearchBookNameCommand { get; }
+        public ICommand SearchClientNameCommand { get; }
+        public ICommand LoadClientsCommand { get; }
+        public ICommand LoadBooksCommand { get; }
+        public ICommand OrderBooksCommand { get; }
+        public ICommand OrderBooksBySubjectCommand { get; }
+
+
+        #endregion
+
+        #region Constructor
+
+        public AddEditeReserveBookViewModel(ModalNavigationStore modalNavigationStore, ReservedBooksStore reservedBooksStore, ClientsStore clientsStore, BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, ClientsRepository clientsRepository, ReservedBook reservedBook = null)
+        {
+            _clients = [];
+            _books = [];
+            _modalNavigationStore = modalNavigationStore;
+            _reservedBooksStore = reservedBooksStore;
+            _clientsStore = clientsStore;
+            _booksStore = booksStore;
+            SelectedReservedBook = reservedBook;
+            if (SelectedReservedBook != null)
+            {
+                TitleOfLoanScreen = "ویرایش نوبت رزرو";
+
+            }
+            else
+            {
+                TitleOfLoanScreen = "رزرو نوبت جدید";
+            }
+            _booksStore.BooksUpdated += OnBooksUpdated;
+            _clientsStore.ClientsUpdated += OnClientsUpdated;
+            LoadBooksCommand = new LoadBooksCommand(_booksStore);
+            LoadClientsCommand = new LoadClientsCommand(_clientsStore);
+            CloseModalCommand = new CloseModalCommand(_modalNavigationStore);
+            SearchBookNameCommand = new SearchBookNameCommand(_booksStore);
+            SearchClientNameCommand = new SearchClientNameCommand(_clientsStore);
+            OrderBooksCommand = new OrderBooksBySubjectCommand(_booksStore);
+            SaveReservedBookDataCommand = new SaveReservationDataCommand(this, _modalNavigationStore, _reservedBooksStore, loanRepository, reservedBooksRepository, clientsRepository);
+            OrderBooksBySubjectCommand = new OrderBooksBySubjectCommand(_booksStore);
+        }
+        #endregion
+
+
+        #region Methods
+
+        /// <summary>
+        /// get called each time books list of books store get chagned
+        /// </summary>
+        private void OnBooksUpdated()
+        {
+            _books.Clear();
+            foreach (Book book in _booksStore.Books)
+            {
+                _books.Add(book);
+            }
+        }
+        /// <summary>
+        /// called each time clients list of clients store get chagned
+        /// </summary>
+        private void OnClientsUpdated()
+        {
+            _clients.Clear();
+            foreach (Client client in _clientsStore.Clients)
+            {
+                _clients.Add(client);
+            }
+        }
+        /// <summary>
+        /// fill data for inputed reservedbooks
+        /// </summary>
+        private void SetDataOfSelectedReservedBook()
+        {
+            if (_selectedReservedBook is not null)
+            {
+                Book? book = _books.SingleOrDefault(b => b.ID == _selectedReservedBook.BookId);
+                _selectedBook = book;
+                Client? client = _clients.SingleOrDefault(c => c.ID == _selectedReservedBook.ClientId);
+                _selectedClient = client;
+            }
+        }
+        /// <summary>
+        /// Loader for add edite reservedbook view model
+        /// </summary>
+        /// <param name="modalNavigationStore"></param>
+        /// <param name="reservedBooksStore"></param>
+        /// <param name="clientsStore"></param>
+        /// <param name="booksStore"></param>
+        /// <param name="loanRepository"></param>
+        /// <param name="reservedBooksRepository"></param>
+        /// <param name="clientsRepository"></param>
+        /// <param name="reservedBook"></param>
+        /// <returns></returns>
+        public static AddEditeReserveBookViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, ReservedBooksStore reservedBooksStore, ClientsStore clientsStore, BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, ClientsRepository clientsRepository, ReservedBook reservedBook = null)
+        {
+            AddEditeReserveBookViewModel ViewModel = new(modalNavigationStore, reservedBooksStore, clientsStore, booksStore, loanRepository, reservedBooksRepository, clientsRepository, reservedBook);
+            ViewModel.LoadBooksCommand.Execute(null);
+            ViewModel.LoadClientsCommand.Execute(null);
+            ViewModel.SelectedReservedBook = reservedBook is null ? new ReservedBook() { ID = 0, BookId = 0, ClientId = 0 } : reservedBook;
+            return ViewModel;
+        }
+        #endregion
+
+    }
+}
