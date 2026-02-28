@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Commands\CheckDatabaseCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\LoginCommands\LoginCommand.cs" />
     <Compile Include="Commands\LoginModalCommand.cs" />
     <Compile Include="Commands\NavigateHomeCommand.cs" />
     <Compile Include="Commands\OpenModalCommand.cs" />
