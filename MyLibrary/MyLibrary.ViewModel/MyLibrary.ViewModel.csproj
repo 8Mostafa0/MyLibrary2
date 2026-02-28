@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CheckDatabaseCommand.cs" />
+    <Compile Include="Commands\ClientsCommands\DeleteClientCommand.cs" />
     <Compile Include="Commands\ClientsCommands\EditClientCommand.cs" />
     <Compile Include="Commands\ClientsCommands\LoadClientsCommand.cs" />
     <Compile Include="Commands\ClientsCommands\NavigateClientScreenCommand.cs" />
