@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CheckDatabaseCommand.cs" />
+    <Compile Include="Commands\ClientsCommands\OrderClientsCommand.cs" />
     <Compile Include="Commands\ClientsCommands\ReloadClientsCommand.cs" />
     <Compile Include="Commands\ClientsCommands\SearchClientNameCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
