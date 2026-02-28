@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../MyLibrary.Model/MyLibrary.Model.csproj" />
   <Project Path="MyLibrary.View.csproj" />
 </Solution>
