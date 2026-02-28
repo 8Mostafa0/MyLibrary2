@@ -1,9 +1,8 @@
-﻿using MyLibrary.ViewModel.ViewModels.Interfaces;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged, IViewModelBase
+    public class ViewModelBase : INotifyPropertyChanged
     {
         #region Dependencies
         public event PropertyChangedEventHandler PropertyChanged;
