@@ -1,9 +1,7 @@
-﻿using MyLibrary.ViewModel.ViewModels.Interfaces;
+﻿using MyLibrary.ViewModel.Stores;
+using MyLibrary.ViewModel.Stores.Interfaces;
+using MyLibrary.ViewModel.ViewModels.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace MyLibrary.ViewModel.ViewModels
