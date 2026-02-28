@@ -49,10 +49,12 @@
     <Compile Include="Stores\NavigationService.cs" />
     <Compile Include="Stores\SettingsStore.cs" />
     <Compile Include="Stores\TimeStore.cs" />
+    <Compile Include="ViewModels\Interfaces\ILoginViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\INavigationBarViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IStatusBarViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IViewModelBase.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
     <Compile Include="ViewModels\StatusBarViewModel.cs" />
