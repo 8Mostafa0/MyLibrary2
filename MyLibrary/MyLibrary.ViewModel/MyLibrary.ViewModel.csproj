@@ -49,6 +49,7 @@
     <Compile Include="ViewModels\LayoutViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ModelsViewModels\ReservedBookViewModel.cs" />
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
     <Compile Include="ViewModels\ReservedBooksViewModels\AddEditReserveBookViewModel.cs" />
     <Compile Include="ViewModels\ReservedBooksViewModels\ReservedBooksViewModel.cs" />
