@@ -46,6 +46,7 @@
     <Compile Include="Commands\LoginModalCommand.cs" />
     <Compile Include="Commands\NavigateHomeCommand.cs" />
     <Compile Include="Commands\OpenModalCommand.cs" />
+    <Compile Include="Commands\ReserveBoookCommands\AddNewReservBookCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\EditeReservBookCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\LoadReservedBooksCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\NavigateReservedBooksCommand.cs" />
