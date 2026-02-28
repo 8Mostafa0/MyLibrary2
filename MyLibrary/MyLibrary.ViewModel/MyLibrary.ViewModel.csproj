@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Commands\CheckDatabaseCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\LoansCommands\SaveLoanDataCommand.cs" />
     <Compile Include="Commands\LoansCommands\SearchBookCommand.cs" />
     <Compile Include="Commands\LoansCommands\ShowEditLoanViewModel.cs" />
     <Compile Include="Commands\LoansCommands\ShowLoanModalCommand.cs" />
