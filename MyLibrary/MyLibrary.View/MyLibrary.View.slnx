@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="../MyLibrary.Model/MyLibrary.Model.csproj" />
-  <Project Path="../MyLibrary.ViewModel/MyLibrary.ViewModel.csproj" />
-  <Project Path="MyLibrary.View.csproj" />
+  <Project Path="../MyLibrary.Model/MyLibrary.Model.csproj" Id="56e7625a-90a9-486f-92f7-fdd42003573d" />
+  <Project Path="../MyLibrary.ViewModel/MyLibrary.ViewModel.csproj" Id="4341b11b-ed6f-4dd8-904b-c7537987576d" />
+  <Project Path="MyLibrary.View.csproj" Id="8c668846-84a5-4721-a173-7e9132cf1bac" />
 </Solution>
