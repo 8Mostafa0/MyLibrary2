@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\BooksCommands\DeleteBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\EditBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\LoadBooksCommand.cs" />
     <Compile Include="Commands\BooksCommands\NavigateBooksCommand.cs" />
