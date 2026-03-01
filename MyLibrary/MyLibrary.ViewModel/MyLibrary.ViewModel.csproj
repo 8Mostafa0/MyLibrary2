@@ -101,6 +101,7 @@
     <Compile Include="Commands\LoginCommands\LoginCommand.cs" />
     <Compile Include="Commands\LoginModalCommand.cs" />
     <Compile Include="Commands\MessageBoxCommands\CloseMessageBox.cs" />
+    <Compile Include="Commands\MessageBoxCommands\MessageBoxConfrimCommand.cs" />
     <Compile Include="Commands\NavigateHomeCommand.cs" />
     <Compile Include="Commands\OpenModalCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\AddNewReservBookCommand.cs" />

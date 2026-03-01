@@ -2,15 +2,13 @@
 
 namespace MyLibrary.ViewModel.Commands.MessageBoxCommands
 {
-    public class CloseMessageBox : CommandBase
+    internal class MessageBoxConfrimCommand : CommandBase
     {
         #region Dependencies
         private MessageBoxStore _messageBoxStore;
         #endregion
-
-
         #region Constructor
-        public CloseMessageBox(MessageBoxStore messageBoxStore)
+        public MessageBoxConfrimCommand(MessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
         }
@@ -19,10 +17,7 @@ namespace MyLibrary.ViewModel.Commands.MessageBoxCommands
         #region Methods
         public override void Execute(object parameter)
         {
-            if (_messageBoxStore.MessageBoxViewModel != null)
-            {
-                _messageBoxStore.MessageBoxResult = false;
-            }
+            _messageBoxStore.MessageBoxResult = true;
             _messageBoxStore.CloseMessageBox();
         }
         #endregion
