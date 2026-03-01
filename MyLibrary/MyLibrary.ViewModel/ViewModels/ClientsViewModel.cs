@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.ClientsCommands;
+using MyLibrary.ViewModel.Stores;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
