@@ -1,4 +1,8 @@
-﻿using System;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
+using MyLibrary.ViewModel.ViewModels.LoanViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -45,7 +49,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <summary>
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             try
             {
@@ -93,13 +97,13 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                     }
 
                     List<Loan> AllUserLoans = await _loanRepository.GetAllClientLoans(_addEditeLoanViewModel.SelectedClient.ID);
-                    if (AllUserLoans is not null && AllUserLoans.Count() > LoanSettings["MaxBooksLoan"])
+                    if (!(AllUserLoans is null) && AllUserLoans.Count() > LoanSettings["MaxBooksLoan"])
                     {
                         MessageBox.Show("این کاربر به حداکثر تعداد امانت فعال رسیده است", "ثبت امانت");
                         return;
                     }
                     List<Loan> Dilayedloans = await _loanRepository.UserHaveDilayedLoan(_addEditeLoanViewModel.SelectedClient.ID);
-                    if (Dilayedloans is not null && Dilayedloans.Count() > 0)
+                    if (!(Dilayedloans is null) && Dilayedloans.Count() > 0)
                     {
 
                         MessageBox.Show("این کاربر امانتی تحویل نشده و با تاخیر دارد", "ثبت امانت");
@@ -121,7 +125,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
 
                     List<ReservedBook> BookReservs = await _reservedBooksRepository.GetReservationForBook(_addEditeLoanViewModel.SelectedBook.ID);
 
-                    if (BookCopies is not null && BookCopies.Count() - 1 < NotReturnedLoansCount)
+                    if (!(BookCopies is null) && BookCopies.Count() - 1 < NotReturnedLoansCount)
                     {
                         MessageBox.Show("تمامی نسخه های این کتاب به امانت داده شده اند", "ثبت امانت");
                         return;
@@ -143,13 +147,13 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                         }
                     }
 
-                    if (BookReservs is not null && BookReservs.Count() >= (BookCopies.Count() - NotReturnedLoansCount) - 1 && IsUserReservedBook)
+                    if (!(BookReservs is null) && BookReservs.Count() >= (BookCopies.Count() - NotReturnedLoansCount) - 1 && IsUserReservedBook)
                     {
                         MessageBox.Show("کاربری این کتاب را رزور کرده است", "ثبت امانت");
                         return;
                     }
 
-                    if (BookReservs is not null && BookReservs.Any())
+                    if (!(BookReservs is null) && BookReservs.Any())
                     {
                         await _reservedBooksRepository.DeleteReservedBookWithClientToDb(BookReservs.SingleOrDefault(r => r.ClientId == _addEditeLoanViewModel.SelectedClient.ID));
                     }
@@ -159,7 +163,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
 
 
                 #region Save Book
-                Loan loan = new()
+                Loan loan = new Loan()
                 {
                     ClientId = _addEditeLoanViewModel.SelectedClient.ID,
                     BookId = _addEditeLoanViewModel.SelectedBook.ID,
