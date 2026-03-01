@@ -9,6 +9,7 @@ namespace MyLibrary.ViewModel.Stores
     {
         private ViewModelBase _messageBoxViewModel;
         public bool IsMessageOpen => _messageBoxViewModel != null;
+        public bool MessageBoxResult = false;
         public event Action MessageViewModelChanged;
         public ViewModelBase MessageBoxViewModel
         {
