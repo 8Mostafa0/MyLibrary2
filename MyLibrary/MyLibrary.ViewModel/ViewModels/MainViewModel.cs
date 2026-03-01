@@ -1,4 +1,9 @@
-﻿namespace MyLibrary.ViewModel.ViewModels
+﻿using MyLibrary.Model.DbContexts;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands;
+using MyLibrary.ViewModel.Stores;
+
+namespace MyLibrary.ViewModel.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
