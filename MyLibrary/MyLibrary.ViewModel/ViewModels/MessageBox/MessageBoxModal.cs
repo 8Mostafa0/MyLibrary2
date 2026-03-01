@@ -49,10 +49,10 @@ namespace MyLibrary.ViewModel.ViewModels.MessageBox
         public ICommand SecondBtCommand { get; }
         #endregion
         #region Constructor
-        public MessageBox(string title, string caption, string firstBtText = null, ICommand firstBtCommand = null, string secondBtTetxt = null)
+        public MessageBox(string title, string caption, string firstBtText = null, ICommand firstBtCommand = null, string secondBtTetxt = null, ICommand secondBtCommand = null)
         {
             Title = title;
-            caption = caption;
+            Caption = caption;
             if (firstBtText is null)
             {
                 FirstBtText = "تایید";

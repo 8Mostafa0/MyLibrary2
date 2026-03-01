@@ -100,6 +100,7 @@
     <Compile Include="Commands\LoginCommands\CloseAppCommand.cs" />
     <Compile Include="Commands\LoginCommands\LoginCommand.cs" />
     <Compile Include="Commands\LoginModalCommand.cs" />
+    <Compile Include="Commands\MessageBoxCommands\CloseMessageBox.cs" />
     <Compile Include="Commands\NavigateHomeCommand.cs" />
     <Compile Include="Commands\OpenModalCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\AddNewReservBookCommand.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Stores\BooksStore.cs" />
     <Compile Include="Stores\ClientsStore.cs" />
     <Compile Include="Stores\LoanStore.cs" />
+    <Compile Include="Stores\MessageBoxStore.cs" />
     <Compile Include="Stores\ModalNavigationStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Stores\ReservedBoksStore.cs" />
