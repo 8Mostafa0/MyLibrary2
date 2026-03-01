@@ -4,9 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyLibrary.View"
+        xmlns:vm="clr-namespace:MyLibrary.ViewModel.ViewModels;assembly=MyLibrary.ViewModel"
+        xmlns:lv="clr-namespace:MyLibrary.View.Layouts"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vm:LayoutViewModel}">
+                <lv:LayoutView/>
+            </DataTemplate>
+        </Grid.Resources>
     </Grid>
 </Window>
