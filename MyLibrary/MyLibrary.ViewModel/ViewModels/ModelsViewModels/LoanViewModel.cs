@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Stores;
+using System;
 using System.Linq;
 
 namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
@@ -17,7 +19,7 @@ namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
         public string BookSubject { get; }
 
         public DateTime ReturnDate => _loan.ReturnDate;
-        public string ReturnedDate { get; set; }
+        public string ReturnedDateTime { get; set; }
 
         public DateTime CreatedAt => _loan.CreatedAt;
         public DateTime UpdatedAt => _loan.UpdatedAt;
@@ -28,7 +30,7 @@ namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
 
         public LoanViewModel(Loan loan, ClientsStore clientsStore, BooksStore booksStore)
         {
-            if (clientsStore is not null && booksStore is not null)
+            if (!(clientsStore is null) && !(booksStore is null))
             {
 
                 _loan = loan ?? throw new ArgumentNullException(nameof(loan));
@@ -45,7 +47,7 @@ namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
 
                 BookSubject = book?.Subject ?? $"Book #{loan.BookId} (not found)";
 
-                ReturnedDate = loan.ReturnedDate.HasValue
+                ReturnedDateTime = loan.ReturnedDate.HasValue
                     ? loan.ReturnedDate.Value.ToString("yyyy-MM-dd")
                     : "خیر";
             }
@@ -55,13 +57,21 @@ namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
         #region Methods
         public Loan ToLoan()
         {
+            DateTime ReturnedDateTime;
+            try
+            {
+                ReturnedDateTime = DateTime.Parse(this.ReturnedDateTime);
+            }
+            catch
+            {
+            }
             return new Loan()
             {
                 Id = ID,
                 ClientId = ClientID,
                 BookId = BookID,
                 ReturnDate = ReturnDate,
-                ReturnedDate = DateTime.TryParse(ReturnedDate, out DateTime _) ? DateTime.Parse(ReturnedDate) : null,
+                ReturnedDate = ReturnedDateTime,
                 CreatedAt = CreatedAt,
                 UpdatedAt = UpdatedAt
             };

@@ -36,7 +36,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             LoanViewModel loan = _loanViewModel.SelectedLoan;
             if (loan != null)
             {
-                bool IsReturnedLoan = DateTime.TryParse(loan.ReturnedDate, out DateTime _);
+                bool IsReturnedLoan = DateTime.TryParse(loan.ReturnedDateTime, out DateTime _);
                 if (IsReturnedLoan)
                 {
                     MessageBox.Show("این امانت بارگشت داده  شده است", "برگشت کتاب");
@@ -45,7 +45,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 var AskMessage = MessageBox.Show("کاربر کتاب را بازگرداند؟", "برگشت کتاب", MessageBoxButton.YesNo);
                 if (AskMessage == MessageBoxResult.Yes)
                 {
-                    loan.ReturnedDate = DateTime.Now.ToString();
+                    loan.ReturnedDateTime = DateTime.Now.ToString();
                     await _loansStore.LoanReturned(loan.ToLoan());
                 }
             }
