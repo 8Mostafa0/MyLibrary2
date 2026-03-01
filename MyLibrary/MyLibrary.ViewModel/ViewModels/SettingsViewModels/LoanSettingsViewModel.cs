@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MyLibrary.ViewModel.Stores;
+using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
 {
