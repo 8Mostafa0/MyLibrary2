@@ -1,10 +1,9 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
@@ -46,7 +45,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// </summary>
         /// <param name="parameter">No Perameer Needed This Method Gets Its Data From BooksViewModel 
         /// Data : Name,Publisher,Subject,PublicationDate</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             if (_booksViewModel.SelectedBook is null)
             {
