@@ -40,6 +40,9 @@
     <Reference Include="Microsoft.Data.SqlClient">
       <HintPath>..\..\..\My-Library\My Library\TestApp\bin\Debug\net8.0-windows\Microsoft.Data.SqlClient.dll</HintPath>
     </Reference>
+    <Reference Include="ModalControl">
+      <HintPath>..\..\..\My-Library\My Library\TestApp\bin\Debug\net8.0-windows\ModalControl.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog">
       <HintPath>..\..\..\My-Library\My Library\TestApp\bin\Debug\net8.0-windows\Serilog.dll</HintPath>
     </Reference>
@@ -145,6 +148,11 @@
     <Compile Include="ViewModels\StatusBarViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MyLibrary.Model\MyLibrary.Model.csproj">
+      <Project>{56e7625a-90a9-486f-92f7-fdd42003573d}</Project>
+      <Name>MyLibrary.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
