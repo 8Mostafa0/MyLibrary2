@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Stores;
+using System;
 using System.Linq;
 
 namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
