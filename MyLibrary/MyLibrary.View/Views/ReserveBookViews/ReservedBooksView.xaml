@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="MyLibrary.View.Views.ReserveBookViews.ReservedBooksView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyLibrary.View.Views.ReserveBookViews"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Background="#6CA651">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="0"  Grid.Column="8" Grid.ColumnSpan="3" Grid.RowSpan="8" Background="#839705" CornerRadius="15 0 0 15">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Margin="10" Grid.Row="1" BorderThickness="0" Content="صفحه اصلی" Background="#6B7445" Command="{Binding NavigateLayoutSettingCommand}"/>
+                <Button Margin="10" Grid.Row="2" BorderThickness="0" Content="امانت" Background="#6B7445" Command="{Binding NavigateLoanSettingsCommand}"/>
+                <Button Margin="10" Grid.Row="3" BorderThickness="0" Content="رمز ورود" Background="#6B7445" Command="{Binding NavigateSecuritySettingsCommand}"/>
+            </Grid>
+        </Border>
+        <ContentControl Grid.Row="0" Grid.RowSpan="8" Grid.Column="0" Grid.ColumnSpan="8" Margin="15"  Content="{Binding CurrentSettingViewModel}"/>
+
+    </Grid>
+</UserControl>
