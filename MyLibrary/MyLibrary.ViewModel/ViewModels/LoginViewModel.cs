@@ -1,4 +1,8 @@
-﻿using System.Windows.Input;
+﻿using MyLibrary.Model.DbContexts;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.LoginCommands;
+using MyLibrary.ViewModel.Stores;
+using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
@@ -30,7 +34,7 @@ namespace MyLibrary.ViewModel.ViewModels
         {
             CloseAppCommand = new CloseAppCommand();
             LoginCommand = new LoginCommand(this, modalNavigationStore, loanRepository, dbContextFactory, settingsStore);
-            if (new SettingsStore().GetHashedPassword().IsNullOrEmpty())
+            if (new SettingsStore().GetHashedPassword() == null)
             {
                 FirstOpen = true;
                 Title = "رمزی برای پنل مشخص کنید";
