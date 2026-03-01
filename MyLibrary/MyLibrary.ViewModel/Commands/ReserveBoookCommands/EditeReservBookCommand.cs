@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
