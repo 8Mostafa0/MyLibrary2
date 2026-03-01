@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.BooksCommands;
+using MyLibrary.ViewModel.Commands.ClientsCommands;
+using MyLibrary.ViewModel.Commands.LoansCommands;
+using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
+using MyLibrary.ViewModel.Stores;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -110,8 +117,8 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 
         public AddEditeReserveBookViewModel(ModalNavigationStore modalNavigationStore, ReservedBooksStore reservedBooksStore, ClientsStore clientsStore, BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, ClientsRepository clientsRepository, ReservedBook reservedBook = null)
         {
-            _clients = [];
-            _books = [];
+            _clients = new ObservableCollection<Client>();
+            _books = new ObservableCollection<Book>();
             _modalNavigationStore = modalNavigationStore;
             _reservedBooksStore = reservedBooksStore;
             _clientsStore = clientsStore;
@@ -169,11 +176,11 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         /// </summary>
         private void SetDataOfSelectedReservedBook()
         {
-            if (_selectedReservedBook is not null)
+            if (!(_selectedReservedBook is null))
             {
-                Book? book = _books.SingleOrDefault(b => b.ID == _selectedReservedBook.BookId);
+                Book book = _books.SingleOrDefault(b => b.ID == _selectedReservedBook.BookId);
                 _selectedBook = book;
-                Client? client = _clients.SingleOrDefault(c => c.ID == _selectedReservedBook.ClientId);
+                Client client = _clients.SingleOrDefault(c => c.ID == _selectedReservedBook.ClientId);
                 _selectedClient = client;
             }
         }
@@ -191,7 +198,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         /// <returns></returns>
         public static AddEditeReserveBookViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, ReservedBooksStore reservedBooksStore, ClientsStore clientsStore, BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, ClientsRepository clientsRepository, ReservedBook reservedBook = null)
         {
-            AddEditeReserveBookViewModel ViewModel = new(modalNavigationStore, reservedBooksStore, clientsStore, booksStore, loanRepository, reservedBooksRepository, clientsRepository, reservedBook);
+            AddEditeReserveBookViewModel ViewModel = new AddEditeReserveBookViewModel(modalNavigationStore, reservedBooksStore, clientsStore, booksStore, loanRepository, reservedBooksRepository, clientsRepository, reservedBook);
             ViewModel.LoadBooksCommand.Execute(null);
             ViewModel.LoadClientsCommand.Execute(null);
             ViewModel.SelectedReservedBook = reservedBook is null ? new ReservedBook() { ID = 0, BookId = 0, ClientId = 0 } : reservedBook;
