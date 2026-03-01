@@ -10,10 +10,5 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid.Resources>
-            <DataTemplate DataType="{x:Type lvms:HomeViewModel}">
-                <vv:HomeView/>
-            </DataTemplate>
-        </Grid.Resources>
     </Grid>
 </Window>

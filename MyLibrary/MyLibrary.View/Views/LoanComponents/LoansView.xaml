@@ -31,9 +31,11 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+       <!--
         <modals:Modal Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Grid.ColumnSpan="11" Panel.ZIndex="100" IsOpen="{Binding IsModalOpen}">
             <ContentControl Content="{Binding CurrentModalViewModel}"/>
         </modals:Modal>
+        s--> 
 
         <Border Grid.Row="0"  Grid.Column="8" Grid.ColumnSpan="3" Grid.RowSpan="8" Background="#839705" CornerRadius="15 0 0 15">
             <Grid>

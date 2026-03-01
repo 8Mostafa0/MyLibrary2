@@ -11,13 +11,13 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     public class SaveLoanDataCommand : CommandBase
     {
         #region Dependencies
-        private LoansStore _loansStore;
-        private SettingsStore _settingsStore;
-        private LoanRepository _loanRepository;
-        private BooksRepository _bookRepository;
-        private ModalNavigationStore _modalNavigationStore;
-        private AddEditeLoanViewModel _addEditeLoanViewModel;
-        private ReservedBooksRepository _reservedBooksRepository;
+        private readonly LoansStore _loansStore;
+        private readonly SettingsStore _settingsStore;
+        private readonly LoanRepository _loanRepository;
+        private readonly BooksRepository _bookRepository;
+        private readonly ModalNavigationStore _modalNavigationStore;
+        private readonly AddEditeLoanViewModel _addEditeLoanViewModel;
+        private readonly ReservedBooksRepository _reservedBooksRepository;
         #endregion
 
 
@@ -192,6 +192,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 //MessageBox.Show(ex.ToString());
             }
         }

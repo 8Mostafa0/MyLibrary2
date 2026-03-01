@@ -6,10 +6,9 @@ namespace MyLibrary.ViewModel.Commands
     public class NavigateHomeScreenCommand : CommandBase
     {
         #region Dependencies
-        private LoansStore _loansStore;
-        private BooksStore _booksStore;
-        private ClientsStore _clientsStore;
-        private HomeViewModel _homeViewModel;
+        private readonly LoansStore _loansStore;
+        private readonly BooksStore _booksStore;
+        private readonly ClientsStore _clientsStore;
         private readonly NavigationStore _navigationStore;
         #endregion
 
