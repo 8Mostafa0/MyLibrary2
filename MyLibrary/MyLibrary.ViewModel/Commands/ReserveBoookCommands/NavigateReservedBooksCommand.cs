@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
@@ -51,7 +52,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <summary>
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
             _navigationStore.ContentScreen = _reservedBooksViewModel;
         }
