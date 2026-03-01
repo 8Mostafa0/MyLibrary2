@@ -1,9 +1,4 @@
 ﻿using MyLibrary.ViewModel.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
@@ -31,10 +26,11 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// 
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             string SearchSql = $"SELECT * FROM Books WHERE Name LIKE N'%{_booksStore.SearchBookName}%'";
             await _booksStore.GetAllBooks(SearchSql);
         }
         #endregion
     }
+}
