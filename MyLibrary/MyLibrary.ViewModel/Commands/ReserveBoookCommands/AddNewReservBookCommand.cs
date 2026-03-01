@@ -1,10 +1,6 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
@@ -59,7 +55,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
 
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
             _modalNavigationStore.CurrentViewModel = AddEditeReserveBookViewModel.LoadViewModel(_modalNavigationStore, _reservedBooksStore, _clientsStore, _booksStore, _loanRepository, _reservedBooksRepository, _clientsRepository, null);
         }
