@@ -119,10 +119,10 @@
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoanComponents\AddEditLoanView.xaml.cs">
+    <Compile Include="Views\LoanViews\AddEditLoanView.xaml.cs">
       <DependentUpon>AddEditLoanView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoanComponents\LoansView.xaml.cs">
+    <Compile Include="Views\LoanViews\LoansView.xaml.cs">
       <DependentUpon>LoansView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
@@ -186,11 +186,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LoanComponents\AddEditLoanView.xaml">
+    <Page Include="Views\LoanViews\AddEditLoanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LoanComponents\LoansView.xaml">
+    <Page Include="Views\LoanViews\LoansView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

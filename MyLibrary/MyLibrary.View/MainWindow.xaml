@@ -4,13 +4,69 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyLibrary.View"
-        xmlns:lv="clr-namespace:MyLibrary.View.Layouts"
+        xmlns:lyv="clr-namespace:MyLibrary.View.Layouts"
         xmlns:vv="clr-namespace:MyLibrary.View.Views"
         xmlns:lvms="clr-namespace:MyLibrary.ViewModel.ViewModels;assembly=MyLibrary.ViewModel" 
         xmlns:md="clr-namespace:ModalControl;assembly=ModalControl"
+        xmlns:svm ="clr-namespace:MyLibrary.ViewModel.ViewModels.SettingsViewModels;assembly=MyLibrary.ViewModel"
+        xmlns:sv="clr-namespace:MyLibrary.View.Views.SettingsViews"
+        xmlns:rvm="clr-namespace:MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;assembly=MyLibrary.ViewModel"
+        xmlns:rv="clr-namespace:MyLibrary.View.Views.ReserveBookViews"
+        xmlns:msgvm="clr-namespace:MyLibrary.ViewModel.ViewModels.MessageBoxViewModel;assembly=MyLibrary.ViewModel"
+        xmlns:msgv="clr-namespace:MyLibrary.View.Views.MessageBox"
+        xmlns:lvm="clr-namespace:MyLibrary.ViewModel.ViewModels.LoanViewModels;assembly=MyLibrary.ViewModel"
+        xmlns:lv="clr-namespace:MyLibrary.View.Views.LoanViews"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type lvms:HomeViewModel}">
+                <vv:HomeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type lvms:BooksViewModel}">
+                <vv:BooksView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type lvms:StatusBarViewModel}">
+                <vv:StatusBarView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type lvms:NavigationBarViewModel}">
+                <vv:NavigationBarView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type lvms:LoginViewModel}">
+                <vv:LoginView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type lvms:ClientsViewModel}">
+                <vv:ClientsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type svm:SettingsViewModel}">
+                <sv:SettingsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type svm:SecuritySettingsViewModel}">
+                <sv:SecuritySettingsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type svm:LoanSettingsViewModel}">
+                <sv:LoansSettingsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type sv:HomeLayoutSettingsView}">
+                <sv:HomeLayoutSettingsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type rvm:ReservedBooksViewModel}">
+                <rv:ReservedBooksView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type rvm:AddEditeReserveBookViewModel}">
+                <rv:AddEditReservedBookView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type msgvm:MessageBoxViewModel}">
+                <msgv:MessageBox/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type lvm:LoansViewModel}">
+                <lv:LoansView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type lvm:AddEditeLoanViewModel}">
+                <lv:AddEditLoanView/>
+            </DataTemplate>
+        </Grid.Resources>
+
         <md:Modal>
             <ContentControl Content="{Binding ModalContent}"/>
         </md:Modal>

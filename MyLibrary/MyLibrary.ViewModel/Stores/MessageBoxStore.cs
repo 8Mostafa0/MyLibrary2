@@ -1,5 +1,5 @@
 ﻿using MyLibrary.ViewModel.ViewModels;
-using MyLibrary.ViewModel.ViewModels.MessageBox;
+using MyLibrary.ViewModel.ViewModels.MessageBoxViewModel;
 using System;
 using System.Windows.Input;
 
@@ -23,7 +23,7 @@ namespace MyLibrary.ViewModel.Stores
         }
         public void Show(string title, string caption, string firstBtText = null, ICommand firstBtCommand = null, string secondBtText = null, ICommand secondBtCommand = null)
         {
-            MessageBoxViewModel = new MessageBox(title, caption, firstBtText, firstBtCommand, secondBtText, secondBtCommand);
+            MessageBoxViewModel = new MessageBoxViewModel(title, caption, firstBtText, firstBtCommand, secondBtText, secondBtCommand);
         }
         public void CloseMessageBox()
         {

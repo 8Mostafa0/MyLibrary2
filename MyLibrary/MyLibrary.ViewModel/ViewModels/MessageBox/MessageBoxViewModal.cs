@@ -1,8 +1,8 @@
 ﻿using System.Windows.Input;
 
-namespace MyLibrary.ViewModel.ViewModels.MessageBox
+namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
 {
-    public class MessageBox : ViewModelBase
+    public class MessageBoxViewModel : ViewModelBase
     {
         #region Dependencies
         private string _title;
@@ -49,7 +49,7 @@ namespace MyLibrary.ViewModel.ViewModels.MessageBox
         public ICommand SecondBtCommand { get; }
         #endregion
         #region Constructor
-        public MessageBox(string title, string caption, string firstBtText = null, ICommand firstBtCommand = null, string secondBtTetxt = null, ICommand secondBtCommand = null)
+        public MessageBoxViewModel(string title, string caption, string firstBtText = null, ICommand firstBtCommand = null, string secondBtTetxt = null, ICommand secondBtCommand = null)
         {
             Title = title;
             Caption = caption;
