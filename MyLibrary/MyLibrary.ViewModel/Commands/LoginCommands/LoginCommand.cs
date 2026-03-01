@@ -1,10 +1,7 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.Model.DbContexts;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Commands.LoginCommands
 {
@@ -43,10 +40,10 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
         /// <summary>
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
             new CheckDatabaseCommand(_loanRepository, _dbContextFactory).Execute(null);
-            if (_loginViewModel.Password.IsNullOrEmpty())
+            if (_loginViewModel.Password == "" || _loginViewModel.Password is null)
             {
                 MessageBox.Show("لطفا مقادیری برای رمز وارد کنید", "خطا");
                 return;
