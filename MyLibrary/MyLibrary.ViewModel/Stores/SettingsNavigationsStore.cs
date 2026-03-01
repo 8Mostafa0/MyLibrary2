@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyLibrary.ViewModel.ViewModels;
+using System;
 
 namespace MyLibrary.ViewModel.Stores
 {
