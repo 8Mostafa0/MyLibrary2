@@ -27,7 +27,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// 
         /// </summary>
         /// <param name="parameter">no parameters needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             await _clientsStore.GetOrderedClients();
         }
