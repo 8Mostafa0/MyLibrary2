@@ -1,9 +1,4 @@
 ﻿using MyLibrary.ViewModel.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
@@ -33,7 +28,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// 
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             string Name = _clientsStore.SearchClientName;
             string SearchSql = $"SELECT * FROM Clients WHERE FirstName LIKE N'%{Name}%' OR LastName LIKE N'%{Name}%'";
