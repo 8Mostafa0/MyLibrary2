@@ -1,4 +1,5 @@
-﻿namespace MyLibrary.ViewModel.Servicies
+﻿using Serilog;
+namespace MyLibrary.ViewModel.Servicies
 {
     /// <summary>
     /// class for recording logs
