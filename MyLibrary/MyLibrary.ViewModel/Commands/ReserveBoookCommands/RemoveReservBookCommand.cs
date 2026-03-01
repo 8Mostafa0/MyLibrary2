@@ -1,4 +1,7 @@
-﻿namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
+﻿using MyLibrary.ViewModel.Stores;
+using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
+
+namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
     public class RemoveReservBookCommand : CommandBase
     {
@@ -24,7 +27,7 @@
         /// <summary>
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             if (_reservedBooksViewModel.SelectedReservedBook is null)
             {
