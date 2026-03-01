@@ -102,7 +102,7 @@
     <Compile Include="Commands\BooksCommands\NavigateBooksCommand.cs" />
     <Compile Include="Commands\BooksCommands\OrderBooksBySubjectCommand.cs" />
     <Compile Include="Commands\BooksCommands\OrderBooksCommand.cs" />
-    <Compile Include="Commands\BooksCommands\ReloadClientsCommand.cs" />
+    <Compile Include="Commands\BooksCommands\ReloadBooksCommand.cs" />
     <Compile Include="Commands\BooksCommands\SearchBookNameCommand.cs" />
     <Compile Include="Commands\CheckDatabaseCommand.cs" />
     <Compile Include="Commands\ClientsCommands\AddNewClientCommand.cs" />

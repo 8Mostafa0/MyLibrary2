@@ -1,10 +1,5 @@
 ﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
@@ -38,7 +33,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// Execute Sort Order And Fetch Result From Database
         /// </summary>
         /// <param name="parameter"></param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             _booksStore.clear();
             string CustomSql = "";

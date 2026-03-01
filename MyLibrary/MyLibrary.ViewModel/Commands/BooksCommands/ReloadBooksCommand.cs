@@ -1,13 +1,8 @@
 ﻿using MyLibrary.ViewModel.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
-    public class ReloadClientsCommand : CommandBase
+    public class ReloadBooksCommand : CommandBase
     {
         #region Dependencies
         private BooksStore _booksStore;
@@ -19,7 +14,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// 
         /// </summary>
         /// <param name="booksStore"></param>
-        public ReloadClientsCommand(BooksStore booksStore)
+        public ReloadBooksCommand(BooksStore booksStore)
         {
             _booksStore = booksStore;
         }
@@ -32,7 +27,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// 
         /// </summary>
         /// <param name="parameter">No Parameter Need</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             await _booksStore.GetAllBooks();
         }
