@@ -136,6 +136,7 @@
     <Compile Include="ViewModels\LoanViewModels\LoansViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MessageBox\MessageBoxModal.cs" />
     <Compile Include="ViewModels\ModelsViewModels\LoanViewModel.cs" />
     <Compile Include="ViewModels\ModelsViewModels\ReservedBookViewModel.cs" />
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
@@ -154,8 +155,6 @@
       <Name>MyLibrary.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\MessageBox\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
