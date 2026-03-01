@@ -1,6 +1,14 @@
-﻿using System;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.BooksCommands;
+using MyLibrary.ViewModel.Commands.ClientsCommands;
+using MyLibrary.ViewModel.Commands.LoansCommands;
+using MyLibrary.ViewModel.Stores;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 {
@@ -128,8 +136,8 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #region Contructor
         public AddEditeLoanViewModel(ModalNavigationStore modalNavigationStore, ClientsStore clientsStore, BooksStore booksStore, LoansStore loanStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, Loan loan = null)
         {
-            _clients = [];
-            _books = [];
+            _clients = new ObservableCollection<Client>();
+            _books = new ObservableCollection<Book>();
             _clientsStore = clientsStore;
             _clientsStore.ClientsUpdated += OnClientsUpdated;
             _booksStore = booksStore;
@@ -193,12 +201,12 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         /// </summary>
         private void SetDataOfSelectedReservedBook()
         {
-            if (_selectedLoan is not null)
+            if (!(_selectedLoan is null))
             {
 
-                Book? book = _books.SingleOrDefault(b => b.ID == _selectedLoan.BookId);
+                Book book = _books.SingleOrDefault(b => b.ID == _selectedLoan.BookId);
                 SelectedBook = book;
-                Client? client = _clients.SingleOrDefault(c => c.ID == _selectedLoan.ClientId);
+                Client client = _clients.SingleOrDefault(c => c.ID == _selectedLoan.ClientId);
                 SelectedClient = client;
             }
         }
@@ -225,7 +233,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         /// <returns></returns>
         public static AddEditeLoanViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, BooksStore booksStore, ClientsStore clientsStore, LoansStore loansStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, Loan loan = null)
         {
-            AddEditeLoanViewModel ViewModel = new(modalNavigationStore, clientsStore, booksStore, loansStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, loan);
+            AddEditeLoanViewModel ViewModel = new AddEditeLoanViewModel(modalNavigationStore, clientsStore, booksStore, loansStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, loan);
             ViewModel.LoadBooksCommand.Execute(null);
             ViewModel.LoadClientsCommand.Execute(null);
             ViewModel.SelectedLoan = loan is null ? new Loan()
