@@ -28,7 +28,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         {
             if (_booksStore.SearchSubject < 0)
             {
-                MessageBox.Show("لطفا ابتدا یک مورد برای ترتیب بندی انتخاب کنید", "ترتیب بندی");
+                //MessageBox.Show("لطفا ابتدا یک مورد برای ترتیب بندی انتخاب کنید", "ترتیب بندی");
             }
             string SubjectName = "";
             switch (_booksStore.SearchSubject)

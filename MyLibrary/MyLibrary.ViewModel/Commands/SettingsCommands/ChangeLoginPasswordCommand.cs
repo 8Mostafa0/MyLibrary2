@@ -35,12 +35,12 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         {
             if (_securitySettingViewModel.Password == "" || _securitySettingViewModel.Password is null || _securitySettingViewModel.Password.Count() < 5)
             {
-                MessageBox.Show("لطفا رمز عبور را بیشتر از 5 حرف وارد کنید", "رمز عبور");
+                //MessageBox.Show("لطفا رمز عبور را بیشتر از 5 حرف وارد کنید", "رمز عبور");
                 return;
             }
             _settingsStore.SaveNoneHashedPassword(_securitySettingViewModel.Password);
             _settingNavigationStore.CurrentSettingViewModel = null;
-            MessageBox.Show("رمز عبور با موفقیت تغییر یافت", "رمز عبور");
+            //MessageBox.Show("رمز عبور با موفقیت تغییر یافت", "رمز عبور");
         }
         #endregion
     }

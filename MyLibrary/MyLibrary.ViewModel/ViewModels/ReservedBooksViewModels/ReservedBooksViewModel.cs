@@ -69,7 +69,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 
         public ReservedBooksViewModel(ReservedBooksStore reservedBooksStore, ModalNavigationStore modalNavigationStore, ClientsStore clientsStore, BooksStore booksStore, LoanRepository loansRepository, ClientsRepository clientsRepository, ReservedBooksRepository reservedBooksRepository)
         {
-            _reservedBooks = [];
+            _reservedBooks = new ObservableCollection<ReservedBookViewModel>();
             _modalNavigationStore = modalNavigationStore;
             _clientsStore = clientsStore;
             _booksStore = booksStore;
@@ -116,7 +116,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             ReservedBookViewModel reserveBook = _reservedBooks.SingleOrDefault(t => t.ID == book.ID);
             int index = _reservedBooks.IndexOf(reserveBook);
             _reservedBooks[index] = reserveBook;
-            MessageBox.Show("رزرو با موفقیت ویرایش شد", "ویرایش رزرو");
+            //MessageBox.Show("رزرو با موفقیت ویرایش شد", "ویرایش رزرو");
         }
         /// <summary>
         /// get call each time a reserved book event triger to remove it from reserved books list
@@ -125,7 +125,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         private void OnReservedBookDeleted(ReservedBook book)
         {
             _reservedBooks.Remove(_selectedReservBook);
-            MessageBox.Show("رزرو کتاب با موفقیت حذف شد", "حذف رزرو");
+            //MessageBox.Show("رزرو کتاب با موفقیت حذف شد", "حذف رزرو");
         }
         /// <summary>
         /// called each time reserved book add event get trigred to add it to reserved books list
@@ -137,7 +137,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             book.ID = _reservedBooks.Any() ? _reservedBooks.Last().ID + 1 : 1;
             ReservedBookViewModel Reserv = new ReservedBookViewModel(book, _clientsStore, _booksStore);
             _reservedBooks.Add(Reserv);
-            MessageBox.Show("کتاب با موفقیت رزرو شد", "رزور کتاب");
+            //MessageBox.Show("کتاب با موفقیت رزرو شد", "رزور کتاب");
         }
 
         /// <summary>

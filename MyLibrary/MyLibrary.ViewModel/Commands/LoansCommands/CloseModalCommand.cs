@@ -24,7 +24,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// 
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
             _modalNavigationStore.Close();
         }

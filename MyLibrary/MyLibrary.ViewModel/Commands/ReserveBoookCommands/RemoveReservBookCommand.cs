@@ -31,13 +31,13 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         {
             if (_reservedBooksViewModel.SelectedReservedBook is null)
             {
-                MessageBox.Show("لطفا نوبتی را برای حذف انتخاب کنید", "حذف نوبت");
+                //MessageBox.Show("لطفا نوبتی را برای حذف انتخاب کنید", "حذف نوبت");
             }
             else
             {
 
-                var AskResult = MessageBox.Show("آیا از حذف این نوبت مطمن هستید؟", "حذف نوبت", MessageBoxButton.YesNo);
-                if (AskResult == MessageBoxResult.Yes)
+                //var AskResult = MessageBox.Show("آیا از حذف این نوبت مطمن هستید؟", "حذف نوبت", MessageBoxButton.YesNo);
+                //if (AskResult == MessageBoxResult.Yes)
                 {
                     await _reservedBooksStore.DeleteReservBook(_reservedBooksViewModel.SelectedReservedBook.ToReservedBook());
                 }

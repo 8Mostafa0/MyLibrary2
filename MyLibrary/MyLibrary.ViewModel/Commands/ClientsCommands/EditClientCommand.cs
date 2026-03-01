@@ -30,22 +30,22 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// 
         /// </summary>
         /// <param name="parameter">no parametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             Client client = _clientsViewModel.SelectedClient;
             if (client == null)
             {
-                MessageBox.Show("لطفا کاربری را برای ویرایش انتخاب کنید", "ویرایش کاربر");
+                //MessageBox.Show("لطفا کاربری را برای ویرایش انتخاب کنید", "ویرایش کاربر");
                 return;
             }
             if (string.IsNullOrEmpty(_clientsViewModel.FirstName))
             {
-                MessageBox.Show("لطفا ابتدا نام را وارد کنید", "ویرایش کاربر");
+                //MessageBox.Show("لطفا ابتدا نام را وارد کنید", "ویرایش کاربر");
                 return;
             }
             if (string.IsNullOrEmpty(_clientsViewModel.LastName))
             {
-                MessageBox.Show("لطفا ابتدا فامیلی را وارد کنید", "ویرایش کاربر");
+                //MessageBox.Show("لطفا ابتدا فامیلی را وارد کنید", "ویرایش کاربر");
                 return;
             }
             client.FirstName = _clientsViewModel.FirstName;

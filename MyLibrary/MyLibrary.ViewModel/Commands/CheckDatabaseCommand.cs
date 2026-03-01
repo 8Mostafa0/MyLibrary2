@@ -26,7 +26,7 @@ namespace MyLibrary.ViewModel.Commands
         /// 
         /// </summary>
         /// <param name="parameter"></param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             await _dbContextFactory.CheckDatabaseExistsAsync();
         }

@@ -111,12 +111,11 @@ namespace MyLibrary.ViewModel.ViewModels
         /// <param name="client"></param>
         private void ClientEdited(Client client)
         {
-            int index = _clients.IndexOf(_clients.FirstOrDefault(c => c.ID == client.ID)!);
+            int index = _clients.IndexOf(_clients.FirstOrDefault(c => c.ID == client.ID));
             if (index >= 0)
             {
                 _clients[index] = client;
-                CollectionViewSource.GetDefaultView(_clients)?.Refresh();
-                MessageBox.Show("کاربر با موفقیت ویرایش شد", "ویرایش کاربر");
+                //MessageBox.Show("کاربر با موفقیت ویرایش شد", "ویرایش کاربر");
             }
         }
         /// <summary>
@@ -127,7 +126,7 @@ namespace MyLibrary.ViewModel.ViewModels
         {
             ClearInputs();
             _clients.Remove(client);
-            MessageBox.Show("کاربر با موفقیت حذف شد", "حذف کاربر");
+            //MessageBox.Show("کاربر با موفقیت حذف شد", "حذف کاربر");
         }
 
         /// <summary>
@@ -161,7 +160,7 @@ namespace MyLibrary.ViewModel.ViewModels
             ClearInputs();
             client.ID = _clients.Any() ? _clients.Last().ID + 1 : 1;
             _clients.Add(client);
-            MessageBox.Show("کاربر با موفقیت اضافه شد", "افزودن کاربر");
+            //MessageBox.Show("کاربر با موفقیت اضافه شد", "افزودن کاربر");
 
         }
         /// <summary>

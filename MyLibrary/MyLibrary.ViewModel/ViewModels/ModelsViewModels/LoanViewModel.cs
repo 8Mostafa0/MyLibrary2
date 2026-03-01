@@ -64,6 +64,7 @@ namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
             }
             catch
             {
+                ReturnedDateTime = DateTime.Parse(this.ReturnedDateTime);
             }
             return new Loan()
             {

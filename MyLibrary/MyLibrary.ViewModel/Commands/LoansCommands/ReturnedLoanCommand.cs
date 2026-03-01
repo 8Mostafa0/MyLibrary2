@@ -31,7 +31,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <summary>
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             LoanViewModel loan = _loanViewModel.SelectedLoan;
             if (loan != null)
@@ -39,19 +39,19 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 bool IsReturnedLoan = DateTime.TryParse(loan.ReturnedDateTime, out DateTime _);
                 if (IsReturnedLoan)
                 {
-                    MessageBox.Show("این امانت بارگشت داده  شده است", "برگشت کتاب");
+                    //MessageBox.Show("این امانت بارگشت داده  شده است", "برگشت کتاب");
                     return;
                 }
-                var AskMessage = MessageBox.Show("کاربر کتاب را بازگرداند؟", "برگشت کتاب", MessageBoxButton.YesNo);
-                if (AskMessage == MessageBoxResult.Yes)
-                {
-                    loan.ReturnedDateTime = DateTime.Now.ToString();
-                    await _loansStore.LoanReturned(loan.ToLoan());
-                }
+                //var AskMessage = MessageBox.Show("کاربر کتاب را بازگرداند؟", "برگشت کتاب", MessageBoxButton.YesNo);
+                //if (AskMessage == MessageBoxResult.Yes)
+                //{
+                //    loan.ReturnedDateTime = DateTime.Now.ToString();
+                //    await _loansStore.LoanReturned(loan.ToLoan());
+                //}
             }
             else
             {
-                MessageBox.Show("لطفا ابتدا ایتمی را انتخاب کنید", "برگشت کتاب");
+                //MessageBox.Show("لطفا ابتدا ایتمی را انتخاب کنید", "برگشت کتاب");
             }
         }
         #endregion

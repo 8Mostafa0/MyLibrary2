@@ -38,7 +38,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <summary>
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
             _addEditeLoanViewModel.LoadClientsCommand.Execute(null);
             _modalNavigationStore.CurrentViewModel = _addEditeLoanViewModel;

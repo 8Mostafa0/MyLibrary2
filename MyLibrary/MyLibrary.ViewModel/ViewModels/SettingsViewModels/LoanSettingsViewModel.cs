@@ -16,7 +16,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
             {
                 if (!int.TryParse(value, out _maxBooksCount))
                 {
-                    MessageBox.Show("لطفا تعداد حداکثر کتاب را عدد وارد کنید", "خطای ورودی");
+                    //MessageBox.Show("لطفا تعداد حداکثر کتاب را عدد وارد کنید", "خطای ورودی");
                     return;
                 }
                 OnProperychanged(nameof(MaxBooksCount));
@@ -32,7 +32,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
             {
                 if (!int.TryParse(value, out _maxLoanDay))
                 {
-                    MessageBox.Show("لطفا تعداد حداکثر تعداد روز را عدد وارد کنید", "خطای ورودی");
+                    //MessageBox.Show("لطفا تعداد حداکثر تعداد روز را عدد وارد کنید", "خطای ورودی");
                     return;
                 }
                 OnProperychanged(nameof(MaxLoanDay));

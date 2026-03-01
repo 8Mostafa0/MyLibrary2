@@ -56,12 +56,12 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         {
             if (_loansViewModel.SelectedLoan is null)
             {
-                MessageBox.Show("لطفا ابتدا امانتی را انتخاب کنید", "ویرایش نوبت");
+                //MessageBox.Show("لطفا ابتدا امانتی را انتخاب کنید", "ویرایش نوبت");
             }
-            else if (!(_loansViewModel.SelectedLoan.ReturnedDate is null) && _loansViewModel.SelectedLoan.ReturnedDate != "خیر")
-            {
-                MessageBox.Show("این امانت تحویل داده شده است", "ویرایش نوبت");
-            }
+            //else if (!(_loansViewModel.SelectedLoan.ReturnedDate is null) && _loansViewModel.SelectedLoan.ReturnedDate != "خیر")
+            //{
+            //MessageBox.Show("این امانت تحویل داده شده است", "ویرایش نوبت");
+            //}
             else
             {
 

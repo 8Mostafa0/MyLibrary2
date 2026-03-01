@@ -45,7 +45,7 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
             new CheckDatabaseCommand(_loanRepository, _dbContextFactory).Execute(null);
             if (_loginViewModel.Password == "" || _loginViewModel.Password is null)
             {
-                MessageBox.Show("لطفا مقادیری برای رمز وارد کنید", "خطا");
+                //MessageBox.Show("لطفا مقادیری برای رمز وارد کنید", "خطا");
                 return;
             }
             if (_loginViewModel.FirstOpen)
@@ -61,7 +61,7 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
                 }
                 else
                 {
-                    MessageBox.Show("رمز عبور اشتباه است", "خطا");
+                    //MessageBox.Show("رمز عبور اشتباه است", "خطا");
                 }
             }
         }

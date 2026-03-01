@@ -2,7 +2,6 @@
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
-using System;
 using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
@@ -44,28 +43,28 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// 
         /// </summary>
         /// <param name="parameter"></param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             if (_clientsViewModel.SelectedClient is null)
             {
-                MessageBox.Show("لطفا ابتدا کاربری را برای حذف انتخاب کنید", "حذف کاربر");
+                //MessageBox.Show("لطفا ابتدا کاربری را برای حذف انتخاب کنید", "حذف کاربر");
                 return;
             }
             List<Loan> UserLoans = await _loanRepository.GetAllClientLoans(_clientsViewModel.SelectedClient.ID);
             if (UserLoans.Count > 0)
             {
-                MessageBox.Show("این کاربر امانتی تحویل نشده دارد", "حذف کاربر");
+                //MessageBox.Show("این کاربر امانتی تحویل نشده دارد", "حذف کاربر");
                 return;
             }
             else
             {
-                MessageBoxResult AskToDelete = MessageBox.Show("کاربر حذف شود؟", "حذف کاربر", MessageBoxButton.YesNo);
-                if (AskToDelete == MessageBoxResult.Yes)
-                {
-                    await _reservedBooksRepository.RemoveClientReservedBooks(_clientsViewModel.SelectedClient.ID);
-                    await _loanRepository.RemoveClientLoans(_clientsViewModel.SelectedClient.ID);
-                    await _clientsStore.DeleteClient(_clientsViewModel.SelectedClient);
-                }
+                //MessageBoxResult AskToDelete = MessageBox.Show("کاربر حذف شود؟", "حذف کاربر", MessageBoxButton.YesNo);
+                //if (AskToDelete == MessageBoxResult.Yes)
+                //{
+                //    await _reservedBooksRepository.RemoveClientReservedBooks(_clientsViewModel.SelectedClient.ID);
+                //    await _loanRepository.RemoveClientLoans(_clientsViewModel.SelectedClient.ID);
+                //    await _clientsStore.DeleteClient(_clientsViewModel.SelectedClient);
+                //}
             }
         }
         #endregion

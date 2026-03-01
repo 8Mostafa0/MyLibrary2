@@ -31,16 +31,16 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// 
         /// </summary>
         /// <param name="parameter">No Perameer Needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             if (string.IsNullOrEmpty(_clientViewModel.FirstName))
             {
-                MessageBox.Show("لطفا ابتدا نام را وارد کنید", "افزودن کاربر");
+                //MessageBox.Show("لطفا ابتدا نام را وارد کنید", "افزودن کاربر");
                 return;
             }
             if (string.IsNullOrEmpty(_clientViewModel.LastName))
             {
-                MessageBox.Show("لطفا ابتدا فامیلی را وارد کنید", "افزودن کاربر");
+                //MessageBox.Show("لطفا ابتدا فامیلی را وارد کنید", "افزودن کاربر");
                 return;
             }
             Client client = new Client()

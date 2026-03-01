@@ -5,6 +5,7 @@ using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Stores
@@ -13,8 +14,8 @@ namespace MyLibrary.ViewModel.Stores
     {
 
         #region Dependencies
+        private ObservableCollection<LoanViewModel> _loans;
         public IEnumerable<LoanViewModel> Loans => _loans;
-        private List<LoanViewModel> _loans;
         private LoanRepository _loanRepository;
         private ClientsStore _clientsStore;
         private BooksStore _booksStore;
@@ -32,7 +33,7 @@ namespace MyLibrary.ViewModel.Stores
         /// </summary>
         public LoansStore()
         {
-            _loans = [];
+            _loans = new ObservableCollection<LoanViewModel>();
             _initilizeLazy = new Lazy<Task>(Initialize);
             _loanRepository = new LoanRepository();
             _clientsStore = new ClientsStore();

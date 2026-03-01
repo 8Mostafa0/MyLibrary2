@@ -2,7 +2,6 @@
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
-using System;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
@@ -42,33 +41,33 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
             Book SelectedBook = _booksViewModel.SelectedBook;
             if (SelectedBook == null)
             {
-                MessageBox.Show("لطفا کتابی را برای ویرایش انتخاب کنید", "ویرایش کتاب");
+                //MessageBox.Show("لطفا کتابی را برای ویرایش انتخاب کنید", "ویرایش کتاب");
             }
 
             if (!(_booksViewModel.Name is null) || !(_booksViewModel.Name == ""))
             {
-                MessageBox.Show("لطفا نام کتاب را وارد کنید", "افزودن کتاب");
+                //MessageBox.Show("لطفا نام کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
             if (!(_booksViewModel.Publisher is null) || !(_booksViewModel.Publisher == ""))
             {
-                MessageBox.Show("لطفا منتشرکننده کتاب را وارد کنید", "افزودن کتاب");
+                //MessageBox.Show("لطفا منتشرکننده کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
             if (!(_booksViewModel.Subject is null) || !(_booksViewModel.Subject == ""))
             {
-                MessageBox.Show("لطفا نوع کتاب را وارد کنید", "افزودن کتاب");
+                //MessageBox.Show("لطفا نوع کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
             if (!(_booksViewModel.PublicationDate is null) || !(_booksViewModel.PublicationDate == ""))
             {
-                MessageBox.Show("لطفا تاریخ انتشار کتاب را وارد کنید", "افزودن کتاب");
+                //MessageBox.Show("لطفا تاریخ انتشار کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
             int PublicationYear = 0;
             if (!int.TryParse(_booksViewModel.PublicationDate, out PublicationYear))
             {
-                MessageBox.Show("لطفا تاریخ انتشار کتاب را عدد وارد کنید", "افزودن کتاب");
+                //MessageBox.Show("لطفا تاریخ انتشار کتاب را عدد وارد کنید", "افزودن کتاب");
                 _booksViewModel.PublicationDate = "";
                 return;
             }

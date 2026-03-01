@@ -117,7 +117,7 @@ namespace MyLibrary.ViewModel.ViewModels
         public BooksViewModel(BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository)
         {
             _booksStore = booksStore;
-            _books = [];
+            _books = new ObservableCollection<Book>();
             LoadBooksCommand = new LoadBooksCommand(_booksStore);
             AddNewBookCommand = new AddNewBookCommand(_booksStore, this, booksRepository);
             EditBookCommand = new EditBookCommand(this, _booksStore, booksRepository);
@@ -154,7 +154,7 @@ namespace MyLibrary.ViewModel.ViewModels
         {
             ClearInputs();
             _books.Remove(book);
-            MessageBox.Show("کتاب با موفقیت حذف شد", "حذف کتاب");
+            //MessageBox.Show("کتاب با موفقیت حذف شد", "حذف کتاب");
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace MyLibrary.ViewModel.ViewModels
             ClearInputs();
             int index = _books.IndexOf(book);
             _books[index] = book;
-            MessageBox.Show("کتاب با موفقیت ویرایش شد", "ویرایش کتاب");
+            //MessageBox.Show("کتاب با موفقیت ویرایش شد", "ویرایش کتاب");
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace MyLibrary.ViewModel.ViewModels
             ClearInputs();
             book.ID = _books.Any() ? _books.Last().ID + 1 : 1;
             _books.Add(book);
-            MessageBox.Show("کتاب با موفقیت افزوده شد", "افزودن کتاب");
+            //MessageBox.Show("کتاب با موفقیت افزوده شد", "افزودن کتاب");
         }
         /// <summary>
         /// Loader Method for Books view model

@@ -57,11 +57,11 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <summary>
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
             if (_reservedBooksViewModel.SelectedReservedBook is null)
             {
-                MessageBox.Show("لطفا ابتدا نوبتی را برای ویراش انتخاب کنید", "ویرایش رزرو");
+                //MessageBox.Show("لطفا ابتدا نوبتی را برای ویراش انتخاب کنید", "ویرایش رزرو");
             }
             else
             {

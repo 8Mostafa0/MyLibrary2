@@ -22,7 +22,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
                 else
                 {
                     _password = null;
-                    MessageBox.Show("لطفا رمز عبور را بیشتر از 5 حرف وارد کنید", "رمز عبور");
+                    //MessageBox.Show("لطفا رمز عبور را بیشتر از 5 حرف وارد کنید", "رمز عبور");
                 }
             }
         }

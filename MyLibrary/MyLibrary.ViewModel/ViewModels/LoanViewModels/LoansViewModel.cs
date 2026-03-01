@@ -1,4 +1,8 @@
-﻿using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.LoansCommands;
+using MyLibrary.ViewModel.Stores;
+using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -68,7 +72,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #region Constructor
         public LoansViewModel(ModalNavigationStore modalNavigationStore, LoansStore loansStore, ClientsStore clientsStore, BooksStore booksStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository)
         {
-            _loans = [];
+            _loans = new ObservableCollection<LoanViewModel>();
             _modalNavigationStore = modalNavigationStore;
             _loansStore = loansStore;
             _clientsStore = clientsStore;
@@ -98,7 +102,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             LoanViewModel loanViewModel = _loans.SingleOrDefault(t => t._loan.Id == loan.Id);
             int index = _loans.IndexOf(loanViewModel);
             _loans[index] = new LoanViewModel(loan, _clientsStore, _booksStore);
-            MessageBox.Show("امانت با موفقیت بازگشت شد", "بازگشت امانت");
+            //MessageBox.Show("امانت با موفقیت بازگشت شد", "بازگشت امانت");
         }
         #endregion
 
@@ -117,7 +121,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             {
                 int index = _loans.IndexOf(existing);
                 _loans[index] = updatedVm;
-                MessageBox.Show("امانت با موفقیت ویرایش شد", "ویرایش امانت");
+                //MessageBox.Show("امانت با موفقیت ویرایش شد", "ویرایش امانت");
             }
             OnProperychanged(nameof(_loans));
         }
@@ -131,7 +135,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             loan.Id = _loans.Any() ? _loans.Last().ID + 1 : 1;
             var vm = new LoanViewModel(loan, _clientsStore, _booksStore);
             _loans.Add(vm);
-            MessageBox.Show("امانت با موفقیت ثبت شد", "افزودن امانت");
+            //MessageBox.Show("امانت با موفقیت ثبت شد", "افزودن امانت");
         }
 
         /// <summary>
@@ -167,7 +171,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         /// <returns></returns>
         public static LoansViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, LoansStore loansStore, ClientsStore clientsStore, BooksStore booksStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository)
         {
-            LoansViewModel viewModel = new(modalNavigationStore, loansStore, clientsStore, booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository);
+            LoansViewModel viewModel = new LoansViewModel(modalNavigationStore, loansStore, clientsStore, booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository);
             viewModel.LoadLoansCommand.Execute(null);
             return viewModel;
         }

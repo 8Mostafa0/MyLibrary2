@@ -52,17 +52,17 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// 
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             #region Input Validation
             if (_addediteReserveBookViewModel.SelectedClient == null)
             {
-                MessageBox.Show("لطفا کاربری را انتخاب کنید", "رزرو کتاب");
+                //MessageBox.Show("لطفا کاربری را انتخاب کنید", "رزرو کتاب");
                 return;
             }
             if (_addediteReserveBookViewModel.SelectedBook == null)
             {
-                MessageBox.Show("لطفا کتابی را انتخاب کنید", "رزرو کتاب");
+                //MessageBox.Show("لطفا کتابی را انتخاب کنید", "رزرو کتاب");
                 return;
             }
             #endregion
@@ -74,19 +74,19 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 
                 if (_addediteReserveBookViewModel.SelectedClient.Tier < _addediteReserveBookViewModel.SelectedBook.Tier)
                 {
-                    MessageBox.Show("فقط کاربران ویژه میتوانند کتاب رزور کنند", "رزرو کتاب");
+                    //MessageBox.Show("فقط کاربران ویژه میتوانند کتاب رزور کنند", "رزرو کتاب");
                     return;
                 }
                 List<Loan> UserDilayedLoans = await _loanRepository.UserHaveDilayedLoan(_addediteReserveBookViewModel.SelectedClient.ID);
                 if (!(UserDilayedLoans is null) && UserDilayedLoans.Count() > 0)
                 {
-                    MessageBox.Show("کاربر امانتی تحویل نداده و با تاخیر دارد", "رزرو کتاب");
+                    //MessageBox.Show("کاربر امانتی تحویل نداده و با تاخیر دارد", "رزرو کتاب");
                     return;
                 }
                 ReservedBook UserReservs = await _reservedbooksRepository.UserHaveReservedBook(_addediteReserveBookViewModel.SelectedClient.ID);
                 if (!(UserReservs is null))
                 {
-                    MessageBox.Show("این کاربر کتابی را از قبل رزرو کرده است", "رزرو کتاب");
+                    //MessageBox.Show("این کاربر کتابی را از قبل رزرو کرده است", "رزرو کتاب");
                     return;
                 }
             }
@@ -100,7 +100,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
                 if (!(BookReservs is null))
                 {
 
-                    MessageBox.Show("کاربری این کتاب را از قبل رزور کرده است", "رزرو کتاب");
+                    //MessageBox.Show("کاربری این کتاب را از قبل رزور کرده است", "رزرو کتاب");
                     return;
                 }
 

@@ -97,8 +97,8 @@ namespace MyLibrary.ViewModel.ViewModels
             ClientsCount = _clientsStore.Clients.Count().ToString();
             BooksCount = _booksStore.Books.Count().ToString();
             LoansCount = _loansStore.Loans.Count().ToString();
-            var dilayedLoans = _loansStore.Loans.Where(c => !DateTime.TryParse(c.ReturnedDate, out DateTime _)).ToList();
-            DilayedLoanCount = dilayedLoans.Any() ? dilayedLoans.Count().ToString() : "0";
+            //var dilayedLoans = _loansStore.Loans.Where(c => !DateTime.TryParse(c.ReturnedDate, out DateTime _)).ToList();
+            //DilayedLoanCount = dilayedLoans.Any() ? dilayedLoans.Count().ToString() : "0";
         }
         #endregion
     }
