@@ -29,7 +29,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// 
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             string customSql = $"SELECT * FROM Clients WHERE Tier = '{_clientsViewModel.SortOrder}'";
             await _clitentsStore.GetOrderedClients(customSql);
