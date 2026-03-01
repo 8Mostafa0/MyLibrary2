@@ -114,7 +114,6 @@
     <Compile Include="Commands\SettingsCommands\NavigatieToSettingsCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicies\INavigationService.cs" />
-    <Compile Include="Servicies\LoggerService.cs" />
     <Compile Include="Servicies\ModalNavigationService.cs" />
     <Compile Include="Servicies\NavigationService.cs" />
     <Compile Include="Stores\BooksStore.cs" />

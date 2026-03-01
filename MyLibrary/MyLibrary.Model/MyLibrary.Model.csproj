@@ -75,12 +75,8 @@
     <Compile Include="Repositories\ClientsRepository.cs" />
     <Compile Include="Repositories\LoanRepository.cs" />
     <Compile Include="Repositories\ReservedBooksRepository.cs" />
+    <Compile Include="Services\LoggerService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MyLibrary.ViewModel\MyLibrary.ViewModel.csproj">
-      <Project>{4341b11b-ed6f-4dd8-904b-c7537987576d}</Project>
-      <Name>MyLibrary.ViewModel</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
