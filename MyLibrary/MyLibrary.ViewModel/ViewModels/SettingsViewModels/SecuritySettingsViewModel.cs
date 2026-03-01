@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using MyLibrary.ViewModel.Commands.SettingsCommands;
+using MyLibrary.ViewModel.Stores;
+using System.Linq;
 using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
@@ -12,7 +14,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
             get => _password;
             set
             {
-                if (!value.IsNullOrEmpty() || value.Count() >= 5)
+                if (!(value == "") || value.Count() >= 5)
                 {
                     _password = value;
                     OnProperychanged(nameof(Password));
