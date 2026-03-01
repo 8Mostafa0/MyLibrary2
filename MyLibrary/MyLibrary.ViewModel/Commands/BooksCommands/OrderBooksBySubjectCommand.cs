@@ -1,4 +1,6 @@
-﻿namespace MyLibrary.ViewModel.Commands.BooksCommands
+﻿using MyLibrary.ViewModel.Stores;
+
+namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
     public class OrderBooksBySubjectCommand : CommandBase
     {
@@ -22,7 +24,7 @@
         /// Order Book By Entered Subject
         /// </summary>
         /// <param name="parameter"></param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             if (_booksStore.SearchSubject < 0)
             {
