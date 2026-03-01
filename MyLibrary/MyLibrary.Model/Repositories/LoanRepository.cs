@@ -1,5 +1,8 @@
-﻿using MyLibrary.Model.DbContexts;
+﻿using Dapper;
+using MyLibrary.Model.DbContexts;
 using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Servicies;
+using Serilog;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -33,8 +36,8 @@ namespace MyLibrary.Model.Repositories
         /// <returns List<Loan>></returns>
         public async Task<List<Loan>> GetAllLoans(string customSql = "")
         {
-            List<Loan> Loans = [];
-            using (SqlConnection? Connection = _dbContextFactory.GetConnection())
+            List<Loan> Loans = new List<Loan>();
+            using (SqlConnection Connection = _dbContextFactory.GetConnection())
             {
                 try
                 {
@@ -51,7 +54,6 @@ namespace MyLibrary.Model.Repositories
                 }
                 catch (SqlException e)
                 {
-                    MessageBox.Show(e.ToString());
                     _logger.Warning(e, "GetAllClients");
                 }
                 finally
@@ -68,10 +70,10 @@ namespace MyLibrary.Model.Repositories
         /// <param name="customSql"></param>
         /// <param name="executionPart"></param>
         /// <returns Loan></returns>
-        public async Task<Loan?> GetLoan(string customSql, string executionPart)
+        public async Task<Loan> GetLoan(string customSql, string executionPart)
         {
-            Loan? loan = new();
-            using (SqlConnection? Connection = _dbContextFactory.GetConnection())
+            Loan loan = new Loan();
+            using (SqlConnection Connection = _dbContextFactory.GetConnection())
             {
                 try
                 {
@@ -88,7 +90,6 @@ namespace MyLibrary.Model.Repositories
                 }
                 catch (SqlException e)
                 {
-                    MessageBox.Show(e.ToString());
                     _logger.Warning(e, "GetAllClients");
                 }
                 finally
