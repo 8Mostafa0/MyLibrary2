@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
+using MyLibrary.ViewModel.Stores;
+using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -130,7 +135,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         private void OnReservedBookAdded(ReservedBook book)
         {
             book.ID = _reservedBooks.Any() ? _reservedBooks.Last().ID + 1 : 1;
-            ReservedBookViewModel Reserv = new(book, _clientsStore, _booksStore);
+            ReservedBookViewModel Reserv = new ReservedBookViewModel(book, _clientsStore, _booksStore);
             _reservedBooks.Add(Reserv);
             MessageBox.Show("کتاب با موفقیت رزرو شد", "رزور کتاب");
         }
@@ -167,7 +172,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         /// <returns></returns>
         public static ReservedBooksViewModel LoadViewModel(ReservedBooksStore reservedBooksStore, ModalNavigationStore modalNavigationStore, ClientsStore clientsStore, BooksStore booksStore, LoanRepository loansRepository, ClientsRepository clientsRepository, ReservedBooksRepository reservedBooksRepository)
         {
-            ReservedBooksViewModel ViewModel = new(reservedBooksStore, modalNavigationStore, clientsStore, booksStore, loansRepository, clientsRepository, reservedBooksRepository);
+            ReservedBooksViewModel ViewModel = new ReservedBooksViewModel(reservedBooksStore, modalNavigationStore, clientsStore, booksStore, loansRepository, clientsRepository, reservedBooksRepository);
             ViewModel.LoadReservedBooksCommand.Execute(null);
             return ViewModel;
         }
