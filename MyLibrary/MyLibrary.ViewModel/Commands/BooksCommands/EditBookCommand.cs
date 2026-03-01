@@ -1,10 +1,8 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
@@ -39,7 +37,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// </summary>
         /// <param name="parameter">No Perameer Needed This Method Gets Its Data From BooksViewModel 
         /// Data : Name,Publisher,Subject,PublicationDate</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             Book SelectedBook = _booksViewModel.SelectedBook;
             if (SelectedBook == null)
@@ -47,22 +45,22 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
                 MessageBox.Show("لطفا کتابی را برای ویرایش انتخاب کنید", "ویرایش کتاب");
             }
 
-            if (_booksViewModel.Name.IsNullOrEmpty())
+            if (!(_booksViewModel.Name is null) || !(_booksViewModel.Name == ""))
             {
                 MessageBox.Show("لطفا نام کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            if (_booksViewModel.Publisher.IsNullOrEmpty())
+            if (!(_booksViewModel.Publisher is null) || !(_booksViewModel.Publisher == ""))
             {
                 MessageBox.Show("لطفا منتشرکننده کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            if (_booksViewModel.Subject.IsNullOrEmpty())
+            if (!(_booksViewModel.Subject is null) || !(_booksViewModel.Subject == ""))
             {
                 MessageBox.Show("لطفا نوع کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            if (_booksViewModel.PublicationDate.IsNullOrEmpty())
+            if (!(_booksViewModel.PublicationDate is null) || !(_booksViewModel.PublicationDate == ""))
             {
                 MessageBox.Show("لطفا تاریخ انتشار کتاب را وارد کنید", "افزودن کتاب");
                 return;
