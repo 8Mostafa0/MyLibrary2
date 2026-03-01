@@ -1,10 +1,7 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
