@@ -1,10 +1,6 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
@@ -42,7 +38,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// 
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
             _navigationStore.ContentScreen = _booksViewModel;
         }
