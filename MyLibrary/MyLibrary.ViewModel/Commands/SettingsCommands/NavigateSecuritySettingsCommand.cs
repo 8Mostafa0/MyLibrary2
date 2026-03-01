@@ -26,7 +26,7 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         /// <summary>
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
             _settingNavigationStore.CurrentSettingViewModel = _securitySettingsViewModel;
         }
