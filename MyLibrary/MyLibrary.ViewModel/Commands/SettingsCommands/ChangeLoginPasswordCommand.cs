@@ -1,10 +1,6 @@
 ﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.SettingsViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Commands.SettingsCommands
 {
@@ -35,9 +31,9 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         /// <summary>
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
-            if (_securitySettingViewModel.Password.IsNullOrEmpty() || _securitySettingViewModel.Password.Count() < 5)
+            if (_securitySettingViewModel.Password == "" || _securitySettingViewModel.Password is null || _securitySettingViewModel.Password.Count() < 5)
             {
                 MessageBox.Show("لطفا رمز عبور را بیشتر از 5 حرف وارد کنید", "رمز عبور");
                 return;
