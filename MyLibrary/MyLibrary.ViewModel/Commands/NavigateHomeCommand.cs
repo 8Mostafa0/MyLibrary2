@@ -34,7 +34,7 @@ namespace MyLibrary.ViewModel.Commands
         /// <summary>
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             await _clientsStore.Load();
             await _booksStore.Load();

@@ -6,16 +6,16 @@ namespace MyLibrary.ViewModel.Commands
     public abstract class CommandBase : ICommand
     {
         #region Properties
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler CanExecuteChanged;
         #endregion
 
         #region Methods
-        public bool CanExecute(object? parameter)
+        public bool CanExecute(object parameter)
         {
             return true;
         }
 
-        public abstract void Execute(object? parameter);
+        public abstract void Execute(object parameter);
 
 
         protected void OnCanExecuteChanged()

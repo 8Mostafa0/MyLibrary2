@@ -1,4 +1,9 @@
-﻿namespace MyLibrary.ViewModel.Commands
+﻿using MyLibrary.Model.DbContexts;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
+using MyLibrary.ViewModel.ViewModels;
+
+namespace MyLibrary.ViewModel.Commands
 {
     public class LoginModalCommand : CommandBase
     {
@@ -27,7 +32,7 @@
         /// 
         /// </summary>
         /// <param name="parameter"></param>
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
             _modalNavigationStore.CurrentViewModel = _loginViewModel;
         }
