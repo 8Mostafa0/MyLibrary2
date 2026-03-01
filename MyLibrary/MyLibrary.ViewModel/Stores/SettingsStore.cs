@@ -1,4 +1,6 @@
 ﻿using Microsoft.Win32;
+using MyLibrary.ViewModel.Servicies;
+using Serilog;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +10,7 @@ namespace MyLibrary.ViewModel.Stores
     {
         #region Dependencies
         private ILogger _logger;
-        private const string KeyPath = $@"Softwar\MyApp\MyLibrary";
+        private string KeyPath = $@"Softwar\MyApp\MyLibrary";
         #endregion
 
         #region Contructor
@@ -45,7 +47,7 @@ namespace MyLibrary.ViewModel.Stores
         /// <returns></returns>
         public string GetHashedPassword()
         {
-            return GetDataFromRegistry("Password")!;
+            return GetDataFromRegistry("Password");
         }
 
         /// <summary>
@@ -63,7 +65,7 @@ namespace MyLibrary.ViewModel.Stores
             {
                 if (int.TryParse(GetDataFromRegistry(key), out int _))
                 {
-                    Data.Add(key, int.Parse(GetDataFromRegistry(key)!));
+                    Data.Add(key, int.Parse(GetDataFromRegistry(key)));
                 }
                 else
                 {
@@ -107,7 +109,7 @@ namespace MyLibrary.ViewModel.Stores
             {
                 if (bool.TryParse(GetDataFromRegistry(key), out bool _))
                 {
-                    Data.Add(key, bool.Parse(GetDataFromRegistry(key)!));
+                    Data.Add(key, bool.Parse(GetDataFromRegistry(key)));
                 }
                 else
                 {
@@ -135,12 +137,12 @@ namespace MyLibrary.ViewModel.Stores
         /// </summary>
         /// <param name="key">the key for stored value</param>
         /// <returns></returns>
-        private string? GetDataFromRegistry(string key)
+        private string GetDataFromRegistry(string key)
         {
             try
             {
 
-                using (RegistryKey? AppKey = Registry.CurrentUser.OpenSubKey(KeyPath))
+                using (RegistryKey AppKey = Registry.CurrentUser.OpenSubKey(KeyPath))
                 {
                     if (AppKey == null)
                     {
@@ -148,7 +150,7 @@ namespace MyLibrary.ViewModel.Stores
                         _logger.Warning("Cannot Create/Open Registery Key!");
                         return "";
                     }
-                    string? value = AppKey.GetValue(key) as string;
+                    string value = AppKey.GetValue(key) as string;
                     return value ?? "";
                 }
             }
@@ -167,7 +169,7 @@ namespace MyLibrary.ViewModel.Stores
         {
             try
             {
-                using (RegistryKey? AppKey = Registry.CurrentUser.CreateSubKey(KeyPath))
+                using (RegistryKey AppKey = Registry.CurrentUser.CreateSubKey(KeyPath))
                 {
                     if (AppKey == null)
                     {
