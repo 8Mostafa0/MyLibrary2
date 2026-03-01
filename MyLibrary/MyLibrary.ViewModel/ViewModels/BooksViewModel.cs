@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.BooksCommands;
+using MyLibrary.ViewModel.Stores;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -162,7 +166,6 @@ namespace MyLibrary.ViewModel.ViewModels
             ClearInputs();
             int index = _books.IndexOf(book);
             _books[index] = book;
-            CollectionViewSource.GetDefaultView(_books)?.Refresh();
             MessageBox.Show("کتاب با موفقیت ویرایش شد", "ویرایش کتاب");
         }
 
@@ -199,7 +202,7 @@ namespace MyLibrary.ViewModel.ViewModels
         /// <returns></returns>
         public static BooksViewModel LoadViewModel(BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository)
         {
-            BooksViewModel ViewModel = new(booksStore, loanRepository, reservedBooksRepository, booksRepository);
+            BooksViewModel ViewModel = new BooksViewModel(booksStore, loanRepository, reservedBooksRepository, booksRepository);
             ViewModel.LoadBooksCommand.Execute(null);
             return ViewModel;
         }
