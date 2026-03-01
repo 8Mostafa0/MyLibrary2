@@ -1,5 +1,10 @@
-﻿using MyLibrary.Model.Models;
+﻿using Dapper;
+using MyLibrary.Model.DbContexts;
+using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Servicies;
+using Serilog;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,7 +38,7 @@ namespace MyLibrary.Model.Repositories
         public async Task<List<Book>> GetAllBooks(string customSql = "")
         {
             List<Book> Books = new List<Book>();
-            using (SqlConnection? Connection = _dbContextFactory.GetConnection())
+            using (SqlConnection Connection = _dbContextFactory.GetConnection())
             {
                 try
                 {
@@ -69,7 +74,7 @@ namespace MyLibrary.Model.Repositories
         public async Task<Book> GetBookById(int id, string customSql)
         {
             Book Book = new Book();
-            using (SqlConnection? Connection = _dbContextFactory.GetConnection())
+            using (SqlConnection Connection = _dbContextFactory.GetConnection())
             {
                 try
                 {
