@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D52FEFE2-2266-472A-911E-8FF3FE95B9A8}</ProjectGuid>
+    <ProjectGuid>{E8021012-01EF-42DD-B7E8-A0CAEB144DCD}</ProjectGuid>
     <OutputType>library</OutputType>
     <RootNamespace>ModalControl</RootNamespace>
     <AssemblyName>ModalControl</AssemblyName>
