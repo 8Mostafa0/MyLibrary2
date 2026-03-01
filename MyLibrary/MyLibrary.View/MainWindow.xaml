@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyLibrary.View"
         xmlns:lv="clr-namespace:MyLibrary.View.Layouts"
+        xmlns:vv="clr-namespace:MyLibrary.View.Views"
         xmlns:lvms="clr-namespace:MyLibrary.ViewModel.ViewModels;assembly=MyLibrary.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.Resources>
-            <DataTemplate DataType="{x:Type lvms:LayoutViewModel}">
-                <lv:LayoutView/>
+            <DataTemplate DataType="{x:Type lvms:HomeViewModel}">
+                <vv:HomeView/>
             </DataTemplate>
         </Grid.Resources>
     </Grid>

@@ -1,4 +1,7 @@
-﻿namespace MyLibrary.ViewModel.Commands
+﻿using MyLibrary.Model.DbContexts;
+using MyLibrary.Model.Repositories;
+
+namespace MyLibrary.ViewModel.Commands
 {
     public class CheckDatabaseCommand : CommandBase
     {
