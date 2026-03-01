@@ -7,8 +7,12 @@
         xmlns:lv="clr-namespace:MyLibrary.View.Layouts"
         xmlns:vv="clr-namespace:MyLibrary.View.Views"
         xmlns:lvms="clr-namespace:MyLibrary.ViewModel.ViewModels;assembly=MyLibrary.ViewModel" 
+        xmlns:md="clr-namespace:ModalControl;assembly=ModalControl"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <md:Modal>
+            <ContentControl Content="{Binding ModalContent}"/>
+        </md:Modal>
     </Grid>
 </Window>

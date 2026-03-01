@@ -263,6 +263,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ModalControl\ModalControl.csproj">
+      <Project>{e8021012-01ef-42dd-b7e8-a0caeb144dcd}</Project>
+      <Name>ModalControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyLibrary.Model\MyLibrary.Model.csproj">
       <Project>{56e7625a-90a9-486f-92f7-fdd42003573d}</Project>
       <Name>MyLibrary.Model</Name>
