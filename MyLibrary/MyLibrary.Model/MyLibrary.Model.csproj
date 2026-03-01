@@ -41,15 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbContexts\DbContextFactory.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Loan.cs" />
     <Compile Include="Models\ReservedBook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BooksRepository.cs" />
+    <Compile Include="Repositories\ClientsRepository.cs" />
+    <Compile Include="Repositories\LoanRepository.cs" />
+    <Compile Include="Repositories\ReservedBooksRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DbContexts\" />
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\MyLibrary.ViewModel\MyLibrary.ViewModel.csproj">
+      <Project>{4341b11b-ed6f-4dd8-904b-c7537987576d}</Project>
+      <Name>MyLibrary.ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

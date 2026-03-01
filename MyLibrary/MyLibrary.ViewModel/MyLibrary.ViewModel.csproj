@@ -89,6 +89,10 @@
     <Compile Include="Commands\SettingsCommands\NavigateSecuritySettingsCommand.cs" />
     <Compile Include="Commands\SettingsCommands\NavigatieToSettingsCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicies\INavigationService.cs" />
+    <Compile Include="Servicies\LoggerService.cs" />
+    <Compile Include="Servicies\ModalNavigationService.cs" />
+    <Compile Include="Servicies\NavigationService.cs" />
     <Compile Include="Stores\BooksStore.cs" />
     <Compile Include="Stores\ClientsStore.cs" />
     <Compile Include="Stores\LoanStore.cs" />
@@ -118,8 +122,6 @@
     <Compile Include="ViewModels\StatusBarViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Servicies\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
