@@ -1,10 +1,5 @@
 ﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
@@ -34,7 +29,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <summary>
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             string BookName = _loansViewModel.BookName;
             await _loansStore.GetAllLoans($"SELECT * FROM Loans WHERE EXISTS (SELECT 1 FROM Books WHERE Books.Name LIKE N'%{BookName}%' AND Books.Id = Loans.BookId )");
