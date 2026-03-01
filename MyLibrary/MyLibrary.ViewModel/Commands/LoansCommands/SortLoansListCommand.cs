@@ -31,7 +31,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <summary>
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             switch (_loansViewModel.SortIndex)
             {
