@@ -1,6 +1,10 @@
-﻿using MyLibrary.Model.DbContexts;
+﻿using Dapper;
+using MyLibrary.Model.DbContexts;
 using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Servicies;
+using Serilog;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,8 +37,8 @@ namespace MyLibrary.Model.Repositories
         /// <returns >List<ReservedBook></returns>
         public async Task<List<ReservedBook>> GetAllReservedBooks(string customSql = "")
         {
-            List<ReservedBook> ReservedBooks = [];
-            using (SqlConnection? Connection = _dbContextFactory.GetConnection())
+            List<ReservedBook> ReservedBooks = new List<ReservedBook>();
+            using (SqlConnection Connection = _dbContextFactory.GetConnection())
             {
                 try
                 {
@@ -69,8 +73,8 @@ namespace MyLibrary.Model.Repositories
         /// <returns ReservedBook></returns>
         public async Task<ReservedBook> GetReservedBook(string customSql, string executionPart)
         {
-            ReservedBook? ReservedBook = new();
-            using (SqlConnection? Connection = _dbContextFactory.GetConnection())
+            ReservedBook ReservedBook = new ReservedBook();
+            using (SqlConnection Connection = _dbContextFactory.GetConnection())
             {
                 try
                 {
@@ -83,7 +87,7 @@ namespace MyLibrary.Model.Repositories
                     {
                         GetReservedBookSQl = customSql;
                     }
-                    ReservedBook = Connection.QueryFirstOrDefault<ReservedBook?>(GetReservedBookSQl);
+                    ReservedBook = Connection.QueryFirstOrDefault<ReservedBook>(GetReservedBookSQl);
                 }
                 catch (SqlException e)
                 {
@@ -133,7 +137,7 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="clientId"></param>
         /// <returns>ReservedBook?</returns>
-        public async Task<ReservedBook?> UserHaveReservedBook(int clientId)
+        public async Task<ReservedBook> UserHaveReservedBook(int clientId)
         {
             string SearchSql = $"SELECT * FROM ReservedBooks WHERE ClientId ='{clientId}'";
             return await GetReservedBook(SearchSql, "UserHaveReservedBook");
@@ -143,7 +147,7 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="bookId"></param>
         /// <returns>ReservedBook?</returns>
-        public async Task<ReservedBook?> BookAlreadyRegistred(int bookId)
+        public async Task<ReservedBook> BookAlreadyRegistred(int bookId)
         {
             string SearchSql = $"SELECT * FROM ReservedBooks WHERE BookId='{bookId}'";
             return await GetReservedBook(SearchSql, "UserHaveReservedBook");
