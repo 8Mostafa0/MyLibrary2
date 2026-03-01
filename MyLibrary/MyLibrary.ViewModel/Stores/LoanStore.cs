@@ -1,4 +1,9 @@
-﻿using System;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.BooksCommands;
+using MyLibrary.ViewModel.Commands.ClientsCommands;
+using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -92,7 +97,7 @@ namespace MyLibrary.ViewModel.Stores
             _loans.Clear();
             foreach (Loan loan in loans)
             {
-                LoanViewModel loanViewModel = new(loan, _clientsStore, _booksStore);
+                LoanViewModel loanViewModel = new LoanViewModel(loan, _clientsStore, _booksStore);
                 _loans.Add(loanViewModel);
             }
             LoansUpdated?.Invoke();
@@ -108,7 +113,7 @@ namespace MyLibrary.ViewModel.Stores
             _loans.Clear();
             foreach (Loan loan in loans)
             {
-                LoanViewModel loanViewModel = new(loan, _clientsStore, _booksStore);
+                LoanViewModel loanViewModel = new LoanViewModel(loan, _clientsStore, _booksStore);
                 _loans.Add(loanViewModel);
             }
             LoansUpdated?.Invoke();
