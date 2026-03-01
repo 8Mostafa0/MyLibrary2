@@ -1,4 +1,7 @@
-﻿namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
+﻿using MyLibrary.ViewModel.Stores;
+using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
+
+namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
     public class SearchBookNameInReservedBookCommand : CommandBase
     {
@@ -27,9 +30,9 @@
         /// 
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
-            if (!_reservedBooksViewModel.BookName.IsNullOrEmpty())
+            if (!(_reservedBooksViewModel.BookName == "") && !(_reservedBooksViewModel.BookName is null))
             {
                 _reservedBooksStore.Clear();
                 string SearchSql = $"SELECT * FROM ReservedBooks WHERE EXISTS (SELECT 1 FROM Books WHERE Books.Name LIKE N'%{_reservedBooksViewModel.BookName}%' AND Books.Id = ReservedBooks.BookId )";
