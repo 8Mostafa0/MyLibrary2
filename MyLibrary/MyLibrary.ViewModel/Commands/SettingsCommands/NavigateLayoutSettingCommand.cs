@@ -1,4 +1,7 @@
-﻿namespace MyLibrary.ViewModel.Commands.SettingsCommands
+﻿using MyLibrary.ViewModel.Stores;
+using MyLibrary.ViewModel.ViewModels.SettingsViewModels;
+
+namespace MyLibrary.ViewModel.Commands.SettingsCommands
 {
     public class NavigateLayoutSettingCommand : CommandBase
     {
@@ -20,7 +23,7 @@
         #endregion
 
         #region Execution
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
             _settingNavigationStore.CurrentSettingViewModel = _mainLayoutSettingViewModel;
         }
