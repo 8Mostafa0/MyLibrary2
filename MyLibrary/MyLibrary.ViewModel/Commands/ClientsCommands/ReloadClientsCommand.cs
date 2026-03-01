@@ -1,4 +1,7 @@
-﻿namespace MyLibrary.ViewModel.Commands.ClientsCommands
+﻿using MyLibrary.ViewModel.Stores;
+using MyLibrary.ViewModel.ViewModels;
+
+namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
     public class ReloadClientsCommand : CommandBase
     {
@@ -25,7 +28,7 @@
         /// 
         /// </summary>
         /// <param name="parameter">no marametes needed</param>
-        public override async void Execute(object? parameter)
+        public override async void Execute(object parameter)
         {
             await _clientsStore.GetOrderedClients();
 
