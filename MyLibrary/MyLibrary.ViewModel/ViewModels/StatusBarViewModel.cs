@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyLibrary.ViewModel.Stores;
+using System;
 using System.Timers;
 
 namespace MyLibrary.ViewModel.ViewModels

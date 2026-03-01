@@ -1,4 +1,6 @@
-﻿namespace MyLibrary.ViewModel.ViewModels
+﻿using MyLibrary.ViewModel.Stores;
+
+namespace MyLibrary.ViewModel.ViewModels
 {
     public class LayoutViewModel : ViewModelBase
     {
