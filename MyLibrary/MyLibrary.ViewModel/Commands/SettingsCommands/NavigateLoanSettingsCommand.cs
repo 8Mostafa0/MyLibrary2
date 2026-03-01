@@ -22,7 +22,7 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         #endregion
 
         #region Execution
-        public override void Execute(object? parameter)
+        public override void Execute(object parameter)
         {
             _navigationStore.CurrentSettingViewModel = _loanSettingsViewModel;
         }
