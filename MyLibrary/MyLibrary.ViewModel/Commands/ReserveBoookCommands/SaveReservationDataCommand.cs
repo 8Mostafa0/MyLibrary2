@@ -1,4 +1,6 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,13 +78,13 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
                     return;
                 }
                 List<Loan> UserDilayedLoans = await _loanRepository.UserHaveDilayedLoan(_addediteReserveBookViewModel.SelectedClient.ID);
-                if (UserDilayedLoans is not null && UserDilayedLoans.Count() > 0)
+                if (!(UserDilayedLoans is null) && UserDilayedLoans.Count() > 0)
                 {
                     MessageBox.Show("کاربر امانتی تحویل نداده و با تاخیر دارد", "رزرو کتاب");
                     return;
                 }
-                ReservedBook? UserReservs = await _reservedbooksRepository.UserHaveReservedBook(_addediteReserveBookViewModel.SelectedClient.ID);
-                if (UserReservs is not null)
+                ReservedBook UserReservs = await _reservedbooksRepository.UserHaveReservedBook(_addediteReserveBookViewModel.SelectedClient.ID);
+                if (!(UserReservs is null))
                 {
                     MessageBox.Show("این کاربر کتابی را از قبل رزرو کرده است", "رزرو کتاب");
                     return;
@@ -94,8 +96,8 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             if (_addediteReserveBookViewModel.SelectedBook.ID != _addediteReserveBookViewModel.SelectedReservedBook.BookId)
             {
 
-                ReservedBook? BookReservs = await _reservedbooksRepository.BookAlreadyRegistred(_addediteReserveBookViewModel.SelectedBook.ID);
-                if (BookReservs is not null)
+                ReservedBook BookReservs = await _reservedbooksRepository.BookAlreadyRegistred(_addediteReserveBookViewModel.SelectedBook.ID);
+                if (!(BookReservs is null))
                 {
 
                     MessageBox.Show("کاربری این کتاب را از قبل رزور کرده است", "رزرو کتاب");
@@ -109,7 +111,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             if (_addediteReserveBookViewModel.SelectedReservedBook.ID == 0)
             {
 
-                ReservedBook reservedBook = new()
+                ReservedBook reservedBook = new ReservedBook()
                 {
                     BookId = _addediteReserveBookViewModel.SelectedBook.ID,
                     ClientId = _addediteReserveBookViewModel.SelectedClient.ID
