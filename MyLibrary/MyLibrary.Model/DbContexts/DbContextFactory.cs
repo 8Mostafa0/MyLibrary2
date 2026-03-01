@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Dapper;
+using MyLibrary.ViewModel.Servicies;
+using Serilog;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
@@ -29,14 +32,14 @@ namespace MyLibrary.Model.DbContexts
         /// Get Connection To Database (SQL Server)
         /// </summary>
         /// <returns SqlConnection>sqlconnection to connect database</returns>
-        public SqlConnection? GetConnection(string databaseName = _dbName, bool withDb = true)
+        public SqlConnection GetConnection(string databaseName = _dbName, bool withDb = true)
         {
             string StringConnection = _connectionString;
             if (withDb)
             {
                 StringConnection += $"Database={databaseName};";
             }
-            SqlConnection? Connection = null;
+            SqlConnection Connection = null;
             try
             {
                 Connection = new SqlConnection(StringConnection);
@@ -50,40 +53,13 @@ namespace MyLibrary.Model.DbContexts
 
 
         /// <summary>
-        /// check database exist or not
-        /// </summary>
-        public async Task CreateDatabaseAsync()
-        {
-            using (var Connection = GetConnection(_dbName))
-            {
-
-                try
-                {
-                    Connection.Open();
-                    string sql = $"SELECT 1 FROM sys.databases WHERE name = {_dbName};";
-                    bool DatabaseExists = await Connection.ExecuteScalarAsync<bool>(sql);
-                    MessageBox.Show(DatabaseExists ? "database Created" : $"Database Not Created {DatabaseExists}");
-                }
-                catch (SqlException e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-                finally
-                {
-
-                    Connection?.Close();
-                }
-            }
-        }
-
-        /// <summary>
         /// Check database and app tables exists if not trying to create them
         /// </summary>
         /// <returns bool>true if database exists</returns>
         public async Task CheckDatabaseExistsAsync()
         {
             bool IsTablesExists = true;
-            using (SqlConnection? Connection = GetConnection(_dbName))
+            using (SqlConnection Connection = GetConnection(_dbName))
             {
                 try
                 {
@@ -95,10 +71,10 @@ namespace MyLibrary.Model.DbContexts
                     }
                     Connection.Open();
 
-                    const string CheckDatabaseSql = $"SELECT 1 FROM sys.databases WHERE name = '{_dbName}';";
+                    string CheckDatabaseSql = $"SELECT 1 FROM sys.databases WHERE name = {_dbName};";
                     int SqlExecuteResult = await Connection.ExecuteScalarAsync<int>(CheckDatabaseSql);
 
-                    List<string> TablesNames = ConstantsData.DatabaseTables;
+                    List<string> TablesNames = new List<string>() { "Clients", "Books", "Loans" };
 
                     foreach (string Name in TablesNames)
                     {
@@ -138,7 +114,7 @@ namespace MyLibrary.Model.DbContexts
         /// <returns></returns>
         private async Task<bool> CleanDatabaseAsync()
         {
-            const string RemoveDatabaseSql = $"ALTER DATABASE [{_dbName}] ; DROP DATABASE [{_dbName}];";
+            string RemoveDatabaseSql = $"ALTER DATABASE [{_dbName}] ; DROP DATABASE [{_dbName}];";
             int SqlExecuteResult = 0;
             using (var Connection = GetConnection())
             {
@@ -146,7 +122,6 @@ namespace MyLibrary.Model.DbContexts
                 {
                     SqlExecuteResult = await Connection.ExecuteAsync(RemoveDatabaseSql);
 
-                    MessageBox.Show(SqlExecuteResult.ToString(), "Remove Result");
                     return SqlExecuteResult == -1;
 
                 }
@@ -205,7 +180,7 @@ namespace MyLibrary.Model.DbContexts
             const string ReservedBooksTableBookIdForenKeyRule = "ALTER TABLE ReservedBooks ADD CONSTRAINT FK_Loans_Books FOREIGN KEY (BookId) REFERENCES Books(Id);";
             const string ReservedBooksTableClientIdForenKeyRule = "ALTER TABLE ReservedBooks ADD CONSTRAINT FK_Loans_Clients FOREIGN KEY (ClientId) REFERENCES Clients(Id);";
 
-            using (SqlConnection? Connection = GetConnection())
+            using (SqlConnection Connection = GetConnection())
             {
                 try
                 {
@@ -238,12 +213,12 @@ namespace MyLibrary.Model.DbContexts
         private async Task<bool> CreateDatabaseAsync()
         {
             int ExecuteSqlResult = 0;
-            using (SqlConnection? Connection = GetConnection("", false))
+            using (SqlConnection Connection = GetConnection("", false))
             {
                 Connection.Open();
                 try
                 {
-                    const string CreateDatabaseSql = $"CREATE  DATABASE [{_dbName}];";
+                    string CreateDatabaseSql = $"CREATE  DATABASE [{_dbName}];";
                     ExecuteSqlResult = await Connection.ExecuteAsync(CreateDatabaseSql);
                     Connection.QuerySingle($"SELECT DB_NAME({_dbName})");
                 }
@@ -268,7 +243,7 @@ namespace MyLibrary.Model.DbContexts
         /// <returns></returns>
         public async Task ExecuteQueryAsync(string sqlQuery, string executePart)
         {
-            using (SqlConnection? Connection = GetConnection(_dbName))
+            using (SqlConnection Connection = GetConnection(_dbName))
             {
                 Connection.Open();
                 try
@@ -278,7 +253,6 @@ namespace MyLibrary.Model.DbContexts
                 catch (SqlException e)
                 {
                     _logger.Error(e, executePart);
-                    MessageBox.Show(e.ToString());
                 }
                 finally
                 {
