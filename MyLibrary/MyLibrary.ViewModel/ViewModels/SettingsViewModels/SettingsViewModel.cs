@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using MyLibrary.ViewModel.Commands.SettingsCommands;
+using MyLibrary.ViewModel.Stores;
+using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
 {
