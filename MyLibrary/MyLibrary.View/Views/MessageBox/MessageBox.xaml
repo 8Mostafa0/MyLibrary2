@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="MyLibrary.View.Views.MessageBox.MessageBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyLibrary.View.Views.MessageBox"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400">
+    <Grid Width="400" Height="300">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.RowSpan="6" Grid.ColumnSpan="6" Grid.Column="0" VerticalAlignment="Center"  HorizontalAlignment="Center">
+            <TextBlock  Text="{Binding Title}" TextAlignment="Center" FontSize="25" FontWeight="Black" />
+            <Viewbox Width="340" Height="25"/>
+            <TextBlock  Text="{Binding Caption}" TextAlignment="Center" FontSize="20" FontWeight="Black" />
+            <Viewbox Width="400" Height="10"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Padding="10" Margin="5" Grid.Column="0" Content="{Binding FirstBtText}" Command="{Binding FirstBtCommand}" />
+                <Button Margin="5" Grid.Column="1" Content="{Binding SecondBtText}" Command="{Binding SecondBtCommand}" />
+            </Grid>
+        </StackPanel>
+    </Grid> 
+</UserControl>
