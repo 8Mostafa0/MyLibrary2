@@ -11,6 +11,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
     {
         #region Dependencies
         private LoanRepository _loanRepository;
+        private MessageBoxStore _messageBoxStore;
         private ClientsRepository _clientsRepository;
         private ReservedBooksStore _reservedBookStore;
         private ModalNavigationStore _modalNavigationStore;
@@ -35,10 +36,12 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             ReservedBooksStore reservedBooksStore,
             LoanRepository loanRepository,
             ReservedBooksRepository reservedBooksRepository,
-            ClientsRepository clientsRepository
+            ClientsRepository clientsRepository,
+            MessageBoxStore messageBoxStore
             )
         {
             _loanRepository = loanRepository;
+            _messageBoxStore = messageBoxStore;
             _clientsRepository = clientsRepository;
             _reservedBookStore = reservedBooksStore;
             _modalNavigationStore = modalNavigationStore;
@@ -57,12 +60,12 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             #region Input Validation
             if (_addediteReserveBookViewModel.SelectedClient == null)
             {
-                //MessageBox.Show("لطفا کاربری را انتخاب کنید", "رزرو کتاب");
+                _messageBoxStore.Show("لطفا کاربری را انتخاب کنید", "رزرو کتاب");
                 return;
             }
             if (_addediteReserveBookViewModel.SelectedBook == null)
             {
-                //MessageBox.Show("لطفا کتابی را انتخاب کنید", "رزرو کتاب");
+                _messageBoxStore.Show("لطفا کتابی را انتخاب کنید", "رزرو کتاب");
                 return;
             }
             #endregion
@@ -74,19 +77,19 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 
                 if (_addediteReserveBookViewModel.SelectedClient.Tier < _addediteReserveBookViewModel.SelectedBook.Tier)
                 {
-                    //MessageBox.Show("فقط کاربران ویژه میتوانند کتاب رزور کنند", "رزرو کتاب");
+                    _messageBoxStore.Show("فقط کاربران ویژه میتوانند کتاب رزور کنند", "رزرو کتاب");
                     return;
                 }
                 List<Loan> UserDilayedLoans = await _loanRepository.UserHaveDilayedLoan(_addediteReserveBookViewModel.SelectedClient.ID);
                 if (!(UserDilayedLoans is null) && UserDilayedLoans.Count() > 0)
                 {
-                    //MessageBox.Show("کاربر امانتی تحویل نداده و با تاخیر دارد", "رزرو کتاب");
+                    _messageBoxStore.Show("کاربر امانتی تحویل نداده و با تاخیر دارد", "رزرو کتاب");
                     return;
                 }
                 ReservedBook UserReservs = await _reservedbooksRepository.UserHaveReservedBook(_addediteReserveBookViewModel.SelectedClient.ID);
                 if (!(UserReservs is null))
                 {
-                    //MessageBox.Show("این کاربر کتابی را از قبل رزرو کرده است", "رزرو کتاب");
+                    _messageBoxStore.Show("این کاربر کتابی را از قبل رزرو کرده است", "رزرو کتاب");
                     return;
                 }
             }
@@ -100,7 +103,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
                 if (!(BookReservs is null))
                 {
 
-                    //MessageBox.Show("کاربری این کتاب را از قبل رزور کرده است", "رزرو کتاب");
+                    _messageBoxStore.Show("کاربری این کتاب را از قبل رزور کرده است", "رزرو کتاب");
                     return;
                 }
 

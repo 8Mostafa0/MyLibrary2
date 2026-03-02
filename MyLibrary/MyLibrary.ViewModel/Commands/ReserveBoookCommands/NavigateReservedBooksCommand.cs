@@ -9,6 +9,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         #region Dependencies
         private BooksStore _booksStore;
         private ClientsStore _clientsStore;
+        private MessageBoxStore _messageBoxStore;
         private NavigationStore _navigationStore;
         private ReservedBooksStore _reservedBooksStore;
         private ModalNavigationStore _modalNavigationStore;
@@ -35,16 +36,17 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             BooksStore booksStore,
             LoanRepository loansRepository,
             ClientsRepository clientsRepository,
-            ReservedBooksRepository reservedBooksRepository
+            ReservedBooksRepository reservedBooksRepository,
+            MessageBoxStore messageBoxStore
             )
         {
             _booksStore = booksStore;
             _clientsStore = clientsStore;
+            _messageBoxStore = messageBoxStore;
             _navigationStore = navigationStore;
             _reservedBooksStore = reservedBooksStore;
             _modalNavigationStore = modalNavigationStore;
-
-            _reservedBooksViewModel = ReservedBooksViewModel.LoadViewModel(_reservedBooksStore, _modalNavigationStore, _clientsStore, _booksStore, loansRepository, clientsRepository, reservedBooksRepository);
+            _reservedBooksViewModel = ReservedBooksViewModel.LoadViewModel(_reservedBooksStore, _modalNavigationStore, _clientsStore, _booksStore, loansRepository, clientsRepository, reservedBooksRepository, _messageBoxStore);
         }
         #endregion
 

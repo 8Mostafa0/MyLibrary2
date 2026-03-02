@@ -14,6 +14,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         private ReservedBooksRepository _reservedBooksRepository;
         private LoanRepository _loanRepository;
         private ClientsRepository _clientsRepository;
+        private MessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -36,7 +37,8 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             BooksStore booksStore,
             LoanRepository loanRepository,
             ReservedBooksRepository reservedBooksRepository,
-            ClientsRepository clientsRepository
+            ClientsRepository clientsRepository,
+            MessageBoxStore messageBoxStore
             )
         {
             _booksStore = booksStore;
@@ -46,6 +48,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             _reservedBooksRepository = reservedBooksRepository;
             _loanRepository = loanRepository;
             _clientsRepository = clientsRepository;
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 
@@ -57,7 +60,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 
         public override void Execute(object parameter)
         {
-            _modalNavigationStore.CurrentViewModel = AddEditeReserveBookViewModel.LoadViewModel(_modalNavigationStore, _reservedBooksStore, _clientsStore, _booksStore, _loanRepository, _reservedBooksRepository, _clientsRepository, null);
+            _modalNavigationStore.CurrentViewModel = AddEditeReserveBookViewModel.LoadViewModel(_modalNavigationStore, _reservedBooksStore, _clientsStore, _booksStore, _loanRepository, _reservedBooksRepository, _clientsRepository, _messageBoxStore, null);
         }
         #endregion
     }

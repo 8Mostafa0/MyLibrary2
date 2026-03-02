@@ -7,8 +7,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Background="#6CA651">
+    <Grid Width="600" Height="400">
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -28,33 +35,151 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0"  Grid.Column="8" Grid.ColumnSpan="3" Grid.RowSpan="8" Background="#839705" CornerRadius="15 0 0 15">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button Margin="10" Grid.Row="1" BorderThickness="0" Content="صفحه اصلی" Background="#6B7445" Command="{Binding NavigateLayoutSettingCommand}"/>
-                <Button Margin="10" Grid.Row="2" BorderThickness="0" Content="امانت" Background="#6B7445" Command="{Binding NavigateLoanSettingsCommand}"/>
-                <Button Margin="10" Grid.Row="3" BorderThickness="0" Content="رمز ورود" Background="#6B7445" Command="{Binding NavigateSecuritySettingsCommand}"/>
-            </Grid>
-        </Border>
-        <ContentControl Grid.Row="0" Grid.RowSpan="8" Grid.Column="0" Grid.ColumnSpan="8" Margin="15"  Content="{Binding CurrentSettingViewModel}"/>
+        <Label Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3"  VerticalAlignment="Stretch" HorizontalAlignment="Right" FontWeight="Bold" Content="{Binding TitleOfLoanScreen}"/>
+        <Grid Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" FlowDirection="RightToLeft">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" Content="نام کتاب"/>
+            <TextBox Grid.Column="1" VerticalAlignment="Center" Text="{Binding BookName}" />
+            <Button Grid.Column="2" Margin="15 0" VerticalAlignment="Center" Content="جستجو" Command="{Binding SearchBookNameCommand}"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3" FlowDirection="RightToLeft">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" HorizontalAlignment="Center"  Content="دسته بندی کتاب"/>
+            <ComboBox Grid.Column="1" VerticalAlignment="Center" SelectedIndex="{Binding BookSubject}">
+                <ComboBoxItem Content="رمان" Tag="رمان"/>
+                <ComboBoxItem Content="قصه" Tag="قصه"/>
+                <ComboBoxItem Content="آموزشی" Tag="آموزشی"/>
+                <ComboBoxItem Content="معمایی" Tag="معمایی"/>
+                <ComboBoxItem Content="خودشناسی" Tag="خودشناسی"/>
+                <ComboBoxItem Content="شکرگذاری" Tag="شکرگذاری"/>
+            </ComboBox>
+            <Button Grid.Column="2" Margin="15 0" VerticalAlignment="Center" Content="مرتب کردن" Command="{Binding OrderBooksBySubjectCommand}"/>
+        </Grid>
+
+        <Grid Grid.Row="9" Grid.Column="6" Grid.ColumnSpan="3" FlowDirection="RightToLeft">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" Content="نام کاربر"/>
+            <TextBox Grid.Column="1" VerticalAlignment="Center" Text="{Binding ClientName}"/>
+            <Button Grid.Column="2" Margin="15 0" VerticalAlignment="Center" Content="جستجو" Command="{Binding SearchClientNameCommand}"/>
+        </Grid>
+
+
+        <Grid Grid.Row="14" Grid.Column="6"  Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="5" VerticalAlignment="Center" Content="ثبت" Command="{Binding SaveReservedBookDataCommand}" />
+            <Button Grid.Column="1" Margin="5" VerticalAlignment="Center" Content="بازگشت" Command="{Binding CloseModalCommand}"/>
+        </Grid>
+        <ListView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="8" Margin="10" FlowDirection="RightToLeft" ItemsSource="{Binding Books}" SelectedItem="{Binding SelectedBook}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" >
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View  >
+                <GridView>
+                    <GridViewColumn Header="آیدی" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock  HorizontalAlignment="Center" Text="{Binding ID}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="نام کتاب" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock  HorizontalAlignment="Center" Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="منتشر کننده" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Publisher}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="نوع کتاب" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Subject}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="درجه" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Tier}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+        <ListView Grid.Row="9" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="6" Margin="5" FlowDirection="RightToLeft" ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" >
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View  >
+                <GridView>
+                    <GridViewColumn Header="آیدی" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock  HorizontalAlignment="Center" Text="{Binding ID}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="نام" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock  HorizontalAlignment="Center" Text="{Binding FirstName}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="فامیلی" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding LastName}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="درجه" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Tier}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </UserControl>

@@ -15,6 +15,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         private ModalNavigationStore _modalNavigationStore;
         private ReservedBooksViewModel _reservedBooksViewModel;
         private ReservedBooksRepository _reservedBooksRepository;
+        private MessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -38,12 +39,14 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             ReservedBooksStore reservedBooksStore,
             ModalNavigationStore modalNavigationStore,
             ReservedBooksViewModel reservedBooksViewModel,
-            ReservedBooksRepository reservedBooksRepository
+            ReservedBooksRepository reservedBooksRepository,
+            MessageBoxStore messageBoxStore
             )
         {
             _booksStore = booksStore;
             _clientsStore = clientsStore;
             _loansRepository = loanRepository;
+            _messageBoxStore = messageBoxStore;
             _clientRepository = clientsRepository;
             _reservedBooksStore = reservedBooksStore;
             _modalNavigationStore = modalNavigationStore;
@@ -61,7 +64,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         {
             if (_reservedBooksViewModel.SelectedReservedBook is null)
             {
-                //MessageBox.Show("لطفا ابتدا نوبتی را برای ویراش انتخاب کنید", "ویرایش رزرو");
+                _messageBoxStore.Show("لطفا ابتدا نوبتی را برای ویراش انتخاب کنید", "ویرایش رزرو");
             }
             else
             {
@@ -73,6 +76,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
                     _loansRepository,
                     _reservedBooksRepository,
                     _clientRepository,
+                    _messageBoxStore,
                     _reservedBooksViewModel.SelectedReservedBook?.ToReservedBook()
                     );
             }
