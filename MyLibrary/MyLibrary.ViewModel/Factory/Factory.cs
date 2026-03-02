@@ -204,7 +204,9 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new TimeStore();
         }
-
-
+        //public static INavigateHomeScreenCommand CreateNavigateHomeScreenCommand()
+        //{
+        //    return new NavigateHomeScreenCommand();
+        //}
     }
 }
