@@ -1,4 +1,4 @@
-﻿using MyLibrary.Model.Repositories;
+﻿using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
@@ -22,11 +22,11 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <param name="loanRepository"></param>
         /// <param name="reservedBooksRepository"></param>
         /// <param name="booksRepository"></param>
-        public NavigateBooksCommand(INavigationStore navigationStore, IBooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository, IMessageBoxStore messageBoxStore)
+        public NavigateBooksCommand()
         {
-            _navigationStore = navigationStore;
-            _booksStore = booksStore;
-            //_booksViewModel = BooksViewModel.LoadViewModel(_booksStore, loanRepository, reservedBooksRepository, booksRepository, messageBoxStore);
+            _navigationStore = ClassFactory.CreateNavigationStore();
+            _booksStore = ClassFactory.CreateBooksStore();
+            _booksViewModel = ClassFactory.CreateBooksViewModel();
 
         }
 
