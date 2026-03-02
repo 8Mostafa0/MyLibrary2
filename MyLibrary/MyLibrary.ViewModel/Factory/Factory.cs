@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Commands;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Factory
@@ -213,5 +214,9 @@ namespace MyLibrary.ViewModel.Factory
         //{
         //    return new LoginModalCommand();
         //}
+
+        //public static ICheckDatabaseCommand CreateCheckDatabaseCommand()
+        //{
+        //    return new CheckDatabaseCommand(dbContextFactory);
+        //}
     }
-}
