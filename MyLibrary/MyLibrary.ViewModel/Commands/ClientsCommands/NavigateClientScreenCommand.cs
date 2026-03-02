@@ -9,7 +9,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         #region Dependencies
         private ClientsStore _clientsStore;
         private NavigationStore _navigationStore;
-        private ClientsViewModel ClientsViewModel;
+        private IClientsViewModel _clientsViewModel;
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         {
             _navigationStore = navigationStore;
             _clientsStore = clientsStore;
-            ClientsViewModel = ClientsViewModel.LoadViewModel(_clientsStore, loanRepository, reservedBooksRepository, messageBoxStore);
+            _clientsViewModel = ClientsViewModel.LoadViewModel(_clientsStore, loanRepository, reservedBooksRepository, messageBoxStore);
         }
         #endregion
 
@@ -38,7 +38,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <param name="parameter">no marametes needed</param>
         public override void Execute(object parameter)
         {
-            _navigationStore.ContentScreen = ClientsViewModel;
+            _navigationStore.ContentScreen = _clientsViewModel;
         }
         #endregion
     }

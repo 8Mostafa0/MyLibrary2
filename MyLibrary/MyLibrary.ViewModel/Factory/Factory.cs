@@ -25,7 +25,10 @@ namespace MyLibrary.ViewModel.Factory
         //{
         //    return new LayoutViewModel();
         //}
-
+        //public static IClientsViewModel CreateClientsViewModel()
+        //{
+        //    return new ClientsViewModel();
+        //}
 
     }
 }
