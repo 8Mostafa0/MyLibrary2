@@ -1,12 +1,12 @@
-﻿using System.Windows.Input;
+﻿using MyLibrary.ViewModel.Commands.LoginCommands;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
     public interface ILoginViewModel : IViewModelBase
     {
-        ICommand CloseAppCommand { get; }
+        ICloseAppCommand CloseAppCommand { get; }
         bool FirstOpen { get; }
-        ICommand LoginCommand { get; }
+        ILoginCommand LoginCommand { get; }
         string Password { get; set; }
         string Title { get; set; }
     }

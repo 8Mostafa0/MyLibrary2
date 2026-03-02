@@ -2,8 +2,6 @@
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
-using System.Windows.Input;
-using System.Windows.Media;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
@@ -27,16 +25,16 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Commands
-        public ICommand CloseAppCommand { get; }
-        public ICommand LoginCommand { get; }
+        public ICloseAppCommand CloseAppCommand { get; }
+        public ILoginCommand LoginCommand { get; }
 
         #endregion
 
         #region Constructor
         public LoginViewModel(IModalNavigationStore modalNavigationStore, DbContextFactory dbContextFactory, ISettingsStore settingsStore, IMessageBoxStore messageBoxStore)
         {
-            CloseAppCommand = ClassFactory.;
-            LoginCommand = new LoginCommand(this, modalNavigationStore, dbContextFactory, settingsStore, messageBoxStore);
+            CloseAppCommand = ClassFactory.CreateCloseAppCommand();
+            LoginCommand = ClassFactory.;
             if (new SettingsStore().GetHashedPassword() == null)
             {
                 FirstOpen = true;

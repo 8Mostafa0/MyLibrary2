@@ -1,4 +1,5 @@
-﻿using MyLibrary.Model.Models;
+﻿using MyLibrary.Model.DbContexts;
+using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Commands;
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Stores;
@@ -200,6 +201,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new CloseAppCommand();
         }
+        public static ILoginCommand CreateLoginCommand()
+        {
+            return new LoginCommand();
+        }
         #endregion
 
         #region Stores
@@ -246,6 +251,13 @@ namespace MyLibrary.ViewModel.Factory
         public static ITimeStore CreateTimeStore()
         {
             return new TimeStore();
+        }
+        #endregion
+
+        #region Repositories
+        public static IDbContextFactory CreateDbContextFactory()
+        {
+            return new DbContextFactory();
         }
         #endregion
     }
