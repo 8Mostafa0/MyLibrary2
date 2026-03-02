@@ -29,7 +29,7 @@ namespace MyLibrary.View
 
             navigationStore.ContentScreen = new HomeViewModel(clientsStore, booksStore, loansStore);
 
-            navigationStore.StatusBarViewModel = Factory.CreateStatusBarViewModel();
+            navigationStore.StatusBarViewModel = ClassFactory.CreateStatusBarViewModel();
 
 
             navigationStore.MainContentViewModel = new NavigationBarViewModel(

@@ -3,6 +3,7 @@ using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Commands.LoansCommands;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
@@ -137,15 +138,15 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #region Contructor
         public AddEditeLoanViewModel(IModalNavigationStore modalNavigationStore, IClientsStore clientsStore, IBooksStore booksStore, LoansStore loanStore, LoanRepository loanRepository, ISettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore, Loan loan = null)
         {
-            _messageBoxStore = messageBoxStore;
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _clients = new ObservableCollection<Client>();
             _books = new ObservableCollection<Book>();
-            _clientsStore = clientsStore;
+            _clientsStore = ClassFactory.CreateClientsStore();
             _clientsStore.ClientsUpdated += OnClientsUpdated;
-            _booksStore = booksStore;
+            _booksStore = ClassFactory.CreateBooksStore();
             _booksStore.BooksUpdated += OnBooksUpdated;
-            _loansStore = loanStore;
-            _modalNavigationStore = modalNavigationStore;
+            _loansStore = ClassFactory.CreateLoansStore();
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
             _loanRepository = loanRepository;
             _settingsStore = settingsStore;
             _booksRepository = booksRepository;
