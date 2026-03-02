@@ -13,7 +13,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         private LoanRepository _loanRepository;
         private IMessageBoxStore _messageBoxStore;
         private ClientsRepository _clientsRepository;
-        private ReservedBooksStore _reservedBookStore;
+        private IReservedBooksStore _reservedBookStore;
         private IModalNavigationStore _modalNavigationStore;
         private ReservedBooksRepository _reservedbooksRepository;
         private IAddEditeReserveBookViewModel _addediteReserveBookViewModel;
@@ -33,7 +33,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         public SaveReservationDataCommand(
             IAddEditeReserveBookViewModel addediteReserveBookViewModel,
             IModalNavigationStore modalNavigationStore,
-            ReservedBooksStore reservedBooksStore,
+            IReservedBooksStore reservedBooksStore,
             LoanRepository loanRepository,
             ReservedBooksRepository reservedBooksRepository,
             ClientsRepository clientsRepository,

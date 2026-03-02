@@ -20,7 +20,7 @@ namespace MyLibrary.View
             IBooksStore booksStore = new BooksStore();
             SettingsStore settingsStore = new SettingsStore();
             LoanRepository loanRepository = new LoanRepository();
-            ReservedBooksStore reservedBooksStore = new ReservedBooksStore();
+            IReservedBooksStore reservedBooksStore = new ReservedBooksStore();
             ReservedBooksRepository reservedBooksRepository = new ReservedBooksRepository();
             BooksRepository booksRepository = new BooksRepository();
             ClientsRepository clientsRepository = new ClientsRepository();

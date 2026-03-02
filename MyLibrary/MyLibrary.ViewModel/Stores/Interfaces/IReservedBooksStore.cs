@@ -9,6 +9,7 @@ namespace MyLibrary.ViewModel.Stores
     {
         IEnumerable<ReservedBook> ReservedBook { get; }
 
+        event Action ReseredBooksUpdated;
         event Action<ReservedBook> ReservBookAdded;
         event Action<ReservedBook> ReservBookDeleted;
         event Action<ReservedBook> ReservBookEdited;

@@ -6,7 +6,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
     public class SearchBookNameInReservedBookCommand : CommandBase
     {
         #region Dependencies
-        private ReservedBooksStore _reservedBooksStore;
+        private IReservedBooksStore _reservedBooksStore;
         private ReservedBooksViewModel _reservedBooksViewModel;
         #endregion
 
@@ -17,7 +17,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// </summary>
         /// <param name="reservedBooksViewModel"></param>
         /// <param name="reservedBooksStore"></param>
-        public SearchBookNameInReservedBookCommand(ReservedBooksViewModel reservedBooksViewModel, ReservedBooksStore reservedBooksStore)
+        public SearchBookNameInReservedBookCommand(ReservedBooksViewModel reservedBooksViewModel, IReservedBooksStore reservedBooksStore)
         {
             _reservedBooksStore = reservedBooksStore;
             _reservedBooksViewModel = reservedBooksViewModel;

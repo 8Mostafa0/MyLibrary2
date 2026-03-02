@@ -14,7 +14,7 @@ namespace MyLibrary.ViewModel.Stores
 
         public IEnumerable<ReservedBook> ReservedBook => _reservedBooks;
         public Lazy<Task> _initilizeLazy;
-        public Action ReseredBooksUpdated;
+        public event Action ReseredBooksUpdated;
         public event Action<ReservedBook> ReservBookAdded;
         public event Action<ReservedBook> ReservBookEdited;
         public event Action<ReservedBook> ReservBookDeleted;

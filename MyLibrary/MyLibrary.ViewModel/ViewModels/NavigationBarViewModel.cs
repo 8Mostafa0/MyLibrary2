@@ -16,7 +16,7 @@ namespace MyLibrary.ViewModel.ViewModels
         #region Dependencies
         private readonly INavigationStore _navigationStore;
         private readonly IModalNavigationStore _modalNavigationStore;
-        private ReservedBooksStore _reservedBooksStore;
+        private IReservedBooksStore _reservedBooksStore;
         private IMessageBoxStore _messageBoxStore;
         private IBooksStore _booksStore;
         private IClientsStore _clientsStore;
@@ -41,7 +41,7 @@ namespace MyLibrary.ViewModel.ViewModels
         #region Constructr
         public NavigationBarViewModel(
             INavigationStore navigationStore,
-            ReservedBooksStore reservedBooksStore,
+            IReservedBooksStore reservedBooksStore,
             IClientsStore clientsStore,
             IBooksStore booksStore,
             ILoansStore loansStore,
