@@ -47,7 +47,7 @@
             <DataTemplate DataType="{x:Type svm:LoanSettingsViewModel}">
                 <sv:LoansSettingsView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type sv:HomeLayoutSettingsView}">
+            <DataTemplate DataType="{x:Type svm:MainLayoutSettingViewModel}">
                 <sv:HomeLayoutSettingsView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type rvm:ReservedBooksViewModel}">
