@@ -36,7 +36,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         public override async void Execute(object parameter)
         {
             LoanViewModel loan = _loanViewModel.SelectedLoan;
-            if (loan == null)
+            if (loan._loan == null || loan == null)
             {
                 _messageBoxStore.Show("لطفا ابتدا ایتمی را انتخاب کنید", "برگشت کتاب");
                 return;
