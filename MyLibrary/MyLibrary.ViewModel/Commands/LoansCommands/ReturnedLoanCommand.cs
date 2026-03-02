@@ -5,7 +5,7 @@ using System;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
-    public class ReturnedLoanCommand : CommandBase
+    public class ReturnedLoanCommand : CommandBase, IReturnedLoanCommand
     {
         #region Dependencies
         private ILoansStore _loansStore;
