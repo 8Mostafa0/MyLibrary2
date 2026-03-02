@@ -1,5 +1,6 @@
 ﻿using MyLibrary.Model.DbContexts;
 using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands;
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Stores;
@@ -257,6 +258,25 @@ namespace MyLibrary.ViewModel.Factory
         public static IDbContextFactory CreateDbContextFactory()
         {
             return new DbContextFactory();
+        }
+
+        public static IBooksRepository CreateBooksRepository()
+        {
+            return new BooksRepository();
+        }
+
+        public static IClientsRepository CreateClientsRepository()
+        {
+            return new ClientsRepository();
+        }
+
+        public static ILoanRepository CreateLoanRepository()
+        {
+            return new LoanRepository();
+        }
+        public static IReservedBooksRepository CreateReservedBooksRepository()
+        {
+            return new ReservedBooksRepository();
         }
         #endregion
     }
