@@ -3,7 +3,7 @@ using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
-    public class OrderBooksByStateCommand : CommandBase
+    public class OrderBooksByStateCommand : CommandBase, IOrderBooksByStateCommand
     {
         #region Dependencies
         private IBooksStore _booksStore;
