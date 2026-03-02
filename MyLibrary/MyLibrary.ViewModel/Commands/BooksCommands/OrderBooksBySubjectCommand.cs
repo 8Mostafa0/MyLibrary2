@@ -2,7 +2,7 @@
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
-    public class OrderBooksBySubjectCommand : CommandBase
+    public class OrderBooksBySubjectCommand : CommandBase, IOrderBooksBySubjectCommand
     {
         #region Dependencies
         private IBooksStore _booksStore;

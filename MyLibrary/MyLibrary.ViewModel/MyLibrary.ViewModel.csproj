@@ -106,7 +106,8 @@
     <Compile Include="Commands\BooksCommands\AddNewBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\DeleteBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\EditBookCommand.cs" />
-    <Compile Include="Commands\BooksCommands\IOrderBooksByStateCommand.cs" />
+    <Compile Include="Commands\BooksCommands\IOrderBooksBySubjectCommand.cs" />
+    <Compile Include="Commands\Interfaces\IBooksCommands\IOrderBooksByStateCommand.cs" />
     <Compile Include="Commands\Interfaces\IBooksCommands\IReloadBooksCommand.cs" />
     <Compile Include="Commands\Interfaces\IBooksCommands\ISearchBookNameCommand.cs" />
     <Compile Include="Commands\BooksCommands\LoadBooksCommand.cs" />
