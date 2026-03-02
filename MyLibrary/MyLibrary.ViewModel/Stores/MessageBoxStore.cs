@@ -5,12 +5,12 @@ using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.Stores
 {
-    public class MessageBoxStore
+    public class MessageBoxStore : IMessageBoxStore
     {
         private IMessageBoxViewModel _messageBoxViewModel;
         public bool IsMessageOpen => _messageBoxViewModel != null;
         public bool MessageBoxResult = false;
-        public Action MessageViewModelChanged;
+        public event Action MessageViewModelChanged;
         public IMessageBoxViewModel MessageBoxViewModel
         {
             get => _messageBoxViewModel;
