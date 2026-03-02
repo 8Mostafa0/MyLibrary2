@@ -7,7 +7,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
     public class SettingsViewModel : ViewModelBase, ISettingsViewModel
     {
         #region Dependencies
-        private SettingNavigationStore _settingNavigationStore;
+        private ISettingNavigationStore _settingNavigationStore;
         private IMessageBoxStore _messageBoxStore;
 
         public IViewModelBase CurrentSettingViewModel => _settingNavigationStore.CurrentSettingViewModel;
@@ -21,7 +21,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #endregion
 
         #region Contructor
-        public SettingsViewModel(SettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
+        public SettingsViewModel(ISettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
             _settingNavigationStore = settingNavigationStore;

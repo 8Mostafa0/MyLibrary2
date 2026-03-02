@@ -59,17 +59,17 @@ namespace MyLibrary.ViewModel.Factory
         //    return ViewModel;
         //}
 
-        //public static ISecuritySettingsViewModel CreateSecuritySettingsViewModel(SettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
+        //public static ISecuritySettingsViewModel CreateSecuritySettingsViewModel(ISettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
         //{
         //    return new SecuritySettingsViewModel(settingNavigationStore, messageBoxStore);
         //}
 
-        //public static IMainLayoutSettingViewModel CreateMainLayoutSettingViewModel(SettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
+        //public static IMainLayoutSettingViewModel CreateMainLayoutSettingViewModel(ISettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
         //{
         //    return new MainLayoutSettingViewModel(settingNavigationStore, messageBoxStore);
         //}
 
-        //public static ILoanSettingsViewModel CreateLoanSettingsViewModel(SettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
+        //public static ILoanSettingsViewModel CreateLoanSettingsViewModel(ISettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
         //{
         //    return new LoanSettingsViewModel(settingNavigationStore, messageBoxStore);
         //}
@@ -192,5 +192,13 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new ReservedBooksStore();
         }
+        public static ISettingNavigationStore CreateSettingNavigationStore()
+        {
+            return new SettingNavigationStore();
+        }
+
+
+
+
     }
 }
