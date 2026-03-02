@@ -8,5 +8,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new StatusBarViewModel();
         }
+
+        //public static INavigationBarViewModel CreateNavigationBarViewModel()
+        //{
+        //    return new NavigationBarViewModel();
+        //}
     }
 }
