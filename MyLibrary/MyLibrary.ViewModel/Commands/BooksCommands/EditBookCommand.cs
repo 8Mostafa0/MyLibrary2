@@ -5,7 +5,7 @@ using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
-    public class EditBookCommand : CommandBase
+    public class EditBookCommand : CommandBase, IEditBookCommand
     {
         #region Dependencies
         private IBooksStore _booksStore;
