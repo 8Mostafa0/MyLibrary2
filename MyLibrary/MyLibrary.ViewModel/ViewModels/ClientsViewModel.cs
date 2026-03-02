@@ -104,7 +104,7 @@ namespace MyLibrary.ViewModel.ViewModels
             DeleteClientCommand = new DeleteClientCommand(this, _clientsStore, loanRepository, reservedBooksRepository, _messageBoxStore);
             AddNewClientCommand = new AddNewClientCommand(this, _clientsStore, _messageBoxStore);
             OrderClientsCommand = new OrderClientsCommand(_clientsStore, this);
-            EditClientCommand = new EditClientCommand(this, _clientsStore);
+            EditClientCommand = new EditClientCommand(this, _clientsStore, _messageBoxStore);
             SortOrder = "0";
             _messageBoxStore = messageBoxStore;
         }
@@ -131,7 +131,10 @@ namespace MyLibrary.ViewModel.ViewModels
             int index = _clients.IndexOf(_clients.FirstOrDefault(c => c.ID == client.ID));
             if (index >= 0)
             {
-                _clients[index] = client;
+                _clients.RemoveAt(index);
+                _clients.Add(client);
+                int newIndex = _clients.IndexOf(_clients.FirstOrDefault(c => c.ID == client.ID));
+                _clients.Move(newIndex, index);
                 _messageBoxStore.Show("کاربر با موفقیت ویرایش شد", "ویرایش کاربر");
             }
         }

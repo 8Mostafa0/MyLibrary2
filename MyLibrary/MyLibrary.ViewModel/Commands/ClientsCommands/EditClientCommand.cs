@@ -9,6 +9,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         #region Dependencies
         private ClientsStore _clientsStore;
         private ClientsViewModel _clientsViewModel;
+        private MessageBoxStore _messageBoxStore;
         #endregion
 
         #region Contructor
@@ -17,10 +18,11 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// </summary>
         /// <param name="clientsViewModel"></param>
         /// <param name="clientsStore"></param>
-        public EditClientCommand(ClientsViewModel clientsViewModel, ClientsStore clientsStore)
+        public EditClientCommand(ClientsViewModel clientsViewModel, ClientsStore clientsStore, MessageBoxStore messageBoxStore)
         {
             _clientsViewModel = clientsViewModel;
             _clientsStore = clientsStore;
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 
@@ -35,17 +37,17 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
             Client client = _clientsViewModel.SelectedClient;
             if (client == null)
             {
-                //MessageBox.Show("لطفا کاربری را برای ویرایش انتخاب کنید", "ویرایش کاربر");
+                _messageBoxStore.Show("لطفا کاربری را برای ویرایش انتخاب کنید", "ویرایش کاربر");
                 return;
             }
             if (string.IsNullOrEmpty(_clientsViewModel.FirstName))
             {
-                //MessageBox.Show("لطفا ابتدا نام را وارد کنید", "ویرایش کاربر");
+                _messageBoxStore.Show("لطفا ابتدا نام را وارد کنید", "ویرایش کاربر");
                 return;
             }
             if (string.IsNullOrEmpty(_clientsViewModel.LastName))
             {
-                //MessageBox.Show("لطفا ابتدا فامیلی را وارد کنید", "ویرایش کاربر");
+                _messageBoxStore.Show("لطفا ابتدا فامیلی را وارد کنید", "ویرایش کاربر");
                 return;
             }
             client.FirstName = _clientsViewModel.FirstName;
