@@ -4,7 +4,7 @@ using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
-    public class NavigateClientScreenCommand : CommandBase
+    public class NavigateClientScreenCommand : CommandBase, INavigateClientScreenCommand
     {
         #region Dependencies
         private IClientsStore _clientsStore;
