@@ -126,6 +126,7 @@
     <Compile Include="Commands\Interfaces\ILoginModalCommand.cs" />
     <Compile Include="Commands\Interfaces\INavigateHomeScreenCommand.cs" />
     <Compile Include="Commands\LoansCommands\CloseModalCommand.cs" />
+    <Compile Include="Commands\Interfaces\ILoansCommands\ISortLoansListCommand.cs" />
     <Compile Include="Commands\LoansCommands\LoadLoansCommand.cs" />
     <Compile Include="Commands\LoansCommands\NavigateLoansCommand.cs" />
     <Compile Include="Commands\LoansCommands\ReloadLoansListCommand.cs" />
