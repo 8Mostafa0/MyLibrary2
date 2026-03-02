@@ -33,7 +33,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Padding="10" Margin="5" Grid.Column="0" Content="{Binding FirstBtText}" Command="{Binding FirstBtCommand}" />
+                <Button Padding="10" Margin="5" Grid.Column="0"  Content="{Binding FirstBtText}" Command="{Binding FirstBtCommand}" />
                 <Button Margin="5" Grid.Column="1" Visibility="{Binding ShowSecondButton}" Content="{Binding SecondBtText}" Command="{Binding SecondBtCommand}" />
             </Grid>
         </StackPanel>

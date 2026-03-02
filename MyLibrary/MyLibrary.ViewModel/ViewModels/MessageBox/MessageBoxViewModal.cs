@@ -70,7 +70,7 @@ namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
             {
                 SecondBtText = secondBtTetxt;
                 SecondBtCommand = new CloseMessageBox(_messageBoxStor);
-                ShowSecondButton = "Visibale";
+                ShowSecondButton = "Visible";
             }
             else
             {
