@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Model.Repositories
 {
-    public class LoanRepository
+    public class LoanRepository : ILoanRepository
     {
         #region Contructor
         private readonly DbContextFactory _dbContextFactory;
