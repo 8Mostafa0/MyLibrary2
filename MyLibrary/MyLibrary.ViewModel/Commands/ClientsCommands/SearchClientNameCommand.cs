@@ -2,7 +2,7 @@
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
-    public class SearchClientNameCommand : CommandBase
+    public class SearchClientNameCommand : CommandBase, ISearchClientNameCommand
     {
         #region Dependencies
         private IClientsStore _clientsStore;
