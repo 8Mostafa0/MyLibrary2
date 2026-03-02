@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.Stores
 {
-    public class SettingsStore
+    public class SettingsStore : ISettingsStore
     {
         #region Dependencies
         private ILogger _logger;
