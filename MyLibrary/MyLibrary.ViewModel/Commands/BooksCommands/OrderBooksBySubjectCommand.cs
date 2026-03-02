@@ -6,6 +6,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     {
         #region Dependencies
         private BooksStore _booksStore;
+        private MessageBoxStore _messageBoxStore;
         #endregion
 
         #region Contructor
@@ -13,9 +14,10 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// Order Book By Entered Subject
         /// </summary>
         /// <param name="booksStore"></param>
-        public OrderBooksBySubjectCommand(BooksStore booksStore)
+        public OrderBooksBySubjectCommand(BooksStore booksStore, MessageBoxStore messageBoxStore)
         {
             _booksStore = booksStore;
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 
@@ -28,7 +30,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         {
             if (_booksStore.SearchSubject < 0)
             {
-                //MessageBox.Show("لطفا ابتدا یک مورد برای ترتیب بندی انتخاب کنید", "ترتیب بندی");
+                _messageBoxStore.Show("لطفا ابتدا یک مورد برای ترتیب بندی انتخاب کنید", "ترتیب بندی");
             }
             string SubjectName = "";
             switch (_booksStore.SearchSubject)

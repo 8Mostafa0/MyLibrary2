@@ -142,9 +142,9 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             CloseModalCommand = new CloseModalCommand(_modalNavigationStore);
             SearchBookNameCommand = new SearchBookNameCommand(_booksStore);
             SearchClientNameCommand = new SearchClientNameCommand(_clientsStore);
-            OrderBooksCommand = new OrderBooksBySubjectCommand(_booksStore);
+            OrderBooksCommand = new OrderBooksBySubjectCommand(_booksStore, _messageBoxStore);
             SaveReservedBookDataCommand = new SaveReservationDataCommand(this, _modalNavigationStore, _reservedBooksStore, loanRepository, reservedBooksRepository, clientsRepository, _messageBoxStore);
-            OrderBooksBySubjectCommand = new OrderBooksBySubjectCommand(_booksStore);
+            OrderBooksBySubjectCommand = new OrderBooksBySubjectCommand(_booksStore, _messageBoxStore);
         }
         #endregion
 

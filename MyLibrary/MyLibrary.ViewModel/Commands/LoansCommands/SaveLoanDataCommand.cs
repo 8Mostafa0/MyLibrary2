@@ -195,7 +195,6 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                //MessageBox.Show(ex.ToString());
             }
         }
         #endregion
