@@ -140,6 +140,7 @@
     <Compile Include="Commands\LoginModalCommand.cs" />
     <Compile Include="Commands\MessageBoxCommands\CloseMessageBox.cs" />
     <Compile Include="Commands\Interfaces\IMessageBoxCommands\IMessageBoxConfrimCommand.cs" />
+    <Compile Include="Commands\Interfaces\IMessageBoxCommands\ICloseMessageBox.cs" />
     <Compile Include="Commands\MessageBoxCommands\MessageBoxConfrimCommand.cs" />
     <Compile Include="Commands\NavigateHomeCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\AddNewReservBookCommand.cs" />

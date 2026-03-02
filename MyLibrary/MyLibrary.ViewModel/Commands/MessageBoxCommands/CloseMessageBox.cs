@@ -2,7 +2,7 @@
 
 namespace MyLibrary.ViewModel.Commands.MessageBoxCommands
 {
-    public class CloseMessageBox : CommandBase
+    public class CloseMessageBox : CommandBase, ICloseMessageBox
     {
         #region Dependencies
         private IMessageBoxStore _messageBoxStore;
