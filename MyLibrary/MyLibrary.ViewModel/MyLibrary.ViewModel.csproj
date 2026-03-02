@@ -152,6 +152,7 @@
     <Compile Include="Commands\SettingsCommands\ChangeLoginPasswordCommand.cs" />
     <Compile Include="Commands\Interfaces\ISetteingsCommands\INavigateToSettingsCommand.cs" />
     <Compile Include="Commands\Interfaces\ISetteingsCommands\INavigateSecuritySettingsCommand.cs" />
+    <Compile Include="Commands\Interfaces\ISetteingsCommands\INavigateLoanSettingsCommand.cs" />
     <Compile Include="Commands\SettingsCommands\NavigateLayoutSettingCommand.cs" />
     <Compile Include="Commands\SettingsCommands\NavigateLoanSettingsCommand.cs" />
     <Compile Include="Commands\SettingsCommands\NavigateSecuritySettingsCommand.cs" />
