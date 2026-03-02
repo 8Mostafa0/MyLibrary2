@@ -117,5 +117,25 @@ namespace MyLibrary.ViewModel.Factory
         //    ViewModel.SelectedReservedBook = reservedBook is null ? new ReservedBook() { ID = 0, BookId = 0, ClientId = 0 } : reservedBook;
         //    return ViewModel;
         //}
+
+
+        /// <summary>
+        /// Loader for oans view model
+        /// </summary>
+        /// <param name="modalNavigationStore"></param>
+        /// <param name="loansStore"></param>
+        /// <param name="clientsStore"></param>
+        /// <param name="booksStore"></param>
+        /// <param name="loanRepository"></param>
+        /// <param name="settingsStore"></param>
+        /// <param name="booksRepository"></param>
+        /// <param name="reservedBooksRepository"></param>
+        /// <returns></returns>
+        //public static LoansViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, LoansStore loansStore, ClientsStore clientsStore, BooksStore booksStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
+        //{
+        //    LoansViewModel viewModel = new LoansViewModel(modalNavigationStore, loansStore, clientsStore, booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, messageBoxStore);
+        //    viewModel.LoadLoansCommand.Execute(null);
+        //    return viewModel;
+        //}
     }
 }
