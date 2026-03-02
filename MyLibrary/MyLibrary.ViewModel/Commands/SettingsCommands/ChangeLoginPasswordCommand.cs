@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MyLibrary.ViewModel.Commands.SettingsCommands
 {
-    public class ChangeLoginPasswordCommand : CommandBase
+    public class ChangeLoginPasswordCommand : CommandBase, IChangeLoginPasswordCommand
     {
         #region Dependencies
         private ISettingsStore _settingsStore;
