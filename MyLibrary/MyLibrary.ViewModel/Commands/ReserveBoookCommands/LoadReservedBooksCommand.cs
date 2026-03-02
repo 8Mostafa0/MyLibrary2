@@ -2,7 +2,7 @@
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
-    public class LoadReservedBooksCommand : CommandBase
+    public class LoadReservedBooksCommand : CommandBase, ILoadReservedBooksCommand
     {
         #region Dependencies
         private IReservedBooksStore _reservedBooksStore;
