@@ -6,7 +6,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
     public class LoanSettingsViewModel : ViewModelBase, ILoanSettingsViewModel
     {
         #region Dependencies
-        private SettingsStore _settingsStore;
+        private ISettingsStore _settingsStore;
         private int _maxBooksCount;
         private IMessageBoxStore _messageBoxStore;
         public string MaxBooksCount

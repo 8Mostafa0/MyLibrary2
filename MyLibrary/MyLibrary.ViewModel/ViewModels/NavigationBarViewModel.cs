@@ -46,7 +46,7 @@ namespace MyLibrary.ViewModel.ViewModels
             IBooksStore booksStore,
             ILoansStore loansStore,
             LoanRepository loanRepository,
-            SettingsStore settingsStore,
+            ISettingsStore settingsStore,
             BooksRepository booksRepository,
             ReservedBooksRepository reservedBooksRepository,
             ClientsRepository clientsRepository,

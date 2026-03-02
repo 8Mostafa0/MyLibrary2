@@ -12,7 +12,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     {
         #region Dependencies
         private readonly ILoansStore _loansStore;
-        private readonly SettingsStore _settingsStore;
+        private readonly ISettingsStore _settingsStore;
         private readonly LoanRepository _loanRepository;
         private readonly BooksRepository _bookRepository;
         private readonly IModalNavigationStore _modalNavigationStore;
@@ -33,7 +33,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="settingsStore"></param>
         /// <param name="booksRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public SaveLoanDataCommand(AddEditeLoanViewModel addEditeLoanViewModel, ILoansStore loansStore, IModalNavigationStore modalNavigationStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
+        public SaveLoanDataCommand(AddEditeLoanViewModel addEditeLoanViewModel, ILoansStore loansStore, IModalNavigationStore modalNavigationStore, LoanRepository loanRepository, ISettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
             _loansStore = loansStore;

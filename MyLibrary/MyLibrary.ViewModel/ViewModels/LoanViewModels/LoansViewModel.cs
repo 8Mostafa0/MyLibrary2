@@ -19,7 +19,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         private IClientsStore _clientsStore;
         private IBooksStore _booksStore;
         private LoanRepository _loanRepository;
-        private SettingsStore _settingsStore;
+        private ISettingsStore _settingsStore;
         private BooksRepository _booksRepository;
         private ReservedBooksRepository _reservedBooksRepository;
         private IMessageBoxStore _messageBoxStore;
@@ -71,7 +71,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #endregion
 
         #region Constructor
-        public LoansViewModel(IModalNavigationStore modalNavigationStore, ILoansStore loansStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
+        public LoansViewModel(IModalNavigationStore modalNavigationStore, ILoansStore loansStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, ISettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
             _modalNavigationStore = modalNavigationStore;

@@ -18,7 +18,7 @@ namespace MyLibrary.View
             IClientsStore clientsStore = new ClientsStore();
             ILoansStore loansStore = new LoansStore();
             IBooksStore booksStore = new BooksStore();
-            SettingsStore settingsStore = new SettingsStore();
+            ISettingsStore settingsStore = new SettingsStore();
             LoanRepository loanRepository = new LoanRepository();
             IReservedBooksStore reservedBooksStore = new ReservedBooksStore();
             ReservedBooksRepository reservedBooksRepository = new ReservedBooksRepository();

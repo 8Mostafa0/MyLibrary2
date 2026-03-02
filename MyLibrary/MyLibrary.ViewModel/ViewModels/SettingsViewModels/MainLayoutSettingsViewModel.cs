@@ -6,7 +6,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
     public class MainLayoutSettingViewModel : ViewModelBase, IMainLayoutSettingViewModel
     {
         #region Dependencies
-        private SettingsStore _settingStore;
+        private ISettingsStore _settingStore;
         private bool _booksCount;
         public bool BooksCount
         {
