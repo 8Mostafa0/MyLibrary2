@@ -116,6 +116,7 @@
     <Compile Include="Commands\ClientsCommands\AddNewClientCommand.cs" />
     <Compile Include="Commands\ClientsCommands\DeleteClientCommand.cs" />
     <Compile Include="Commands\ClientsCommands\EditClientCommand.cs" />
+    <Compile Include="Commands\Interfaces\IClientsCommands\IReloadClientsCommand.cs" />
     <Compile Include="Commands\Interfaces\IClientsCommands\ISearchClientNameCommand.cs" />
     <Compile Include="Commands\ClientsCommands\LoadClientsCommand.cs" />
     <Compile Include="Commands\ClientsCommands\NavigateClientScreenCommand.cs" />

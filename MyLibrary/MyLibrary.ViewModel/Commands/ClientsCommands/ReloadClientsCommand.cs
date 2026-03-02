@@ -3,7 +3,7 @@ using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
-    public class ReloadClientsCommand : CommandBase
+    public class ReloadClientsCommand : CommandBase, IReloadClientsCommand
     {
         #region Dependencies
         private readonly IClientsStore _clientsStore;
