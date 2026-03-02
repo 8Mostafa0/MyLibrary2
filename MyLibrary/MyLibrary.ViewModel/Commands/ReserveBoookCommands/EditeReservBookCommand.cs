@@ -68,17 +68,17 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             }
             else
             {
-                _modalNavigationStore.CurrentViewModel = AddEditeReserveBookViewModel.LoadViewModel(
-                    _modalNavigationStore,
-                    _reservedBooksStore,
-                    _clientsStore,
-                    _booksStore,
-                    _loansRepository,
-                    _reservedBooksRepository,
-                    _clientRepository,
-                    _messageBoxStore,
-                    _reservedBooksViewModel.SelectedReservedBook?.ToReservedBook()
-                    );
+                //_modalNavigationStore.CurrentViewModel = AddEditeReserveBookViewModel.LoadViewModel(
+                //    _modalNavigationStore,
+                //    _reservedBooksStore,
+                //    _clientsStore,
+                //    _booksStore,
+                //    _loansRepository,
+                //    _reservedBooksRepository,
+                //    _clientRepository,
+                //    _messageBoxStore,
+                //    _reservedBooksViewModel.SelectedReservedBook?.ToReservedBook()
+                //    );
             }
         }
         #endregion

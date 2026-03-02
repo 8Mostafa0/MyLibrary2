@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 {
-    public class AddEditeReserveBookViewModel : ViewModelBase
+    public class AddEditeReserveBookViewModel : ViewModelBase, IAddEditeReserveBookViewModel
     {
         #region Dependencies
         private ModalNavigationStore _modalNavigationStore;
@@ -185,26 +185,6 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
                 Client client = _clients.SingleOrDefault(c => c.ID == _selectedReservedBook.ClientId);
                 _selectedClient = client;
             }
-        }
-        /// <summary>
-        /// Loader for add edite reservedbook view model
-        /// </summary>
-        /// <param name="modalNavigationStore"></param>
-        /// <param name="reservedBooksStore"></param>
-        /// <param name="clientsStore"></param>
-        /// <param name="booksStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
-        /// <param name="clientsRepository"></param>
-        /// <param name="reservedBook"></param>
-        /// <returns></returns>
-        public static AddEditeReserveBookViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, ReservedBooksStore reservedBooksStore, ClientsStore clientsStore, BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, ClientsRepository clientsRepository, MessageBoxStore messageBoxStore, ReservedBook reservedBook = null)
-        {
-            AddEditeReserveBookViewModel ViewModel = new AddEditeReserveBookViewModel(modalNavigationStore, reservedBooksStore, clientsStore, booksStore, loanRepository, reservedBooksRepository, clientsRepository, messageBoxStore, reservedBook);
-            ViewModel.LoadBooksCommand.Execute(null);
-            ViewModel.LoadClientsCommand.Execute(null);
-            ViewModel.SelectedReservedBook = reservedBook is null ? new ReservedBook() { ID = 0, BookId = 0, ClientId = 0 } : reservedBook;
-            return ViewModel;
         }
         #endregion
 

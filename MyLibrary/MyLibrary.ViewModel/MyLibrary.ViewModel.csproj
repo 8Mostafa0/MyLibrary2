@@ -186,7 +186,8 @@
     <Compile Include="ViewModels\ModelsViewModels\ReservedBookViewModel.cs" />
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
     <Compile Include="ViewModels\ReservedBooksViewModels\AddEditReserveBookViewModel.cs" />
-    <Compile Include="ViewModels\ReservedBooksViewModels\IReservedBooksViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IReservedBooksViewModels\IReservedBooksViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IReservedBooksViewModels\IAddEditeReserveBookViewModel.cs" />
     <Compile Include="ViewModels\ReservedBooksViewModels\ReservedBooksViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\ISettingsViewModels\ILoanSettingsViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\ISettingsViewModels\IMainLayoutSettingViewModel.cs" />
@@ -209,9 +210,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Interfaces\IReservedBooksViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\MyLibrary.View\packages\Serilog.4.3.1\build\Serilog.targets" Condition="Exists('..\MyLibrary.View\packages\Serilog.4.3.1\build\Serilog.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
@@ -60,7 +59,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 
         public override void Execute(object parameter)
         {
-            _modalNavigationStore.CurrentViewModel = AddEditeReserveBookViewModel.LoadViewModel(_modalNavigationStore, _reservedBooksStore, _clientsStore, _booksStore, _loanRepository, _reservedBooksRepository, _clientsRepository, _messageBoxStore, null);
+            //_modalNavigationStore.CurrentViewModel = AddEditeReserveBookViewModel.LoadViewModel(_modalNavigationStore, _reservedBooksStore, _clientsStore, _booksStore, _loanRepository, _reservedBooksRepository, _clientsRepository, _messageBoxStore, null);
         }
         #endregion
     }
