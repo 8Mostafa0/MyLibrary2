@@ -2,6 +2,7 @@
 using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands;
+using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
@@ -204,6 +205,10 @@ namespace MyLibrary.ViewModel.Factory
         public static ILoginCommand CreateLoginCommand()
         {
             return new LoginCommand();
+        }
+        public static INavigateClientScreenCommand CreateNavigateClientScreenCommand()
+        {
+            return new NavigateClientScreenCommand();
         }
         #endregion
 

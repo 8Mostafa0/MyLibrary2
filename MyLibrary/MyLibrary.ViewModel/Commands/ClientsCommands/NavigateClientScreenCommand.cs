@@ -1,4 +1,4 @@
-﻿using MyLibrary.Model.Repositories;
+﻿using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
@@ -21,11 +21,11 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <param name="clientsStore"></param>
         /// <param name="loanRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public NavigateClientScreenCommand(INavigationStore navigationStore, IClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
+        public NavigateClientScreenCommand()
         {
-            _navigationStore = navigationStore;
-            _clientsStore = clientsStore;
-            //_clientsViewModel = ClientsViewModel.LoadViewModel(_clientsStore, loanRepository, reservedBooksRepository, messageBoxStore);
+            _navigationStore = ClassFactory.CreateNavigationStore();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _clientsViewModel = ClassFactory.CreateClientsViewModel();
         }
         #endregion
 

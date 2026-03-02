@@ -1,5 +1,4 @@
-﻿using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Commands;
+﻿using MyLibrary.ViewModel.Commands;
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Commands.LoansCommands;
@@ -28,7 +27,7 @@ namespace MyLibrary.ViewModel.ViewModels
         public INavigateHomeScreenCommand NavigateHomeCommand { get; }
         public ICommand DatabaseCommand { get; }
 
-        public ICommand ClientsCreenCommand { get; }
+        public INavigateClientScreenCommand ClientsCreenCommand { get; }
 
         public ICommand NavigateBooksCommand { get; }
 
@@ -40,30 +39,18 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructr
-        public NavigationBarViewModel(
-            INavigationStore navigationStore,
-            IReservedBooksStore reservedBooksStore,
-            IClientsStore clientsStore,
-            IBooksStore booksStore,
-            ILoansStore loansStore,
-            LoanRepository loanRepository,
-            ISettingsStore settingsStore,
-            BooksRepository booksRepository,
-            ReservedBooksRepository reservedBooksRepository,
-            ClientsRepository clientsRepository,
-            IMessageBoxStore messageBoxStore,
-            IModalNavigationStore modalNavigationStore
-            )
+        public NavigationBarViewModel()
         {
-            _navigationStore = navigationStore;
-            _reservedBooksStore = reservedBooksStore;
-            _clientsStore = clientsStore;
-            _booksStore = booksStore;
-            _loansStore = loansStore;
-            _messageBoxStore = messageBoxStore;
-            _modalNavigationStore = modalNavigationStore;
+            _navigationStore = ClassFactory.CreateNavigationStore();
+            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _booksStore = ClassFactory.CreateBooksStore();
+            _loansStore = ClassFactory.CreateLoansStore();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
             NavigateHomeCommand = ClassFactory.CreateNavigateHomeScreenCommand();
             NavigateHomeCommand.Execute(null);
+            ClientsCreenCommand = ClassFactory.CreateNavigateClientScreenCommand();
             ClientsCreenCommand = new NavigateClientScreenCommand(_navigationStore, _clientsStore, loanRepository, reservedBooksRepository, _messageBoxStore);
             NavigateBooksCommand = new NavigateBooksCommand(_navigationStore, _booksStore, loanRepository, reservedBooksRepository, booksRepository, _messageBoxStore);
             NavigateLoansCommand = new NavigateLoansCommand(_navigationStore, _modalNavigationStore, _loansStore, _clientsStore, _booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, _messageBoxStore);
