@@ -208,5 +208,10 @@ namespace MyLibrary.ViewModel.Factory
         //{
         //    return new NavigateHomeScreenCommand();
         //}
+
+        //public static ILoginModalCommand CreateLoginModalCommand()
+        //{
+        //    return new LoginModalCommand();
+        //}
     }
 }
