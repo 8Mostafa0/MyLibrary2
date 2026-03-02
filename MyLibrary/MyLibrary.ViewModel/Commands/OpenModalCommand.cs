@@ -4,7 +4,7 @@ using System;
 
 namespace MyLibrary.ViewModel.Commands
 {
-    public class OpenModalCommand : CommandBase
+    public class OpenModalCommand : CommandBase, IOpenModalCommand
     {
         #region Dependencies
         private Func<IViewModelBase> _createViewModel;
