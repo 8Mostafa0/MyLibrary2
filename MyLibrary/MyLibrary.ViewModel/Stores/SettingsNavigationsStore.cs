@@ -3,7 +3,7 @@ using System;
 
 namespace MyLibrary.ViewModel.Stores
 {
-    public class SettingNavigationStore
+    public class SettingNavigationStore : ISettingNavigationStore
     {
         #region Dependencies
         public event Action SettingViewModelChanged;
