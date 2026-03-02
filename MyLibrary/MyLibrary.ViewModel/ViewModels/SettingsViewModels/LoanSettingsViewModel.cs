@@ -8,7 +8,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #region Dependencies
         private SettingsStore _settingsStore;
         private int _maxBooksCount;
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         public string MaxBooksCount
         {
             get => _maxBooksCount.ToString();
@@ -43,7 +43,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #endregion
 
         #region Constructor
-        public LoanSettingsViewModel(MessageBoxStore messageBoxStore)
+        public LoanSettingsViewModel(IMessageBoxStore messageBoxStore)
         {
             _settingsStore = new SettingsStore();
             Dictionary<string, int> setting = _settingsStore.GetLoansSetting();

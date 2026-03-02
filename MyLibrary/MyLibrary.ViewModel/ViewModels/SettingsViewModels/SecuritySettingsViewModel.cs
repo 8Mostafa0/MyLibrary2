@@ -8,7 +8,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
     public class SecuritySettingsViewModel : ViewModelBase, ISecuritySettingsViewModel
     {
         #region Dependencies
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         private string _password;
         public string Password
         {
@@ -36,7 +36,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #endregion
 
         #region Contructor
-        public SecuritySettingsViewModel(SettingNavigationStore settingNavigationStore, MessageBoxStore messageBoxStore)
+        public SecuritySettingsViewModel(SettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
         {
             _settingsStore = new SettingsStore();
             _settingNavigationStore = settingNavigationStore;

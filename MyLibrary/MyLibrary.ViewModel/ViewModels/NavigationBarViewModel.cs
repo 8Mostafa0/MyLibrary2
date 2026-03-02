@@ -17,7 +17,7 @@ namespace MyLibrary.ViewModel.ViewModels
         private readonly NavigationStore _navigationStore;
         private readonly ModalNavigationStore _modalNavigationStore;
         private ReservedBooksStore _reservedBooksStore;
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         private IBooksStore _booksStore;
         private IClientsStore _clientsStore;
         private ILoansStore _loansStore;
@@ -50,7 +50,7 @@ namespace MyLibrary.ViewModel.ViewModels
             BooksRepository booksRepository,
             ReservedBooksRepository reservedBooksRepository,
             ClientsRepository clientsRepository,
-            MessageBoxStore messageBoxStore,
+            IMessageBoxStore messageBoxStore,
             ModalNavigationStore modalNavigationStore
             )
         {

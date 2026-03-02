@@ -13,7 +13,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         private ReservedBooksRepository _reservedBooksRepository;
         private LoanRepository _loanRepository;
         private ClientsRepository _clientsRepository;
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -37,7 +37,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             LoanRepository loanRepository,
             ReservedBooksRepository reservedBooksRepository,
             ClientsRepository clientsRepository,
-            MessageBoxStore messageBoxStore
+            IMessageBoxStore messageBoxStore
             )
         {
             _booksStore = booksStore;

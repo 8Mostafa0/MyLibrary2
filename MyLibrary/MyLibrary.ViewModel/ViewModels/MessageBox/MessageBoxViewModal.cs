@@ -11,7 +11,7 @@ namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
         private string _caption;
         private string _firstBtText;
         private string _secondBtText;
-        private MessageBoxStore _messageBoxStor;
+        private IMessageBoxStore _messageBoxStor;
         public string Title
         {
             get => _title;
@@ -51,7 +51,7 @@ namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
         public ICommand SecondBtCommand { get; }
         #endregion
         #region Constructor
-        public MessageBoxViewModel(MessageBoxStore messageBoxStore, string title, string caption, string firstBtText = null, string secondBtTetxt = null, ICommand command = null)
+        public MessageBoxViewModel(IMessageBoxStore messageBoxStore, string title, string caption, string firstBtText = null, string secondBtTetxt = null, ICommand command = null)
         {
             _messageBoxStor = messageBoxStore;
             Title = title;

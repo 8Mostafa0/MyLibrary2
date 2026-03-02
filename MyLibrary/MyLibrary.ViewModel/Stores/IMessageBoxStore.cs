@@ -7,6 +7,7 @@ namespace MyLibrary.ViewModel.Stores
 {
     public interface IMessageBoxStore
     {
+        bool MessageBoxResult { get; set; }
         bool IsMessageOpen { get; }
         IMessageBoxViewModel MessageBoxViewModel { get; set; }
 

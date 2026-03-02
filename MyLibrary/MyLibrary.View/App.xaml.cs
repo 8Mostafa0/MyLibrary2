@@ -24,7 +24,7 @@ namespace MyLibrary.View
             ReservedBooksRepository reservedBooksRepository = new ReservedBooksRepository();
             BooksRepository booksRepository = new BooksRepository();
             ClientsRepository clientsRepository = new ClientsRepository();
-            MessageBoxStore messageBoxStore = new MessageBoxStore();
+            IMessageBoxStore messageBoxStore = new MessageBoxStore();
             ModalNavigationStore modalNavigationStore = new ModalNavigationStore();
 
             navigationStore.ContentScreen = new HomeViewModel(clientsStore, booksStore, loansStore);

@@ -59,17 +59,17 @@ namespace MyLibrary.ViewModel.Factory
         //    return ViewModel;
         //}
 
-        //public static ISecuritySettingsViewModel CreateSecuritySettingsViewModel(SettingNavigationStore settingNavigationStore, MessageBoxStore messageBoxStore)
+        //public static ISecuritySettingsViewModel CreateSecuritySettingsViewModel(SettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
         //{
         //    return new SecuritySettingsViewModel(settingNavigationStore, messageBoxStore);
         //}
 
-        //public static IMainLayoutSettingViewModel CreateMainLayoutSettingViewModel(SettingNavigationStore settingNavigationStore, MessageBoxStore messageBoxStore)
+        //public static IMainLayoutSettingViewModel CreateMainLayoutSettingViewModel(SettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
         //{
         //    return new MainLayoutSettingViewModel(settingNavigationStore, messageBoxStore);
         //}
 
-        //public static ILoanSettingsViewModel CreateLoanSettingsViewModel(SettingNavigationStore settingNavigationStore, MessageBoxStore messageBoxStore)
+        //public static ILoanSettingsViewModel CreateLoanSettingsViewModel(SettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
         //{
         //    return new LoanSettingsViewModel(settingNavigationStore, messageBoxStore);
         //}
@@ -89,7 +89,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <param name="clientsRepository"></param>
         /// <param name="reservedBooksRepository"></param>
         /// <returns></returns>
-        //public static ReservedBooksViewModel LoadViewModel(ReservedBooksStore reservedBooksStore, ModalNavigationStore modalNavigationStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loansRepository, ClientsRepository clientsRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
+        //public static ReservedBooksViewModel LoadViewModel(ReservedBooksStore reservedBooksStore, ModalNavigationStore modalNavigationStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loansRepository, ClientsRepository clientsRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
         //{
         //    ReservedBooksViewModel ViewModel = new ReservedBooksViewModel(reservedBooksStore, modalNavigationStore, clientsStore, booksStore, loansRepository, clientsRepository, reservedBooksRepository, messageBoxStore);
         //    ViewModel.LoadReservedBooksCommand.Execute(null);
@@ -110,7 +110,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <param name="clientsRepository"></param>
         /// <param name="reservedBook"></param>
         /// <returns></returns>
-        //public static AddEditeReserveBookViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, ReservedBooksStore reservedBooksStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, ClientsRepository clientsRepository, MessageBoxStore messageBoxStore, ReservedBook reservedBook = null)
+        //public static AddEditeReserveBookViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, ReservedBooksStore reservedBooksStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, ClientsRepository clientsRepository, IMessageBoxStore messageBoxStore, ReservedBook reservedBook = null)
         //{
         //    AddEditeReserveBookViewModel ViewModel = new AddEditeReserveBookViewModel(modalNavigationStore, reservedBooksStore, clientsStore, booksStore, loanRepository, reservedBooksRepository, clientsRepository, messageBoxStore, reservedBook);
         //    ViewModel.LoadBooksCommand.Execute(null);
@@ -132,7 +132,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <param name="booksRepository"></param>
         /// <param name="reservedBooksRepository"></param>
         /// <returns></returns>
-        //public static LoansViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, ILoansStore loansStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
+        //public static LoansViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, ILoansStore loansStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
         //{
         //    LoansViewModel viewModel = new LoansViewModel(modalNavigationStore, loansStore, clientsStore, booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, messageBoxStore);
         //    viewModel.LoadLoansCommand.Execute(null);
@@ -154,7 +154,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <param name="reservedBooksRepository"></param>
         /// <param name="loan"></param>
         /// <returns></returns>
-        //public static AddEditeLoanViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, IBooksStore booksStore, IClientsStore clientsStore, ILoansStore loansStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore, Loan loan = null)
+        //public static AddEditeLoanViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, IBooksStore booksStore, IClientsStore clientsStore, ILoansStore loansStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore, Loan loan = null)
         //{
         //    AddEditeLoanViewModel ViewModel = new AddEditeLoanViewModel(modalNavigationStore, clientsStore, booksStore, loansStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, messageBoxStore, loan);
         //    ViewModel.LoadBooksCommand.Execute(null);

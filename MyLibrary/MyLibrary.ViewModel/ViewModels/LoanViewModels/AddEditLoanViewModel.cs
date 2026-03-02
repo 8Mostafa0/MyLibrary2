@@ -29,7 +29,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         private SettingsStore _settingsStore;
         private BooksRepository _booksRepository;
         private ReservedBooksRepository _reservedBooksRepository;
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         private string _titleOfLoanScreen;
 
         public Loan SelectedLoan
@@ -135,7 +135,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #endregion
 
         #region Contructor
-        public AddEditeLoanViewModel(ModalNavigationStore modalNavigationStore, IClientsStore clientsStore, IBooksStore booksStore, LoansStore loanStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore, Loan loan = null)
+        public AddEditeLoanViewModel(ModalNavigationStore modalNavigationStore, IClientsStore clientsStore, IBooksStore booksStore, LoansStore loanStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore, Loan loan = null)
         {
             _messageBoxStore = messageBoxStore;
             _clients = new ObservableCollection<Client>();

@@ -15,7 +15,7 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         /// set current view of setting navigation to security (change password view) view
         /// </summary>
         /// <param name="settingNavigationStore"></param>
-        public NavigateSecuritySettingsCommand(SettingNavigationStore settingNavigationStore, MessageBoxStore messageBoxStore)
+        public NavigateSecuritySettingsCommand(SettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
         {
             _settingNavigationStore = settingNavigationStore;
             _securitySettingsViewModel = new SecuritySettingsViewModel(_settingNavigationStore, messageBoxStore);

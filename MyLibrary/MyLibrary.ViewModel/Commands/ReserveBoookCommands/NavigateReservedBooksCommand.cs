@@ -9,7 +9,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         #region Dependencies
         private IBooksStore _booksStore;
         private IClientsStore _clientsStore;
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         private NavigationStore _navigationStore;
         private ReservedBooksStore _reservedBooksStore;
         private ModalNavigationStore _modalNavigationStore;
@@ -37,7 +37,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             LoanRepository loansRepository,
             ClientsRepository clientsRepository,
             ReservedBooksRepository reservedBooksRepository,
-            MessageBoxStore messageBoxStore
+            IMessageBoxStore messageBoxStore
             )
         {
             _booksStore = booksStore;

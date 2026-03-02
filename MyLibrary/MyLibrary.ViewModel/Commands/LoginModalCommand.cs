@@ -19,7 +19,7 @@ namespace MyLibrary.ViewModel.Commands
         /// <param name="loanRepository"></param>
         /// <param name="dbContextFactory"></param>
         /// <param name="settingsStores"></param>
-        public LoginModalCommand(ModalNavigationStore modalNavigationStore, DbContextFactory dbContextFactory, SettingsStore settingsStore, MessageBoxStore messageBoxStore)
+        public LoginModalCommand(ModalNavigationStore modalNavigationStore, DbContextFactory dbContextFactory, SettingsStore settingsStore, IMessageBoxStore messageBoxStore)
         {
             _modalNavigationStore = modalNavigationStore;
             _loginViewModel = new LoginViewModel(_modalNavigationStore, dbContextFactory, settingsStore, messageBoxStore);

@@ -6,7 +6,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     {
         #region Dependencies
         private IBooksStore _booksStore;
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         #endregion
 
         #region Contructor
@@ -14,7 +14,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// Order Book By Entered Subject
         /// </summary>
         /// <param name="booksStore"></param>
-        public OrderBooksBySubjectCommand(IBooksStore booksStore, MessageBoxStore messageBoxStore)
+        public OrderBooksBySubjectCommand(IBooksStore booksStore, IMessageBoxStore messageBoxStore)
         {
             _booksStore = booksStore;
             _messageBoxStore = messageBoxStore;

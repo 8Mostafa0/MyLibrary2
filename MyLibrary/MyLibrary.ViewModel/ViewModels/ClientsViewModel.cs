@@ -19,7 +19,7 @@ namespace MyLibrary.ViewModel.ViewModels
 
         private Client _selectedClient;
 
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         public bool IsMessageBoxOpen => _messageBoxStore.IsMessageOpen;
         public IViewModelBase CurrentMessageBox => _messageBoxStore.MessageBoxViewModel;
         public Client SelectedClient
@@ -89,7 +89,7 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public ClientsViewModel(IClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
+        public ClientsViewModel(IClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
             _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;

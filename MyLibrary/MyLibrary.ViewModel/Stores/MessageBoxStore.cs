@@ -9,7 +9,10 @@ namespace MyLibrary.ViewModel.Stores
     {
         private IMessageBoxViewModel _messageBoxViewModel;
         public bool IsMessageOpen => _messageBoxViewModel != null;
-        public bool MessageBoxResult = false;
+        public bool MessageBoxResult
+        {
+            get; set;
+        }
         public event Action MessageViewModelChanged;
         public IMessageBoxViewModel MessageBoxViewModel
         {
@@ -21,6 +24,8 @@ namespace MyLibrary.ViewModel.Stores
                 OnMessageBoxViewChanged();
             }
         }
+
+
         public IViewModelBase Show(string title, string caption, string firstBtText = null, string secondBtText = null, ICommand command = null)
         {
             MessageBoxViewModel = new MessageBoxViewModel(this, title, caption, firstBtText, secondBtText, command);

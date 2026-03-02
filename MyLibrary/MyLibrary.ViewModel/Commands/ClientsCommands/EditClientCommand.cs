@@ -9,7 +9,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         #region Dependencies
         private IClientsStore _clientsStore;
         private IClientsViewModel _clientsViewModel;
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         #endregion
 
         #region Contructor
@@ -18,7 +18,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// </summary>
         /// <param name="clientsViewModel"></param>
         /// <param name="clientsStore"></param>
-        public EditClientCommand(IClientsViewModel clientsViewModel, IClientsStore clientsStore, MessageBoxStore messageBoxStore)
+        public EditClientCommand(IClientsViewModel clientsViewModel, IClientsStore clientsStore, IMessageBoxStore messageBoxStore)
         {
             _clientsViewModel = clientsViewModel;
             _clientsStore = clientsStore;

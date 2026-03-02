@@ -6,13 +6,13 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
     public class CloseAppCommand : CommandBase
     {
         #region Dependencies
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         #endregion
 
         #region Contructor
         /// <summary>
         /// </summary>
-        public CloseAppCommand(MessageBoxStore messageBoxStore)
+        public CloseAppCommand(IMessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
         }

@@ -11,7 +11,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         private IBooksStore _booksStore;
         private IBooksViewModel _booksViewModel;
         private BooksRepository _booksRepository;
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -22,7 +22,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <param name="booksViewModel"></param>
         /// <param name="booksStore"></param>
         /// <param name="booksRepository"></param>
-        public EditBookCommand(IBooksViewModel booksViewModel, IBooksStore booksStore, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
+        public EditBookCommand(IBooksViewModel booksViewModel, IBooksStore booksStore, BooksRepository booksRepository, IMessageBoxStore messageBoxStore)
         {
             _booksStore = booksStore;
             _booksViewModel = booksViewModel;

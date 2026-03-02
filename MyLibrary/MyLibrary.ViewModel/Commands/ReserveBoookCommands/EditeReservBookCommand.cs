@@ -15,7 +15,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         private ModalNavigationStore _modalNavigationStore;
         private ReservedBooksViewModel _reservedBooksViewModel;
         private ReservedBooksRepository _reservedBooksRepository;
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -40,7 +40,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             ModalNavigationStore modalNavigationStore,
             ReservedBooksViewModel reservedBooksViewModel,
             ReservedBooksRepository reservedBooksRepository,
-            MessageBoxStore messageBoxStore
+            IMessageBoxStore messageBoxStore
             )
         {
             _booksStore = booksStore;

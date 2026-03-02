@@ -8,7 +8,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         #region Dependencies
         private ReservedBooksStore _reservedBooksStore;
         private ReservedBooksViewModel _reservedBooksViewModel;
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         #endregion
 
         #region Contructor
@@ -17,7 +17,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// </summary>
         /// <param name="reservedBooksViewModel"></param>
         /// <param name="reservedBooksStore"></param>
-        public RemoveReservBookCommand(ReservedBooksViewModel reservedBooksViewModel, ReservedBooksStore reservedBooksStore, MessageBoxStore messageBoxStore)
+        public RemoveReservBookCommand(ReservedBooksViewModel reservedBooksViewModel, ReservedBooksStore reservedBooksStore, IMessageBoxStore messageBoxStore)
         {
             _reservedBooksStore = reservedBooksStore;
             _reservedBooksViewModel = reservedBooksViewModel;

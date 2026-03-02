@@ -7,7 +7,7 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
     {
         #region Dependencies
         private SettingNavigationStore _navigationStore;
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         private ILoanSettingsViewModel _loanSettingsViewModel;
         #endregion
 
@@ -16,7 +16,7 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         /// set current view model of setting navigation to loan loan settings
         /// </summary>
         /// <param name="navigationStore"></param>
-        public NavigateLoanSettingsCommand(SettingNavigationStore navigationStore, MessageBoxStore messageBoxStore)
+        public NavigateLoanSettingsCommand(SettingNavigationStore navigationStore, IMessageBoxStore messageBoxStore)
         {
             _navigationStore = navigationStore;
             _messageBoxStore = messageBoxStore;

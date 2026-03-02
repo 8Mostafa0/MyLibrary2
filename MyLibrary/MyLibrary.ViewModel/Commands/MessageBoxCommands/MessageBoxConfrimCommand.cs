@@ -6,11 +6,11 @@ namespace MyLibrary.ViewModel.Commands.MessageBoxCommands
     internal class MessageBoxConfrimCommand : CommandBase
     {
         #region Dependencies
-        private MessageBoxStore _messageBoxStore;
+        private IMessageBoxStore _messageBoxStore;
         private ICommand _customCommand;
         #endregion
         #region Constructor
-        public MessageBoxConfrimCommand(MessageBoxStore messageBoxStore, ICommand customCommand = null)
+        public MessageBoxConfrimCommand(IMessageBoxStore messageBoxStore, ICommand customCommand = null)
         {
             _messageBoxStore = messageBoxStore;
             _customCommand = customCommand;
