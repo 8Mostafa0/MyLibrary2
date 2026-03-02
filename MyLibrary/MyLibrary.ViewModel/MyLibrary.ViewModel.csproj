@@ -181,6 +181,7 @@
     <Compile Include="ViewModels\LoanViewModels\LoansViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IMessageBox\IMessageBoxViewModel.cs" />
     <Compile Include="ViewModels\MessageBox\MessageBoxViewModal.cs" />
     <Compile Include="ViewModels\ModelsViewModels\LoanViewModel.cs" />
     <Compile Include="ViewModels\ModelsViewModels\ReservedBookViewModel.cs" />

@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
 {
-    public class MessageBoxViewModel : ViewModelBase
+    public class MessageBoxViewModel : ViewModelBase, IMessageBoxViewModel
     {
         #region Dependencies
         private string _title;
