@@ -8,6 +8,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         #region Dependencies
         private ReservedBooksStore _reservedBooksStore;
         private ReservedBooksViewModel _reservedBooksViewModel;
+        private MessageBoxStore _messageBoxStore;
         #endregion
 
         #region Contructor
@@ -16,10 +17,11 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// </summary>
         /// <param name="reservedBooksViewModel"></param>
         /// <param name="reservedBooksStore"></param>
-        public RemoveReservBookCommand(ReservedBooksViewModel reservedBooksViewModel, ReservedBooksStore reservedBooksStore)
+        public RemoveReservBookCommand(ReservedBooksViewModel reservedBooksViewModel, ReservedBooksStore reservedBooksStore, MessageBoxStore messageBoxStore)
         {
             _reservedBooksStore = reservedBooksStore;
             _reservedBooksViewModel = reservedBooksViewModel;
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 
@@ -31,14 +33,15 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         {
             if (_reservedBooksViewModel.SelectedReservedBook is null)
             {
-                //MessageBox.Show("لطفا نوبتی را برای حذف انتخاب کنید", "حذف نوبت");
+                _messageBoxStore.Show("لطفا نوبتی را برای حذف انتخاب کنید", "حذف نوبت");
             }
             else
             {
 
-                //var AskResult = MessageBox.Show("آیا از حذف این نوبت مطمن هستید؟", "حذف نوبت", MessageBoxButton.YesNo);
-                //if (AskResult == MessageBoxResult.Yes)
+                _messageBoxStore.Show("آیا از حذف این نوبت مطمن هستید؟", "حذف نوبت", "", "", new RemoveReservBookCommand(_reservedBooksViewModel, _reservedBooksStore, _messageBoxStore));
+                if (_messageBoxStore.MessageBoxResult)
                 {
+                    _messageBoxStore.CloseMessageBox();
                     await _reservedBooksStore.DeleteReservBook(_reservedBooksViewModel.SelectedReservedBook.ToReservedBook());
                 }
             }

@@ -100,7 +100,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
                 clientsRepository,
                 _messageBoxStore
                 );
-            RemoveReservBookCommand = new RemoveReservBookCommand(this, _reservedBooksStore);
+            RemoveReservBookCommand = new RemoveReservBookCommand(this, _reservedBooksStore, _messageBoxStore);
             ResetReservBookCommand = new ResetReservBookCommand(_reservedBooksStore);
             SearchBookNameInReservedBookCommand = new SearchBookNameInReservedBookCommand(this, _reservedBooksStore);
 
