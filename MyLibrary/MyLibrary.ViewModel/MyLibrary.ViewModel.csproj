@@ -197,6 +197,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\MyLibrary.View\packages\Serilog.4.3.1\build\Serilog.targets" Condition="Exists('..\MyLibrary.View\packages\Serilog.4.3.1\build\Serilog.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

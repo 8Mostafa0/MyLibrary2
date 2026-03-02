@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Commands.MessageBoxCommands;
+using MyLibrary.ViewModel.Stores;
 using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
@@ -58,6 +59,7 @@ namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
             if (firstBtText is null)
             {
                 FirstBtText = "تایید";
+                FirstBtCommand = new CloseMessageBox(_messageBoxStor);
             }
             else
             {
@@ -68,6 +70,7 @@ namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
             if (!(secondBtTetxt is null))
             {
                 SecondBtText = secondBtTetxt;
+                SecondBtCommand = new CloseMessageBox(_messageBoxStor);
                 ShowSecondButton = "Visibale";
             }
             else
