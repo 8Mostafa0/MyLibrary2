@@ -51,20 +51,19 @@ namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
         public ICommand SecondBtCommand { get; }
         #endregion
         #region Constructor
-        public MessageBoxViewModel(MessageBoxStore messageBoxStore, string title, string caption, string firstBtText = null, ICommand firstBtCommand = null, string secondBtTetxt = null, ICommand secondBtCommand = null)
+        public MessageBoxViewModel(MessageBoxStore messageBoxStore, string title, string caption, string firstBtText = null, string secondBtTetxt = null, ICommand command = null)
         {
             _messageBoxStor = messageBoxStore;
             Title = title;
             Caption = caption;
+            FirstBtCommand = new MessageBoxConfrimCommand(_messageBoxStor, command);
             if (firstBtText is null)
             {
                 FirstBtText = "تایید";
-                FirstBtCommand = new CloseMessageBox(_messageBoxStor);
             }
             else
             {
                 FirstBtText = firstBtText;
-                FirstBtCommand = firstBtCommand;
             }
 
             if (!(secondBtTetxt is null))

@@ -10,6 +10,10 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         private ClientsStore _clientsStore;
         private NavigationStore _navigationStore;
         private ClientsViewModel ClientsViewModel;
+
+        private MessageBoxStore _messageBoxStore;
+
+        public bool IsMessageBoxOpen => _messageBoxStore.IsMessageOpen;
         #endregion
 
         #region Contructor
@@ -20,11 +24,11 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <param name="clientsStore"></param>
         /// <param name="loanRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public NavigateClientScreenCommand(NavigationStore navigationStore, ClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository)
+        public NavigateClientScreenCommand(NavigationStore navigationStore, ClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         {
             _navigationStore = navigationStore;
             _clientsStore = clientsStore;
-            ClientsViewModel = ClientsViewModel.LoadViewModel(_clientsStore, loanRepository, reservedBooksRepository);
+            ClientsViewModel = ClientsViewModel.LoadViewModel(_clientsStore, loanRepository, reservedBooksRepository, messageBoxStore);
         }
         #endregion
 

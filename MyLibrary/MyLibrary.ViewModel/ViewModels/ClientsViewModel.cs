@@ -19,6 +19,9 @@ namespace MyLibrary.ViewModel.ViewModels
 
         private Client _selectedClient;
 
+        private MessageBoxStore _messageBoxStore;
+        public bool IsMessageBoxOpen => _messageBoxStore.IsMessageOpen;
+        public ViewModelBase CurrentMessageBox => _messageBoxStore.MessageBoxViewModel;
         public Client SelectedClient
         {
             get => _selectedClient;
@@ -86,8 +89,10 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public ClientsViewModel(ClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository)
+        public ClientsViewModel(ClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         {
+            _messageBoxStore = messageBoxStore;
+            _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
             _clients = new ObservableCollection<Client>();
             _clientsStore = clientsStore;
             _clientsStore.ClientAdded += OnClientAdded;
@@ -96,15 +101,27 @@ namespace MyLibrary.ViewModel.ViewModels
             _clientsStore.ClientEdited += ClientEdited;
             LoadClientsCommand = new LoadClientsCommand(_clientsStore);
             ReloadClientsCommand = new ReloadClientsCommand(_clientsStore, this);
-            DeleteClientCommand = new DeleteClientCommand(this, _clientsStore, loanRepository, reservedBooksRepository);
+            DeleteClientCommand = new DeleteClientCommand(this, _clientsStore, loanRepository, reservedBooksRepository, _messageBoxStore);
             AddNewClientCommand = new AddNewClientCommand(this, _clientsStore);
             OrderClientsCommand = new OrderClientsCommand(_clientsStore, this);
             EditClientCommand = new EditClientCommand(this, _clientsStore);
             SortOrder = "0";
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// get called each tim change value of Messagebox Changed event trigred
+        /// </summary>
+        private void OnMessageBoxChanged()
+        {
+
+            OnProperychanged(nameof(CurrentMessageBox));
+            OnProperychanged(nameof(IsMessageBoxOpen));
+        }
+
         /// <summary>
         /// called each time client update trigred and update it to clients list
         /// </summary>
@@ -115,7 +132,7 @@ namespace MyLibrary.ViewModel.ViewModels
             if (index >= 0)
             {
                 _clients[index] = client;
-                //MessageBox.Show("کاربر با موفقیت ویرایش شد", "ویرایش کاربر");
+                _messageBoxStore.Show("کاربر با موفقیت ویرایش شد", "ویرایش کاربر");
             }
         }
         /// <summary>
@@ -126,7 +143,7 @@ namespace MyLibrary.ViewModel.ViewModels
         {
             ClearInputs();
             _clients.Remove(client);
-            //MessageBox.Show("کاربر با موفقیت حذف شد", "حذف کاربر");
+            _messageBoxStore.Show("کاربر با موفقیت حذف شد", "حذف کاربر");
         }
 
         /// <summary>
@@ -160,7 +177,7 @@ namespace MyLibrary.ViewModel.ViewModels
             ClearInputs();
             client.ID = _clients.Any() ? _clients.Last().ID + 1 : 1;
             _clients.Add(client);
-            //MessageBox.Show("کاربر با موفقیت اضافه شد", "افزودن کاربر");
+            _messageBoxStore.Show("کاربر با موفقیت اضافه شد", "افزودن کاربر");
 
         }
         /// <summary>
@@ -184,9 +201,9 @@ namespace MyLibrary.ViewModel.ViewModels
         /// <param name="loanRepository"></param>
         /// <param name="reservedBooksRepository"></param>
         /// <returns></returns>
-        public static ClientsViewModel LoadViewModel(ClientsStore clientStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository)
+        public static ClientsViewModel LoadViewModel(ClientsStore clientStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         {
-            ClientsViewModel ViewModel = new ClientsViewModel(clientStore, loanRepository, reservedBooksRepository);
+            ClientsViewModel ViewModel = new ClientsViewModel(clientStore, loanRepository, reservedBooksRepository, messageBoxStore);
             ViewModel.LoadClientsCommand.Execute(null);
             return ViewModel;
         }

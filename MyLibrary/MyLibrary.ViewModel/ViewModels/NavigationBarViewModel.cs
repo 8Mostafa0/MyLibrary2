@@ -63,7 +63,7 @@ namespace MyLibrary.ViewModel.ViewModels
             _modalNavigationStore = modalNavigationStore;
             NavigateHomeCommand = new NavigateHomeScreenCommand(_navigationStore, _loansStore, _clientsStore, _booksStore);
             NavigateHomeCommand.Execute(null);
-            ClientsCreenCommand = new NavigateClientScreenCommand(_navigationStore, _clientsStore, loanRepository, reservedBooksRepository);
+            ClientsCreenCommand = new NavigateClientScreenCommand(_navigationStore, _clientsStore, loanRepository, reservedBooksRepository, _messageBoxStore);
             NavigateBooksCommand = new NavigateBooksCommand(_navigationStore, _booksStore, loanRepository, reservedBooksRepository, booksRepository, messageBoxStore);
             NavigateLoansCommand = new NavigateLoansCommand(_navigationStore, _modalNavigationStore, _loansStore, _clientsStore, _booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository);
             NavigateReservedBooksCommand = new NavigateReservedBooksCommand(_navigationStore, _modalNavigationStore, _reservedBooksStore, clientsStore, booksStore, loanRepository, clientsRepository, reservedBooksRepository);

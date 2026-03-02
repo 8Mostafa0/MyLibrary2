@@ -21,13 +21,15 @@ namespace MyLibrary.ViewModel.Stores
                 OnMessageBoxViewChanged();
             }
         }
-        public void Show(string title, string caption, string firstBtText = null, ICommand firstBtCommand = null, string secondBtText = null, ICommand secondBtCommand = null)
+        public ViewModelBase Show(string title, string caption, string firstBtText = null, string secondBtText = null, ICommand command = null)
         {
-            MessageBoxViewModel = new MessageBoxViewModel(this, title, caption, firstBtText, firstBtCommand, secondBtText, secondBtCommand);
+            MessageBoxViewModel = new MessageBoxViewModel(this, title, caption, firstBtText, secondBtText, command);
+            return MessageBoxViewModel;
         }
         public void CloseMessageBox()
         {
             MessageBoxViewModel = null;
+            MessageBoxResult = false;
         }
         public void OnMessageBoxViewChanged()
         {

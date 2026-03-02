@@ -13,6 +13,9 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         private readonly ClientsStore _clientsStore;
         private readonly ClientsViewModel _clientsViewModel;
         private ReservedBooksRepository _reservedBooksRepository;
+
+        private MessageBoxStore _messageBoxStore;
+
         #endregion
 
 
@@ -27,12 +30,13 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <param name="clientsStore"></param>
         /// <param name="loanRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public DeleteClientCommand(ClientsViewModel clientsViewModel, ClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository)
+        public DeleteClientCommand(ClientsViewModel clientsViewModel, ClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         {
             _clientsViewModel = clientsViewModel;
             _clientsStore = clientsStore;
             _loanRepository = loanRepository;
             _reservedBooksRepository = reservedBooksRepository;
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 
@@ -47,24 +51,26 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         {
             if (_clientsViewModel.SelectedClient is null)
             {
-                //MessageBox.Show("لطفا ابتدا کاربری را برای حذف انتخاب کنید", "حذف کاربر");
+                _messageBoxStore.Show("لطفا ابتدا کاربری را برای حذف انتخاب کنید", "حذف کاربر");
                 return;
             }
             List<Loan> UserLoans = await _loanRepository.GetAllClientLoans(_clientsViewModel.SelectedClient.ID);
             if (UserLoans.Count > 0)
             {
-                //MessageBox.Show("این کاربر امانتی تحویل نشده دارد", "حذف کاربر");
+                _messageBoxStore.Show("این کاربر امانتی تحویل نشده دارد", "حذف کاربر");
                 return;
             }
             else
             {
-                //MessageBoxResult AskToDelete = MessageBox.Show("کاربر حذف شود؟", "حذف کاربر", MessageBoxButton.YesNo);
-                //if (AskToDelete == MessageBoxResult.Yes)
-                //{
-                //    await _reservedBooksRepository.RemoveClientReservedBooks(_clientsViewModel.SelectedClient.ID);
-                //    await _loanRepository.RemoveClientLoans(_clientsViewModel.SelectedClient.ID);
-                //    await _clientsStore.DeleteClient(_clientsViewModel.SelectedClient);
-                //}
+
+                _messageBoxStore.Show("کاربر حذف شود؟", "حذف کاربر", "بله", "خیر", new DeleteClientCommand(_clientsViewModel, _clientsStore, _loanRepository, _reservedBooksRepository, _messageBoxStore));
+                if (_messageBoxStore.MessageBoxResult)
+                {
+                    _messageBoxStore.CloseMessageBox();
+                    await _reservedBooksRepository.RemoveClientReservedBooks(_clientsViewModel.SelectedClient.ID);
+                    await _loanRepository.RemoveClientLoans(_clientsViewModel.SelectedClient.ID);
+                    await _clientsStore.DeleteClient(_clientsViewModel.SelectedClient);
+                }
             }
         }
         #endregion

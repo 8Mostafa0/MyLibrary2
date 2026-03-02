@@ -48,11 +48,11 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         }
 
         public bool IsModalOpen => _modalNavigationStore.IsModalOpen;
+        public ViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
 
         #endregion
 
         #region Commands
-        public ViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
 
         public ICommand AddNewReservBookCommand { get; }
         public ICommand RemoveReservBookCommand { get; }
