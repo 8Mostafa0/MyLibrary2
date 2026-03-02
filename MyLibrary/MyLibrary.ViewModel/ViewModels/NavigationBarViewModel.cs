@@ -68,7 +68,7 @@ namespace MyLibrary.ViewModel.ViewModels
             NavigateLoansCommand = new NavigateLoansCommand(_navigationStore, _modalNavigationStore, _loansStore, _clientsStore, _booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, _messageBoxStore);
             NavigateReservedBooksCommand = new NavigateReservedBooksCommand(_navigationStore, _modalNavigationStore, _reservedBooksStore, clientsStore, booksStore, loanRepository, clientsRepository, reservedBooksRepository, _messageBoxStore);
             NavigateToSettingsCommand = new NavigateToSettingsCommand(_navigationStore, _messageBoxStore);
-            CloseAppCommand = new CloseAppCommand();
+            CloseAppCommand = new CloseAppCommand(_messageBoxStore);
         }
         #endregion
     }

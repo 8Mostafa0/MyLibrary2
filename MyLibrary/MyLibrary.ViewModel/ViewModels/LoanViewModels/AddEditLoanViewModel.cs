@@ -166,7 +166,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             SaveLoanDataCommand = new SaveLoanDataCommand(this, _loansStore, _modalNavigationStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository, _messageBoxStore);
             CloseModalCommand = new CloseModalCommand(_modalNavigationStore);
             SearchBookNameCommand = new SearchBookNameCommand(_booksStore);
-            OrderBooksBySubjectCommand = new OrderBooksBySubjectCommand(_booksStore);
+            OrderBooksBySubjectCommand = new OrderBooksBySubjectCommand(_booksStore, _messageBoxStore);
             SearchClientNameCommand = new SearchClientNameCommand(_clientsStore);
             _modalNavigationStore.CurrentViewModelChanged += ModalViewModelChange;
 

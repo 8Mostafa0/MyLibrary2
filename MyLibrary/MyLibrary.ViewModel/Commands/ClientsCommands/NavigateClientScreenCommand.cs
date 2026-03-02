@@ -11,9 +11,6 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         private NavigationStore _navigationStore;
         private ClientsViewModel ClientsViewModel;
 
-        private MessageBoxStore _messageBoxStore;
-
-        public bool IsMessageBoxOpen => _messageBoxStore.IsMessageOpen;
         #endregion
 
         #region Contructor

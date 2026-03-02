@@ -31,7 +31,7 @@ namespace MyLibrary.ViewModel.ViewModels
         #region Constructor
         public LoginViewModel(ModalNavigationStore modalNavigationStore, DbContextFactory dbContextFactory, SettingsStore settingsStore, MessageBoxStore messageBoxStore)
         {
-            CloseAppCommand = new CloseAppCommand();
+            CloseAppCommand = new CloseAppCommand(messageBoxStore);
             LoginCommand = new LoginCommand(this, modalNavigationStore, dbContextFactory, settingsStore, messageBoxStore);
             if (new SettingsStore().GetHashedPassword() == null)
             {

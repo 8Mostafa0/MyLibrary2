@@ -1,13 +1,21 @@
-﻿using System;
+﻿using MyLibrary.ViewModel.Stores;
+using System;
 
 namespace MyLibrary.ViewModel.Commands.LoginCommands
 {
     public class CloseAppCommand : CommandBase
     {
+        #region Dependencies
+        private MessageBoxStore _messageBoxStore;
+        #endregion
+
         #region Contructor
         /// <summary>
         /// </summary>
-        public CloseAppCommand() { }
+        public CloseAppCommand(MessageBoxStore messageBoxStore)
+        {
+            _messageBoxStore = messageBoxStore;
+        }
         #endregion
 
 
@@ -18,11 +26,12 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
         /// <param name="parameter">no marametes needed</param>
         public override void Execute(object parameter)
         {
-            //var AskMessage = MessageBox.Show("میخواهید برنامه را ببندید؟", "خروج", MessageBoxButton.YesNo);
-            //if (AskMessage == MessageBoxResult.Yes)
-            //{
-            Environment.Exit(0);
-            //}
+            _messageBoxStore.Show("میخواهید برنامه را ببندید؟", "خروج", "بله", "خیر", new CloseAppCommand(_messageBoxStore));
+            if (_messageBoxStore.MessageBoxResult)
+            {
+                _messageBoxStore.CloseMessageBox();
+                Environment.Exit(0);
+            }
         }
         #endregion
     }
