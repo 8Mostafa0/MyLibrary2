@@ -152,6 +152,7 @@
     <Compile Include="Commands\SettingsCommands\NavigateLoanSettingsCommand.cs" />
     <Compile Include="Commands\SettingsCommands\NavigateSecuritySettingsCommand.cs" />
     <Compile Include="Commands\SettingsCommands\NavigatieToSettingsCommand.cs" />
+    <Compile Include="Factory\Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicies\INavigationService.cs" />
     <Compile Include="Servicies\ModalNavigationService.cs" />
