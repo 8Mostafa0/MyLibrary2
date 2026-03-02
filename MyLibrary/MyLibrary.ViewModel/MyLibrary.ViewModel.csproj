@@ -122,6 +122,7 @@
     <Compile Include="Commands\ClientsCommands\ReloadClientsCommand.cs" />
     <Compile Include="Commands\ClientsCommands\SearchClientNameCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\Interfaces\ICheckDatabaseCommand.cs" />
     <Compile Include="Commands\Interfaces\ILoginModalCommand.cs" />
     <Compile Include="Commands\Interfaces\INavigateHomeScreenCommand.cs" />
     <Compile Include="Commands\LoansCommands\CloseModalCommand.cs" />

@@ -2,7 +2,7 @@
 
 namespace MyLibrary.ViewModel.Commands
 {
-    public class CheckDatabaseCommand : CommandBase
+    public class CheckDatabaseCommand : CommandBase, ICheckDatabaseCommand
     {
         #region Dependencies
         private DbContextFactory _dbContextFactory;
