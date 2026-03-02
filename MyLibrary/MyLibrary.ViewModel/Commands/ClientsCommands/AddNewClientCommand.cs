@@ -10,6 +10,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         #region Dependencies
         private readonly ClientsStore _clientStore;
         private readonly ClientsViewModel _clientViewModel;
+        private MessageBoxStore _messageBoxStore;
         #endregion
 
         #region Contructor
@@ -18,10 +19,11 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// </summary>
         /// <param name="clientsViewModel"></param>
         /// <param name="clientStore"></param>
-        public AddNewClientCommand(ClientsViewModel clientsViewModel, ClientsStore clientStore)
+        public AddNewClientCommand(ClientsViewModel clientsViewModel, ClientsStore clientStore, MessageBoxStore messageBoxStore)
         {
             _clientStore = clientStore;
             _clientViewModel = clientsViewModel;
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 
@@ -35,12 +37,12 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         {
             if (string.IsNullOrEmpty(_clientViewModel.FirstName))
             {
-                //MessageBox.Show("لطفا ابتدا نام را وارد کنید", "افزودن کاربر");
+                _messageBoxStore.Show("لطفا ابتدا نام را وارد کنید", "افزودن کاربر");
                 return;
             }
             if (string.IsNullOrEmpty(_clientViewModel.LastName))
             {
-                //MessageBox.Show("لطفا ابتدا فامیلی را وارد کنید", "افزودن کاربر");
+                _messageBoxStore.Show("لطفا ابتدا فامیلی را وارد کنید", "افزودن کاربر");
                 return;
             }
             Client client = new Client()

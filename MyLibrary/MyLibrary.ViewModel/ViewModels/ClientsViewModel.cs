@@ -102,7 +102,7 @@ namespace MyLibrary.ViewModel.ViewModels
             LoadClientsCommand = new LoadClientsCommand(_clientsStore);
             ReloadClientsCommand = new ReloadClientsCommand(_clientsStore, this);
             DeleteClientCommand = new DeleteClientCommand(this, _clientsStore, loanRepository, reservedBooksRepository, _messageBoxStore);
-            AddNewClientCommand = new AddNewClientCommand(this, _clientsStore);
+            AddNewClientCommand = new AddNewClientCommand(this, _clientsStore, _messageBoxStore);
             OrderClientsCommand = new OrderClientsCommand(_clientsStore, this);
             EditClientCommand = new EditClientCommand(this, _clientsStore);
             SortOrder = "0";
