@@ -4,7 +4,7 @@ using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands
 {
-    public class LoginModalCommand : CommandBase
+    public class LoginModalCommand : CommandBase, ILoginModalCommand
     {
         #region Dependencies
         private ILoginViewModel _loginViewModel;

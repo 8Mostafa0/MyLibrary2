@@ -122,7 +122,8 @@
     <Compile Include="Commands\ClientsCommands\ReloadClientsCommand.cs" />
     <Compile Include="Commands\ClientsCommands\SearchClientNameCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
-    <Compile Include="Commands\INavigateHomeScreenCommand.cs" />
+    <Compile Include="Commands\Interfaces\ILoginModalCommand.cs" />
+    <Compile Include="Commands\Interfaces\INavigateHomeScreenCommand.cs" />
     <Compile Include="Commands\LoansCommands\CloseModalCommand.cs" />
     <Compile Include="Commands\LoansCommands\LoadLoansCommand.cs" />
     <Compile Include="Commands\LoansCommands\NavigateLoansCommand.cs" />
@@ -223,9 +224,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\MyLibrary.View\packages\Serilog.4.3.1\build\Serilog.targets" Condition="Exists('..\MyLibrary.View\packages\Serilog.4.3.1\build\Serilog.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
