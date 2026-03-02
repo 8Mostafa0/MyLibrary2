@@ -65,6 +65,9 @@
             <DataTemplate DataType="{x:Type lvm:AddEditeLoanViewModel}">
                 <lv:AddEditLoanView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type lvms:LayoutViewModel}">
+                <lyv:LayoutView/>
+            </DataTemplate>
         </Grid.Resources>
 
         <md:Modal Panel.ZIndex="100" IsOpen="{Binding IsMessageBoxOpen}">
