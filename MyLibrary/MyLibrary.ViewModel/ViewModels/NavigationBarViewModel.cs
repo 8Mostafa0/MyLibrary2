@@ -14,7 +14,7 @@ namespace MyLibrary.ViewModel.ViewModels
     public class NavigationBarViewModel : ViewModelBase, INavigationBarViewModel
     {
         #region Dependencies
-        private readonly NavigationStore _navigationStore;
+        private readonly INavigationStore _navigationStore;
         private readonly IModalNavigationStore _modalNavigationStore;
         private ReservedBooksStore _reservedBooksStore;
         private IMessageBoxStore _messageBoxStore;
@@ -40,7 +40,7 @@ namespace MyLibrary.ViewModel.ViewModels
 
         #region Constructr
         public NavigationBarViewModel(
-            NavigationStore navigationStore,
+            INavigationStore navigationStore,
             ReservedBooksStore reservedBooksStore,
             IClientsStore clientsStore,
             IBooksStore booksStore,

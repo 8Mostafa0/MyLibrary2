@@ -6,7 +6,7 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
     public class NavigateToSettingsCommand : CommandBase
     {
         #region Dependencies
-        private NavigationStore _navigationStore;
+        private INavigationStore _navigationStore;
         private ISettingsViewModel _settingsViewModel;
         private IMessageBoxStore _messageBoxStore;
         #endregion
@@ -16,7 +16,7 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         /// set current view of main navigation to to settings view
         /// </summary>
         private SettingNavigationStore _settingsNavigationStore = new SettingNavigationStore();
-        public NavigateToSettingsCommand(NavigationStore navigationStore, IMessageBoxStore messageBoxStore)
+        public NavigateToSettingsCommand(INavigationStore navigationStore, IMessageBoxStore messageBoxStore)
         {
             _navigationStore = navigationStore;
             _messageBoxStore = messageBoxStore;

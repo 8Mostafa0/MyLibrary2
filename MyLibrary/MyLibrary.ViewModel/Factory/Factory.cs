@@ -169,6 +169,11 @@ namespace MyLibrary.ViewModel.Factory
 
         //}
 
+        public static INavigationStore CreateNavigationStore()
+        {
+            return new NavigationStore();
+        }
+
         public static IBooksStore CreateBooksStore()
         {
             return new BooksStore();

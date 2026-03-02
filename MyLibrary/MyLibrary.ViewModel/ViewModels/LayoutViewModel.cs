@@ -5,7 +5,7 @@ namespace MyLibrary.ViewModel.ViewModels
     public class LayoutViewModel : ViewModelBase, ILayoutViewModel
     {
         #region Dependencies
-        private readonly NavigationStore _navigationStore;
+        private readonly INavigationStore _navigationStore;
         public IViewModelBase contentViewModel => _navigationStore.ContentScreen;
         public INavigationBarViewModel MainContentViewModel => _navigationStore.MainContentViewModel;
 
@@ -14,7 +14,7 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public LayoutViewModel(NavigationStore navigationStore)
+        public LayoutViewModel(INavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
 

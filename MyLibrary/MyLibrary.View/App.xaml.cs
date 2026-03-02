@@ -14,7 +14,7 @@ namespace MyLibrary.View
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            NavigationStore navigationStore = new NavigationStore();
+            INavigationStore navigationStore = new NavigationStore();
             IClientsStore clientsStore = new ClientsStore();
             ILoansStore loansStore = new LoansStore();
             IBooksStore booksStore = new BooksStore();
