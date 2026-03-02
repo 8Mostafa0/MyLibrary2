@@ -137,6 +137,7 @@
     <Compile Include="Commands\LoansCommands\SortLoansListCommand.cs" />
     <Compile Include="Commands\LoginCommands\CloseAppCommand.cs" />
     <Compile Include="Commands\Interfaces\ILoginCommands\ILoginCommand.cs" />
+    <Compile Include="Commands\Interfaces\ILoginCommands\ICloseAppCommand.cs" />
     <Compile Include="Commands\LoginCommands\LoginCommand.cs" />
     <Compile Include="Commands\LoginModalCommand.cs" />
     <Compile Include="Commands\MessageBoxCommands\CloseMessageBox.cs" />

@@ -3,7 +3,7 @@ using System;
 
 namespace MyLibrary.ViewModel.Commands.LoginCommands
 {
-    public class CloseAppCommand : CommandBase
+    public class CloseAppCommand : CommandBase, ICloseAppCommand
     {
         #region Dependencies
         private IMessageBoxStore _messageBoxStore;
