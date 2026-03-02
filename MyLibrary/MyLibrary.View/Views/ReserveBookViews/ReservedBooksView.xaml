@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MyLibrary.View.Views.ReserveBookViews"
+             xmlns:local="clr-namespace:MyLibrary.View.Views.ReserveBookViews" xmlns:md="clr-namespace:ModalControl;assembly=ModalControl"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -32,7 +32,10 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0"  Grid.Column="8" Grid.ColumnSpan="3" Grid.RowSpan="8" Background="#839705" CornerRadius="15 0 0 15">
+        <md:Modal Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Grid.ColumnSpan="11" Panel.ZIndex="100" IsOpen="{Binding IsModalOpen}">
+            <ContentControl Content="{Binding CurrentModalViewModel}"/>
+        </md:Modal>
+        <Border Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="3" Grid.RowSpan="8" Background="#839705" CornerRadius="15 0 0 15">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -48,13 +51,89 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Margin="10" Grid.Row="1" BorderThickness="0" Content="صفحه اصلی" Background="#6B7445" Command="{Binding NavigateLayoutSettingCommand}"/>
-                <Button Margin="10" Grid.Row="2" BorderThickness="0" Content="امانت" Background="#6B7445" Command="{Binding NavigateLoanSettingsCommand}"/>
-                <Button Margin="10" Grid.Row="3" BorderThickness="0" Content="رمز ورود" Background="#6B7445" Command="{Binding NavigateSecuritySettingsCommand}"/>
+                <Grid Grid.Row="1" Grid.Column="0" FlowDirection="RightToLeft"  Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="نام کتاب" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
+                    <TextBox Grid.Column="1" Margin="5 10" VerticalAlignment="Center" Text="{Binding BookName}"/>
+                    <Button Grid.Column="2" Content="جستجو" Margin="5 10" VerticalAlignment="Center" Command="{Binding SearchBookNameInReservedBookCommand}"/>
+                </Grid>
+                <Button Grid.Row="8" Grid.Column="0" Content="رزرو کردن" Margin="5" VerticalAlignment="Center"  Command="{Binding AddNewReservBookCommand}"/>
+                <Button Grid.Row="8" Grid.Column="1" Content="حذف" Margin="5" VerticalAlignment="Center"  Command="{Binding RemoveReservBookCommand}"/>
+                <Button Grid.Row="9" Grid.Column="0" Content="ویرایش" Margin="5" VerticalAlignment="Center"  Command="{Binding EditeReservBookCommand}"/>
+                <Button Grid.Row="9" Grid.Column="1" Content="ریست" Margin="5" VerticalAlignment="Center"  Command="{Binding ResetReservBookCommand}"/>
             </Grid>
         </Border>
-        <ContentControl Grid.Row="0" Grid.RowSpan="8" Grid.Column="0" Grid.ColumnSpan="8" Margin="15"  Content="{Binding CurrentSettingViewModel}"/>
+
+        <ListView Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Grid.ColumnSpan="8" Margin="5" FlowDirection="RightToLeft" ItemsSource="{Binding ReservedBooks}" SelectedItem="{Binding SelectedReservedBook}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" >
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View  >
+                <GridView>
+                    <GridViewColumn Header="آیدی" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock  HorizontalAlignment="Center" Text="{Binding ID}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="آیدی کتاب" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock  HorizontalAlignment="Center" Text="{Binding BookId}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="نام کتاب" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding BookName}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="آیدی کاربر" Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding ClientId}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="نام کاربر" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding ClientName}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="تاریخ ثبت" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding CreatedAt}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="آخرین ویرایش" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding UpdatedAt}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </UserControl>

@@ -27,6 +27,7 @@ namespace MyLibrary.ViewModel.ViewModels
             _messageBoxStore = new MessageBoxStore();
             _modalNavigationStore = new ModalNavigationStore();
             _modalNavigationStore.CurrentViewModelChanged += OnModalChanged;
+            _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
             new LoginModalCommand(_modalNavigationStore, new LoanRepository(), new DbContextFactory(), new SettingsStore()).Execute(null);
 
         }
@@ -40,6 +41,17 @@ namespace MyLibrary.ViewModel.ViewModels
         {
             OnProperychanged(nameof(CurrentModalView));
             OnProperychanged(nameof(IsModalOpen));
+        }
+
+
+        /// <summary>
+        /// get called each tim change value of Messagebox Changed event trigred
+        /// </summary>
+        private void OnMessageBoxChanged()
+        {
+
+            OnProperychanged(nameof(CurrentModalView));
+            OnProperychanged(nameof(IsMessageBoxOpen));
         }
 
         #endregion

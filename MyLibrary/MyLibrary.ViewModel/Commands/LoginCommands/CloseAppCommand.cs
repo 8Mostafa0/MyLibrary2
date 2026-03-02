@@ -1,4 +1,6 @@
-﻿namespace MyLibrary.ViewModel.Commands.LoginCommands
+﻿using System;
+
+namespace MyLibrary.ViewModel.Commands.LoginCommands
 {
     public class CloseAppCommand : CommandBase
     {
@@ -19,7 +21,7 @@
             //var AskMessage = MessageBox.Show("میخواهید برنامه را ببندید؟", "خروج", MessageBoxButton.YesNo);
             //if (AskMessage == MessageBoxResult.Yes)
             //{
-            //    Environment.Exit(0);
+            Environment.Exit(0);
             //}
         }
         #endregion

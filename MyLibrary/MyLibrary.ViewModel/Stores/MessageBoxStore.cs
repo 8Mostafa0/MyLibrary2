@@ -10,7 +10,7 @@ namespace MyLibrary.ViewModel.Stores
         private ViewModelBase _messageBoxViewModel;
         public bool IsMessageOpen => _messageBoxViewModel != null;
         public bool MessageBoxResult = false;
-        public event Action MessageViewModelChanged;
+        public Action MessageViewModelChanged;
         public ViewModelBase MessageBoxViewModel
         {
             get => _messageBoxViewModel;
@@ -29,7 +29,7 @@ namespace MyLibrary.ViewModel.Stores
         {
             MessageBoxViewModel = null;
         }
-        private void OnMessageBoxViewChanged()
+        public void OnMessageBoxViewChanged()
         {
             MessageViewModelChanged?.Invoke();
         }
