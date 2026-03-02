@@ -1,4 +1,5 @@
 ﻿using MyLibrary.ViewModel.Stores;
+using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -97,8 +98,8 @@ namespace MyLibrary.ViewModel.ViewModels
             ClientsCount = _clientsStore.Clients.Count().ToString();
             BooksCount = _booksStore.Books.Count().ToString();
             LoansCount = _loansStore.Loans.Count().ToString();
-            //var dilayedLoans = _loansStore.Loans.Where(c => !DateTime.TryParse(c.ReturnedDate, out DateTime _)).ToList();
-            //DilayedLoanCount = dilayedLoans.Any() ? dilayedLoans.Count().ToString() : "0";
+            List<LoanViewModel> dilayedLoans = _loansStore.Loans.Where(c => c.ReturnedDateTime is null || c.ReturnedDateTime == "").Where(c => c.ReturnDate < DateTime.Now).ToList();
+            DilayedLoanCount = dilayedLoans.Any() ? dilayedLoans.Count().ToString() : "0";
         }
         #endregion
     }
