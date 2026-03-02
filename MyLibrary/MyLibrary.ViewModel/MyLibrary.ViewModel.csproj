@@ -170,6 +170,7 @@
     <Compile Include="ViewModels\BooksViewModel.cs" />
     <Compile Include="ViewModels\ClientsViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\IMainViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\INavigationBarViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IViewModelBase.cs" />
     <Compile Include="ViewModels\Interfaces\IStatusBarViewModel.cs" />

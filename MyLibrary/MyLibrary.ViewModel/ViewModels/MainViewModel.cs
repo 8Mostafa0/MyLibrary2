@@ -4,7 +4,7 @@ using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, IMainViewModel
     {
         #region Dependencies
         private readonly LayoutViewModel _layoutViewModel;
