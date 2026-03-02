@@ -3,7 +3,7 @@ using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
-    public class SearchBookNameInReservedBookCommand : CommandBase
+    public class SearchBookNameInReservedBookCommand : CommandBase, ISearchBookNameInReservedBookCommand
     {
         #region Dependencies
         private IReservedBooksStore _reservedBooksStore;

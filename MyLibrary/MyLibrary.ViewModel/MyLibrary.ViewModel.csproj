@@ -143,6 +143,7 @@
     <Compile Include="Commands\NavigateHomeCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\AddNewReservBookCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\EditeReservBookCommand.cs" />
+    <Compile Include="Commands\Interfaces\IReserveBoookCommands\ISearchBookNameInReservedBookCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\LoadReservedBooksCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\NavigateReservedBooksCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\RemoveReservBookCommand.cs" />
