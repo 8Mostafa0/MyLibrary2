@@ -21,5 +21,11 @@ namespace MyLibrary.ViewModel.Factory
         //{
         //    return new HomeViewModel();
         //}
+        //public static ILayoutViewModel CreateLayoutViewModel()
+        //{
+        //    return new LayoutViewModel();
+        //}
+
+
     }
 }

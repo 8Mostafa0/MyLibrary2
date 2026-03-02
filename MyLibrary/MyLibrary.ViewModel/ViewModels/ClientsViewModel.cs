@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
-    public class ClientsViewModel : ViewModelBase
+    public class ClientsViewModel : ViewModelBase, IClientsViewModel
     {
         #region Dependencies
         private ObservableCollection<Client> _clients;
