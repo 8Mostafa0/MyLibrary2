@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
-    public class SaveReservationDataCommand : CommandBase
+    public class SaveReservationDataCommand : CommandBase, ISaveReservationDataCommand
     {
         #region Dependencies
         private LoanRepository _loanRepository;
