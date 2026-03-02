@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
-    public class SaveLoanDataCommand : CommandBase
+    public class SaveLoanDataCommand : CommandBase, ISaveLoanDataCommand
     {
         #region Dependencies
         private readonly ILoansStore _loansStore;
