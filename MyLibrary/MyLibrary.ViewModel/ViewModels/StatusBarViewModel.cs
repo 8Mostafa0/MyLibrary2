@@ -4,7 +4,7 @@ using System.Timers;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
-    public class StatusBarViewModel : ViewModelBase
+    public class StatusBarViewModel : ViewModelBase, IStatusBarViewModel
     {
         #region Dependencies
         private static System.Timers.Timer aTimer;
