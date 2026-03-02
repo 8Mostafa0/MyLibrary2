@@ -28,7 +28,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
             _settingNavigationStore.SettingViewModelChanged += OnSettingViewModelChanged;
             NavigateLayoutSettingCommand = new NavigateLayoutSettingCommand(_settingNavigationStore);
             NavigateLoanSettingsCommand = new NavigateLoanSettingsCommand(_settingNavigationStore, _messageBoxStore);
-            NavigateSecuritySettingsCommand = new NavigateSecuritySettingsCommand(_settingNavigationStore);
+            NavigateSecuritySettingsCommand = new NavigateSecuritySettingsCommand(_settingNavigationStore, _messageBoxStore);
         }
 
         #endregion
