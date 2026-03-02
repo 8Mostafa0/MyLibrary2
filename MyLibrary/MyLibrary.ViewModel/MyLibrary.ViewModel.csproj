@@ -156,7 +156,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stores\BooksStore.cs" />
     <Compile Include="Stores\ClientsStore.cs" />
-    <Compile Include="Stores\IModalNavigationStore.cs" />
+    <Compile Include="Stores\Interfaces\IModalNavigationStore.cs" />
     <Compile Include="Stores\Interfaces\IMessageBoxStore.cs" />
     <Compile Include="Stores\Interfaces\ILoansStore.cs" />
     <Compile Include="Stores\Interfaces\IClientsStore.cs" />

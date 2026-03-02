@@ -8,7 +8,7 @@ namespace MyLibrary.ViewModel.ViewModels
     {
         #region Dependencies
         private readonly LayoutViewModel _layoutViewModel;
-        private ModalNavigationStore _modalNavigationStore;
+        private IModalNavigationStore _modalNavigationStore;
         private IMessageBoxStore _messageBoxStore;
 
         public IViewModelBase CurrentMessageBox => _messageBoxStore.MessageBoxViewModel;
@@ -20,7 +20,7 @@ namespace MyLibrary.ViewModel.ViewModels
         public bool IsMessageBoxOpen => _messageBoxStore.IsMessageOpen;
         #endregion
         #region Constructor
-        public MainViewModel(LayoutViewModel layoutViewModel, ModalNavigationStore modalNavigationStore, IMessageBoxStore messageBoxStore)
+        public MainViewModel(LayoutViewModel layoutViewModel, IModalNavigationStore modalNavigationStore, IMessageBoxStore messageBoxStore)
         {
             _layoutViewModel = layoutViewModel;
             _modalNavigationStore = modalNavigationStore;

@@ -9,7 +9,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         private IBooksStore _booksStore;
         private IClientsStore _clientsStore;
         private ReservedBooksStore _reservedBooksStore;
-        private ModalNavigationStore _modalNavigationStore;
+        private IModalNavigationStore _modalNavigationStore;
         private ReservedBooksRepository _reservedBooksRepository;
         private LoanRepository _loanRepository;
         private ClientsRepository _clientsRepository;
@@ -30,7 +30,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <param name="reservedBooksRepository"></param>
         /// <param name="clientsRepository"></param>
         public AddNewReservBookCommand(
-            ModalNavigationStore modalNavigationStore,
+            IModalNavigationStore modalNavigationStore,
             ReservedBooksStore reservedBooksStore,
             IClientsStore clientsStore,
             IBooksStore booksStore,

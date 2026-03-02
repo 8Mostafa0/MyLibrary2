@@ -5,7 +5,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     public class CloseModalCommand : CommandBase
     {
         #region Dependencies
-        private ModalNavigationStore _modalNavigationStore;
+        private IModalNavigationStore _modalNavigationStore;
         #endregion
 
         #region Contructor
@@ -13,7 +13,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         ///  close modal by set current view model to null
         /// </summary>
         /// <param name="modalNavigationStore"></param>
-        public CloseModalCommand(ModalNavigationStore modalNavigationStore)
+        public CloseModalCommand(IModalNavigationStore modalNavigationStore)
         {
             _modalNavigationStore = modalNavigationStore;
         }

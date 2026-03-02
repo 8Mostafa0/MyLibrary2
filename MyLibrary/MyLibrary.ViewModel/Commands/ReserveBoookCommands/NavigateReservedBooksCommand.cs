@@ -12,7 +12,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         private IMessageBoxStore _messageBoxStore;
         private NavigationStore _navigationStore;
         private ReservedBooksStore _reservedBooksStore;
-        private ModalNavigationStore _modalNavigationStore;
+        private IModalNavigationStore _modalNavigationStore;
         private ReservedBooksViewModel _reservedBooksViewModel;
         #endregion
 
@@ -30,7 +30,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <param name="reservedBooksRepository"></param>
         public NavigateReservedBooksCommand(
             NavigationStore navigationStore,
-            ModalNavigationStore modalNavigationStore,
+            IModalNavigationStore modalNavigationStore,
             ReservedBooksStore reservedBooksStore,
             IClientsStore clientsStore,
             IBooksStore booksStore,
