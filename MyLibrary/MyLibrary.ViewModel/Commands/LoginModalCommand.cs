@@ -1,4 +1,4 @@
-﻿using MyLibrary.Model.DbContexts;
+﻿using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
@@ -19,10 +19,10 @@ namespace MyLibrary.ViewModel.Commands
         /// <param name="loanRepository"></param>
         /// <param name="dbContextFactory"></param>
         /// <param name="settingsStores"></param>
-        public LoginModalCommand(IModalNavigationStore modalNavigationStore, DbContextFactory dbContextFactory, ISettingsStore settingsStore, IMessageBoxStore messageBoxStore)
+        public LoginModalCommand()
         {
-            _modalNavigationStore = modalNavigationStore;
-            _loginViewModel = new LoginViewModel(_modalNavigationStore, dbContextFactory, settingsStore, messageBoxStore);
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
+            _loginViewModel = ClassFactory.CreateLoginViewModel();
         }
         #endregion
 

@@ -177,7 +177,6 @@ namespace MyLibrary.ViewModel.Factory
             return ViewModel;
 
         }
-
         #endregion
 
         #region Commands
