@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Stores
 {
-    public class LoansStore
+    public class LoansStore : ILoansStore
     {
 
         #region Dependencies
@@ -20,10 +20,10 @@ namespace MyLibrary.ViewModel.Stores
         private IClientsStore _clientsStore;
         private IBooksStore _booksStore;
 
-        public Action LoansUpdated;
-        public Action<Loan> LoanIsAdded;
-        public Action<Loan> LoanIsReturned;
-        public Action<Loan> LoanIsUpdated;
+        public event Action LoansUpdated;
+        public event Action<Loan> LoanIsAdded;
+        public event Action<Loan> LoanIsReturned;
+        public event Action<Loan> LoanIsUpdated;
         public Lazy<Task> _initilizeLazy;
         #endregion
 
