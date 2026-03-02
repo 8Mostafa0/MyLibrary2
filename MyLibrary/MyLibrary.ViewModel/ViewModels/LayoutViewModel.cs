@@ -9,7 +9,7 @@ namespace MyLibrary.ViewModel.ViewModels
         public IViewModelBase contentViewModel => _navigationStore.ContentScreen;
         public IViewModelBase MainContentViewModel => _navigationStore.MainContentViewModel;
 
-        public IViewModelBase StatusBarViewModel => _navigationStore.StatusBarViewModel;
+        public IStatusBarViewModel StatusBarViewModel => _navigationStore.StatusBarViewModel;
 
         #endregion
 
@@ -31,7 +31,7 @@ namespace MyLibrary.ViewModel.ViewModels
             OnProperychanged(nameof(MainContentViewModel));
         }
 
-        private void OnStatusBarViewModelChanged()
+        private void OnIStatusBarViewModelChanged()
         {
             OnProperychanged(nameof(StatusBarViewModel));
         }

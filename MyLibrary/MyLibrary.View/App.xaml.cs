@@ -1,4 +1,5 @@
 ﻿using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using System.Windows;
@@ -23,10 +24,14 @@ namespace MyLibrary.View
             ReservedBooksRepository reservedBooksRepository = new ReservedBooksRepository();
             BooksRepository booksRepository = new BooksRepository();
             ClientsRepository clientsRepository = new ClientsRepository();
-            navigationStore.ContentScreen = new HomeViewModel(clientsStore, booksStore, loansStore);
-            navigationStore.StatusBarViewModel = new StatusBarViewModel();
             MessageBoxStore messageBoxStore = new MessageBoxStore();
             ModalNavigationStore modalNavigationStore = new ModalNavigationStore();
+
+            navigationStore.ContentScreen = new HomeViewModel(clientsStore, booksStore, loansStore);
+
+            navigationStore.StatusBarViewModel = Factory.CreateStatusBarViewModel();
+
+
             navigationStore.MainContentViewModel = new NavigationBarViewModel(
                 navigationStore,
                 reservedBooksStore,

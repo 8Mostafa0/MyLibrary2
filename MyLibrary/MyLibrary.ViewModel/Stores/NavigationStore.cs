@@ -12,14 +12,14 @@ namespace MyLibrary.ViewModel.Stores
 
         private IViewModelBase _mainContentViewModel;
         private IViewModelBase _contentScreen;
-        private IViewModelBase _statusBarViewModel;
+        private IStatusBarViewModel _StatusBarViewModel;
 
-        public IViewModelBase StatusBarViewModel
+        public IStatusBarViewModel StatusBarViewModel
         {
-            get => _statusBarViewModel;
+            get => _StatusBarViewModel;
             set
             {
-                _statusBarViewModel = value;
+                _StatusBarViewModel = value;
                 OnStatusBarViewModelChanged();
             }
         }
