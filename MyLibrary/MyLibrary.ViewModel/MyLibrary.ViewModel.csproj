@@ -106,6 +106,7 @@
     <Compile Include="Commands\BooksCommands\AddNewBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\DeleteBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\EditBookCommand.cs" />
+    <Compile Include="Commands\Interfaces\IBooksCommands\ISearchBookNameCommand.cs" />
     <Compile Include="Commands\BooksCommands\LoadBooksCommand.cs" />
     <Compile Include="Commands\BooksCommands\NavigateBooksCommand.cs" />
     <Compile Include="Commands\BooksCommands\OrderBooksBySubjectCommand.cs" />
@@ -116,7 +117,7 @@
     <Compile Include="Commands\ClientsCommands\AddNewClientCommand.cs" />
     <Compile Include="Commands\ClientsCommands\DeleteClientCommand.cs" />
     <Compile Include="Commands\ClientsCommands\EditClientCommand.cs" />
-    <Compile Include="Commands\ClientsCommands\IAddNewClientCommand.cs" />
+    <Compile Include="Commands\Interfaces\IClientsCommands\IAddNewClientCommand.cs" />
     <Compile Include="Commands\Interfaces\IClientsCommands\IDeleteClientCommand.cs" />
     <Compile Include="Commands\Interfaces\IClientsCommands\IEditClientCommand.cs" />
     <Compile Include="Commands\Interfaces\IClientsCommands\ILoadClientsCommand.cs" />
