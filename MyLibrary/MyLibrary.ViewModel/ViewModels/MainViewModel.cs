@@ -11,9 +11,9 @@ namespace MyLibrary.ViewModel.ViewModels
         private ModalNavigationStore _modalNavigationStore;
         private MessageBoxStore _messageBoxStore;
 
-        public ViewModelBase CurrentMessageBox => _messageBoxStore.MessageBoxViewModel;
-        public ViewModelBase CurrentViewModel => _layoutViewModel;
-        public ViewModelBase CurrentModalView => _modalNavigationStore.CurrentViewModel;
+        public IViewModelBase CurrentMessageBox => _messageBoxStore.MessageBoxViewModel;
+        public IViewModelBase CurrentViewModel => _layoutViewModel;
+        public IViewModelBase CurrentModalView => _modalNavigationStore.CurrentViewModel;
 
         public bool IsModalOpen => _modalNavigationStore.IsModalOpen;
 

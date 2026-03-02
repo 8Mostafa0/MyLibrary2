@@ -8,12 +8,12 @@ namespace MyLibrary.ViewModel.Stores
         #region Dependencies
         public event Action SettingViewModelChanged;
 
-        private ViewModelBase _currentSettingViewModel;
+        private IViewModelBase _currentSettingViewModel;
 
 
 
 
-        public ViewModelBase CurrentSettingViewModel
+        public IViewModelBase CurrentSettingViewModel
         {
             get => _currentSettingViewModel;
             set

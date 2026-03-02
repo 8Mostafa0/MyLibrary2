@@ -10,7 +10,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         private SettingNavigationStore _settingNavigationStore;
         private MessageBoxStore _messageBoxStore;
 
-        public ViewModelBase CurrentSettingViewModel => _settingNavigationStore.CurrentSettingViewModel;
+        public IViewModelBase CurrentSettingViewModel => _settingNavigationStore.CurrentSettingViewModel;
 
         #endregion
 

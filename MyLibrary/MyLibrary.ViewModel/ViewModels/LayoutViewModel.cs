@@ -6,10 +6,10 @@ namespace MyLibrary.ViewModel.ViewModels
     {
         #region Dependencies
         private readonly NavigationStore _navigationStore;
-        public ViewModelBase contentViewModel => _navigationStore.ContentScreen;
-        public ViewModelBase MainContentViewModel => _navigationStore.MainContentViewModel;
+        public IViewModelBase contentViewModel => _navigationStore.ContentScreen;
+        public IViewModelBase MainContentViewModel => _navigationStore.MainContentViewModel;
 
-        public ViewModelBase StatusBarViewModel => _navigationStore.StatusBarViewModel;
+        public IViewModelBase StatusBarViewModel => _navigationStore.StatusBarViewModel;
 
         #endregion
 

@@ -21,7 +21,7 @@ namespace MyLibrary.ViewModel.ViewModels
 
         private MessageBoxStore _messageBoxStore;
         public bool IsMessageBoxOpen => _messageBoxStore.IsMessageOpen;
-        public ViewModelBase CurrentMessageBox => _messageBoxStore.MessageBoxViewModel;
+        public IViewModelBase CurrentMessageBox => _messageBoxStore.MessageBoxViewModel;
         public Client SelectedClient
         {
             get => _selectedClient;

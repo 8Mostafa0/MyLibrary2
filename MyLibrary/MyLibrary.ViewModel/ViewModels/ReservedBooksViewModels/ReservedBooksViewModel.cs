@@ -45,7 +45,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         }
 
         public bool IsModalOpen => _modalNavigationStore.IsModalOpen;
-        public ViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
+        public IViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
 
         #endregion
 

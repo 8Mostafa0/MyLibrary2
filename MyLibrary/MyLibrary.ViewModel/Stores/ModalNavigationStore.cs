@@ -6,11 +6,11 @@ namespace MyLibrary.ViewModel.Stores
     public class ModalNavigationStore
     {
         #region Dependencies
-        private ViewModelBase _currentViewModel;
+        private IViewModelBase _currentViewModel;
 
         public bool IsModalOpen => CurrentViewModel != null;
         public event Action CurrentViewModelChanged;
-        public ViewModelBase CurrentViewModel
+        public IViewModelBase CurrentViewModel
         {
             get => _currentViewModel;
             set

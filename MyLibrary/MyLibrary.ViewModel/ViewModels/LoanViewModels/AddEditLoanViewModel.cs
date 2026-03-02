@@ -124,7 +124,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 
         #region Commands
 
-        public ViewModelBase CurrentModelViewModel => _modalNavigationStore.CurrentViewModel;
+        public IViewModelBase CurrentModelViewModel => _modalNavigationStore.CurrentViewModel;
         public ICommand LoadBooksCommand { get; }
         public ICommand LoadClientsCommand { get; }
         public ICommand CloseModalCommand { get; }

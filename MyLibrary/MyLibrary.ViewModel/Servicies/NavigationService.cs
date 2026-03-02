@@ -7,7 +7,7 @@ namespace MyLibrary.ViewModel.Servicies
     public class NavigationService : INavigationService
     {
         #region Dependencies
-        private readonly Func<ViewModelBase> _createMainViewModel;
+        private readonly Func<IViewModelBase> _createMainViewModel;
 
         public NavigationStore NavigationStore;
         #endregion
@@ -18,7 +18,7 @@ namespace MyLibrary.ViewModel.Servicies
         /// </summary>
         /// <param name="navigationStore"></param>
         /// <param name="createMainViewModel"></param>
-        public NavigationService(NavigationStore navigationStore, Func<ViewModelBase> createMainViewModel)
+        public NavigationService(NavigationStore navigationStore, Func<IViewModelBase> createMainViewModel)
         {
             NavigationStore = navigationStore;
             _createMainViewModel = createMainViewModel;
