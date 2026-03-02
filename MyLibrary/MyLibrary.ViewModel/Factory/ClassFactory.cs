@@ -1,5 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Commands;
+using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
@@ -10,6 +11,8 @@ namespace MyLibrary.ViewModel.Factory
 {
     public static class ClassFactory
     {
+        #region ViewModels
+
         public static IStatusBarViewModel CreateStatusBarViewModel()
         {
             return new StatusBarViewModel();
@@ -174,6 +177,33 @@ namespace MyLibrary.ViewModel.Factory
 
         }
 
+        #endregion
+
+        #region Commands
+
+        public static INavigateHomeScreenCommand CreateNavigateHomeScreenCommand()
+        {
+            return new NavigateHomeScreenCommand();
+        }
+
+        public static ILoginModalCommand CreateLoginModalCommand()
+        {
+            return new LoginModalCommand();
+        }
+
+        public static ICheckDatabaseCommand CreateCheckDatabaseCommand()
+        {
+            return new CheckDatabaseCommand();
+        }
+
+        public static ICloseAppCommand CreateCloseAppCommand()
+        {
+            return new CloseAppCommand();
+        }
+        #endregion
+
+        #region Stores
+
         public static INavigationStore CreateNavigationStore()
         {
             return new NavigationStore();
@@ -217,19 +247,6 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new TimeStore();
         }
-        public static INavigateHomeScreenCommand CreateNavigateHomeScreenCommand()
-        {
-            return new NavigateHomeScreenCommand();
-        }
-
-        public static ILoginModalCommand CreateLoginModalCommand()
-        {
-            return new LoginModalCommand();
-        }
-
-        public static ICheckDatabaseCommand CreateCheckDatabaseCommand()
-        {
-            return new CheckDatabaseCommand();
-        }
+        #endregion
     }
 }
