@@ -165,6 +165,7 @@
     <Compile Include="Stores\Interfaces\IReservedBooksStore.cs" />
     <Compile Include="Stores\Interfaces\ISettingNavigationStore.cs" />
     <Compile Include="Stores\Interfaces\ISettingsStore.cs" />
+    <Compile Include="Stores\Interfaces\ITimeStore.cs" />
     <Compile Include="Stores\LoanStore.cs" />
     <Compile Include="Stores\MessageBoxStore.cs" />
     <Compile Include="Stores\ModalNavigationStore.cs" />

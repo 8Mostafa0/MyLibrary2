@@ -200,7 +200,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new SettingsStore();
         }
-
+        public static ITimeStore CreateTimeStore()
+        {
+            return new TimeStore();
+        }
 
 
     }

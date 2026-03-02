@@ -2,7 +2,7 @@
 
 namespace MyLibrary.ViewModel.Stores
 {
-    public class TimeStore
+    public class TimeStore : ITimeStore
     {
         #region Dependencies
         public event Action CurrentViewModelChanged;
