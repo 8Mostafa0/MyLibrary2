@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
-    public class HomeViewModel : ViewModelBase
+    public class HomeViewModel : ViewModelBase, IHomeViewModel
     {
 
         #region Dependencies
