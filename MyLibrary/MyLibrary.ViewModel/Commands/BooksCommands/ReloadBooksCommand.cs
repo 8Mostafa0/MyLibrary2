@@ -2,7 +2,7 @@
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
-    public class ReloadBooksCommand : CommandBase
+    public class ReloadBooksCommand : CommandBase, IReloadBooksCommand
     {
         #region Dependencies
         private IBooksStore _booksStore;
