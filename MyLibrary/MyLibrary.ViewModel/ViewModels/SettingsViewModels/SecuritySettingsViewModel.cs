@@ -8,6 +8,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
     public class SecuritySettingsViewModel : ViewModelBase
     {
         #region Dependencies
+        private MessageBoxStore _messageBoxStore;
         private string _password;
         public string Password
         {
@@ -22,7 +23,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
                 else
                 {
                     _password = null;
-                    //MessageBox.Show("لطفا رمز عبور را بیشتر از 5 حرف وارد کنید", "رمز عبور");
+                    _messageBoxStore.Show("لطفا رمز عبور را بیشتر از 5 حرف وارد کنید", "رمز عبور");
                 }
             }
         }
@@ -35,11 +36,12 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #endregion
 
         #region Contructor
-        public SecuritySettingsViewModel(SettingNavigationStore settingNavigationStore)
+        public SecuritySettingsViewModel(SettingNavigationStore settingNavigationStore, MessageBoxStore messageBoxStore)
         {
             _settingsStore = new SettingsStore();
             _settingNavigationStore = settingNavigationStore;
-            ChangeLoginPasswordCommand = new ChangeLoginPasswordCommand(this, _settingNavigationStore, _settingsStore);
+            ChangeLoginPasswordCommand = new ChangeLoginPasswordCommand(this, _settingNavigationStore, _settingsStore, _messageBoxStore);
+            _messageBoxStore = messageBoxStore;
         }
 
         #endregion

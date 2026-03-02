@@ -8,6 +8,7 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         #region Dependencies
         private NavigationStore _navigationStore;
         private SettingsViewModel _settingsViewModel;
+        private MessageBoxStore _messageBoxStore;
         #endregion
 
         #region Contructor
@@ -15,10 +16,11 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         /// set current view of main navigation to to settings view
         /// </summary>
         private SettingNavigationStore _settingsNavigationStore = new SettingNavigationStore();
-        public NavigateToSettingsCommand(NavigationStore navigationStore)
+        public NavigateToSettingsCommand(NavigationStore navigationStore, MessageBoxStore messageBoxStore)
         {
             _navigationStore = navigationStore;
-            _settingsViewModel = new SettingsViewModel(_settingsNavigationStore);
+            _messageBoxStore = messageBoxStore;
+            _settingsViewModel = new SettingsViewModel(_settingsNavigationStore, _messageBoxStore);
         }
         #endregion
 

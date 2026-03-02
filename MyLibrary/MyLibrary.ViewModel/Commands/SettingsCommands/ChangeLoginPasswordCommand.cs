@@ -10,6 +10,7 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         private SettingsStore _settingsStore;
         private SettingNavigationStore _settingNavigationStore;
         private SecuritySettingsViewModel _securitySettingViewModel;
+        private MessageBoxStore _messageBoxStore;
         #endregion
 
         #region Contructor
@@ -19,9 +20,10 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         /// <param name="securitySettingsViewModel"></param>
         /// <param name="settingNavigationStore"></param>
         /// <param name="settingsStore"></param>
-        public ChangeLoginPasswordCommand(SecuritySettingsViewModel securitySettingsViewModel, SettingNavigationStore settingNavigationStore, SettingsStore settingsStore)
+        public ChangeLoginPasswordCommand(SecuritySettingsViewModel securitySettingsViewModel, SettingNavigationStore settingNavigationStore, SettingsStore settingsStore, MessageBoxStore messageBoxStore)
         {
             _settingsStore = settingsStore;
+            _messageBoxStore = messageBoxStore;
             _settingNavigationStore = settingNavigationStore;
             _securitySettingViewModel = securitySettingsViewModel;
         }
@@ -35,12 +37,12 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         {
             if (_securitySettingViewModel.Password == "" || _securitySettingViewModel.Password is null || _securitySettingViewModel.Password.Count() < 5)
             {
-                //MessageBox.Show("لطفا رمز عبور را بیشتر از 5 حرف وارد کنید", "رمز عبور");
+                _messageBoxStore.Show("لطفا رمز عبور را بیشتر از 5 حرف وارد کنید", "رمز عبور");
                 return;
             }
             _settingsStore.SaveNoneHashedPassword(_securitySettingViewModel.Password);
             _settingNavigationStore.CurrentSettingViewModel = null;
-            //MessageBox.Show("رمز عبور با موفقیت تغییر یافت", "رمز عبور");
+            _messageBoxStore.Show("رمز عبور با موفقیت تغییر یافت", "رمز عبور");
         }
         #endregion
     }

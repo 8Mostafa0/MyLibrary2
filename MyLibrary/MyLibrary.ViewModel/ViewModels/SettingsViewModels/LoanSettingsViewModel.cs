@@ -8,6 +8,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #region Dependencies
         private SettingsStore _settingsStore;
         private int _maxBooksCount;
+        private MessageBoxStore _messageBoxStore;
         public string MaxBooksCount
         {
             get => _maxBooksCount.ToString();
@@ -16,7 +17,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
             {
                 if (!int.TryParse(value, out _maxBooksCount))
                 {
-                    //MessageBox.Show("لطفا تعداد حداکثر کتاب را عدد وارد کنید", "خطای ورودی");
+                    _messageBoxStore.Show("لطفا تعداد حداکثر کتاب را عدد وارد کنید", "خطای ورودی");
                     return;
                 }
                 OnProperychanged(nameof(MaxBooksCount));
@@ -32,7 +33,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
             {
                 if (!int.TryParse(value, out _maxLoanDay))
                 {
-                    //MessageBox.Show("لطفا تعداد حداکثر تعداد روز را عدد وارد کنید", "خطای ورودی");
+                    _messageBoxStore.Show("لطفا تعداد حداکثر تعداد روز را عدد وارد کنید", "خطای ورودی");
                     return;
                 }
                 OnProperychanged(nameof(MaxLoanDay));
@@ -42,12 +43,13 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #endregion
 
         #region Constructor
-        public LoanSettingsViewModel()
+        public LoanSettingsViewModel(MessageBoxStore messageBoxStore)
         {
             _settingsStore = new SettingsStore();
             Dictionary<string, int> setting = _settingsStore.GetLoansSetting();
             MaxBooksCount = setting["MaxBooksLoan"].ToString();
             MaxLoanDay = setting["MaxLoanDays"].ToString();
+            _messageBoxStore = messageBoxStore;
         }
 
         #endregion
