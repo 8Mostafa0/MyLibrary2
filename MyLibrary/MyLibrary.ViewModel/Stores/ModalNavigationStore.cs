@@ -3,7 +3,7 @@ using System;
 
 namespace MyLibrary.ViewModel.Stores
 {
-    public class ModalNavigationStore
+    public class ModalNavigationStore : IModalNavigationStore
     {
         #region Dependencies
         private IViewModelBase _currentViewModel;
