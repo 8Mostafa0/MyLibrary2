@@ -11,6 +11,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         private BooksStore _booksStore;
         private BooksViewModel _booksViewModel;
         private BooksRepository _booksRepository;
+        private MessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -21,11 +22,12 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <param name="booksViewModel"></param>
         /// <param name="booksStore"></param>
         /// <param name="booksRepository"></param>
-        public EditBookCommand(BooksViewModel booksViewModel, BooksStore booksStore, BooksRepository booksRepository)
+        public EditBookCommand(BooksViewModel booksViewModel, BooksStore booksStore, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
         {
             _booksStore = booksStore;
             _booksViewModel = booksViewModel;
             _booksRepository = booksRepository;
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 
@@ -41,33 +43,33 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
             Book SelectedBook = _booksViewModel.SelectedBook;
             if (SelectedBook == null)
             {
-                //MessageBox.Show("لطفا کتابی را برای ویرایش انتخاب کنید", "ویرایش کتاب");
+                _messageBoxStore.Show("لطفا کتابی را برای ویرایش انتخاب کنید", "ویرایش کتاب");
             }
 
-            if (!(_booksViewModel.Name is null) || !(_booksViewModel.Name == ""))
+            if (_booksViewModel.Name is null || _booksViewModel.Name == "")
             {
-                //MessageBox.Show("لطفا نام کتاب را وارد کنید", "افزودن کتاب");
+                _messageBoxStore.Show("لطفا نام کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            if (!(_booksViewModel.Publisher is null) || !(_booksViewModel.Publisher == ""))
+            if (_booksViewModel.Publisher is null || _booksViewModel.Publisher == "")
             {
-                //MessageBox.Show("لطفا منتشرکننده کتاب را وارد کنید", "افزودن کتاب");
+                _messageBoxStore.Show("لطفا منتشرکننده کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            if (!(_booksViewModel.Subject is null) || !(_booksViewModel.Subject == ""))
+            if (_booksViewModel.Subject is null || _booksViewModel.Subject == "")
             {
-                //MessageBox.Show("لطفا نوع کتاب را وارد کنید", "افزودن کتاب");
+                _messageBoxStore.Show("لطفا نوع کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            if (!(_booksViewModel.PublicationDate is null) || !(_booksViewModel.PublicationDate == ""))
+            if (_booksViewModel.PublicationDate is null || _booksViewModel.PublicationDate == "")
             {
-                //MessageBox.Show("لطفا تاریخ انتشار کتاب را وارد کنید", "افزودن کتاب");
+                _messageBoxStore.Show("لطفا تاریخ انتشار کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
             int PublicationYear = 0;
-            if (!int.TryParse(_booksViewModel.PublicationDate, out PublicationYear))
+            if (!int.TryParse(_booksViewModel.PublicationDate, out PublicationYear) || _booksViewModel.PublicationDate.Length != 4)
             {
-                //MessageBox.Show("لطفا تاریخ انتشار کتاب را عدد وارد کنید", "افزودن کتاب");
+                _messageBoxStore.Show("لطفا تاریخ انتشار کتاب را عدد 4 رقمی وارد کنید", "افزودن کتاب");
                 _booksViewModel.PublicationDate = "";
                 return;
             }
