@@ -3,7 +3,7 @@ using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
-    public class RemoveReservBookCommand : CommandBase
+    public class RemoveReservBookCommand : CommandBase, IRemoveReservBookCommand
     {
         #region Dependencies
         private IReservedBooksStore _reservedBooksStore;
