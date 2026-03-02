@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MyLibrary.ViewModel.Stores
 {
 
-    public class BooksStore
+    public class BooksStore : IBooksStore
     {
         #region Dependencies
         private List<Book> _books;
