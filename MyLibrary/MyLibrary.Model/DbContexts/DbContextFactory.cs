@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Model.DbContexts
 {
-    public class DbContextFactory
+    public class DbContextFactory : IDbContextFactory
     {
         #region Dependencies
         private ILogger _logger;

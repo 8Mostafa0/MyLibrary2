@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbContexts\DbContextFactory.cs" />
+    <Compile Include="DbContexts\IDbContextFactory.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Loan.cs" />
