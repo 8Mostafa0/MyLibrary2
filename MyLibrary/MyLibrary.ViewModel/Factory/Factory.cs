@@ -178,5 +178,9 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new ClientsStore();
         }
+        public static IMessageBoxStore CreateMessageBoxStore()
+        {
+            return new MessageBoxStore();
+        }
     }
 }
