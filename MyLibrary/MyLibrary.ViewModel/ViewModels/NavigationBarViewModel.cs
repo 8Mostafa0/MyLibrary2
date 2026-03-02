@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
-    public class NavigationBarViewModel : ViewModelBase
+    public class NavigationBarViewModel : ViewModelBase, INavigationBarViewModel
     {
         #region Dependencies
         private readonly NavigationStore _navigationStore;
