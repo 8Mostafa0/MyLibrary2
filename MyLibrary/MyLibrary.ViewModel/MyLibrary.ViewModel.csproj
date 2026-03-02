@@ -154,9 +154,6 @@
     <Compile Include="Commands\SettingsCommands\NavigatieToSettingsCommand.cs" />
     <Compile Include="Factory\Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Servicies\INavigationService.cs" />
-    <Compile Include="Servicies\ModalNavigationService.cs" />
-    <Compile Include="Servicies\NavigationService.cs" />
     <Compile Include="Stores\BooksStore.cs" />
     <Compile Include="Stores\ClientsStore.cs" />
     <Compile Include="Stores\LoanStore.cs" />
@@ -170,7 +167,8 @@
     <Compile Include="ViewModels\BooksViewModel.cs" />
     <Compile Include="ViewModels\ClientsViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
-    <Compile Include="ViewModels\IMainViewModel.cs" />
+    <Compile Include="ViewModels\ILoginViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\INavigationBarViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IViewModelBase.cs" />
     <Compile Include="ViewModels\Interfaces\IStatusBarViewModel.cs" />

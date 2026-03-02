@@ -1,14 +1,18 @@
 ﻿using MyLibrary.Model.DbContexts;
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Stores;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelBase, ILoginViewModel
     {
         #region Dependencies
         private string _password;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public bool FirstOpen { get; }
         public string Title { get; set; }
         public string Password
@@ -43,6 +47,7 @@ namespace MyLibrary.ViewModel.ViewModels
                 Title = "رمز عبور خود را وارد کنید";
             }
         }
+
         #endregion
     }
 }

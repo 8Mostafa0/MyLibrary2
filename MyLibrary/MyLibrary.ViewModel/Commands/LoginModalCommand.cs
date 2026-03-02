@@ -7,7 +7,7 @@ namespace MyLibrary.ViewModel.Commands
     public class LoginModalCommand : CommandBase
     {
         #region Dependencies
-        private LoginViewModel _loginViewModel;
+        private ILoginViewModel _loginViewModel;
         private ModalNavigationStore _modalNavigationStore;
         #endregion
 
