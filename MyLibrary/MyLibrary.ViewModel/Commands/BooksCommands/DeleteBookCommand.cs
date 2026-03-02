@@ -13,6 +13,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         private LoanRepository _loanRepository;
         private BooksViewModel _booksViewModel;
         private ReservedBooksRepository _reservedBooksRepository;
+        private MessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -24,12 +25,13 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <param name="booksStore"></param>
         /// <param name="loanRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public DeleteBookCommand(BooksViewModel booksViewModel, BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository)
+        public DeleteBookCommand(BooksViewModel booksViewModel, BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         {
             _booksStore = booksStore;
             _loanRepository = loanRepository;
             _booksViewModel = booksViewModel;
             _reservedBooksRepository = reservedBooksRepository;
+            _messageBoxStore = messageBoxStore;
         }
 
         #endregion
@@ -48,24 +50,25 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         {
             if (_booksViewModel.SelectedBook is null)
             {
-                //MessageBox.Show("لطفا کتابی را برای حذف انتخاب کنید", "حذف کتاب");
+                _messageBoxStore.Show("لطفا کتابی را برای حذف انتخاب کنید", "حذف کتاب");
                 return;
             }
 
             List<Loan> BookLoans = await _loanRepository.GetNotReturnedLoanOfBook(_booksViewModel.SelectedBook.ID);
             if (BookLoans.Count > 0)
             {
-                //MessageBox.Show("این کتاب امانتی تحویل نشده فعال دارد", "حذف کتاب");
+                _messageBoxStore.Show("این کتاب امانتی تحویل نشده فعال دارد", "حذف کتاب");
                 return;
             }
-            //MessageBoxResult AskResult = MessageBox.Show("آیا از حذف این کتاب مطمن هستید؟", "حذف کتاب", MessageBoxButton.YesNo);
-            //if (AskResult == MessageBoxResult.Yes)
-            //{
-            //    await _reservedBooksRepository.DeleteReservedBookToDb(_booksViewModel.SelectedBook.ID);
-            //    await _loanRepository.RemoveBookLoans(_booksViewModel.SelectedBook.ID);
-            //    await _booksStore.DeleteBook(_booksViewModel.SelectedBook);
+            _messageBoxStore.Show("آیا از حذف این کتاب مطمن هستید؟", "حذف کتاب", "بله", "خیر", new DeleteBookCommand(_booksViewModel, _booksStore, _loanRepository, _reservedBooksRepository, _messageBoxStore));
+            if (_messageBoxStore.MessageBoxResult)
+            {
+                _messageBoxStore.CloseMessageBox();
+                await _reservedBooksRepository.DeleteReservedBookToDb(_booksViewModel.SelectedBook.ID);
+                await _loanRepository.RemoveBookLoans(_booksViewModel.SelectedBook.ID);
+                await _booksStore.DeleteBook(_booksViewModel.SelectedBook);
 
-            //}
+            }
         }
         #endregion
     }
