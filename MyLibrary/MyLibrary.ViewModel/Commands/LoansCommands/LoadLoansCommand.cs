@@ -2,7 +2,7 @@
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
-    public class LoadLoansCommand : CommandBase
+    public class LoadLoansCommand : CommandBase, ILoadLoansCommand
     {
         #region Dependencies
         private ILoansStore _loansStore;
