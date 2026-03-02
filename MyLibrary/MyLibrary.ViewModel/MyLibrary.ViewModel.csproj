@@ -133,6 +133,7 @@
     <Compile Include="Commands\Interfaces\ILoansCommands\ISaveLoanDataCommand.cs" />
     <Compile Include="Commands\Interfaces\ILoansCommands\IReturnedLoanCommand.cs" />
     <Compile Include="Commands\Interfaces\ILoansCommands\IReloadLoansListCommand.cs" />
+    <Compile Include="Commands\Interfaces\ILoansCommands\INavigateLoansCommand.cs" />
     <Compile Include="Commands\LoansCommands\LoadLoansCommand.cs" />
     <Compile Include="Commands\LoansCommands\NavigateLoansCommand.cs" />
     <Compile Include="Commands\LoansCommands\ReloadLoansListCommand.cs" />
