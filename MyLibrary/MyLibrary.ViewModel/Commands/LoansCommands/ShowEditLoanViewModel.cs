@@ -14,6 +14,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         private LoansViewModel _loansViewModel;
         private LoanRepository _loanRepository;
         private BooksRepository _booksRepository;
+        private MessageBoxStore _messageBoxStore;
         private ModalNavigationStore _modalNavigationStore;
         private AddEditeLoanViewModel _addEditeLoanViewModel;
         private ReservedBooksRepository _reservedBooksRepository;
@@ -32,8 +33,9 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="loanRepository"></param>
         /// <param name="settingsStore"></param>
         /// <param name="booksRepository"></param>
+        /// <param name="MessageBoxStore"></param>
         /// <param name="reservedBooksRepository"></param>
-        public ShowEditLoanViewModel(ModalNavigationStore modalNavigationStore, LoansStore loansStore, BooksStore booksStore, ClientsStore clientsStore, LoansViewModel loansViewModel, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository)
+        public ShowEditLoanViewModel(ModalNavigationStore modalNavigationStore, LoansStore loansStore, BooksStore booksStore, ClientsStore clientsStore, LoansViewModel loansViewModel, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, MessageBoxStore messageBoxStore, ReservedBooksRepository reservedBooksRepository)
         {
             _loansStore = loansStore;
             _booksStore = booksStore;
@@ -42,6 +44,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             _loanRepository = loanRepository;
             _loansViewModel = loansViewModel;
             _booksRepository = booksRepository;
+            _messageBoxStore = messageBoxStore;
             _modalNavigationStore = modalNavigationStore;
             _reservedBooksRepository = reservedBooksRepository;
         }
@@ -54,18 +57,17 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="parameter">no marametes needed</param>
         public override async void Execute(object parameter)
         {
-            if (_loansViewModel.SelectedLoan is null)
+            if (_loansViewModel.SelectedLoan._loan is null)
             {
-                //MessageBox.Show("لطفا ابتدا امانتی را انتخاب کنید", "ویرایش نوبت");
+                _messageBoxStore.Show("لطفا ابتدا امانتی را انتخاب کنید", "ویرایش نوبت");
             }
-            //else if (!(_loansViewModel.SelectedLoan.ReturnedDate is null) && _loansViewModel.SelectedLoan.ReturnedDate != "خیر")
-            //{
-            //MessageBox.Show("این امانت تحویل داده شده است", "ویرایش نوبت");
-            //}
+            else if (!(_loansViewModel.SelectedLoan.ReturnedDateTime is null) && _loansViewModel.SelectedLoan.ReturnedDateTime != "خیر")
+            {
+                _messageBoxStore.Show("این امانت تحویل داده شده است", "ویرایش نوبت");
+            }
             else
             {
-
-                _addEditeLoanViewModel = AddEditeLoanViewModel.LoadViewModel(_modalNavigationStore, _booksStore, _clientsStore, _loansStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository, loan: _loansViewModel.SelectedLoan.ToLoan());
+                _addEditeLoanViewModel = AddEditeLoanViewModel.LoadViewModel(_modalNavigationStore, _booksStore, _clientsStore, _loansStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository, loan: !(_loansViewModel.SelectedLoan._loan is null) ? _loansViewModel.SelectedLoan.ToLoan() : null);
                 _modalNavigationStore.CurrentViewModel = _addEditeLoanViewModel;
             }
         }

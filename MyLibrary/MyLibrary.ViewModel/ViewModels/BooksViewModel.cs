@@ -123,7 +123,7 @@ namespace MyLibrary.ViewModel.ViewModels
             LoadBooksCommand = new LoadBooksCommand(_booksStore);
             AddNewBookCommand = new AddNewBookCommand(_booksStore, this, booksRepository, _messageBoxStore);
             EditBookCommand = new EditBookCommand(this, _booksStore, booksRepository, _messageBoxStore);
-            DeleteBookCommand = new DeleteBookCommand(this, _booksStore, loanRepository, reservedBooksRepository,);
+            DeleteBookCommand = new DeleteBookCommand(this, _booksStore, loanRepository, reservedBooksRepository, _messageBoxStore);
             OrderBooksCommand = new OrderBooksByStateCommand(this, _booksStore);
             ReloadClientsCommand = new ReloadBooksCommand(_booksStore);
             _booksStore.BooksUpdated += UpdateBooks;

@@ -38,7 +38,7 @@ namespace MyLibrary.ViewModel.ViewModels
         /// </summary>
         private void OnModalChanged()
         {
-            OnProperychanged(nameof(CurrentViewModel));
+            OnProperychanged(nameof(CurrentModalView));
             OnProperychanged(nameof(IsModalOpen));
         }
 

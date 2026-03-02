@@ -155,7 +155,7 @@
                     <GridViewColumn Header="برگشت شده" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding ReturnedDate}"/>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding ReturnedDateTime}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

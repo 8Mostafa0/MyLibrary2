@@ -57,14 +57,14 @@ namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
         #region Methods
         public Loan ToLoan()
         {
-            DateTime ReturnedDateTime;
+            DateTime? ReturnedDateTime;
             try
             {
                 ReturnedDateTime = DateTime.Parse(this.ReturnedDateTime);
             }
             catch
             {
-                ReturnedDateTime = DateTime.Parse(this.ReturnedDateTime);
+                ReturnedDateTime = null;
             }
             return new Loan()
             {
