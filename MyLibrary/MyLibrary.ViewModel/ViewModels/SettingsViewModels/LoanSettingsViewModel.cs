@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
 {
-    public class LoanSettingsViewModel : ViewModelBase
+    public class LoanSettingsViewModel : ViewModelBase, ILoanSettingsViewModel
     {
         #region Dependencies
         private SettingsStore _settingsStore;
