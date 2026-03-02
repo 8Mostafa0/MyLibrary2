@@ -106,6 +106,7 @@
     <Compile Include="Commands\BooksCommands\AddNewBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\DeleteBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\EditBookCommand.cs" />
+    <Compile Include="Commands\Interfaces\IBooksCommands\IAddNewBookCommand.cs" />
     <Compile Include="Commands\Interfaces\IBooksCommands\IDeleteBookCommand.cs" />
     <Compile Include="Commands\Interfaces\IBooksCommands\IEditBookCommand.cs" />
     <Compile Include="Commands\Interfaces\IBooksCommands\ILoadBooksCommand.cs" />

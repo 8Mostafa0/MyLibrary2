@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
-    public class AddNewBookCommand : CommandBase
+    public class AddNewBookCommand : CommandBase, IAddNewBookCommand
     {
         #region Dependencies
         private IBooksStore _booksStore;
