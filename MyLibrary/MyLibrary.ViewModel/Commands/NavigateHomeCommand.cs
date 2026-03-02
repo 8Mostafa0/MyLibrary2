@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands
@@ -20,12 +21,12 @@ namespace MyLibrary.ViewModel.Commands
         /// <param name="loansStore"></param>
         /// <param name="clientsStore"></param>
         /// <param name="booksStore"></param>
-        public NavigateHomeScreenCommand(INavigationStore navigationStore, ILoansStore loansStore, IClientsStore clientsStore, IBooksStore booksStore)
+        public NavigateHomeScreenCommand()
         {
-            _navigationStore = navigationStore;
-            _clientsStore = clientsStore;
-            _booksStore = booksStore;
-            _loansStore = loansStore;
+            _navigationStore = ClassFactory.CreateNavigationStore();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _booksStore = ClassFactory.CreateBooksStore();
+            _loansStore = ClassFactory.CreateLoansStore();
         }
         #endregion
 
