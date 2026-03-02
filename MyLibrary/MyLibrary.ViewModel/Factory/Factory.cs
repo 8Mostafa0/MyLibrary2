@@ -74,5 +74,8 @@ namespace MyLibrary.ViewModel.Factory
         //}
         //public static ISecuritySettingsViewModel CreateSecuritySettingsViewModel() { }
 
+        //public static ISettingsViewModel CreateSettingsViewModel() { }
+
+
     }
 }

@@ -7,7 +7,7 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
     {
         #region Dependencies
         private NavigationStore _navigationStore;
-        private SettingsViewModel _settingsViewModel;
+        private ISettingsViewModel _settingsViewModel;
         private MessageBoxStore _messageBoxStore;
         #endregion
 
