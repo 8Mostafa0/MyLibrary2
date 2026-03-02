@@ -17,7 +17,7 @@ namespace MyLibrary.View
             NavigationStore navigationStore = new NavigationStore();
             ClientsStore clientsStore = new ClientsStore();
             LoansStore loansStore = new LoansStore();
-            BooksStore booksStore = new BooksStore();
+            IBooksStore booksStore = new BooksStore();
             SettingsStore settingsStore = new SettingsStore();
             LoanRepository loanRepository = new LoanRepository();
             ReservedBooksStore reservedBooksStore = new ReservedBooksStore();

@@ -5,7 +5,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     public class OrderBooksBySubjectCommand : CommandBase
     {
         #region Dependencies
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
         private MessageBoxStore _messageBoxStore;
         #endregion
 
@@ -14,7 +14,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// Order Book By Entered Subject
         /// </summary>
         /// <param name="booksStore"></param>
-        public OrderBooksBySubjectCommand(BooksStore booksStore, MessageBoxStore messageBoxStore)
+        public OrderBooksBySubjectCommand(IBooksStore booksStore, MessageBoxStore messageBoxStore)
         {
             _booksStore = booksStore;
             _messageBoxStore = messageBoxStore;

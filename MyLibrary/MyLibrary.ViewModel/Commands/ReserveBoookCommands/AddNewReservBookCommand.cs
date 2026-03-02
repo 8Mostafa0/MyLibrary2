@@ -6,7 +6,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
     public class AddNewReservBookCommand : CommandBase
     {
         #region Dependencies
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
         private ClientsStore _clientsStore;
         private ReservedBooksStore _reservedBooksStore;
         private ModalNavigationStore _modalNavigationStore;
@@ -33,7 +33,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             ModalNavigationStore modalNavigationStore,
             ReservedBooksStore reservedBooksStore,
             ClientsStore clientsStore,
-            BooksStore booksStore,
+            IBooksStore booksStore,
             LoanRepository loanRepository,
             ReservedBooksRepository reservedBooksRepository,
             ClientsRepository clientsRepository,

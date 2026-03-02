@@ -9,7 +9,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     public class DeleteBookCommand : CommandBase
     {
         #region Dependencies
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
         private LoanRepository _loanRepository;
         private IBooksViewModel _booksViewModel;
         private ReservedBooksRepository _reservedBooksRepository;
@@ -25,7 +25,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <param name="booksStore"></param>
         /// <param name="loanRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public DeleteBookCommand(IBooksViewModel booksViewModel, BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
+        public DeleteBookCommand(IBooksViewModel booksViewModel, IBooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         {
             _booksStore = booksStore;
             _loanRepository = loanRepository;

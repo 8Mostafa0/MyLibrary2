@@ -14,11 +14,11 @@ namespace MyLibrary.ViewModel.Stores
         private BooksRepository _booksRepository;
         public IEnumerable<Book> Books => _books;
 
-        public Action BooksUpdated;
+        public event Action BooksUpdated;
         public Lazy<Task> _initilizerLazy;
-        public Action<Book> BookAdded;
-        public Action<Book> BookEdited;
-        public Action<Book> BookDeleted;
+        public event Action<Book> BookAdded;
+        public event Action<Book> BookEdited;
+        public event Action<Book> BookDeleted;
 
         public string SearchBookName { get; set; }
         public int SearchSubject { get; set; }

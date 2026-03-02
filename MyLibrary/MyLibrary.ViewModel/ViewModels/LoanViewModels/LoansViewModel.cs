@@ -17,7 +17,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         private ObservableCollection<LoanViewModel> _loans;
         private LoansStore _loansStore;
         private ClientsStore _clientsStore;
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
         private LoanRepository _loanRepository;
         private SettingsStore _settingsStore;
         private BooksRepository _booksRepository;
@@ -71,7 +71,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #endregion
 
         #region Constructor
-        public LoansViewModel(ModalNavigationStore modalNavigationStore, LoansStore loansStore, ClientsStore clientsStore, BooksStore booksStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
+        public LoansViewModel(ModalNavigationStore modalNavigationStore, LoansStore loansStore, ClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
             _modalNavigationStore = modalNavigationStore;

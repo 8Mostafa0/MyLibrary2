@@ -8,7 +8,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     {
         #region Dependencies
         private LoansStore _loansStore;
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
         private ClientsStore _clientsStore;
         private SettingsStore _settingsStore;
         private LoansViewModel _loansViewModel;
@@ -35,7 +35,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="booksRepository"></param>
         /// <param name="MessageBoxStore"></param>
         /// <param name="reservedBooksRepository"></param>
-        public ShowEditLoanViewModel(ModalNavigationStore modalNavigationStore, LoansStore loansStore, BooksStore booksStore, ClientsStore clientsStore, LoansViewModel loansViewModel, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, MessageBoxStore messageBoxStore, ReservedBooksRepository reservedBooksRepository)
+        public ShowEditLoanViewModel(ModalNavigationStore modalNavigationStore, LoansStore loansStore, IBooksStore booksStore, ClientsStore clientsStore, LoansViewModel loansViewModel, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, MessageBoxStore messageBoxStore, ReservedBooksRepository reservedBooksRepository)
         {
             _loansStore = loansStore;
             _booksStore = booksStore;

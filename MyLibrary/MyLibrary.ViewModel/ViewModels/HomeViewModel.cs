@@ -67,12 +67,12 @@ namespace MyLibrary.ViewModel.ViewModels
 
 
         private readonly ClientsStore _clientsStore;
-        private readonly BooksStore _booksStore;
+        private readonly IBooksStore _booksStore;
         private readonly LoansStore _loansStore;
         #endregion
 
         #region Cntructor
-        public HomeViewModel(ClientsStore clientsStore, BooksStore booksStore, LoansStore loansStore)
+        public HomeViewModel(ClientsStore clientsStore, IBooksStore booksStore, LoansStore loansStore)
         {
             _clientsStore = clientsStore;
             _booksStore = booksStore;

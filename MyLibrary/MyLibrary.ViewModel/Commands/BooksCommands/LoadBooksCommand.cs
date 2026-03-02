@@ -5,7 +5,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     public class LoadBooksCommand : CommandBase
     {
         #region Dependencies
-        private readonly BooksStore _booksStore;
+        private readonly IBooksStore _booksStore;
         #endregion
 
         #region Contructor
@@ -13,7 +13,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// Load All The Books From Database To Store
         /// </summary>
         /// <param name="booksStore"></param>
-        public LoadBooksCommand(BooksStore booksStore)
+        public LoadBooksCommand(IBooksStore booksStore)
         {
             _booksStore = booksStore;
         }

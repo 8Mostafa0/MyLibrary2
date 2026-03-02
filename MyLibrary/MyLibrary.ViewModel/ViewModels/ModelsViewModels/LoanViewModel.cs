@@ -9,7 +9,7 @@ namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
     {
         #region Properties
         private ClientsStore _clientsStore;
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
         public Loan _loan;
         public int ID => _loan.Id;
         public int ClientID => _loan.ClientId;
@@ -28,7 +28,7 @@ namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
 
         #region Contructor
 
-        public LoanViewModel(Loan loan, ClientsStore clientsStore, BooksStore booksStore)
+        public LoanViewModel(Loan loan, ClientsStore clientsStore, IBooksStore booksStore)
         {
             if (!(clientsStore is null) && !(booksStore is null))
             {

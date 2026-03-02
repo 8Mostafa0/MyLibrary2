@@ -1,4 +1,5 @@
 ﻿using MyLibrary.Model.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,6 +10,11 @@ namespace MyLibrary.ViewModel.Stores
         IEnumerable<Book> Books { get; }
         string SearchBookName { get; set; }
         int SearchSubject { get; set; }
+
+        event Action<Book> BookAdded;
+        event Action<Book> BookDeleted;
+        event Action<Book> BookEdited;
+        event Action BooksUpdated;
 
         Task AddNewBook(Book book);
         void clear();

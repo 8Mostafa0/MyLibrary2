@@ -10,7 +10,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     public class AddNewBookCommand : CommandBase
     {
         #region Dependencies
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
         private IBooksViewModel _booksViewModel;
         private BooksRepository _booksRepository;
         private MessageBoxStore _messageBoxStore;
@@ -24,7 +24,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <param name="booksStore"></param>
         /// <param name="booksViewModel"></param>
         /// <param name="booksRepository"></param>
-        public AddNewBookCommand(BooksStore booksStore, IBooksViewModel booksViewModel, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
+        public AddNewBookCommand(IBooksStore booksStore, IBooksViewModel booksViewModel, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
         {
             _booksStore = booksStore;
             _booksViewModel = booksViewModel;

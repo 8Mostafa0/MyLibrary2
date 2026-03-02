@@ -18,7 +18,7 @@ namespace MyLibrary.ViewModel.Stores
         public IEnumerable<LoanViewModel> Loans => _loans;
         private LoanRepository _loanRepository;
         private ClientsStore _clientsStore;
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
 
         public Action LoansUpdated;
         public Action<Loan> LoanIsAdded;

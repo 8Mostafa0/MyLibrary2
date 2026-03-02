@@ -5,7 +5,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     public class SearchBookNameCommand : CommandBase
     {
         #region Dependencies
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
         #endregion
 
 
@@ -14,7 +14,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// Search Book Using Name From BookStore.
         /// </summary>
         /// <param name="booksStore"></param>
-        public SearchBookNameCommand(BooksStore booksStore)
+        public SearchBookNameCommand(IBooksStore booksStore)
         {
             _booksStore = booksStore;
         }

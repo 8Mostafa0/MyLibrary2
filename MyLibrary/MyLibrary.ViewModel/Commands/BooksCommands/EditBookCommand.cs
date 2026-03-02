@@ -8,7 +8,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     public class EditBookCommand : CommandBase
     {
         #region Dependencies
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
         private IBooksViewModel _booksViewModel;
         private BooksRepository _booksRepository;
         private MessageBoxStore _messageBoxStore;
@@ -22,7 +22,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <param name="booksViewModel"></param>
         /// <param name="booksStore"></param>
         /// <param name="booksRepository"></param>
-        public EditBookCommand(IBooksViewModel booksViewModel, BooksStore booksStore, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
+        public EditBookCommand(IBooksViewModel booksViewModel, IBooksStore booksStore, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
         {
             _booksStore = booksStore;
             _booksViewModel = booksViewModel;

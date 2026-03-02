@@ -5,7 +5,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     public class ReloadBooksCommand : CommandBase
     {
         #region Dependencies
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
         #endregion
 
 
@@ -14,7 +14,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// 
         /// </summary>
         /// <param name="booksStore"></param>
-        public ReloadBooksCommand(BooksStore booksStore)
+        public ReloadBooksCommand(IBooksStore booksStore)
         {
             _booksStore = booksStore;
         }

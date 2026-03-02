@@ -12,7 +12,7 @@ namespace MyLibrary.ViewModel.ViewModels
     public class BooksViewModel : ViewModelBase, IBooksViewModel
     {
         #region Dependencies
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
         private ObservableCollection<Book> _books;
         private Book _selectedBook;
         private MessageBoxStore _messageBoxStore;
@@ -115,7 +115,7 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public BooksViewModel(BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
+        public BooksViewModel(IBooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
             _booksStore = booksStore;

@@ -7,7 +7,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     public class NavigateBooksCommand : CommandBase
     {
         #region Dipendencies
-        private BooksStore _booksStore;
+        private IBooksStore _booksStore;
         private IBooksViewModel _booksViewModel;
         private NavigationStore _navigationStore;
         #endregion
@@ -22,7 +22,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <param name="loanRepository"></param>
         /// <param name="reservedBooksRepository"></param>
         /// <param name="booksRepository"></param>
-        public NavigateBooksCommand(NavigationStore navigationStore, BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
+        public NavigateBooksCommand(NavigationStore navigationStore, IBooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
         {
             _navigationStore = navigationStore;
             _booksStore = booksStore;
