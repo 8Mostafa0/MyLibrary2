@@ -85,10 +85,10 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             _booksRepository = booksRepository;
             _reservedBooksRepository = reservedBooksRepository;
             LoadLoansCommand = new LoadLoansCommand(_loansStore);
-            ShowAddLoanModalCommand = new ShowLoanModalCommand(_modalNavigationStore, _booksStore, _clientsStore, _loansStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository);
+            ShowAddLoanModalCommand = new ShowLoanModalCommand(_modalNavigationStore, _booksStore, _clientsStore, _loansStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository, _messageBoxStore);
             ShowEditLoanViewModel = new ShowEditLoanViewModel(_modalNavigationStore, _loansStore, _booksStore, _clientsStore, this, _loanRepository, _settingsStore, _booksRepository, _messageBoxStore, _reservedBooksRepository);
             SortLoansListCommand = new SortLoansListCommand(this, _loansStore);
-            ReturnedLoanCommand = new ReturnedLoanCommand(this, _loansStore);
+            ReturnedLoanCommand = new ReturnedLoanCommand(this, _loansStore, _messageBoxStore);
             ReloadLoansListCommand = new ReloadLoansListCommand(_loansStore);
             SearchBookCommand = new SearchBookCommand(this, _loansStore);
             _loansStore.LoansUpdated += UpdateLoans;

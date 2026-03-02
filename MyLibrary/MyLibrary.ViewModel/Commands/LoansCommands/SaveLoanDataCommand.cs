@@ -18,6 +18,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         private readonly ModalNavigationStore _modalNavigationStore;
         private readonly AddEditeLoanViewModel _addEditeLoanViewModel;
         private readonly ReservedBooksRepository _reservedBooksRepository;
+        private readonly MessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -32,8 +33,9 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="settingsStore"></param>
         /// <param name="booksRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public SaveLoanDataCommand(AddEditeLoanViewModel addEditeLoanViewModel, LoansStore loansStore, ModalNavigationStore modalNavigationStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository)
+        public SaveLoanDataCommand(AddEditeLoanViewModel addEditeLoanViewModel, LoansStore loansStore, ModalNavigationStore modalNavigationStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         {
+            _messageBoxStore = messageBoxStore;
             _loansStore = loansStore;
             _settingsStore = settingsStore;
             _loanRepository = loanRepository;
@@ -56,12 +58,12 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 #region Inputs Validation
                 if (_addEditeLoanViewModel.SelectedBook is null)
                 {
-                    //MessageBox.Show("لطفا کتابی را برای امانت انتخاب کنید", "ثبت امانت");
+                    _messageBoxStore.Show("لطفا کتابی را برای امانت انتخاب کنید", "ثبت امانت");
                     return;
                 }
                 if (_addEditeLoanViewModel.SelectedClient is null)
                 {
-                    //MessageBox.Show("لطفا کاربری را برای امانت انتخاب کنید", "ثبت امانت");
+                    _messageBoxStore.Show("لطفا کاربری را برای امانت انتخاب کنید", "ثبت امانت");
                     return;
                 }
                 #endregion
@@ -75,12 +77,12 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 DateTime ReturnDate = _addEditeLoanViewModel.ReturnDate;
                 if ((ReturnDate - DateTime.Now).Days > LoanSettings["MaxLoanDays"])
                 {
-                    //MessageBox.Show($"لطفا تاریخ برگشت را زودتر انتخاب کنید حداکثر{LoanSettings["MaxLoanDays"]}روز", "ثبت امانت");
+                    _messageBoxStore.Show($"لطفا تاریخ برگشت را زودتر انتخاب کنید حداکثر{LoanSettings["MaxLoanDays"]}روز", "ثبت امانت");
                     return;
                 }
                 else if (ReturnDate < DateTime.Now)
                 {
-                    //MessageBox.Show("تاریخ بازگشت نمیتواند در تاریخ گذشته باشد.", "ثبت امانت");
+                    _messageBoxStore.Show("تاریخ بازگشت نمیتواند در تاریخ گذشته باشد.", "ثبت امانت");
                     return;
                 }
 
@@ -92,21 +94,21 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 {
                     if (_addEditeLoanViewModel.SelectedBook.Tier > _addEditeLoanViewModel.SelectedClient.Tier)
                     {
-                        //MessageBox.Show("این کتاب برای کاربران ویژه است", "ثبت امانت");
+                        _messageBoxStore.Show("این کتاب برای کاربران ویژه است", "ثبت امانت");
                         return;
                     }
 
                     List<Loan> AllUserLoans = await _loanRepository.GetAllClientLoans(_addEditeLoanViewModel.SelectedClient.ID);
                     if (!(AllUserLoans is null) && AllUserLoans.Count() > LoanSettings["MaxBooksLoan"])
                     {
-                        //MessageBox.Show("این کاربر به حداکثر تعداد امانت فعال رسیده است", "ثبت امانت");
+                        _messageBoxStore.Show("این کاربر به حداکثر تعداد امانت فعال رسیده است", "ثبت امانت");
                         return;
                     }
                     List<Loan> Dilayedloans = await _loanRepository.UserHaveDilayedLoan(_addEditeLoanViewModel.SelectedClient.ID);
                     if (!(Dilayedloans is null) && Dilayedloans.Count() > 0)
                     {
 
-                        //MessageBox.Show("این کاربر امانتی تحویل نشده و با تاخیر دارد", "ثبت امانت");
+                        _messageBoxStore.Show("این کاربر امانتی تحویل نشده و با تاخیر دارد", "ثبت امانت");
                         return;
                     }
                 }
@@ -127,7 +129,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
 
                     if (!(BookCopies is null) && BookCopies.Count() - 1 < NotReturnedLoansCount)
                     {
-                        //MessageBox.Show("تمامی نسخه های این کتاب به امانت داده شده اند", "ثبت امانت");
+                        _messageBoxStore.Show("تمامی نسخه های این کتاب به امانت داده شده اند", "ثبت امانت");
                         return;
                     }
                     bool IsUserReservedBook = false;
@@ -149,7 +151,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
 
                     if (!(BookReservs is null) && BookReservs.Count() >= (BookCopies.Count() - NotReturnedLoansCount) - 1 && IsUserReservedBook)
                     {
-                        //MessageBox.Show("کاربری این کتاب را رزور کرده است", "ثبت امانت");
+                        _messageBoxStore.Show("کاربری این کتاب را رزور کرده است", "ثبت امانت");
                         return;
                     }
 

@@ -29,6 +29,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         private SettingsStore _settingsStore;
         private BooksRepository _booksRepository;
         private ReservedBooksRepository _reservedBooksRepository;
+        private MessageBoxStore _messageBoxStore;
         private string _titleOfLoanScreen;
 
         public Loan SelectedLoan
@@ -134,8 +135,9 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #endregion
 
         #region Contructor
-        public AddEditeLoanViewModel(ModalNavigationStore modalNavigationStore, ClientsStore clientsStore, BooksStore booksStore, LoansStore loanStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, Loan loan = null)
+        public AddEditeLoanViewModel(ModalNavigationStore modalNavigationStore, ClientsStore clientsStore, BooksStore booksStore, LoansStore loanStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore, Loan loan = null)
         {
+            _messageBoxStore = messageBoxStore;
             _clients = new ObservableCollection<Client>();
             _books = new ObservableCollection<Book>();
             _clientsStore = clientsStore;
@@ -161,7 +163,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
                 SelectedLoan = loan;
                 ReturnDate = loan.ReturnDate;
             }
-            SaveLoanDataCommand = new SaveLoanDataCommand(this, _loansStore, _modalNavigationStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository);
+            SaveLoanDataCommand = new SaveLoanDataCommand(this, _loansStore, _modalNavigationStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository, _messageBoxStore);
             CloseModalCommand = new CloseModalCommand(_modalNavigationStore);
             SearchBookNameCommand = new SearchBookNameCommand(_booksStore);
             OrderBooksBySubjectCommand = new OrderBooksBySubjectCommand(_booksStore);
@@ -231,9 +233,9 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         /// <param name="reservedBooksRepository"></param>
         /// <param name="loan"></param>
         /// <returns></returns>
-        public static AddEditeLoanViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, BooksStore booksStore, ClientsStore clientsStore, LoansStore loansStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, Loan loan = null)
+        public static AddEditeLoanViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, BooksStore booksStore, ClientsStore clientsStore, LoansStore loansStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore, Loan loan = null)
         {
-            AddEditeLoanViewModel ViewModel = new AddEditeLoanViewModel(modalNavigationStore, clientsStore, booksStore, loansStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, loan);
+            AddEditeLoanViewModel ViewModel = new AddEditeLoanViewModel(modalNavigationStore, clientsStore, booksStore, loansStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, messageBoxStore, loan);
             ViewModel.LoadBooksCommand.Execute(null);
             ViewModel.LoadClientsCommand.Execute(null);
             ViewModel.SelectedLoan = loan is null ? new Loan()

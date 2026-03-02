@@ -57,7 +57,8 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="parameter">no marametes needed</param>
         public override async void Execute(object parameter)
         {
-            if (_loansViewModel.SelectedLoan._loan is null)
+
+            if (_loansViewModel.SelectedLoan is null || _loansViewModel.SelectedLoan._loan is null)
             {
                 _messageBoxStore.Show("لطفا ابتدا امانتی را انتخاب کنید", "ویرایش نوبت");
             }
@@ -67,7 +68,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             }
             else
             {
-                _addEditeLoanViewModel = AddEditeLoanViewModel.LoadViewModel(_modalNavigationStore, _booksStore, _clientsStore, _loansStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository, loan: !(_loansViewModel.SelectedLoan._loan is null) ? _loansViewModel.SelectedLoan.ToLoan() : null);
+                _addEditeLoanViewModel = AddEditeLoanViewModel.LoadViewModel(_modalNavigationStore, _booksStore, _clientsStore, _loansStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository, _messageBoxStore, loan: !(_loansViewModel.SelectedLoan._loan is null) ? _loansViewModel.SelectedLoan.ToLoan() : null);
                 _modalNavigationStore.CurrentViewModel = _addEditeLoanViewModel;
             }
         }

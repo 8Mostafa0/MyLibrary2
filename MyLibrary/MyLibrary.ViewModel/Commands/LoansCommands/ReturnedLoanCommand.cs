@@ -10,6 +10,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         #region Dependencies
         private LoansStore _loansStore;
         private LoansViewModel _loanViewModel;
+        private MessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -20,8 +21,9 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// </summary>
         /// <param name="loansViewModel"></param>
         /// <param name="loansStore"></param>
-        public ReturnedLoanCommand(LoansViewModel loansViewModel, LoansStore loansStore)
+        public ReturnedLoanCommand(LoansViewModel loansViewModel, LoansStore loansStore, MessageBoxStore messageBoxStore)
         {
+            _messageBoxStore = messageBoxStore;
             _loanViewModel = loansViewModel;
             _loansStore = loansStore;
         }
@@ -34,24 +36,23 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         public override async void Execute(object parameter)
         {
             LoanViewModel loan = _loanViewModel.SelectedLoan;
-            if (loan != null)
+            if (loan == null)
             {
-                bool IsReturnedLoan = DateTime.TryParse(loan.ReturnedDateTime, out DateTime _);
-                if (IsReturnedLoan)
-                {
-                    //MessageBox.Show("این امانت بارگشت داده  شده است", "برگشت کتاب");
-                    return;
-                }
-                //var AskMessage = MessageBox.Show("کاربر کتاب را بازگرداند؟", "برگشت کتاب", MessageBoxButton.YesNo);
-                //if (AskMessage == MessageBoxResult.Yes)
-                //{
-                //    loan.ReturnedDateTime = DateTime.Now.ToString();
-                //    await _loansStore.LoanReturned(loan.ToLoan());
-                //}
+                _messageBoxStore.Show("لطفا ابتدا ایتمی را انتخاب کنید", "برگشت کتاب");
+                return;
             }
-            else
+            bool IsReturnedLoan = DateTime.TryParse(loan.ReturnedDateTime, out DateTime _);
+            if (IsReturnedLoan)
             {
-                //MessageBox.Show("لطفا ابتدا ایتمی را انتخاب کنید", "برگشت کتاب");
+                _messageBoxStore.Show("این امانت بارگشت داده  شده است", "برگشت کتاب");
+                return;
+            }
+            _messageBoxStore.Show("کاربر کتاب را بازگرداند؟", "برگشت کتاب", "بله", "خیر", new ReturnedLoanCommand(_loanViewModel, _loansStore, _messageBoxStore));
+            if (_messageBoxStore.MessageBoxResult)
+            {
+                _messageBoxStore.CloseMessageBox();
+                loan.ReturnedDateTime = DateTime.Now.ToString();
+                await _loansStore.LoanReturned(loan.ToLoan());
             }
         }
         #endregion
