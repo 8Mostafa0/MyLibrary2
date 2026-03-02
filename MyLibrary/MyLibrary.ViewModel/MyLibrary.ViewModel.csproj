@@ -147,6 +147,7 @@
     <Compile Include="Commands\Interfaces\IReserveBoookCommands\ISaveReservationDataCommand.cs" />
     <Compile Include="Commands\Interfaces\IReserveBoookCommands\IResetReservBookCommand.cs" />
     <Compile Include="Commands\Interfaces\IReserveBoookCommands\IRemoveReservBookCommand.cs" />
+    <Compile Include="Commands\Interfaces\IReserveBoookCommands\INavigateReservedBooksCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\LoadReservedBooksCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\NavigateReservedBooksCommand.cs" />
     <Compile Include="Commands\ReserveBoookCommands\RemoveReservBookCommand.cs" />
