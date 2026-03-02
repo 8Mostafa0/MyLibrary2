@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Stores
 {
-    public class ClientsStore
+    public class ClientsStore : IClientsStore
     {
 
         #region Dependencies
