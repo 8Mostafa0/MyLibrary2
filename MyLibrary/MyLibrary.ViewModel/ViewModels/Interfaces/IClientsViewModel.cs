@@ -1,6 +1,4 @@
 ﻿using MyLibrary.Model.Models;
-using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -22,8 +20,6 @@ namespace MyLibrary.ViewModel.ViewModels
         Client SelectedClient { get; set; }
         string SortOrder { get; set; }
         int Tier { get; set; }
-
-        static abstract ClientsViewModel LoadViewModel(ClientsStore clientStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore);
         void UpdateClients();
     }
 }

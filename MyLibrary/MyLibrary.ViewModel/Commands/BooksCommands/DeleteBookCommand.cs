@@ -11,7 +11,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         #region Dependencies
         private BooksStore _booksStore;
         private LoanRepository _loanRepository;
-        private BooksViewModel _booksViewModel;
+        private IBooksViewModel _booksViewModel;
         private ReservedBooksRepository _reservedBooksRepository;
         private MessageBoxStore _messageBoxStore;
         #endregion
@@ -25,7 +25,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <param name="booksStore"></param>
         /// <param name="loanRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public DeleteBookCommand(BooksViewModel booksViewModel, BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
+        public DeleteBookCommand(IBooksViewModel booksViewModel, BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         {
             _booksStore = booksStore;
             _loanRepository = loanRepository;

@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
-    public class BooksViewModel : ViewModelBase
+    public class BooksViewModel : ViewModelBase, IBooksViewModel
     {
         #region Dependencies
         private BooksStore _booksStore;
@@ -195,20 +195,6 @@ namespace MyLibrary.ViewModel.ViewModels
             book.ID = _books.Any() ? _books.Last().ID + 1 : 1;
             _books.Add(book);
             _messageBoxStore.Show("کتاب با موفقیت افزوده شد", "افزودن کتاب");
-        }
-        /// <summary>
-        /// Loader Method for Books view model
-        /// </summary>
-        /// <param name="booksStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
-        /// <param name="booksRepository"></param>
-        /// <returns></returns>
-        public static BooksViewModel LoadViewModel(BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
-        {
-            BooksViewModel ViewModel = new BooksViewModel(booksStore, loanRepository, reservedBooksRepository, booksRepository, messageBoxStore);
-            ViewModel.LoadBooksCommand.Execute(null);
-            return ViewModel;
         }
         #endregion
     }

@@ -25,7 +25,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         {
             _navigationStore = navigationStore;
             _clientsStore = clientsStore;
-            _clientsViewModel = ClientsViewModel.LoadViewModel(_clientsStore, loanRepository, reservedBooksRepository, messageBoxStore);
+            //_clientsViewModel = ClientsViewModel.LoadViewModel(_clientsStore, loanRepository, reservedBooksRepository, messageBoxStore);
         }
         #endregion
 

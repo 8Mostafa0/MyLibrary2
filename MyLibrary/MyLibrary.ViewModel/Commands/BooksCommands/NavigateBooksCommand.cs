@@ -8,7 +8,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     {
         #region Dipendencies
         private BooksStore _booksStore;
-        private BooksViewModel _booksViewModel;
+        private IBooksViewModel _booksViewModel;
         private NavigationStore _navigationStore;
         #endregion
 
@@ -26,7 +26,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         {
             _navigationStore = navigationStore;
             _booksStore = booksStore;
-            _booksViewModel = BooksViewModel.LoadViewModel(_booksStore, loanRepository, reservedBooksRepository, booksRepository, messageBoxStore);
+            //_booksViewModel = BooksViewModel.LoadViewModel(_booksStore, loanRepository, reservedBooksRepository, booksRepository, messageBoxStore);
 
         }
 

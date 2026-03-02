@@ -1,7 +1,6 @@
 ﻿using MyLibrary.Model.DbContexts;
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Stores;
-using System.ComponentModel;
 using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
@@ -11,7 +10,6 @@ namespace MyLibrary.ViewModel.ViewModels
         #region Dependencies
         private string _password;
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public bool FirstOpen { get; }
         public string Title { get; set; }

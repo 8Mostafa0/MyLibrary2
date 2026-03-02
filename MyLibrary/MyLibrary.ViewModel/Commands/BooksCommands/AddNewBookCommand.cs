@@ -11,7 +11,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     {
         #region Dependencies
         private BooksStore _booksStore;
-        private BooksViewModel _booksViewModel;
+        private IBooksViewModel _booksViewModel;
         private BooksRepository _booksRepository;
         private MessageBoxStore _messageBoxStore;
         #endregion
@@ -24,7 +24,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <param name="booksStore"></param>
         /// <param name="booksViewModel"></param>
         /// <param name="booksRepository"></param>
-        public AddNewBookCommand(BooksStore booksStore, BooksViewModel booksViewModel, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
+        public AddNewBookCommand(BooksStore booksStore, IBooksViewModel booksViewModel, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
         {
             _booksStore = booksStore;
             _booksViewModel = booksViewModel;

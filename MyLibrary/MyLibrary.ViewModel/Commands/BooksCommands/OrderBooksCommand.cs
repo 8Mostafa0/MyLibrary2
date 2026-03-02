@@ -7,7 +7,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     {
         #region Dependencies
         private BooksStore _booksStore;
-        private BooksViewModel _booksViewModel;
+        private IBooksViewModel _booksViewModel;
         #endregion
 
 
@@ -19,7 +19,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// </summary>
         /// <param name="booksViewModel"></param>
         /// <param name="booksStore"></param>
-        public OrderBooksByStateCommand(BooksViewModel booksViewModel, BooksStore booksStore)
+        public OrderBooksByStateCommand(IBooksViewModel booksViewModel, BooksStore booksStore)
         {
             _booksStore = booksStore;
             _booksViewModel = booksViewModel;

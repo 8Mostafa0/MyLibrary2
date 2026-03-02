@@ -197,19 +197,6 @@ namespace MyLibrary.ViewModel.ViewModels
 
             }
         }
-        /// <summary>
-        /// loader method for clients view model
-        /// </summary>
-        /// <param name="clientStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
-        /// <returns></returns>
-        public static ClientsViewModel LoadViewModel(ClientsStore clientStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
-        {
-            ClientsViewModel ViewModel = new ClientsViewModel(clientStore, loanRepository, reservedBooksRepository, messageBoxStore);
-            ViewModel.LoadClientsCommand.Execute(null);
-            return ViewModel;
-        }
         #endregion
 
     }
