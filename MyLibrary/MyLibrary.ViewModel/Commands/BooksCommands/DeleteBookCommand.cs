@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
-    public class DeleteBookCommand : CommandBase
+    public class DeleteBookCommand : CommandBase, IDeleteBookCommand
     {
         #region Dependencies
         private IBooksStore _booksStore;
