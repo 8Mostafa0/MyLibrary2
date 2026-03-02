@@ -19,13 +19,13 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Margin="15" Content="خانه" FontSize="20" Background="#6B7445" Command="{Binding NavigateHomeCommand}"/>
-            <Button Grid.Row="1" Margin="15" Content="کتاب ها" FontSize="20" Background="#6B7445" Command="{Binding NavigateBooksCommand}" />
-            <Button Grid.Row="2" Margin="15" Content="کاربران" FontSize="20" Background="#6B7445" Command="{Binding ClientsCreenCommand}"/>
-            <Button Grid.Row="3" Margin="15" Content="امانت ها" FontSize="20" Background="#6B7445" Command="{Binding NavigateLoansCommand}" />
-            <Button Grid.Row="4" Margin="15" Content="رزرو ها" FontSize="20" Background="#6B7445"  Command="{Binding NavigateReservedBooksCommand}"/>
-            <Button Grid.Row="5" Margin="15" Content="تنظیمات" FontSize="20" Background="#6B7445"  Command="{Binding NavigateToSettingsCommand}"/>
-            <Button Grid.Row="6" Margin="15" Content="خروج" FontSize="20" Background="#6B7445"  Command="{Binding CloseAppCommand}"/>
+            <Button Grid.Row="0" Margin="15" Content="خانه" FontSize="18" Background="#6B7445" Command="{Binding NavigateHomeCommand}"/>
+            <Button Grid.Row="1" Margin="15" Content="کتاب ها" FontSize="18" Background="#6B7445" Command="{Binding NavigateBooksCommand}" />
+            <Button Grid.Row="2" Margin="15" Content="کاربران" FontSize="18" Background="#6B7445" Command="{Binding ClientsCreenCommand}"/>
+            <Button Grid.Row="3" Margin="15" Content="امانت ها" FontSize="18" Background="#6B7445" Command="{Binding NavigateLoansCommand}" />
+            <Button Grid.Row="4" Margin="15" Content="رزرو ها" FontSize="18" Background="#6B7445"  Command="{Binding NavigateReservedBooksCommand}"/>
+            <Button Grid.Row="5" Margin="15" Content="تنظیمات" FontSize="18" Background="#6B7445"  Command="{Binding NavigateToSettingsCommand}"/>
+            <Button Grid.Row="6" Margin="15" Content="خروج" FontSize="18" Background="#6B7445"  Command="{Binding CloseAppCommand}"/>
         </Grid>
     </Border>
 </UserControl>
