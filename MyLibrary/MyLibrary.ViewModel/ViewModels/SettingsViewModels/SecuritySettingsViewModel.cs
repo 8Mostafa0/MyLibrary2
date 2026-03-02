@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
 {
-    public class SecuritySettingsViewModel : ViewModelBase
+    public class SecuritySettingsViewModel : ViewModelBase, ISecuritySettingsViewModel
     {
         #region Dependencies
         private MessageBoxStore _messageBoxStore;

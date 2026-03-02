@@ -58,8 +58,21 @@ namespace MyLibrary.ViewModel.Factory
         //    return ViewModel;
         //}
 
+        //public static ISecuritySettingsViewModel CreateSecuritySettingsViewModel(SettingNavigationStore settingNavigationStore, MessageBoxStore messageBoxStore)
+        //{
+        //    return new SecuritySettingsViewModel(settingNavigationStore, messageBoxStore);
+        //}
 
+        //public static IMainLayoutSettingViewModel CreateMainLayoutSettingViewModel(SettingNavigationStore settingNavigationStore, MessageBoxStore messageBoxStore)
+        //{
+        //    return new MainLayoutSettingViewModel(settingNavigationStore, messageBoxStore);
+        //}
 
+        //public static ILoanSettingsViewModel CreateLoanSettingsViewModel(SettingNavigationStore settingNavigationStore, MessageBoxStore messageBoxStore)
+        //{
+        //    return new LoanSettingsViewModel(settingNavigationStore, messageBoxStore);
+        //}
+        //public static ISecuritySettingsViewModel CreateSecuritySettingsViewModel() { }
 
     }
 }
