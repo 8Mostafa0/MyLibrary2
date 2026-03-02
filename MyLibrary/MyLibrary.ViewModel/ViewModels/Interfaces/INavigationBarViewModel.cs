@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using MyLibrary.ViewModel.Commands;
+using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
@@ -8,7 +9,7 @@ namespace MyLibrary.ViewModel.ViewModels
         ICommand CloseAppCommand { get; }
         ICommand DatabaseCommand { get; }
         ICommand NavigateBooksCommand { get; }
-        ICommand NavigateHomeCommand { get; }
+        INavigateHomeScreenCommand NavigateHomeCommand { get; }
         ICommand NavigateLoansCommand { get; }
         ICommand NavigateReservedBooksCommand { get; }
         ICommand NavigateToSettingsCommand { get; }

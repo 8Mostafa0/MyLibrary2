@@ -6,6 +6,7 @@ using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
 using MyLibrary.ViewModel.Commands.SettingsCommands;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System.Windows.Input;
 
@@ -24,7 +25,7 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Commands
-        public ICommand NavigateHomeCommand { get; }
+        public INavigateHomeScreenCommand NavigateHomeCommand { get; }
         public ICommand DatabaseCommand { get; }
 
         public ICommand ClientsCreenCommand { get; }
@@ -61,7 +62,7 @@ namespace MyLibrary.ViewModel.ViewModels
             _loansStore = loansStore;
             _messageBoxStore = messageBoxStore;
             _modalNavigationStore = modalNavigationStore;
-            NavigateHomeCommand = new NavigateHomeScreenCommand(_navigationStore, _loansStore, _clientsStore, _booksStore);
+            NavigateHomeCommand = ClassFactory.CreateNavigateHomeScreenCommand();
             NavigateHomeCommand.Execute(null);
             ClientsCreenCommand = new NavigateClientScreenCommand(_navigationStore, _clientsStore, loanRepository, reservedBooksRepository, _messageBoxStore);
             NavigateBooksCommand = new NavigateBooksCommand(_navigationStore, _booksStore, loanRepository, reservedBooksRepository, booksRepository, _messageBoxStore);
