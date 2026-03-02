@@ -28,11 +28,8 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             get => _selectedReservBook;
             set
             {
-                if (value != null)
-                {
-                    _selectedReservBook = value;
-                    OnProperychanged(nameof(SelectedReservedBook));
-                }
+                _selectedReservBook = value;
+                OnProperychanged(nameof(SelectedReservedBook));
             }
         }
 
@@ -155,6 +152,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             _reservedBooks.Clear();
             foreach (ReservedBook reservedBooks in _reservedBooksStore.ReservedBook)
                 _reservedBooks.Add(new ReservedBookViewModel(reservedBooks, _clientsStore, _booksStore));
+            SelectedReservedBook = null;
         }
 
         /// <summary>
