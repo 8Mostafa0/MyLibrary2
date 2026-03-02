@@ -32,30 +32,30 @@
         </Grid.ColumnDefinitions>
         <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3" CornerRadius="20" Background="#839705" Visibility="{Binding ShowClientsCount}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Padding="20" FontWeight="Bold" FontSize="25" Text="تعداد کاربران"/>
+                <TextBlock Padding="20" FontWeight="Bold" FontSize="15" Text="تعداد کاربران"/>
 
-                <TextBlock Padding="20" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Text="{Binding ClientsCount}"/>
+                <TextBlock Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Text="{Binding ClientsCount}"/>
             </StackPanel>
         </Border>
         <Border Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3" CornerRadius="20" Background="#839705" Visibility="{Binding ShowDilayedLoanCount}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Padding="20" FontWeight="Bold" FontSize="25" Text="تعداد امانت عقب افتاده"/>
+                <TextBlock Padding="20" FontWeight="Bold" FontSize="15" Text="تعداد امانت عقب افتاده"/>
 
-                <TextBlock Padding="20" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center"  Text="{Binding DilayedLoanCount}"/>
+                <TextBlock Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"  Text="{Binding DilayedLoanCount}"/>
             </StackPanel>
         </Border>
         <Border Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="3" CornerRadius="20" Background="#839705" Visibility="{Binding ShowBooksCount}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Padding="20" FontWeight="Bold" FontSize="25" Text="تعداد کتاب ها"/>
+                <TextBlock Padding="20" FontWeight="Bold" FontSize="15" Text="تعداد کتاب ها"/>
 
-                <TextBlock Padding="20" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center"  Text="{Binding BooksCount}"/>
+                <TextBlock Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"  Text="{Binding BooksCount}"/>
             </StackPanel>
         </Border>
         <Border Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="3" CornerRadius="20" Background="#839705" Visibility="{Binding ShowLoansCount}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Padding="20" FontWeight="Bold" FontSize="25" Text="تعداد کل امانت ها"/>
+                <TextBlock Padding="20" FontWeight="Bold" FontSize="15" Text="تعداد کل امانت ها"/>
 
-                <TextBlock Padding="20" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center"  Text="{Binding LoansCount}"/>
+                <TextBlock Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"  Text="{Binding LoansCount}"/>
             </StackPanel>
         </Border>
     </Grid>
