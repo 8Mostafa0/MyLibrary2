@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Model.Repositories
 {
-    public class ReservedBooksRepository
+    public class ReservedBooksRepository : IReservedBooksRepository
     {
         #region Dependencies
         private DbContextFactory _dbContextFactory;
