@@ -10,7 +10,7 @@ namespace MyLibrary.ViewModel.Stores
         public event Action ContentViewModelChanged;
         public event Action StatusBarViewModelChanged;
 
-        private IViewModelBase _mainContentViewModel;
+        private _mainContentViewModel;
         private IViewModelBase _contentScreen;
         private IStatusBarViewModel _StatusBarViewModel;
 
