@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 {
-    public class AddEditeLoanViewModel : ViewModelBase
+    public class AddEditeLoanViewModel : ViewModelBase, IAddEditeLoanViewModel
     {
 
         #region Dependencies
@@ -219,33 +219,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         private void ModalViewModelChange()
         {
             OnProperychanged(nameof(CurrentModelViewModel));
-        }
-        /// <summary>
-        /// loader for addedite view model
-        /// </summary>
-        /// <param name="modalNavigationStore"></param>
-        /// <param name="booksStore"></param>
-        /// <param name="clientsStore"></param>
-        /// <param name="loansStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="settingsStore"></param>
-        /// <param name="booksRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
-        /// <param name="loan"></param>
-        /// <returns></returns>
-        public static AddEditeLoanViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, BooksStore booksStore, ClientsStore clientsStore, LoansStore loansStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore, Loan loan = null)
-        {
-            AddEditeLoanViewModel ViewModel = new AddEditeLoanViewModel(modalNavigationStore, clientsStore, booksStore, loansStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, messageBoxStore, loan);
-            ViewModel.LoadBooksCommand.Execute(null);
-            ViewModel.LoadClientsCommand.Execute(null);
-            ViewModel.SelectedLoan = loan is null ? new Loan()
-            {
-                Id = 0,
-                ClientId = 0,
-                BookId = 0
-            } : loan;
-            return ViewModel;
-
         }
         #endregion
     }

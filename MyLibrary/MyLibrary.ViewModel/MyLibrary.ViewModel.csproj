@@ -178,7 +178,8 @@
     <Compile Include="ViewModels\Interfaces\IStatusBarViewModel.cs" />
     <Compile Include="ViewModels\LayoutViewModel.cs" />
     <Compile Include="ViewModels\LoanViewModels\AddEditLoanViewModel.cs" />
-    <Compile Include="ViewModels\LoanViewModels\ILoansViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\ILoanViewModels\ILoansViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\ILoanViewModels\IAddEditeLoanViewModel.cs" />
     <Compile Include="ViewModels\LoanViewModels\LoansViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -212,9 +213,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Interfaces\ILoanViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\MyLibrary.View\packages\Serilog.4.3.1\build\Serilog.targets" Condition="Exists('..\MyLibrary.View\packages\Serilog.4.3.1\build\Serilog.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -68,7 +68,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             }
             else
             {
-                _addEditeLoanViewModel = AddEditeLoanViewModel.LoadViewModel(_modalNavigationStore, _booksStore, _clientsStore, _loansStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository, _messageBoxStore, loan: !(_loansViewModel.SelectedLoan._loan is null) ? _loansViewModel.SelectedLoan.ToLoan() : null);
+                //_addEditeLoanViewModel = AddEditeLoanViewModel.LoadViewModel(_modalNavigationStore, _booksStore, _clientsStore, _loansStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository, _messageBoxStore, loan: !(_loansViewModel.SelectedLoan._loan is null) ? _loansViewModel.SelectedLoan.ToLoan() : null);
                 _modalNavigationStore.CurrentViewModel = _addEditeLoanViewModel;
             }
         }
