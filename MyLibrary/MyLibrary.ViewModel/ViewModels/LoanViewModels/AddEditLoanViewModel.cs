@@ -17,7 +17,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 
         #region Dependencies
         private Loan _selectedLoan;
-        private ClientsStore _clientsStore;
+        private IClientsStore _clientsStore;
         private IBooksStore _booksStore;
         private ObservableCollection<Book> _books;
         private ObservableCollection<Client> _clients;
@@ -135,7 +135,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #endregion
 
         #region Contructor
-        public AddEditeLoanViewModel(ModalNavigationStore modalNavigationStore, ClientsStore clientsStore, IBooksStore booksStore, LoansStore loanStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore, Loan loan = null)
+        public AddEditeLoanViewModel(ModalNavigationStore modalNavigationStore, IClientsStore clientsStore, IBooksStore booksStore, LoansStore loanStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore, Loan loan = null)
         {
             _messageBoxStore = messageBoxStore;
             _clients = new ObservableCollection<Client>();

@@ -19,7 +19,7 @@ namespace MyLibrary.ViewModel.ViewModels
         private ReservedBooksStore _reservedBooksStore;
         private MessageBoxStore _messageBoxStore;
         private IBooksStore _booksStore;
-        private ClientsStore _clientsStore;
+        private IClientsStore _clientsStore;
         private LoansStore _loansStore;
         #endregion
 
@@ -42,7 +42,7 @@ namespace MyLibrary.ViewModel.ViewModels
         public NavigationBarViewModel(
             NavigationStore navigationStore,
             ReservedBooksStore reservedBooksStore,
-            ClientsStore clientsStore,
+            IClientsStore clientsStore,
             IBooksStore booksStore,
             LoansStore loansStore,
             LoanRepository loanRepository,

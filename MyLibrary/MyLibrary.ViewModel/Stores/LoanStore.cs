@@ -17,7 +17,7 @@ namespace MyLibrary.ViewModel.Stores
         private ObservableCollection<LoanViewModel> _loans;
         public IEnumerable<LoanViewModel> Loans => _loans;
         private LoanRepository _loanRepository;
-        private ClientsStore _clientsStore;
+        private IClientsStore _clientsStore;
         private IBooksStore _booksStore;
 
         public Action LoansUpdated;

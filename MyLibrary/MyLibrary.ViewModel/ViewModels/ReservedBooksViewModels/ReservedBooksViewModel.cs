@@ -15,7 +15,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         #region Dependencies
         private ModalNavigationStore _modalNavigationStore;
         private IBooksStore _booksStore;
-        private ClientsStore _clientsStore;
+        private IClientsStore _clientsStore;
         private ReservedBooksStore _reservedBooksStore;
         private string _bookName;
         private ObservableCollection<ReservedBookViewModel> _reservedBooks;
@@ -64,7 +64,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 
         #region Contructor
 
-        public ReservedBooksViewModel(ReservedBooksStore reservedBooksStore, ModalNavigationStore modalNavigationStore, ClientsStore clientsStore, IBooksStore booksStore, LoanRepository loansRepository, ClientsRepository clientsRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
+        public ReservedBooksViewModel(ReservedBooksStore reservedBooksStore, ModalNavigationStore modalNavigationStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loansRepository, ClientsRepository clientsRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
             _reservedBooksStore = reservedBooksStore;

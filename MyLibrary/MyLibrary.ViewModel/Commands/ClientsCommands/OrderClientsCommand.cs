@@ -6,7 +6,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
     public class OrderClientsCommand : CommandBase
     {
         #region Dependencies
-        private readonly ClientsStore _clitentsStore;
+        private readonly IClientsStore _clitentsStore;
         private readonly IClientsViewModel _clientsViewModel;
         #endregion
 
@@ -16,7 +16,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// </summary>
         /// <param name="clientsStore"></param>
         /// <param name="clientsViewModel"></param>
-        public OrderClientsCommand(ClientsStore clientsStore, IClientsViewModel clientsViewModel)
+        public OrderClientsCommand(IClientsStore clientsStore, IClientsViewModel clientsViewModel)
         {
             _clitentsStore = clientsStore;
             _clientsViewModel = clientsViewModel;

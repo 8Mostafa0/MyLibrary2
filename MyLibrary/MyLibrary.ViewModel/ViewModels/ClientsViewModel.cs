@@ -15,7 +15,7 @@ namespace MyLibrary.ViewModel.ViewModels
         private ObservableCollection<Client> _clients;
         public IEnumerable<Client> Clients => _clients;
 
-        private ClientsStore _clientsStore;
+        private IClientsStore _clientsStore;
 
         private Client _selectedClient;
 
@@ -89,7 +89,7 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public ClientsViewModel(ClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
+        public ClientsViewModel(IClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
             _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;

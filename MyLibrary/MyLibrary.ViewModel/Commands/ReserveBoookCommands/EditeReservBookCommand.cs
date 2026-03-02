@@ -8,7 +8,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
     {
         #region Dependencies
         private IBooksStore _booksStore;
-        private ClientsStore _clientsStore;
+        private IClientsStore _clientsStore;
         private LoanRepository _loansRepository;
         private ClientsRepository _clientRepository;
         private ReservedBooksStore _reservedBooksStore;
@@ -33,7 +33,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <param name="reservedBooksRepository"></param>
         public EditeReservBookCommand(
             IBooksStore booksStore,
-            ClientsStore clientsStore,
+            IClientsStore clientsStore,
             LoanRepository loanRepository,
             ClientsRepository clientsRepository,
             ReservedBooksStore reservedBooksStore,

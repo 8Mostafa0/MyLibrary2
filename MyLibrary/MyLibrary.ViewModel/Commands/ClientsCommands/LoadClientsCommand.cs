@@ -5,7 +5,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
     public class LoadClientsCommand : CommandBase
     {
         #region Dependencies
-        private readonly ClientsStore _clientsStore;
+        private readonly IClientsStore _clientsStore;
         #endregion
 
 
@@ -14,7 +14,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// load clients from database to clients store
         /// </summary>
         /// <param name="clientsStore"></param>
-        public LoadClientsCommand(ClientsStore clientsStore)
+        public LoadClientsCommand(IClientsStore clientsStore)
         {
             _clientsStore = clientsStore;
         }
