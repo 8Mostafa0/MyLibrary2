@@ -77,5 +77,22 @@ namespace MyLibrary.ViewModel.Factory
         //public static ISettingsViewModel CreateSettingsViewModel() { }
 
 
+        /// <summary>
+        /// Loader method for reservedbooks view model
+        /// </summary>
+        /// <param name="reservedBooksStore"></param>
+        /// <param name="modalNavigationStore"></param>
+        /// <param name="clientsStore"></param>
+        /// <param name="booksStore"></param>
+        /// <param name="loansRepository"></param>
+        /// <param name="clientsRepository"></param>
+        /// <param name="reservedBooksRepository"></param>
+        /// <returns></returns>
+        //public static ReservedBooksViewModel LoadViewModel(ReservedBooksStore reservedBooksStore, ModalNavigationStore modalNavigationStore, ClientsStore clientsStore, BooksStore booksStore, LoanRepository loansRepository, ClientsRepository clientsRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
+        //{
+        //    ReservedBooksViewModel ViewModel = new ReservedBooksViewModel(reservedBooksStore, modalNavigationStore, clientsStore, booksStore, loansRepository, clientsRepository, reservedBooksRepository, messageBoxStore);
+        //    ViewModel.LoadReservedBooksCommand.Execute(null);
+        //    return ViewModel;
+        //}
     }
 }

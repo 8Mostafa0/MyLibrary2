@@ -46,7 +46,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             _navigationStore = navigationStore;
             _reservedBooksStore = reservedBooksStore;
             _modalNavigationStore = modalNavigationStore;
-            _reservedBooksViewModel = ReservedBooksViewModel.LoadViewModel(_reservedBooksStore, _modalNavigationStore, _clientsStore, _booksStore, loansRepository, clientsRepository, reservedBooksRepository, _messageBoxStore);
+            //_reservedBooksViewModel = ReservedBooksViewModel.LoadViewModel(_reservedBooksStore, _modalNavigationStore, _clientsStore, _booksStore, loansRepository, clientsRepository, reservedBooksRepository, _messageBoxStore);
         }
         #endregion
 
