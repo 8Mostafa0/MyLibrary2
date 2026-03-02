@@ -3,7 +3,7 @@ using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
-    public class OrderClientsCommand : CommandBase
+    public class OrderClientsCommand : CommandBase, IOrderClientsCommand
     {
         #region Dependencies
         private readonly IClientsStore _clitentsStore;
