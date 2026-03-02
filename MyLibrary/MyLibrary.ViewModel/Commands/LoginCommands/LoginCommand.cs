@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.DbContexts;
-using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
@@ -9,10 +8,10 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
     {
         #region Dependencies
         private SettingsStore _settinsStore;
-        private LoanRepository _loanRepository;
         private LoginViewModel _loginViewModel;
         private DbContextFactory _dbContextFactory;
         private ModalNavigationStore _modalNavigationStore;
+        private MessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -25,12 +24,13 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
         /// <param name="loanRepository"></param>
         /// <param name="dbContextFactory"></param>
         /// <param name="settingsStore"></param>
-        public LoginCommand(LoginViewModel loginViewModel, ModalNavigationStore modalNavigationStore, DbContextFactory dbContextFactory, SettingsStore settingsStore)
+        public LoginCommand(LoginViewModel loginViewModel, ModalNavigationStore modalNavigationStore, DbContextFactory dbContextFactory, SettingsStore settingsStore, MessageBoxStore messageBoxStore)
         {
             _loginViewModel = loginViewModel;
             _dbContextFactory = dbContextFactory;
             _modalNavigationStore = modalNavigationStore;
             _settinsStore = settingsStore;
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 
@@ -41,9 +41,10 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
         /// <param name="parameter">no marametes needed</param>
         public override void Execute(object parameter)
         {
-            new CheckDatabaseCommand(_loanRepository, _dbContextFactory).Execute(null);
+            new CheckDatabaseCommand(_dbContextFactory).Execute(null);
             if (_loginViewModel.Password == "" || _loginViewModel.Password is null)
             {
+                _messageBoxStore.Show("لطفا مقادیری برای رمز وارد کنید", "خطا");
                 //MessageBox.Show("لطفا مقادیری برای رمز وارد کنید", "خطا");
                 return;
             }

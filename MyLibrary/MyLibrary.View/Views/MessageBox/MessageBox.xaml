@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MyLibrary.View.Views.MessageBox"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="400">
-    <Grid Width="400" Height="300">
+    <Grid Width="400" Height="200">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -24,17 +24,17 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.RowSpan="6" Grid.ColumnSpan="6" Grid.Column="0" VerticalAlignment="Center"  HorizontalAlignment="Center">
-            <TextBlock  Text="{Binding Title}" TextAlignment="Center" FontSize="25" FontWeight="Black" />
-            <Viewbox Width="340" Height="25"/>
             <TextBlock  Text="{Binding Caption}" TextAlignment="Center" FontSize="20" FontWeight="Black" />
-            <Viewbox Width="400" Height="10"/>
+            <Viewbox Width="340" Height="25"/>
+            <TextBlock  Text="{Binding Title}" TextAlignment="Center" FontSize="25" FontWeight="Black" />
+            <Viewbox Width="400" Height="50"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Padding="10" Margin="5" Grid.Column="0" Content="{Binding FirstBtText}" Command="{Binding FirstBtCommand}" />
-                <Button Margin="5" Grid.Column="1" Content="{Binding SecondBtText}" Command="{Binding SecondBtCommand}" />
+                <Button Margin="5" Grid.Column="1" Visibility="{Binding ShowSecondButton}" Content="{Binding SecondBtText}" Command="{Binding SecondBtCommand}" />
             </Grid>
         </StackPanel>
     </Grid> 

@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using MyLibrary.ViewModel.Stores;
+using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
 {
@@ -9,6 +10,7 @@ namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
         private string _caption;
         private string _firstBtText;
         private string _secondBtText;
+        private MessageBoxStore _messageBoxStor;
         public string Title
         {
             get => _title;
@@ -41,16 +43,16 @@ namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
                 _secondBtText = value;
             }
         }
-        public bool ShowFirstButton => FirstBtText != "";
-        public bool ShowSecondButton => SecondBtText != "";
+        public string ShowSecondButton { get; set; }
         #endregion
         #region Commands
         public ICommand FirstBtCommand { get; }
         public ICommand SecondBtCommand { get; }
         #endregion
         #region Constructor
-        public MessageBoxViewModel(string title, string caption, string firstBtText = null, ICommand firstBtCommand = null, string secondBtTetxt = null, ICommand secondBtCommand = null)
+        public MessageBoxViewModel(MessageBoxStore messageBoxStore, string title, string caption, string firstBtText = null, ICommand firstBtCommand = null, string secondBtTetxt = null, ICommand secondBtCommand = null)
         {
+            _messageBoxStor = messageBoxStore;
             Title = title;
             Caption = caption;
             if (firstBtText is null)
@@ -66,7 +68,11 @@ namespace MyLibrary.ViewModel.ViewModels.MessageBoxViewModel
             if (!(secondBtTetxt is null))
             {
                 SecondBtText = secondBtTetxt;
-
+                ShowSecondButton = "Visibale";
+            }
+            else
+            {
+                ShowSecondButton = "Hidden";
             }
         }
         #endregion

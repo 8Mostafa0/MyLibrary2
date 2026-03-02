@@ -27,7 +27,7 @@ namespace MyLibrary.ViewModel.ViewModels
             _modalNavigationStore.CurrentViewModelChanged += OnModalChanged;
             _messageBoxStore = messageBoxStore;
             _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
-            new LoginModalCommand(_modalNavigationStore, new DbContextFactory(), new SettingsStore()).Execute(null);
+            new LoginModalCommand(_modalNavigationStore, new DbContextFactory(), new SettingsStore(), messageBoxStore).Execute(null);
 
         }
         #endregion
@@ -38,7 +38,7 @@ namespace MyLibrary.ViewModel.ViewModels
         /// </summary>
         private void OnModalChanged()
         {
-            OnProperychanged(nameof(CurrentModalView));
+            OnProperychanged(nameof(CurrentViewModel));
             OnProperychanged(nameof(IsModalOpen));
         }
 
@@ -49,7 +49,7 @@ namespace MyLibrary.ViewModel.ViewModels
         private void OnMessageBoxChanged()
         {
 
-            OnProperychanged(nameof(CurrentModalView));
+            OnProperychanged(nameof(CurrentMessageBox));
             OnProperychanged(nameof(IsMessageBoxOpen));
         }
 

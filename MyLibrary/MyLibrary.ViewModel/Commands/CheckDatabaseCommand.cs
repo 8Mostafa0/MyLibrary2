@@ -1,12 +1,10 @@
 ﻿using MyLibrary.Model.DbContexts;
-using MyLibrary.Model.Repositories;
 
 namespace MyLibrary.ViewModel.Commands
 {
     public class CheckDatabaseCommand : CommandBase
     {
         #region Dependencies
-        private LoanRepository _loansRepository;
         private DbContextFactory _dbContextFactory;
         #endregion
 
@@ -14,9 +12,8 @@ namespace MyLibrary.ViewModel.Commands
         /// <summary>
         /// check ans validate database and tables
         /// </summary>
-        public CheckDatabaseCommand(LoanRepository loanRepository, DbContextFactory dbContextFactory)
+        public CheckDatabaseCommand(DbContextFactory dbContextFactory)
         {
-            _loansRepository = loanRepository;
             _dbContextFactory = dbContextFactory;
         }
         #endregion

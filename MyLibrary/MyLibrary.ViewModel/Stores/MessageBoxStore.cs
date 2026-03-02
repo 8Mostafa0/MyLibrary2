@@ -23,7 +23,7 @@ namespace MyLibrary.ViewModel.Stores
         }
         public void Show(string title, string caption, string firstBtText = null, ICommand firstBtCommand = null, string secondBtText = null, ICommand secondBtCommand = null)
         {
-            MessageBoxViewModel = new MessageBoxViewModel(title, caption, firstBtText, firstBtCommand, secondBtText, secondBtCommand);
+            MessageBoxViewModel = new MessageBoxViewModel(this, title, caption, firstBtText, firstBtCommand, secondBtText, secondBtCommand);
         }
         public void CloseMessageBox()
         {
