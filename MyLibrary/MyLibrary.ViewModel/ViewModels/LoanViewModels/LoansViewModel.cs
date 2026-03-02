@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 {
-    public class LoansViewModel : ViewModelBase
+    public class LoansViewModel : ViewModelBase, ILoansViewModel
     {
         #region Dependencies
         private ModalNavigationStore _modalNavigationStore;
