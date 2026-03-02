@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
-    public class DeleteClientCommand : CommandBase
+    public class DeleteClientCommand : CommandBase, IDeleteClientCommand
     {
         #region Dependencies
         private LoanRepository _loanRepository;
