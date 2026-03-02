@@ -116,6 +116,7 @@
     <Compile Include="Commands\ClientsCommands\AddNewClientCommand.cs" />
     <Compile Include="Commands\ClientsCommands\DeleteClientCommand.cs" />
     <Compile Include="Commands\ClientsCommands\EditClientCommand.cs" />
+    <Compile Include="Commands\ClientsCommands\IAddNewClientCommand.cs" />
     <Compile Include="Commands\Interfaces\IClientsCommands\IDeleteClientCommand.cs" />
     <Compile Include="Commands\Interfaces\IClientsCommands\IEditClientCommand.cs" />
     <Compile Include="Commands\Interfaces\IClientsCommands\ILoadClientsCommand.cs" />
