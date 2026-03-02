@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.Stores
 {
-    public class ReservedBooksStore
+    public class ReservedBooksStore : IReservedBooksStore
     {
         #region Dependencies
         private ReservedBooksRepository _resrvedBooksRepository;
@@ -15,9 +15,9 @@ namespace MyLibrary.ViewModel.Stores
         public IEnumerable<ReservedBook> ReservedBook => _reservedBooks;
         public Lazy<Task> _initilizeLazy;
         public Action ReseredBooksUpdated;
-        public Action<ReservedBook> ReservBookAdded;
-        public Action<ReservedBook> ReservBookEdited;
-        public Action<ReservedBook> ReservBookDeleted;
+        public event Action<ReservedBook> ReservBookAdded;
+        public event Action<ReservedBook> ReservBookEdited;
+        public event Action<ReservedBook> ReservBookDeleted;
 
         #endregion
 

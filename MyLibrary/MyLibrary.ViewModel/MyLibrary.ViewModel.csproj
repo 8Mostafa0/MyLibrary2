@@ -162,11 +162,12 @@
     <Compile Include="Stores\Interfaces\ILoansStore.cs" />
     <Compile Include="Stores\Interfaces\IClientsStore.cs" />
     <Compile Include="Stores\Interfaces\IBooksStore.cs" />
+    <Compile Include="Stores\Interfaces\IReservedBooksStore.cs" />
     <Compile Include="Stores\LoanStore.cs" />
     <Compile Include="Stores\MessageBoxStore.cs" />
     <Compile Include="Stores\ModalNavigationStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
-    <Compile Include="Stores\ReservedBoksStore.cs" />
+    <Compile Include="Stores\ReservedBooksStore.cs" />
     <Compile Include="Stores\SettingsNavigationsStore.cs" />
     <Compile Include="Stores\SettingsStore.cs" />
     <Compile Include="Stores\TimeStore.cs" />
