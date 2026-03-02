@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
 {
-    public class MainLayoutSettingViewModel : ViewModelBase
+    public class MainLayoutSettingViewModel : ViewModelBase, IMainLayoutSettingViewModel
     {
         #region Dependencies
         private SettingsStore _settingStore;

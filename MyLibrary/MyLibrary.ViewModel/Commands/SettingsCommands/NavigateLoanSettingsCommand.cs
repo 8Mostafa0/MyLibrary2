@@ -8,7 +8,7 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         #region Dependencies
         private SettingNavigationStore _navigationStore;
         private MessageBoxStore _messageBoxStore;
-        private LoanSettingsViewModel _loanSettingsViewModel;
+        private ILoanSettingsViewModel _loanSettingsViewModel;
         #endregion
 
         #region Contructor
