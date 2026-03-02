@@ -2,7 +2,7 @@
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
-    public class CloseModalCommand : CommandBase
+    public class CloseModalCommand : CommandBase, ICloseModalCommand
     {
         #region Dependencies
         private IModalNavigationStore _modalNavigationStore;
