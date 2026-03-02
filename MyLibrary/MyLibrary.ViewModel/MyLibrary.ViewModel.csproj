@@ -167,7 +167,8 @@
     <Compile Include="ViewModels\BooksViewModel.cs" />
     <Compile Include="ViewModels\ClientsViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
-    <Compile Include="ViewModels\IHomeViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\ILayoutViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IHomeViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\ILoginViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\INavigationBarViewModel.cs" />

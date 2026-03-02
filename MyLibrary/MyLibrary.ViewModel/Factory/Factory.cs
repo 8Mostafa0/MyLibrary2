@@ -13,5 +13,13 @@ namespace MyLibrary.ViewModel.Factory
         //{
         //    return new NavigationBarViewModel();
         //}
+        //public static ILoginViewModel CreateLoginViewModel()
+        //{
+        //    return new LoginViewModel();
+        //}
+        //public static IHomeViewModel CreateHomeViewModel()
+        //{
+        //    return new HomeViewModel();
+        //}
     }
 }

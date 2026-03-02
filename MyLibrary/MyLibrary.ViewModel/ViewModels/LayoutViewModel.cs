@@ -2,7 +2,7 @@
 
 namespace MyLibrary.ViewModel.ViewModels
 {
-    public class LayoutViewModel : ViewModelBase
+    public class LayoutViewModel : ViewModelBase, ILayoutViewModel
     {
         #region Dependencies
         private readonly NavigationStore _navigationStore;
