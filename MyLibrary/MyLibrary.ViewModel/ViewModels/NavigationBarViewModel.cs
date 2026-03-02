@@ -17,6 +17,7 @@ namespace MyLibrary.ViewModel.ViewModels
         private readonly NavigationStore _navigationStore;
         private readonly ModalNavigationStore _modalNavigationStore;
         private ReservedBooksStore _reservedBooksStore;
+        private MessageBoxStore _messageBoxStore;
         private BooksStore _booksStore;
         private ClientsStore _clientsStore;
         private LoansStore _loansStore;
@@ -48,7 +49,9 @@ namespace MyLibrary.ViewModel.ViewModels
             SettingsStore settingsStore,
             BooksRepository booksRepository,
             ReservedBooksRepository reservedBooksRepository,
-            ClientsRepository clientsRepository
+            ClientsRepository clientsRepository,
+            MessageBoxStore messageBoxStore,
+            ModalNavigationStore modalNavigationStore
             )
         {
             _navigationStore = navigationStore;
@@ -56,11 +59,12 @@ namespace MyLibrary.ViewModel.ViewModels
             _clientsStore = clientsStore;
             _booksStore = booksStore;
             _loansStore = loansStore;
-            _modalNavigationStore = new ModalNavigationStore();
+            _messageBoxStore = messageBoxStore;
+            _modalNavigationStore = modalNavigationStore;
             NavigateHomeCommand = new NavigateHomeScreenCommand(_navigationStore, _loansStore, _clientsStore, _booksStore);
             NavigateHomeCommand.Execute(null);
             ClientsCreenCommand = new NavigateClientScreenCommand(_navigationStore, _clientsStore, loanRepository, reservedBooksRepository);
-            NavigateBooksCommand = new NavigateBooksCommand(_navigationStore, _booksStore, loanRepository, reservedBooksRepository, booksRepository);
+            NavigateBooksCommand = new NavigateBooksCommand(_navigationStore, _booksStore, loanRepository, reservedBooksRepository, booksRepository, messageBoxStore);
             NavigateLoansCommand = new NavigateLoansCommand(_navigationStore, _modalNavigationStore, _loansStore, _clientsStore, _booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository);
             NavigateReservedBooksCommand = new NavigateReservedBooksCommand(_navigationStore, _modalNavigationStore, _reservedBooksStore, clientsStore, booksStore, loanRepository, clientsRepository, reservedBooksRepository);
             NavigateToSettingsCommand = new NavigateToSettingsCommand(_navigationStore);

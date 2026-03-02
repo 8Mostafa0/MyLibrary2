@@ -15,6 +15,7 @@ namespace MyLibrary.ViewModel.ViewModels
         private BooksStore _booksStore;
         private ObservableCollection<Book> _books;
         private Book _selectedBook;
+        private MessageBoxStore _messageBoxStore;
         public Book SelectedBook
         {
             get => _selectedBook;
@@ -114,7 +115,7 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public BooksViewModel(BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository)
+        public BooksViewModel(BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
         {
             _booksStore = booksStore;
             _books = new ObservableCollection<Book>();
@@ -129,6 +130,7 @@ namespace MyLibrary.ViewModel.ViewModels
             _booksStore.BookAdded += AddNewBook;
             _booksStore.BookDeleted += BookDeleted;
             Subject = "رمان";
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 
@@ -154,7 +156,8 @@ namespace MyLibrary.ViewModel.ViewModels
         {
             ClearInputs();
             _books.Remove(book);
-            //MessageBox.Show("کتاب با موفقیت حذف شد", "حذف کتاب");
+            _messageBoxStore.Show("کتاب با موفقیت حذف شد", "حذف کتاب");
+            //_messageBox.Show();
         }
 
         /// <summary>
@@ -200,9 +203,9 @@ namespace MyLibrary.ViewModel.ViewModels
         /// <param name="reservedBooksRepository"></param>
         /// <param name="booksRepository"></param>
         /// <returns></returns>
-        public static BooksViewModel LoadViewModel(BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository)
+        public static BooksViewModel LoadViewModel(BooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository, MessageBoxStore messageBoxStore)
         {
-            BooksViewModel ViewModel = new BooksViewModel(booksStore, loanRepository, reservedBooksRepository, booksRepository);
+            BooksViewModel ViewModel = new BooksViewModel(booksStore, loanRepository, reservedBooksRepository, booksRepository, messageBoxStore);
             ViewModel.LoadBooksCommand.Execute(null);
             return ViewModel;
         }

@@ -17,6 +17,7 @@ namespace MyLibrary.ViewModel.ViewModels
         public LayoutViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
+
             _navigationStore.ContentViewModelChanged += OnContentViewModelChanged;
             _navigationStore.MainContentViewModelChanged += OnMainContentViewModelChanged;
         }

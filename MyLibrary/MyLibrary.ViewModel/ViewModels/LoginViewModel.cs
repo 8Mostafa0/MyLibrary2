@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.DbContexts;
-using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Stores;
 using System.Windows.Input;
@@ -30,10 +29,10 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public LoginViewModel(ModalNavigationStore modalNavigationStore, LoanRepository loanRepository, DbContextFactory dbContextFactory, SettingsStore settingsStore)
+        public LoginViewModel(ModalNavigationStore modalNavigationStore, DbContextFactory dbContextFactory, SettingsStore settingsStore)
         {
             CloseAppCommand = new CloseAppCommand();
-            LoginCommand = new LoginCommand(this, modalNavigationStore, loanRepository, dbContextFactory, settingsStore);
+            LoginCommand = new LoginCommand(this, modalNavigationStore, dbContextFactory, settingsStore);
             if (new SettingsStore().GetHashedPassword() == null)
             {
                 FirstOpen = true;

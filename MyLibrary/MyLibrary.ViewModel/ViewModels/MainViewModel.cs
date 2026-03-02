@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.DbContexts;
-using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands;
 using MyLibrary.ViewModel.Stores;
 
@@ -21,14 +20,14 @@ namespace MyLibrary.ViewModel.ViewModels
         public bool IsMessageBoxOpen => _messageBoxStore.IsMessageOpen;
         #endregion
         #region Constructor
-        public MainViewModel(LayoutViewModel layoutViewModel)
+        public MainViewModel(LayoutViewModel layoutViewModel, ModalNavigationStore modalNavigationStore, MessageBoxStore messageBoxStore)
         {
             _layoutViewModel = layoutViewModel;
-            _messageBoxStore = new MessageBoxStore();
-            _modalNavigationStore = new ModalNavigationStore();
+            _modalNavigationStore = modalNavigationStore;
             _modalNavigationStore.CurrentViewModelChanged += OnModalChanged;
+            _messageBoxStore = messageBoxStore;
             _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
-            new LoginModalCommand(_modalNavigationStore, new LoanRepository(), new DbContextFactory(), new SettingsStore()).Execute(null);
+            new LoginModalCommand(_modalNavigationStore, new DbContextFactory(), new SettingsStore()).Execute(null);
 
         }
         #endregion

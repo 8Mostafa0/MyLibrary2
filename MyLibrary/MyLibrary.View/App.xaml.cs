@@ -25,7 +25,8 @@ namespace MyLibrary.View
             ClientsRepository clientsRepository = new ClientsRepository();
             navigationStore.ContentScreen = new HomeViewModel(clientsStore, booksStore, loansStore);
             navigationStore.StatusBarViewModel = new StatusBarViewModel();
-
+            MessageBoxStore messageBoxStore = new MessageBoxStore();
+            ModalNavigationStore modalNavigationStore = new ModalNavigationStore();
             navigationStore.MainContentViewModel = new NavigationBarViewModel(
                 navigationStore,
                 reservedBooksStore,
@@ -36,13 +37,15 @@ namespace MyLibrary.View
                 settingsStore,
                 booksRepository,
                 reservedBooksRepository,
-                clientsRepository
+                clientsRepository,
+                messageBoxStore,
+                modalNavigationStore
                 );
 
             LayoutViewModel layoutViewModel = new LayoutViewModel(navigationStore);
             MainWindow _ = new MainWindow()
             {
-                DataContext = new MainViewModel(layoutViewModel)
+                DataContext = new MainViewModel(layoutViewModel, modalNavigationStore, messageBoxStore)
             };
             MainWindow.Show();
         }
