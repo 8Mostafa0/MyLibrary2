@@ -11,7 +11,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     public class SaveLoanDataCommand : CommandBase
     {
         #region Dependencies
-        private readonly LoansStore _loansStore;
+        private readonly ILoansStore _loansStore;
         private readonly SettingsStore _settingsStore;
         private readonly LoanRepository _loanRepository;
         private readonly BooksRepository _bookRepository;
@@ -33,7 +33,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="settingsStore"></param>
         /// <param name="booksRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public SaveLoanDataCommand(AddEditeLoanViewModel addEditeLoanViewModel, LoansStore loansStore, ModalNavigationStore modalNavigationStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
+        public SaveLoanDataCommand(AddEditeLoanViewModel addEditeLoanViewModel, ILoansStore loansStore, ModalNavigationStore modalNavigationStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
             _loansStore = loansStore;

@@ -5,7 +5,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     public class LoadLoansCommand : CommandBase
     {
         #region Dependencies
-        private LoansStore _loansStore;
+        private ILoansStore _loansStore;
         #endregion
 
 
@@ -14,7 +14,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// load all loans from database to loans store
         /// </summary>
         /// <param name="loansStore"></param>
-        public LoadLoansCommand(LoansStore loansStore)
+        public LoadLoansCommand(ILoansStore loansStore)
         {
             _loansStore = loansStore;
         }

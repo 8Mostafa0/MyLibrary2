@@ -132,7 +132,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <param name="booksRepository"></param>
         /// <param name="reservedBooksRepository"></param>
         /// <returns></returns>
-        //public static LoansViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, LoansStore loansStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
+        //public static LoansViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, ILoansStore loansStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore)
         //{
         //    LoansViewModel viewModel = new LoansViewModel(modalNavigationStore, loansStore, clientsStore, booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, messageBoxStore);
         //    viewModel.LoadLoansCommand.Execute(null);
@@ -154,7 +154,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <param name="reservedBooksRepository"></param>
         /// <param name="loan"></param>
         /// <returns></returns>
-        //public static AddEditeLoanViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, IBooksStore booksStore, IClientsStore clientsStore, LoansStore loansStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore, Loan loan = null)
+        //public static AddEditeLoanViewModel LoadViewModel(ModalNavigationStore modalNavigationStore, IBooksStore booksStore, IClientsStore clientsStore, ILoansStore loansStore, LoanRepository loanRepository, SettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, MessageBoxStore messageBoxStore, Loan loan = null)
         //{
         //    AddEditeLoanViewModel ViewModel = new AddEditeLoanViewModel(modalNavigationStore, clientsStore, booksStore, loansStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, messageBoxStore, loan);
         //    ViewModel.LoadBooksCommand.Execute(null);

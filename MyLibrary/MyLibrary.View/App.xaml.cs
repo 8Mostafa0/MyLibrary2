@@ -16,7 +16,7 @@ namespace MyLibrary.View
             base.OnStartup(e);
             NavigationStore navigationStore = new NavigationStore();
             IClientsStore clientsStore = new ClientsStore();
-            LoansStore loansStore = new LoansStore();
+            ILoansStore loansStore = new LoansStore();
             IBooksStore booksStore = new BooksStore();
             SettingsStore settingsStore = new SettingsStore();
             LoanRepository loanRepository = new LoanRepository();

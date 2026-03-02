@@ -23,7 +23,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         private ObservableCollection<Client> _clients;
         private Client _seletedClient;
         private Book _selectedBook;
-        private LoansStore _loansStore;
+        private ILoansStore _loansStore;
         private LoanRepository _loanRepository;
         private ModalNavigationStore _modalNavigationStore;
         private SettingsStore _settingsStore;

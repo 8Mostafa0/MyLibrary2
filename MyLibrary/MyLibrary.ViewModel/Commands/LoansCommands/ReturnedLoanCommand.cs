@@ -8,7 +8,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     public class ReturnedLoanCommand : CommandBase
     {
         #region Dependencies
-        private LoansStore _loansStore;
+        private ILoansStore _loansStore;
         private LoansViewModel _loanViewModel;
         private MessageBoxStore _messageBoxStore;
         #endregion
@@ -21,7 +21,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// </summary>
         /// <param name="loansViewModel"></param>
         /// <param name="loansStore"></param>
-        public ReturnedLoanCommand(LoansViewModel loansViewModel, LoansStore loansStore, MessageBoxStore messageBoxStore)
+        public ReturnedLoanCommand(LoansViewModel loansViewModel, ILoansStore loansStore, MessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
             _loanViewModel = loansViewModel;

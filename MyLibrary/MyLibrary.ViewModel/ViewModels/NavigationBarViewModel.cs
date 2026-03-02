@@ -20,7 +20,7 @@ namespace MyLibrary.ViewModel.ViewModels
         private MessageBoxStore _messageBoxStore;
         private IBooksStore _booksStore;
         private IClientsStore _clientsStore;
-        private LoansStore _loansStore;
+        private ILoansStore _loansStore;
         #endregion
 
         #region Commands
@@ -44,7 +44,7 @@ namespace MyLibrary.ViewModel.ViewModels
             ReservedBooksStore reservedBooksStore,
             IClientsStore clientsStore,
             IBooksStore booksStore,
-            LoansStore loansStore,
+            ILoansStore loansStore,
             LoanRepository loanRepository,
             SettingsStore settingsStore,
             BooksRepository booksRepository,

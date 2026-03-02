@@ -5,7 +5,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     public class ReloadLoansListCommand : CommandBase
     {
         #region Dependencies
-        private LoansStore _loansStore;
+        private ILoansStore _loansStore;
         #endregion
 
 
@@ -14,7 +14,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         ///  reload all loans from database to loans store
         /// </summary>
         /// <param name="loansStore"></param>
-        public ReloadLoansListCommand(LoansStore loansStore)
+        public ReloadLoansListCommand(ILoansStore loansStore)
         {
             _loansStore = loansStore;
         }
