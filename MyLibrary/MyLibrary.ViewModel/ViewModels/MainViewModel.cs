@@ -10,15 +10,21 @@ namespace MyLibrary.ViewModel.ViewModels
         #region Dependencies
         private readonly LayoutViewModel _layoutViewModel;
         private ModalNavigationStore _modalNavigationStore;
+        private MessageBoxStore _messageBoxStore;
+
+        public ViewModelBase CurrentMessageBox => _messageBoxStore.MessageBoxViewModel;
         public ViewModelBase CurrentViewModel => _layoutViewModel;
         public ViewModelBase CurrentModalView => _modalNavigationStore.CurrentViewModel;
 
         public bool IsModalOpen => _modalNavigationStore.IsModalOpen;
+
+        public bool IsMessageBoxOpen => _messageBoxStore.IsMessageOpen;
         #endregion
         #region Constructor
         public MainViewModel(LayoutViewModel layoutViewModel)
         {
             _layoutViewModel = layoutViewModel;
+            _messageBoxStore = new MessageBoxStore();
             _modalNavigationStore = new ModalNavigationStore();
             _modalNavigationStore.CurrentViewModelChanged += OnModalChanged;
             new LoginModalCommand(_modalNavigationStore, new LoanRepository(), new DbContextFactory(), new SettingsStore()).Execute(null);
