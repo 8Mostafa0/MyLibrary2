@@ -1,20 +1,21 @@
 ﻿using MyLibrary.Model.DbContexts;
+using MyLibrary.ViewModel.Factory;
 
 namespace MyLibrary.ViewModel.Commands
 {
     public class CheckDatabaseCommand : CommandBase, ICheckDatabaseCommand
     {
         #region Dependencies
-        private DbContextFactory _dbContextFactory;
+        private IDbContextFactory _dbContextFactory;
         #endregion
 
         #region Contructor
         /// <summary>
         /// check ans validate database and tables
         /// </summary>
-        public CheckDatabaseCommand(DbContextFactory dbContextFactory)
+        public CheckDatabaseCommand()
         {
-            _dbContextFactory = dbContextFactory;
+            _dbContextFactory = ClassFactory.CreateDbContextFactory();
         }
         #endregion
 
