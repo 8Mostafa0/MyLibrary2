@@ -20,7 +20,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         ICommand OrderBooksBySubjectCommand { get; }
         ICommand OrderBooksCommand { get; }
         ICommand SaveReservedBookDataCommand { get; }
-        ICommand SearchBookNameCommand { get; }
+        ISearchBookNameCommand SearchBookNameCommand { get; }
         ICommand SearchClientNameCommand { get; }
         Book SelectedBook { get; set; }
         Client SelectedClient { get; set; }
