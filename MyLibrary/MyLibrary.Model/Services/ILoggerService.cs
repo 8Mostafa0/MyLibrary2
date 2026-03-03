@@ -6,6 +6,6 @@ namespace MyLibrary.ViewModel.Servicies
     {
         ILogger Logger { get; }
 
-        static abstract ILogger CreateLogger();
+        ILogger CreateLogger();
     }
 }

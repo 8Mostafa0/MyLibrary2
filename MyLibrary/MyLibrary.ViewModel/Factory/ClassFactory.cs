@@ -7,6 +7,7 @@ using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
 using MyLibrary.ViewModel.Commands.SettingsCommands;
+using MyLibrary.ViewModel.Servicies;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
@@ -717,6 +718,17 @@ namespace MyLibrary.ViewModel.Factory
             return new ReservedBooksRepository();
         }
 
+        #endregion
+
+        #region Logger
+        /// <summary>
+        /// <see langword="static"/> method that creates a new instance of an object that implements the logger service interface.
+        /// </summary>
+        /// <returns></returns>
+        public static ILoggerService CreateLoggerService()
+        {
+            return new LoggerService();
+        }
         #endregion
     }
 }

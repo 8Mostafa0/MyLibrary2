@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Servicies;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using System.Reflection;
@@ -29,6 +30,11 @@ namespace MyLibrary.ViewModel
             #endregion
             #region Repositorys
             builder.RegisterType<ClientsRepository>().As<IClientsRepository>().SingleInstance();
+            #endregion
+
+            #region Logger
+
+            builder.RegisterType<LoggerService>().As<ILoggerService>().SingleInstance();
             #endregion
             return builder.Build();
         }

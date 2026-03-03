@@ -23,7 +23,7 @@ namespace MyLibrary.ViewModel.Servicies
         /// Create instance of serilogger and Configure it.
         /// </summary>
         /// <returns></returns>
-        public static ILogger CreateLogger()
+        public ILogger CreateLogger()
         {
             ILogger logger = new LoggerConfiguration()
                 .WriteTo.Console()

@@ -117,6 +117,7 @@
     <Compile Include="Repositories\Interfaces\IReservedBooksRepository.cs" />
     <Compile Include="Repositories\LoanRepository.cs" />
     <Compile Include="Repositories\ReservedBooksRepository.cs" />
+    <Compile Include="Services\ILoggerService.cs" />
     <Compile Include="Services\LoggerService.cs" />
   </ItemGroup>
   <ItemGroup>
