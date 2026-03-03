@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 using System;
 using System.Timers;
 
@@ -8,7 +9,7 @@ namespace MyLibrary.ViewModel.ViewModels
     {
         #region Dependencies
         private static System.Timers.Timer aTimer;
-        private TimeStore _timeStore = new TimeStore();
+        private ITimeStore _timeStore = ClassFactory.CreateTimeStore();
         public DateTime CloclString => _timeStore.CurrentTime;
         #endregion
 
