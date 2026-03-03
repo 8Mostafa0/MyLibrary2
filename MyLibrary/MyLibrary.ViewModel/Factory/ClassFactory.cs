@@ -40,6 +40,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new LayoutViewModel();
         }
+        public static IMainViewModel CreateMainViewModel()
+        {
+            return new MainViewModel();
+        }
 
         /// <summary>
         /// loader method for clients view model

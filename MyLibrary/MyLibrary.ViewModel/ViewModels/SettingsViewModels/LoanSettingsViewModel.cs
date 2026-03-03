@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
@@ -43,13 +44,13 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #endregion
 
         #region Constructor
-        public LoanSettingsViewModel(IMessageBoxStore messageBoxStore)
+        public LoanSettingsViewModel()
         {
             _settingsStore = new SettingsStore();
             Dictionary<string, int> setting = _settingsStore.GetLoansSetting();
             MaxBooksCount = setting["MaxBooksLoan"].ToString();
             MaxLoanDay = setting["MaxLoanDays"].ToString();
-            _messageBoxStore = messageBoxStore;
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
 
         #endregion

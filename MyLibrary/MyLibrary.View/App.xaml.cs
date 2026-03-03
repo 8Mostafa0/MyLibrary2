@@ -14,31 +14,13 @@ namespace MyLibrary.View
         {
             base.OnStartup(e);
             INavigationStore navigationStore = ClassFactory.CreateNavigationStore();
-
             navigationStore.ContentScreen = ClassFactory.CreateHomeViewModel();
-
             navigationStore.StatusBarViewModel = ClassFactory.CreateStatusBarViewModel();
-
-
-            navigationStore.MainContentViewModel = new NavigationBarViewModel(
-                navigationStore,
-                reservedBooksStore,
-                clientsStore,
-                booksStore,
-                loansStore,
-                loanRepository,
-                settingsStore,
-                booksRepository,
-                reservedBooksRepository,
-                clientsRepository,
-                messageBoxStore,
-                modalNavigationStore
-                );
-
-            LayoutViewModel layoutViewModel = new LayoutViewModel(navigationStore);
+            navigationStore.MainContentViewModel = ClassFactory.CreateNavigationBarViewModel();
+            ILayoutViewModel layoutViewModel = ClassFactory.CreateLayoutViewModel();
             MainWindow _ = new MainWindow()
             {
-                DataContext = new MainViewModel(layoutViewModel, modalNavigationStore, messageBoxStore)
+                DataContext = ClassFactory.CreateMainViewModel()
             };
             MainWindow.Show();
         }

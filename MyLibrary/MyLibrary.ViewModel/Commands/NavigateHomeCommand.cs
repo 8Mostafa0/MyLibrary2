@@ -1,6 +1,5 @@
 ﻿using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands
 {
@@ -39,7 +38,7 @@ namespace MyLibrary.ViewModel.Commands
             await _clientsStore.Load();
             await _booksStore.Load();
             await _loansStore.Load();
-            _navigationStore.ContentScreen = new HomeViewModel(_clientsStore, _booksStore, _loansStore);
+            _navigationStore.ContentScreen = ClassFactory.CreateHomeViewModel();
         }
         #endregion
     }

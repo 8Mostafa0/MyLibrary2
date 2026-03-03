@@ -1,4 +1,5 @@
 ﻿using MyLibrary.ViewModel.Commands.SettingsCommands;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System.Windows.Input;
 
@@ -21,10 +22,10 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #endregion
 
         #region Contructor
-        public SettingsViewModel(ISettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
+        public SettingsViewModel()
         {
-            _messageBoxStore = messageBoxStore;
-            _settingNavigationStore = settingNavigationStore;
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _settingNavigationStore = ClassFactory.CreateSettingNavigationStore();
             _settingNavigationStore.SettingViewModelChanged += OnSettingViewModelChanged;
             NavigateLayoutSettingCommand = new NavigateLayoutSettingCommand(_settingNavigationStore);
             NavigateLoanSettingsCommand = new NavigateLoanSettingsCommand(_settingNavigationStore, _messageBoxStore);
