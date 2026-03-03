@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.SettingsViewModels;
 
 namespace MyLibrary.ViewModel.Commands.SettingsCommands
@@ -8,17 +7,20 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
     {
         #region Dependencies
         private ISettingNavigationStore _settingNavigationStore;
-        private IMainLayoutSettingViewModel _mainLayoutSettingViewModel = ClassFactory.CreateMainLayoutSettingViewModel();
+        private IMainLayoutSettingViewModel _mainLayoutSettingViewModel;
         #endregion
 
         #region Contructor
         /// <summary>
+        /// 
         /// set setting view of setting navigation to main setting navigation
         /// </summary>
-        public NavigateLayoutSettingCommand()
+        /// <param name="settingNavigationStore"></param>
+        /// <param name="mainLayoutSettingViewModel"></param>
+        public NavigateLayoutSettingCommand(ISettingNavigationStore settingNavigationStore, IMainLayoutSettingViewModel mainLayoutSettingViewModel)
         {
-            _settingNavigationStore = ClassFactory.CreateSettingNavigationStore();
-
+            _settingNavigationStore = settingNavigationStore;
+            _mainLayoutSettingViewModel = mainLayoutSettingViewModel;
         }
         #endregion
 
