@@ -10,8 +10,10 @@ using MyLibrary.ViewModel.Commands.SettingsCommands;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
+using MyLibrary.ViewModel.ViewModels.MessageBoxViewModel;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 using MyLibrary.ViewModel.ViewModels.SettingsViewModels;
+using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.Factory
 {
@@ -164,6 +166,12 @@ namespace MyLibrary.ViewModel.Factory
             return ViewModel;
 
         }
+        #region MessageBoxViewModel
+        public static IMessageBoxViewModel CreateMessageBoxViewModel(IMessageBoxStore messageBoxStore, string title, string caption, string firstBtText = null, string secondBtTetxt = null, ICommand command = null)
+        {
+            return new MessageBoxViewModel(messageBoxStore, title, caption, firstBtText, secondBtTetxt, command);
+        }
+        #endregion
         #endregion
 
         #region Commands

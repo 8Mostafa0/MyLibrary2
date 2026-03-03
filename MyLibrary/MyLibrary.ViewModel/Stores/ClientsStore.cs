@@ -1,5 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Factory;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace MyLibrary.ViewModel.Stores
 
         #region Dependencies
 
-        private readonly ClientsRepository _clientRepository;
+        private readonly IClientsRepository _clientRepository;
         private List<Client> _clients;
 
         private readonly Lazy<Task> _initiilizeLazy;
@@ -37,7 +38,7 @@ namespace MyLibrary.ViewModel.Stores
         /// </summary>
         public ClientsStore()
         {
-            _clientRepository = new ClientsRepository();
+            _clientRepository = ClassFactory.CreateClientsRepository();
             _initiilizeLazy = new Lazy<Task>(Initilize);
             _clients = new List<Client>();
         }

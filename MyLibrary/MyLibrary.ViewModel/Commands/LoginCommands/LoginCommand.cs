@@ -42,7 +42,7 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
         /// <param name="parameter">no marametes needed</param>
         public override void Execute(object parameter)
         {
-            new CheckDatabaseCommand().Execute(null);
+            ClassFactory.CreateCheckDatabaseCommand().Execute(null);
             if (_loginViewModel.Password == "" || _loginViewModel.Password is null)
             {
                 _messageBoxStore.Show("لطفا مقادیری برای رمز وارد کنید", "خطا");
