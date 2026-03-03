@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
@@ -14,9 +15,9 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// search in clients database base on first name and last name
         /// </summary>
         /// <param name="clientsStore"></param>
-        public SearchClientNameCommand(IClientsStore clientsStore)
+        public SearchClientNameCommand()
         {
-            _clientsStore = clientsStore;
+            _clientsStore = ClassFactory.CreateClientsStore();
         }
         #endregion
 

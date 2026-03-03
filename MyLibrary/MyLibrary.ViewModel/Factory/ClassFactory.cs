@@ -276,6 +276,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new SearchBookNameCommand();
         }
+        public static ISearchClientNameCommand CreateSearchClientNameCommand()
+        {
+            return new SearchClientNameCommand();
+        }
         #endregion
 
         #region Stores
