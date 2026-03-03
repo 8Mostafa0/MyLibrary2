@@ -267,6 +267,11 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new LoadClientsCommand();
         }
+
+        public static ICloseModalCommand CreateCloseModalCommand()
+        {
+            return new CloseModalCommand();
+        }
         #endregion
 
         #region Stores
