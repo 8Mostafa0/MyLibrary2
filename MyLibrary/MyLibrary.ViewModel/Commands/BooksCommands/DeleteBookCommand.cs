@@ -22,11 +22,11 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <summary>
         /// 
         /// </summary>
-        public DeleteBookCommand()
+        public DeleteBookCommand(IBooksViewModel booksViewModel)
         {
+            _booksViewModel = booksViewModel;
             _booksStore = ClassFactory.CreateBooksStore();
             _loanRepository = ClassFactory.CreateLoanRepository();
-            _booksViewModel = ClassFactory.CreateBooksViewModel();
             _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }

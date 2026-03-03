@@ -422,25 +422,25 @@ namespace MyLibrary.ViewModel.Factory
         /// Creates a new instance of a command used to add a book to the collection.
         /// </summary>
         /// <returns>An object implementing <see cref="IAddNewBookCommand"/> that can be used to add a new book.</returns>
-        public static IAddNewBookCommand CreateAddNewBookCommand()
+        public static IAddNewBookCommand CreateAddNewBookCommand(IBooksViewModel booksViewModel)
         {
-            return new AddNewBookCommand();
+            return new AddNewBookCommand(booksViewModel);
         }
         /// <summary>
         /// <see langword="static"/> method that creates a new instance of a command used to edit book information.
         /// </summary>
         /// <returns></returns>
-        public static IEditBookCommand CreateEditBookCommand()
+        public static IEditBookCommand CreateEditBookCommand(IBooksViewModel booksViewModel)
         {
-            return new EditBookCommand();
+            return new EditBookCommand(booksViewModel);
         }
         /// <summary>
         /// <see langword="static"/> method that creates a new instance of a command used to delete a book from the collection.
         /// </summary>
         /// <returns></returns>
-        public static IDeleteBookCommand CreateDeleteBookCommand()
+        public static IDeleteBookCommand CreateDeleteBookCommand(IBooksViewModel booksViewModel)
         {
-            return new DeleteBookCommand();
+            return new DeleteBookCommand(booksViewModel);
         }
         /// <summary>
         /// method that creates a new instance of a command used to reload the list of books.

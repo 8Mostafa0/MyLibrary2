@@ -22,10 +22,10 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <summary>
         /// Create New Book And Store It In Database
         /// </summary>
-        public AddNewBookCommand()
+        public AddNewBookCommand(IBooksViewModel booksViewModel)
         {
+            _booksViewModel = booksViewModel;
             _booksStore = ClassFactory.CreateBooksStore();
-            _booksViewModel = ClassFactory.CreateBooksViewModel();
             _booksRepository = ClassFactory.CreateBooksRepository();
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }

@@ -119,10 +119,11 @@ namespace MyLibrary.ViewModel.ViewModels
             _books = new ObservableCollection<Book>();
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _booksStore = ClassFactory.CreateBooksStore();
+
             LoadBooksCommand = ClassFactory.CreateLoadBooksCommand();
-            AddNewBookCommand = ClassFactory.CreateAddNewBookCommand();
-            EditBookCommand = ClassFactory.CreateEditBookCommand();
-            DeleteBookCommand = ClassFactory.CreateDeleteBookCommand();
+            AddNewBookCommand = ClassFactory.CreateAddNewBookCommand(this);
+            EditBookCommand = ClassFactory.CreateEditBookCommand(this);
+            DeleteBookCommand = ClassFactory.CreateDeleteBookCommand(this);
             OrderBooksCommand = ClassFactory.CreateOrderBooksBySubjectCommand();
             ReloadBooksCommand = ClassFactory.CreateReloadBooksCommand();
             _booksStore.BooksUpdated += UpdateBooks;

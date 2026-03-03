@@ -20,10 +20,10 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <summary>
         /// 
         /// </summary>
-        public EditBookCommand()
+        public EditBookCommand(IBooksViewModel booksViewModel)
         {
+            _booksViewModel = booksViewModel;
             _booksStore = ClassFactory.CreateBooksStore();
-            _booksViewModel = ClassFactory.CreateBooksViewModel();
             _booksRepository = ClassFactory.CreateBooksRepository();
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
