@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.SettingsViewModels;
 
 namespace MyLibrary.ViewModel.Commands.SettingsCommands
@@ -7,18 +8,17 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
     {
         #region Dependencies
         private ISettingNavigationStore _settingNavigationStore;
-        private SecuritySettingsViewModel _securitySettingsViewModel;
+        private ISecuritySettingsViewModel _securitySettingsViewModel;
         #endregion
 
         #region Contructor
         /// <summary>
         /// set current view of setting navigation to security (change password view) view
         /// </summary>
-        /// <param name="settingNavigationStore"></param>
-        public NavigateSecuritySettingsCommand(ISettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
+        public NavigateSecuritySettingsCommand()
         {
-            _settingNavigationStore = settingNavigationStore;
-            _securitySettingsViewModel = new SecuritySettingsViewModel(_settingNavigationStore, messageBoxStore);
+            _settingNavigationStore = ClassFactory.CreateSettingNavigationStore();
+            _securitySettingsViewModel = ClassFactory.CreateSecuritySettingsViewModel();
         }
         #endregion
 

@@ -327,6 +327,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new NavigateLayoutSettingCommand();
         }
+        public static INavigateSecuritySettingsCommand CreateNavigateSecuritySettingsCommand()
+        {
+            return new NavigateSecuritySettingsCommand();
+        }
         #endregion
 
         #region ClientsCommands
