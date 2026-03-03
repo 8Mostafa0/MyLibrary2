@@ -236,6 +236,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new ShowEditLoanViewModel();
         }
+        public static ISortLoansListCommand CreateSortLoansListCommand()
+        {
+            return new SortLoansListCommand();
+        }
         #endregion
 
         #region Stores

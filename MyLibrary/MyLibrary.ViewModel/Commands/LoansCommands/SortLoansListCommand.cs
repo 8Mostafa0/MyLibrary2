@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
@@ -7,7 +8,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     {
         #region Dependencies
         private ILoansStore _loansStore;
-        private LoansViewModel _loansViewModel;
+        private ILoansViewModel _loansViewModel;
         #endregion
 
 
@@ -20,10 +21,10 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// </summary>
         /// <param name="loansViewModel"></param>
         /// <param name="loansStore"></param>
-        public SortLoansListCommand(LoansViewModel loansViewModel, ILoansStore loansStore)
+        public SortLoansListCommand()
         {
-            _loansViewModel = loansViewModel;
-            _loansStore = loansStore;
+            _loansViewModel = ClassFactory.CreateLoansViewModel();
+            _loansStore = ClassFactory.CreateLoansStore();
         }
         #endregion
 
