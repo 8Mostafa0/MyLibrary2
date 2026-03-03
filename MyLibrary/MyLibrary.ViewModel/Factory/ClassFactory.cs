@@ -228,6 +228,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new ShowLoanModalCommand();
         }
+        public static ILoadLoansCommand CreateLoadLoansCommand()
+        {
+            return new LoadLoansCommand();
+        }
         #endregion
 
         #region Stores
