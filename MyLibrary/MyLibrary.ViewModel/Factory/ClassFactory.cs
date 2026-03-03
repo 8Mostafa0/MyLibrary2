@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.DbContexts;
-using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands;
 using MyLibrary.ViewModel.Commands.BooksCommands;
@@ -92,11 +91,6 @@ namespace MyLibrary.ViewModel.Factory
             return new SettingsViewModel();
         }
 
-        public static ILoansViewModel CreateLoansViewModel()
-        {
-            return new LoansViewModel();
-        }
-
         /// <summary>
         /// Loader method for reservedbooks view model
         /// </summary>
@@ -165,17 +159,11 @@ namespace MyLibrary.ViewModel.Factory
         /// <param name="reservedBooksRepository"></param>
         /// <param name="loan"></param>
         /// <returns></returns>
-        public static IAddEditeLoanViewModel LoadViewModel(IModalNavigationStore modalNavigationStore, IBooksStore booksStore, IClientsStore clientsStore, ILoansStore loansStore, LoanRepository loanRepository, ISettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore, Loan loan = null)
+        public static IAddEditeLoanViewModel CreateAddEditeLoanViewModel()
         {
-            IAddEditeLoanViewModel ViewModel = new AddEditeLoanViewModel(modalNavigationStore, clientsStore, booksStore, loansStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, messageBoxStore, loan);
+            IAddEditeLoanViewModel ViewModel = new AddEditeLoanViewModel();
             ViewModel.LoadBooksCommand.Execute(null);
             ViewModel.LoadClientsCommand.Execute(null);
-            ViewModel.SelectedLoan = loan is null ? new Loan()
-            {
-                Id = 0,
-                ClientId = 0,
-                BookId = 0
-            } : loan;
             return ViewModel;
 
         }
@@ -288,6 +276,10 @@ namespace MyLibrary.ViewModel.Factory
         public static ISaveReservationDataCommand CreateSaveReservationDataCommand()
         {
             return new SaveReservationDataCommand();
+        }
+        public static ISaveLoanDataCommand CreateSaveLoanDataCommand()
+        {
+            return new SaveLoanDataCommand();
         }
         #endregion
 

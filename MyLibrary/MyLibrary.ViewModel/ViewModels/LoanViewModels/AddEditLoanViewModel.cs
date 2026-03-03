@@ -25,11 +25,11 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         private Client _seletedClient;
         private Book _selectedBook;
         private ILoansStore _loansStore;
-        private LoanRepository _loanRepository;
+        private ILoanRepository _loanRepository;
         private IModalNavigationStore _modalNavigationStore;
         private ISettingsStore _settingsStore;
-        private BooksRepository _booksRepository;
-        private ReservedBooksRepository _reservedBooksRepository;
+        private IBooksRepository _booksRepository;
+        private IReservedBooksRepository _reservedBooksRepository;
         private IMessageBoxStore _messageBoxStore;
         private string _titleOfLoanScreen;
 
@@ -126,17 +126,17 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #region Commands
 
         public IViewModelBase CurrentModelViewModel => _modalNavigationStore.CurrentViewModel;
-        public ICommand LoadBooksCommand { get; }
-        public ICommand LoadClientsCommand { get; }
+        public ILoadBooksCommand LoadBooksCommand { get; }
+        public ILoadClientsCommand LoadClientsCommand { get; }
         public ICommand CloseModalCommand { get; }
-        public ICommand SaveLoanDataCommand { get; }
+        public ISaveLoanDataCommand SaveLoanDataCommand { get; }
         public ICommand SearchBookNameCommand { get; }
         public ICommand OrderBooksBySubjectCommand { get; }
         public ICommand SearchClientNameCommand { get; }
         #endregion
 
         #region Contructor
-        public AddEditeLoanViewModel(IModalNavigationStore modalNavigationStore, IClientsStore clientsStore, IBooksStore booksStore, LoansStore loanStore, LoanRepository loanRepository, ISettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore, Loan loan = null)
+        public AddEditeLoanViewModel()
         {
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _clients = new ObservableCollection<Client>();
@@ -147,24 +147,24 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             _booksStore.BooksUpdated += OnBooksUpdated;
             _loansStore = ClassFactory.CreateLoansStore();
             _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _loanRepository = loanRepository;
-            _settingsStore = settingsStore;
-            _booksRepository = booksRepository;
-            _reservedBooksRepository = reservedBooksRepository;
-            LoadBooksCommand = new LoadBooksCommand(booksStore);
-            LoadClientsCommand = new LoadClientsCommand(clientsStore);
-            if (loan is null)
-            {
-                TitleOfLoanScreen = "امانت جدید";
-                ReturnDate = DateTime.Now;
-            }
-            else
-            {
-                TitleOfLoanScreen = "ویرایش امانت";
-                SelectedLoan = loan;
-                ReturnDate = loan.ReturnDate;
-            }
-            SaveLoanDataCommand = new SaveLoanDataCommand(this, _loansStore, _modalNavigationStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository, _messageBoxStore);
+            _loanRepository = ClassFactory.CreateLoanRepository();
+            _settingsStore = ClassFactory.CreateSettingsStore();
+            _booksRepository = ClassFactory.CreateBooksRepository();
+            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
+            LoadBooksCommand = ClassFactory.CreateLoadBooksCommand();
+            LoadClientsCommand = ClassFactory.CreateLoadClientsCommand();
+            //if (loan is null)
+            //{
+            //    TitleOfLoanScreen = "امانت جدید";
+            //    ReturnDate = DateTime.Now;
+            //}
+            //else
+            //{
+            //    TitleOfLoanScreen = "ویرایش امانت";
+            //    SelectedLoan = loan;
+            //    ReturnDate = loan.ReturnDate;
+            //}
+            SaveLoanDataCommand = ClassFactory.CreateSaveLoanDataCommand();
             CloseModalCommand = new CloseModalCommand(_modalNavigationStore);
             SearchBookNameCommand = new SearchBookNameCommand(_booksStore);
             OrderBooksBySubjectCommand = new OrderBooksBySubjectCommand(_booksStore, _messageBoxStore);

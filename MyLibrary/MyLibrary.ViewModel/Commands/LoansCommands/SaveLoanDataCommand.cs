@@ -1,5 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 using System;
@@ -13,11 +14,11 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         #region Dependencies
         private readonly ILoansStore _loansStore;
         private readonly ISettingsStore _settingsStore;
-        private readonly LoanRepository _loanRepository;
-        private readonly BooksRepository _bookRepository;
+        private readonly ILoanRepository _loanRepository;
+        private readonly IBooksRepository _bookRepository;
         private readonly IModalNavigationStore _modalNavigationStore;
-        private readonly AddEditeLoanViewModel _addEditeLoanViewModel;
-        private readonly ReservedBooksRepository _reservedBooksRepository;
+        private readonly IAddEditeLoanViewModel _addEditeLoanViewModel;
+        private readonly IReservedBooksRepository _reservedBooksRepository;
         private readonly IMessageBoxStore _messageBoxStore;
         #endregion
 
@@ -33,16 +34,16 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="settingsStore"></param>
         /// <param name="booksRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public SaveLoanDataCommand(AddEditeLoanViewModel addEditeLoanViewModel, ILoansStore loansStore, IModalNavigationStore modalNavigationStore, LoanRepository loanRepository, ISettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
+        public SaveLoanDataCommand()
         {
-            _messageBoxStore = messageBoxStore;
-            _loansStore = loansStore;
-            _settingsStore = settingsStore;
-            _loanRepository = loanRepository;
-            _bookRepository = booksRepository;
-            _modalNavigationStore = modalNavigationStore;
-            _addEditeLoanViewModel = addEditeLoanViewModel;
-            _reservedBooksRepository = reservedBooksRepository;
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _loansStore = ClassFactory.CreateLoansStore();
+            _settingsStore = ClassFactory.CreateSettingsStore();
+            _loanRepository = ClassFactory.CreateLoanRepository();
+            _bookRepository = ClassFactory.CreateBooksRepository();
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
+            _addEditeLoanViewModel = ClassFactory.CreateAddEditeLoanViewModel();
+            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
         }
         #endregion
 

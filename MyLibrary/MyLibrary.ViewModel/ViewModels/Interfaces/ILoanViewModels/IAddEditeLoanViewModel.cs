@@ -1,4 +1,7 @@
 ﻿using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Commands.BooksCommands;
+using MyLibrary.ViewModel.Commands.ClientsCommands;
+using MyLibrary.ViewModel.Commands.LoansCommands;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
@@ -14,11 +17,11 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         string ClientSearch { get; set; }
         ICommand CloseModalCommand { get; }
         IViewModelBase CurrentModelViewModel { get; }
-        ICommand LoadBooksCommand { get; }
-        ICommand LoadClientsCommand { get; }
+        ILoadBooksCommand LoadBooksCommand { get; }
+        ILoadClientsCommand LoadClientsCommand { get; }
         ICommand OrderBooksBySubjectCommand { get; }
         DateTime ReturnDate { get; set; }
-        ICommand SaveLoanDataCommand { get; }
+        ISaveLoanDataCommand SaveLoanDataCommand { get; }
         ICommand SearchBookNameCommand { get; }
         ICommand SearchClientNameCommand { get; }
         Book SelectedBook { get; set; }

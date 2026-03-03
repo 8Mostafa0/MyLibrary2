@@ -8,7 +8,6 @@ using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 {
@@ -109,7 +108,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         public ILoadClientsCommand LoadClientsCommand { get; }
         public ILoadBooksCommand LoadBooksCommand { get; }
         public IOrderBooksBySubjectCommand OrderBooksCommand { get; }
-        public ICommand OrderBooksBySubjectCommand { get; }
+        public IOrderBooksBySubjectCommand OrderBooksBySubjectCommand { get; }
 
 
         #endregion
@@ -144,7 +143,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             SearchClientNameCommand = ClassFactory.CreateSearchClientNameCommand();
             OrderBooksCommand = ClassFactory.CreateOrderBooksBySubjectCommand();
             SaveReservedBookDataCommand = ClassFactory.CreateSaveReservationDataCommand();
-            OrderBooksBySubjectCommand = new OrderBooksBySubjectCommand(_booksStore, _messageBoxStore);
+            OrderBooksBySubjectCommand = ClassFactory.CreateOrderBooksBySubjectCommand();
         }
         #endregion
 
