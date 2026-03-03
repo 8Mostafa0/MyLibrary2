@@ -16,7 +16,7 @@ namespace MyLibrary.ViewModel.ViewModels
         bool IsMessageBoxOpen { get; }
         string LastName { get; set; }
         ILoadClientsCommand LoadClientsCommand { get; }
-        ICommand OrderClientsCommand { get; }
+        IOrderClientsCommand OrderClientsCommand { get; }
         IReloadClientsCommand ReloadClientsCommand { get; }
         Client SelectedClient { get; set; }
         string SortOrder { get; set; }
