@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using System;
 
 namespace MyLibrary.ViewModel.Commands.LoginCommands
@@ -12,10 +11,12 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
 
         #region Contructor
         /// <summary>
+        /// 
         /// </summary>
-        public CloseAppCommand()
+        /// <param name="messageBoxStore"></param>
+        public CloseAppCommand(IMessageBoxStore messageBoxStore)
         {
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 

@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.DbContexts;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
@@ -11,27 +10,36 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
         private ISettingsStore _settinsStore;
         private ILoginViewModel _loginViewModel;
         private IDbContextFactory _dbContextFactory;
-        private IModalNavigationStore _modalNavigationStore;
         private IMessageBoxStore _messageBoxStore;
+        private IModalNavigationStore _modalNavigationStore;
+        private ICheckDatabaseCommand _checkDatabaseCommand;
         #endregion
 
 
         #region Contructor
         /// <summary>
+        /// 
         /// validate password then set modal navigation view to null
         /// </summary>
-        /// <param name="loginViewModel"></param>
-        /// <param name="modalNavigationStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="dbContextFactory"></param>
         /// <param name="settingsStore"></param>
-        public LoginCommand(ILoginViewModel loginViewModel)
+        /// <param name="loginViewModel"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="dbContextFactory"></param>
+        /// <param name="modalNavigationStore"></param>
+        public LoginCommand(
+            ISettingsStore settingsStore,
+            ILoginViewModel loginViewModel,
+            IMessageBoxStore messageBoxStore,
+            IDbContextFactory dbContextFactory,
+            IModalNavigationStore modalNavigationStore,
+            ICheckDatabaseCommand checkDatabaseCommand)
         {
+            _settinsStore = settingsStore;
             _loginViewModel = loginViewModel;
-            _dbContextFactory = ClassFactory.CreateDbContextFactory();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _settinsStore = ClassFactory.CreateSettingsStore();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _messageBoxStore = messageBoxStore;
+            _dbContextFactory = dbContextFactory;
+            _modalNavigationStore = modalNavigationStore;
+            _checkDatabaseCommand = checkDatabaseCommand;
         }
         #endregion
 
@@ -42,7 +50,7 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
         /// <param name="parameter">no marametes needed</param>
         public override void Execute(object parameter)
         {
-            ClassFactory.CreateCheckDatabaseCommand().Execute(null);
+            _checkDatabaseCommand.Execute(null);
             if (_loginViewModel.Password == "" || _loginViewModel.Password is null)
             {
                 _messageBoxStore.Show("لطفا مقادیری برای رمز وارد کنید", "خطا");
