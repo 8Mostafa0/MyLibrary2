@@ -4,10 +4,10 @@ namespace MyLibrary.ViewModel.Servicies
     /// <summary>
     /// class for recording logs
     /// </summary>
-    public static class LoggerService
+    public class LoggerService : ILoggerService
     {
-        private static ILogger _logger;
-        public static ILogger Logger
+        private ILogger _logger;
+        public ILogger Logger
         {
             get
             {

@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Factory;
+﻿using Autofac;
+using MyLibrary.ViewModel;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using System.Windows;
@@ -13,16 +14,20 @@ namespace MyLibrary.View
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            INavigationStore navigationStore = ClassFactory.CreateNavigationStore();
-            navigationStore.ContentScreen = ClassFactory.CreateHomeViewModel();
-            navigationStore.StatusBarViewModel = ClassFactory.CreateStatusBarViewModel();
-            navigationStore.MainContentViewModel = ClassFactory.CreateNavigationBarViewModel();
-            ILayoutViewModel layoutViewModel = ClassFactory.CreateLayoutViewModel();
-            MainWindow _ = new MainWindow()
+            var Container = ContainerConfig.Configure();
+            using (var scope = Container.BeginLifetimeScope())
             {
-                DataContext = ClassFactory.CreateMainViewModel()
-            };
-            MainWindow.Show();
+                var navigationStore = scope.Resolve<INavigationStore>();
+                navigationStore.ContentScreen = scope.Resolve<IHomeViewModel>();
+                navigationStore.StatusBarViewModel = scope.Resolve<IStatusBarViewModel>();
+                navigationStore.MainContentViewModel = scope.Resolve<INavigationBarViewModel>();
+                var layoutViewModel = scope.Resolve<ILayoutViewModel>();
+                MainWindow _ = new MainWindow()
+                {
+                    DataContext = scope.Resolve<IMainViewModel>()
+                };
+                MainWindow.Show();
+            }
         }
     }
 }
