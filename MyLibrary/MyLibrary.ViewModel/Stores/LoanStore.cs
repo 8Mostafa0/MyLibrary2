@@ -1,7 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Commands.BooksCommands;
-using MyLibrary.ViewModel.Commands.ClientsCommands;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ namespace MyLibrary.ViewModel.Stores
         #region Dependencies
         private ObservableCollection<LoanViewModel> _loans;
         public IEnumerable<LoanViewModel> Loans => _loans;
-        private LoanRepository _loanRepository;
+        private ILoanRepository _loanRepository;
         private IClientsStore _clientsStore;
         private IBooksStore _booksStore;
 
@@ -35,11 +34,11 @@ namespace MyLibrary.ViewModel.Stores
         {
             _loans = new ObservableCollection<LoanViewModel>();
             _initilizeLazy = new Lazy<Task>(Initialize);
-            _loanRepository = new LoanRepository();
-            _clientsStore = new ClientsStore();
-            new LoadClientsCommand(_clientsStore).Execute(null);
-            _booksStore = new BooksStore();
-            new LoadBooksCommand(_booksStore).Execute(null);
+            _loanRepository = ClassFactory.CreateLoanRepository();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            ClassFactory.CreateLoadClientsCommand().Execute(null);
+            _booksStore = ClassFactory.CreateBooksStore();
+            ClassFactory.CreateLoadBooksCommand().Execute(null);
         }
         #endregion
 

@@ -190,8 +190,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 _addEditeLoanViewModel.ReturnDate = DateTime.Now;
                 #endregion
 
-
-                new CloseModalCommand(_modalNavigationStore).Execute(null);
+                ClassFactory.CreateCloseModalCommand().Execute(null);
             }
             catch (Exception ex)
             {
