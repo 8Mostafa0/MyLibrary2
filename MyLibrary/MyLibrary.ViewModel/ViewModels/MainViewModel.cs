@@ -1,5 +1,4 @@
-﻿using MyLibrary.Model.DbContexts;
-using MyLibrary.ViewModel.Commands;
+﻿using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.ViewModels
@@ -7,7 +6,7 @@ namespace MyLibrary.ViewModel.ViewModels
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
         #region Dependencies
-        private readonly LayoutViewModel _layoutViewModel;
+        private readonly ILayoutViewModel _layoutViewModel;
         private IModalNavigationStore _modalNavigationStore;
         private IMessageBoxStore _messageBoxStore;
 
@@ -20,14 +19,14 @@ namespace MyLibrary.ViewModel.ViewModels
         public bool IsMessageBoxOpen => _messageBoxStore.IsMessageOpen;
         #endregion
         #region Constructor
-        public MainViewModel(LayoutViewModel layoutViewModel, IModalNavigationStore modalNavigationStore, IMessageBoxStore messageBoxStore)
+        public MainViewModel()
         {
-            _layoutViewModel = layoutViewModel;
-            _modalNavigationStore = modalNavigationStore;
+            _layoutViewModel = ClassFactory.CreateLayoutViewModel();
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
             _modalNavigationStore.CurrentViewModelChanged += OnModalChanged;
-            _messageBoxStore = messageBoxStore;
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
-            new LoginModalCommand(_modalNavigationStore, new DbContextFactory(), new SettingsStore(), messageBoxStore).Execute(null);
+            ClassFactory.CreateLoginModalCommand().Execute(null);
 
         }
         #endregion

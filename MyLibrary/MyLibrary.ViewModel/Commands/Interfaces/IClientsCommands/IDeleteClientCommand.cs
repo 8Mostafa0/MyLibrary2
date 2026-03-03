@@ -1,6 +1,8 @@
-﻿namespace MyLibrary.ViewModel.Commands.ClientsCommands
+﻿using System.Windows.Input;
+
+namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
-    public interface IDeleteClientCommand
+    public interface IDeleteClientCommand : ICommand
     {
         void Execute(object parameter);
     }

@@ -60,7 +60,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
             else
             {
 
-                _messageBoxStore.Show("کاربر حذف شود؟", "حذف کاربر", "بله", "خیر", new DeleteClientCommand(_clientsViewModel, _clientsStore, _loanRepository, _reservedBooksRepository, _messageBoxStore));
+                _messageBoxStore.Show("کاربر حذف شود؟", "حذف کاربر", "بله", "خیر", ClassFactory.CreateDeleteClientCommand());
                 if (_messageBoxStore.MessageBoxResult)
                 {
                     _messageBoxStore.CloseMessageBox();
