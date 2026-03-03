@@ -106,7 +106,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         public ICommand SaveReservedBookDataCommand { get; }
         public ICommand SearchBookNameCommand { get; }
         public ICommand SearchClientNameCommand { get; }
-        public ICommand LoadClientsCommand { get; }
+        public ILoadClientsCommand LoadClientsCommand { get; }
         public ILoadBooksCommand LoadBooksCommand { get; }
         public ICommand OrderBooksCommand { get; }
         public ICommand OrderBooksBySubjectCommand { get; }
@@ -138,7 +138,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             _booksStore.BooksUpdated += OnBooksUpdated;
             _clientsStore.ClientsUpdated += OnClientsUpdated;
             LoadBooksCommand = ClassFactory.CreateLoadBooksCommand();
-            LoadClientsCommand = new LoadClientsCommand(_clientsStore);
+            LoadClientsCommand = ClassFactory.CreateLoadClientsCommand();
             CloseModalCommand = new CloseModalCommand(_modalNavigationStore);
             SearchBookNameCommand = new SearchBookNameCommand(_booksStore);
             SearchClientNameCommand = new SearchClientNameCommand(_clientsStore);

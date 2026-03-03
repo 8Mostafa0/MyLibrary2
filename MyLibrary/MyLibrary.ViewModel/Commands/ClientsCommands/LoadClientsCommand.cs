@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
@@ -14,9 +15,9 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// load clients from database to clients store
         /// </summary>
         /// <param name="clientsStore"></param>
-        public LoadClientsCommand(IClientsStore clientsStore)
+        public LoadClientsCommand()
         {
-            _clientsStore = clientsStore;
+            _clientsStore = ClassFactory.CreateClientsStore();
         }
 
         #endregion

@@ -263,6 +263,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new LoadBooksCommand();
         }
+        public static ILoadClientsCommand CreateLoadClientsCommand()
+        {
+            return new LoadClientsCommand();
+        }
         #endregion
 
         #region Stores
