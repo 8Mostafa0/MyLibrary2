@@ -80,7 +80,7 @@ namespace MyLibrary.ViewModel.ViewModels
         #region Commands
         public IReloadClientsCommand ReloadClientsCommand { get; }
         public ILoadClientsCommand LoadClientsCommand { get; }
-        public ICommand DeleteClientCommand { get; }
+        public IDeleteClientCommand DeleteClientCommand { get; }
         public ICommand AddNewClientCommand { get; }
         public ICommand OrderClientsCommand { get; }
 
@@ -101,7 +101,7 @@ namespace MyLibrary.ViewModel.ViewModels
             _clientsStore.ClientEdited += ClientEdited;
             LoadClientsCommand = ClassFactory.CreateLoadClientsCommand();
             ReloadClientsCommand = ClassFactory.CreateReloadClientsCommand();
-            DeleteClientCommand = new DeleteClientCommand(this, _clientsStore, loanRepository, reservedBooksRepository, _messageBoxStore);
+            DeleteClientCommand = ClassFactory.CreateDeleteClientCommand();
             AddNewClientCommand = new AddNewClientCommand(this, _clientsStore, _messageBoxStore);
             OrderClientsCommand = new OrderClientsCommand(_clientsStore, this);
             EditClientCommand = new EditClientCommand(this, _clientsStore, _messageBoxStore);

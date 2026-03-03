@@ -319,6 +319,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new ReloadClientsCommand();
         }
+        public static IDeleteClientCommand CreateDeleteClientCommand()
+        {
+            return new DeleteClientCommand();
+        }
         #endregion
         #endregion
 

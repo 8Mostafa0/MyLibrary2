@@ -1,5 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using System.Collections.Generic;
@@ -9,10 +10,10 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
     public class DeleteClientCommand : CommandBase, IDeleteClientCommand
     {
         #region Dependencies
-        private LoanRepository _loanRepository;
+        private ILoanRepository _loanRepository;
         private readonly IClientsStore _clientsStore;
         private readonly IClientsViewModel _clientsViewModel;
-        private ReservedBooksRepository _reservedBooksRepository;
+        private IReservedBooksRepository _reservedBooksRepository;
 
         private IMessageBoxStore _messageBoxStore;
 
@@ -26,17 +27,13 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// 2_ Remove All Saved Loans Of Client
         /// 3_ Delete Client Using Clients Store
         /// </summary>
-        /// <param name="clientsViewModel"></param>
-        /// <param name="clientsStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
-        public DeleteClientCommand(IClientsViewModel clientsViewModel, IClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
+        public DeleteClientCommand()
         {
-            _clientsViewModel = clientsViewModel;
-            _clientsStore = clientsStore;
-            _loanRepository = loanRepository;
-            _reservedBooksRepository = reservedBooksRepository;
-            _messageBoxStore = messageBoxStore;
+            _clientsViewModel = ClassFactory.CreateClientsViewModel();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _loanRepository = ClassFactory.CreateLoanRepository();
+            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
         #endregion
 

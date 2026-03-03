@@ -10,7 +10,7 @@ namespace MyLibrary.ViewModel.ViewModels
         ICommand AddNewClientCommand { get; }
         IEnumerable<Client> Clients { get; }
         IViewModelBase CurrentMessageBox { get; }
-        ICommand DeleteClientCommand { get; }
+        IDeleteClientCommand DeleteClientCommand { get; }
         ICommand EditClientCommand { get; }
         string FirstName { get; set; }
         bool IsMessageBoxOpen { get; }
