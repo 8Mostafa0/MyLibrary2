@@ -6,7 +6,6 @@ using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 {
@@ -59,7 +58,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 
         public ILoadReservedBooksCommand LoadReservedBooksCommand { get; }
 
-        public ICommand SearchBookNameInReservedBookCommand { get; }
+        public ISearchBookNameInReservedBookCommand SearchBookNameInReservedBookCommand { get; }
         #endregion
 
         #region Contructor
@@ -84,7 +83,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             AddNewReservBookCommand = ClassFactory.CreateAddNewReservBookCommand();
             RemoveReservBookCommand = ClassFactory.CreateRemoveReservBookCommand();
             ResetReservBookCommand = ClassFactory.CreateResetReservBookCommand();
-            SearchBookNameInReservedBookCommand = new SearchBookNameInReservedBookCommand(this, _reservedBooksStore);
+            SearchBookNameInReservedBookCommand = ClassFactory.CreateSearchBookNameInReservedBookCommand();
 
         }
         #endregion

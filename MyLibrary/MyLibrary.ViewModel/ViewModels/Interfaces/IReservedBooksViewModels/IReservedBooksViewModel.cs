@@ -1,7 +1,6 @@
 ﻿using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System.Collections.Generic;
-using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 {
@@ -16,7 +15,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         IRemoveReservBookCommand RemoveReservBookCommand { get; }
         IEnumerable<ReservedBookViewModel> ReservedBooks { get; }
         IResetReservBookCommand ResetReservBookCommand { get; }
-        ICommand SearchBookNameInReservedBookCommand { get; }
+        ISearchBookNameInReservedBookCommand SearchBookNameInReservedBookCommand { get; }
         ReservedBookViewModel SelectedReservedBook { get; set; }
 
     }
