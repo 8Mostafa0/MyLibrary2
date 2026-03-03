@@ -81,7 +81,7 @@ namespace MyLibrary.ViewModel.ViewModels
         public IReloadClientsCommand ReloadClientsCommand { get; }
         public ILoadClientsCommand LoadClientsCommand { get; }
         public IDeleteClientCommand DeleteClientCommand { get; }
-        public ICommand AddNewClientCommand { get; }
+        public IAddNewClientCommand AddNewClientCommand { get; }
         public ICommand OrderClientsCommand { get; }
 
         public ICommand EditClientCommand { get; }
@@ -102,7 +102,7 @@ namespace MyLibrary.ViewModel.ViewModels
             LoadClientsCommand = ClassFactory.CreateLoadClientsCommand();
             ReloadClientsCommand = ClassFactory.CreateReloadClientsCommand();
             DeleteClientCommand = ClassFactory.CreateDeleteClientCommand();
-            AddNewClientCommand = new AddNewClientCommand(this, _clientsStore, _messageBoxStore);
+            AddNewClientCommand = ClassFactory.CreateAddNewClientCommand();
             OrderClientsCommand = new OrderClientsCommand(_clientsStore, this);
             EditClientCommand = new EditClientCommand(this, _clientsStore, _messageBoxStore);
             SortOrder = "0";

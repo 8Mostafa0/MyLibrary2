@@ -7,7 +7,7 @@ namespace MyLibrary.ViewModel.ViewModels
 {
     public interface IClientsViewModel : IViewModelBase
     {
-        ICommand AddNewClientCommand { get; }
+        IAddNewClientCommand AddNewClientCommand { get; }
         IEnumerable<Client> Clients { get; }
         IViewModelBase CurrentMessageBox { get; }
         IDeleteClientCommand DeleteClientCommand { get; }

@@ -323,6 +323,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new DeleteClientCommand();
         }
+        public static IAddNewClientCommand CreateAddNewClientCommand()
+        {
+            return new AddNewClientCommand();
+        }
         #endregion
         #endregion
 
