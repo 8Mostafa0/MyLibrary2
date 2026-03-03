@@ -323,6 +323,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new NavigateLoanSettingsCommand();
         }
+        public static INavigateLayoutSettingCommand CreateNavigateLayoutSettingCommand()
+        {
+            return new NavigateLayoutSettingCommand();
+        }
         #endregion
 
         #region ClientsCommands

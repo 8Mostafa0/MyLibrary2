@@ -16,7 +16,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #endregion
 
         #region Commands
-        public ICommand NavigateLayoutSettingCommand { get; }
+        public INavigateLayoutSettingCommand NavigateLayoutSettingCommand { get; }
         public INavigateLoanSettingsCommand NavigateLoanSettingsCommand { get; }
         public ICommand NavigateSecuritySettingsCommand { get; }
         #endregion
@@ -27,7 +27,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _settingNavigationStore = ClassFactory.CreateSettingNavigationStore();
             _settingNavigationStore.SettingViewModelChanged += OnSettingViewModelChanged;
-            NavigateLayoutSettingCommand = new NavigateLayoutSettingCommand(_settingNavigationStore);
+            NavigateLayoutSettingCommand = ClassFactory.CreateNavigateLayoutSettingCommand();
             NavigateLoanSettingsCommand = ClassFactory.CreateNavigateLoanSettingsCommand();
             NavigateSecuritySettingsCommand = new NavigateSecuritySettingsCommand(_settingNavigationStore, _messageBoxStore);
         }
