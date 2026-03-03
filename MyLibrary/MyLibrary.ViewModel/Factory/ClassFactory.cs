@@ -278,6 +278,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new LoadReservedBooksCommand();
         }
+        public static IEditeReservBookCommand CreateEditeReservBookCommand()
+        {
+            return new EditeReservBookCommand();
+        }
         #endregion
 
         #region Stores

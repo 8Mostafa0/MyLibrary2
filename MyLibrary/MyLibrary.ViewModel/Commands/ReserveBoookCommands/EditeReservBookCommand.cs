@@ -1,4 +1,5 @@
 ﻿using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
@@ -9,12 +10,12 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         #region Dependencies
         private IBooksStore _booksStore;
         private IClientsStore _clientsStore;
-        private LoanRepository _loansRepository;
-        private ClientsRepository _clientRepository;
+        private ILoanRepository _loansRepository;
+        private IClientsRepository _clientRepository;
         private IReservedBooksStore _reservedBooksStore;
         private IModalNavigationStore _modalNavigationStore;
-        private ReservedBooksViewModel _reservedBooksViewModel;
-        private ReservedBooksRepository _reservedBooksRepository;
+        private IReservedBooksViewModel _reservedBooksViewModel;
+        private IReservedBooksRepository _reservedBooksRepository;
         private IMessageBoxStore _messageBoxStore;
         #endregion
 
@@ -23,35 +24,17 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <summary>
         /// validate selected reserv and fill to the add edite view modal
         /// </summary>
-        /// <param name="booksStore"></param>
-        /// <param name="clientsStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="clientsRepository"></param>
-        /// <param name="reservedBooksStore"></param>
-        /// <param name="modalNavigationStore"></param>
-        /// <param name="reservedBooksViewModel"></param>
-        /// <param name="reservedBooksRepository"></param>
-        public EditeReservBookCommand(
-            IBooksStore booksStore,
-            IClientsStore clientsStore,
-            LoanRepository loanRepository,
-            ClientsRepository clientsRepository,
-            IReservedBooksStore reservedBooksStore,
-            IModalNavigationStore modalNavigationStore,
-            ReservedBooksViewModel reservedBooksViewModel,
-            ReservedBooksRepository reservedBooksRepository,
-            IMessageBoxStore messageBoxStore
-            )
+        public EditeReservBookCommand()
         {
-            _booksStore = booksStore;
-            _clientsStore = clientsStore;
-            _loansRepository = loanRepository;
-            _messageBoxStore = messageBoxStore;
-            _clientRepository = clientsRepository;
-            _reservedBooksStore = reservedBooksStore;
-            _modalNavigationStore = modalNavigationStore;
-            _reservedBooksViewModel = reservedBooksViewModel;
-            _reservedBooksRepository = reservedBooksRepository;
+            _booksStore = ClassFactory.CreateBooksStore();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _loansRepository = ClassFactory.CreateLoanRepository();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _clientRepository = ClassFactory.CreateClientsRepository();
+            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
+            _reservedBooksViewModel = ClassFactory.CreateReservedBooksViewModel();
+            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
         }
         #endregion
 

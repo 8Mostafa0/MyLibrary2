@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
+﻿using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
+using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -9,7 +10,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         ICommand AddNewReservBookCommand { get; }
         string BookName { get; set; }
         IViewModelBase CurrentModalViewModel { get; }
-        ICommand EditeReservBookCommand { get; }
+        IEditeReservBookCommand EditeReservBookCommand { get; }
         bool IsModalOpen { get; }
         ILoadReservedBooksCommand LoadReservedBooksCommand { get; }
         ICommand RemoveReservBookCommand { get; }

@@ -54,7 +54,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         public ICommand AddNewReservBookCommand { get; }
         public ICommand RemoveReservBookCommand { get; }
 
-        public ICommand EditeReservBookCommand { get; }
+        public IEditeReservBookCommand EditeReservBookCommand { get; }
         public ICommand ResetReservBookCommand { get; }
 
         public ILoadReservedBooksCommand LoadReservedBooksCommand { get; }
@@ -80,17 +80,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             _reservedBooksStore.ReservBookAdded += OnReservedBookAdded;
             _reservedBooksStore.ReservBookDeleted += OnReservedBookDeleted;
             LoadReservedBooksCommand = ClassFactory.CreateLoadReservedBooksCommand();
-            EditeReservBookCommand = new EditeReservBookCommand(
-                _booksStore,
-                _clientsStore,
-                loansRepository,
-                clientsRepository,
-                _reservedBooksStore,
-                _modalNavigationStore,
-                this,
-                reservedBooksRepository,
-                _messageBoxStore
-                );
+            EditeReservBookCommand = ClassFactory.CreateEditeReservBookCommand();
             AddNewReservBookCommand = new AddNewReservBookCommand(
                 _modalNavigationStore,
                 _reservedBooksStore,
