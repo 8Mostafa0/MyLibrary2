@@ -1,4 +1,5 @@
 ﻿using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 
@@ -11,13 +12,13 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         private IBooksStore _booksStore;
         private IClientsStore _clientsStore;
         private ISettingsStore _settingsStore;
-        private LoansViewModel _loansViewModel;
-        private LoanRepository _loanRepository;
-        private BooksRepository _booksRepository;
+        private ILoansViewModel _loansViewModel;
+        private ILoanRepository _loanRepository;
+        private IBooksRepository _booksRepository;
         private IMessageBoxStore _messageBoxStore;
         private IModalNavigationStore _modalNavigationStore;
-        private AddEditeLoanViewModel _addEditeLoanViewModel;
-        private ReservedBooksRepository _reservedBooksRepository;
+        private IAddEditeLoanViewModel _addEditeLoanViewModel;
+        private IReservedBooksRepository _reservedBooksRepository;
         #endregion
 
 
@@ -35,18 +36,18 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="booksRepository"></param>
         /// <param name="MessageBoxStore"></param>
         /// <param name="reservedBooksRepository"></param>
-        public ShowEditLoanViewModel(IModalNavigationStore modalNavigationStore, ILoansStore loansStore, IBooksStore booksStore, IClientsStore clientsStore, LoansViewModel loansViewModel, LoanRepository loanRepository, ISettingsStore settingsStore, BooksRepository booksRepository, IMessageBoxStore messageBoxStore, ReservedBooksRepository reservedBooksRepository)
+        public ShowEditLoanViewModel()
         {
-            _loansStore = loansStore;
-            _booksStore = booksStore;
-            _clientsStore = clientsStore;
-            _settingsStore = settingsStore;
-            _loanRepository = loanRepository;
-            _loansViewModel = loansViewModel;
-            _booksRepository = booksRepository;
-            _messageBoxStore = messageBoxStore;
-            _modalNavigationStore = modalNavigationStore;
-            _reservedBooksRepository = reservedBooksRepository;
+            _loansStore = ClassFactory.CreateLoansStore();
+            _booksStore = ClassFactory.CreateBooksStore();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _settingsStore = ClassFactory.CreateSettingsStore();
+            _loanRepository = ClassFactory.CreateLoanRepository();
+            _loansViewModel = ClassFactory.CreateLoansViewModel();
+            _booksRepository = ClassFactory.CreateBooksRepository();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
+            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
         }
         #endregion
 

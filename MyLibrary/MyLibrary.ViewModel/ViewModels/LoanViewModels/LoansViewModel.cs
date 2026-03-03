@@ -62,7 +62,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #region Commands
 
         public IShowLoanModalCommand ShowAddLoanModalCommand { get; }
-        public ICommand ShowEditLoanViewModel { get; }
+        public IShowEditLoanViewModel ShowEditLoanViewModel { get; }
         public ILoadLoansCommand LoadLoansCommand { get; }
         public ICommand OrderBooksCommand { get; }
         public ICommand SearchBookCommand { get; }
@@ -87,7 +87,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 
             LoadLoansCommand = ClassFactory.CreateLoadLoansCommand();
             ShowAddLoanModalCommand = ClassFactory.CreateShowLoanModalCommand();
-            ShowEditLoanViewModel = new ShowEditLoanViewModel(_modalNavigationStore, _loansStore, _booksStore, _clientsStore, this, _loanRepository, _settingsStore, _booksRepository, _messageBoxStore, _reservedBooksRepository);
+            ShowEditLoanViewModel = ClassFactory.CreateShowEditLoanViewModel();
             SortLoansListCommand = new SortLoansListCommand(this, _loansStore);
             ReturnedLoanCommand = new ReturnedLoanCommand(this, _loansStore, _messageBoxStore);
             ReloadLoansListCommand = new ReloadLoansListCommand(_loansStore);

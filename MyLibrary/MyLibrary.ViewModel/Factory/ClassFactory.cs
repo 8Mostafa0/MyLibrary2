@@ -232,6 +232,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new LoadLoansCommand();
         }
+        public static IShowEditLoanViewModel CreateShowEditLoanViewModel()
+        {
+            return new ShowEditLoanViewModel();
+        }
         #endregion
 
         #region Stores
