@@ -318,6 +318,13 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new ReloadBooksCommand();
         }
+        #region SettingsCommands
+        public static INavigateLoanSettingsCommand CreateNavigateLoanSettingsCommand()
+        {
+            return new NavigateLoanSettingsCommand();
+        }
+        #endregion
+
         #region ClientsCommands
         public static IReloadClientsCommand CreateReloadClientsCommand()
         {

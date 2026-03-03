@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.SettingsViewModels;
 
 namespace MyLibrary.ViewModel.Commands.SettingsCommands
@@ -16,11 +17,11 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         /// set current view model of setting navigation to loan loan settings
         /// </summary>
         /// <param name="navigationStore"></param>
-        public NavigateLoanSettingsCommand(ISettingNavigationStore navigationStore, IMessageBoxStore messageBoxStore)
+        public NavigateLoanSettingsCommand()
         {
-            _navigationStore = navigationStore;
-            _messageBoxStore = messageBoxStore;
-            _loanSettingsViewModel = new LoanSettingsViewModel(_messageBoxStore);
+            _navigationStore = ClassFactory.CreateSettingNavigationStore();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _loanSettingsViewModel = ClassFactory.CreateLoanSettingsViewModel();
         }
         #endregion
 

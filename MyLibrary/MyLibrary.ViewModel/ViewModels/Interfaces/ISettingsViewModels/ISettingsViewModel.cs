@@ -6,7 +6,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
     {
         IViewModelBase CurrentSettingViewModel { get; }
         ICommand NavigateLayoutSettingCommand { get; }
-        ICommand NavigateLoanSettingsCommand { get; }
+        INavigateLoanSettingsCommand NavigateLoanSettingsCommand { get; }
         ICommand NavigateSecuritySettingsCommand { get; }
     }
 }
