@@ -29,7 +29,7 @@ namespace MyLibrary.ViewModel.ViewModels
 
         public INavigateClientScreenCommand ClientsCreenCommand { get; }
 
-        public ICommand NavigateBooksCommand { get; }
+        public INavigateBooksCommand NavigateBooksCommand { get; }
 
         public ICommand OpenModalCommand { get; }
         public ICommand NavigateLoansCommand { get; }
@@ -51,8 +51,7 @@ namespace MyLibrary.ViewModel.ViewModels
             NavigateHomeCommand = ClassFactory.CreateNavigateHomeScreenCommand();
             NavigateHomeCommand.Execute(null);
             ClientsCreenCommand = ClassFactory.CreateNavigateClientScreenCommand();
-            ClientsCreenCommand = new NavigateClientScreenCommand(_navigationStore, _clientsStore, loanRepository, reservedBooksRepository, _messageBoxStore);
-            NavigateBooksCommand = new NavigateBooksCommand(_navigationStore, _booksStore, loanRepository, reservedBooksRepository, booksRepository, _messageBoxStore);
+            NavigateBooksCommand = ClassFactory.CreateNavigateBooksScreenCommand();
             NavigateLoansCommand = new NavigateLoansCommand(_navigationStore, _modalNavigationStore, _loansStore, _clientsStore, _booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, _messageBoxStore);
             NavigateReservedBooksCommand = new NavigateReservedBooksCommand(_navigationStore, _modalNavigationStore, _reservedBooksStore, clientsStore, booksStore, loanRepository, clientsRepository, reservedBooksRepository, _messageBoxStore);
             NavigateToSettingsCommand = new NavigateToSettingsCommand(_navigationStore, _messageBoxStore);

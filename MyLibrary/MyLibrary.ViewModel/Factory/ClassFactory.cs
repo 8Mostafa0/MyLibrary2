@@ -4,6 +4,7 @@ using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands;
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
+using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
@@ -69,19 +70,19 @@ namespace MyLibrary.ViewModel.Factory
             return ViewModel;
         }
 
-        public static ISecuritySettingsViewModel CreateSecuritySettingsViewModel(ISettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
+        public static ISecuritySettingsViewModel CreateSecuritySettingsViewModel()
         {
-            return new SecuritySettingsViewModel(settingNavigationStore, messageBoxStore);
+            return new SecuritySettingsViewModel();
         }
 
-        public static IMainLayoutSettingViewModel CreateMainLayoutSettingViewModel(ISettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
+        public static IMainLayoutSettingViewModel CreateMainLayoutSettingViewModel()
         {
-            return new MainLayoutSettingViewModel(settingNavigationStore, messageBoxStore);
+            return new MainLayoutSettingViewModel();
         }
 
-        public static ILoanSettingsViewModel CreateLoanSettingsViewModel(ISettingNavigationStore settingNavigationStore, IMessageBoxStore messageBoxStore)
+        public static ILoanSettingsViewModel CreateLoanSettingsViewModel()
         {
-            return new LoanSettingsViewModel(settingNavigationStore, messageBoxStore);
+            return new LoanSettingsViewModel();
         }
 
         public static ISettingsViewModel CreateSettingsViewModel()
@@ -89,6 +90,10 @@ namespace MyLibrary.ViewModel.Factory
             return new SettingsViewModel();
         }
 
+        public static ILoansViewModel CreateLoansViewModel()
+        {
+            return new LoansViewModel();
+        }
 
         /// <summary>
         /// Loader method for reservedbooks view model
@@ -214,6 +219,14 @@ namespace MyLibrary.ViewModel.Factory
         public static INavigateBooksCommand CreateNavigateBooksScreenCommand()
         {
             return new NavigateBooksCommand();
+        }
+        public static INavigateLoansCommand CreateNavigateLoansCommand()
+        {
+            return new NavigateLoansCommand();
+        }
+        public static IShowLoanModalCommand CreateShowLoanModalCommand()
+        {
+            return new ShowLoanModalCommand();
         }
         #endregion
 

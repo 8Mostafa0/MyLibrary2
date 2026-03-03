@@ -1,4 +1,4 @@
-﻿using MyLibrary.Model.Repositories;
+﻿using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 
@@ -7,7 +7,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     public class NavigateLoansCommand : CommandBase, INavigateLoansCommand
     {
         #region Dependencies
-        private LoansViewModel _loansViewModel;
+        private ILoansViewModel _loansViewModel;
         private INavigationStore _navigationStore;
         #endregion
 
@@ -25,10 +25,10 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="settingsStore"></param>
         /// <param name="booksRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public NavigateLoansCommand(INavigationStore navigationStore, IModalNavigationStore modalNavigationStore, ILoansStore loansStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, ISettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
+        public NavigateLoansCommand()
         {
-            _navigationStore = navigationStore;
-            //_loansViewModel = LoansViewModel.LoadViewModel(modalNavigationStore, loansStore, clientsStore, booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, messageBoxStore);
+            _navigationStore = ClassFactory.CreateNavigationStore();
+            _loansViewModel = ClassFactory.CreateLoansViewModel();
         }
         #endregion
 

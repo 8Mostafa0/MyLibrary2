@@ -1,6 +1,7 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.LoansCommands;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System.Collections.Generic;
@@ -18,10 +19,10 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         private ILoansStore _loansStore;
         private IClientsStore _clientsStore;
         private IBooksStore _booksStore;
-        private LoanRepository _loanRepository;
+        private ILoanRepository _loanRepository;
         private ISettingsStore _settingsStore;
-        private BooksRepository _booksRepository;
-        private ReservedBooksRepository _reservedBooksRepository;
+        private IBooksRepository _booksRepository;
+        private IReservedBooksRepository _reservedBooksRepository;
         private IMessageBoxStore _messageBoxStore;
         public IViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
         public IEnumerable<LoanViewModel> Loans => _loans;
@@ -60,7 +61,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 
         #region Commands
 
-        public ICommand ShowAddLoanModalCommand { get; }
+        public IShowLoanModalCommand ShowAddLoanModalCommand { get; }
         public ICommand ShowEditLoanViewModel { get; }
         public ICommand LoadLoansCommand { get; }
         public ICommand OrderBooksCommand { get; }
@@ -71,21 +72,21 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #endregion
 
         #region Constructor
-        public LoansViewModel(IModalNavigationStore modalNavigationStore, ILoansStore loansStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, ISettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
+        public LoansViewModel()
         {
-            _messageBoxStore = messageBoxStore;
-            _modalNavigationStore = modalNavigationStore;
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
             _loans = new ObservableCollection<LoanViewModel>();
-            _modalNavigationStore = modalNavigationStore;
-            _loansStore = loansStore;
-            _clientsStore = clientsStore;
-            _booksStore = booksStore;
-            _loanRepository = loanRepository;
-            _settingsStore = settingsStore;
-            _booksRepository = booksRepository;
-            _reservedBooksRepository = reservedBooksRepository;
+            _loansStore = ClassFactory.CreateLoansStore();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _booksStore = ClassFactory.CreateBooksStore();
+            _loanRepository = ClassFactory.CreateLoanRepository();
+            _settingsStore = ClassFactory.CreateSettingsStore();
+            _booksRepository = ClassFactory.CreateBooksRepository();
+            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
+
             LoadLoansCommand = new LoadLoansCommand(_loansStore);
-            ShowAddLoanModalCommand = new ShowLoanModalCommand(_modalNavigationStore, _booksStore, _clientsStore, _loansStore, _loanRepository, _settingsStore, _booksRepository, _reservedBooksRepository, _messageBoxStore);
+            ShowAddLoanModalCommand = ClassFactory.CreateShowLoanModalCommand();
             ShowEditLoanViewModel = new ShowEditLoanViewModel(_modalNavigationStore, _loansStore, _booksStore, _clientsStore, this, _loanRepository, _settingsStore, _booksRepository, _messageBoxStore, _reservedBooksRepository);
             SortLoansListCommand = new SortLoansListCommand(this, _loansStore);
             ReturnedLoanCommand = new ReturnedLoanCommand(this, _loansStore, _messageBoxStore);
@@ -97,7 +98,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             _loansStore.LoanIsReturned += LoanIsReturned;
             _modalNavigationStore.CurrentViewModelChanged += OnModalViewModelChanged;
             SelectedLoan = LoanViewModel.Empty();
-            _messageBoxStore = messageBoxStore;
         }
 
         private void LoanIsReturned(Loan loan)
