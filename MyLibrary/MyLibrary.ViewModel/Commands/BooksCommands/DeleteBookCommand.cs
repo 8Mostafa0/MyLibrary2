@@ -1,5 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     {
         #region Dependencies
         private IBooksStore _booksStore;
-        private LoanRepository _loanRepository;
+        private ILoanRepository _loanRepository;
         private IBooksViewModel _booksViewModel;
-        private ReservedBooksRepository _reservedBooksRepository;
+        private IReservedBooksRepository _reservedBooksRepository;
         private IMessageBoxStore _messageBoxStore;
         #endregion
 
@@ -21,17 +22,13 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="booksViewModel"></param>
-        /// <param name="booksStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
-        public DeleteBookCommand(IBooksViewModel booksViewModel, IBooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
+        public DeleteBookCommand()
         {
-            _booksStore = booksStore;
-            _loanRepository = loanRepository;
-            _booksViewModel = booksViewModel;
-            _reservedBooksRepository = reservedBooksRepository;
-            _messageBoxStore = messageBoxStore;
+            _booksStore = ClassFactory.CreateBooksStore();
+            _loanRepository = ClassFactory.CreateLoanRepository();
+            _booksViewModel = ClassFactory.CreateBooksViewModel();
+            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
 
         #endregion

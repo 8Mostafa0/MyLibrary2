@@ -298,6 +298,18 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new SearchBookNameInReservedBookCommand();
         }
+        public static IAddNewBookCommand CreateAddNewBookCommand()
+        {
+            return new AddNewBookCommand();
+        }
+        public static IEditBookCommand CreateEditBookCommand()
+        {
+            return new EditBookCommand();
+        }
+        public static IDeleteBookCommand CreateDeleteBookCommand()
+        {
+            return new DeleteBookCommand();
+        }
         #endregion
 
         #region Stores

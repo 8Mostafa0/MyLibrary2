@@ -1,5 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
@@ -10,7 +11,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         #region Dependencies
         private IBooksStore _booksStore;
         private IBooksViewModel _booksViewModel;
-        private BooksRepository _booksRepository;
+        private IBooksRepository _booksRepository;
         private IMessageBoxStore _messageBoxStore;
         #endregion
 
@@ -19,15 +20,12 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="booksViewModel"></param>
-        /// <param name="booksStore"></param>
-        /// <param name="booksRepository"></param>
-        public EditBookCommand(IBooksViewModel booksViewModel, IBooksStore booksStore, BooksRepository booksRepository, IMessageBoxStore messageBoxStore)
+        public EditBookCommand()
         {
-            _booksStore = booksStore;
-            _booksViewModel = booksViewModel;
-            _booksRepository = booksRepository;
-            _messageBoxStore = messageBoxStore;
+            _booksStore = ClassFactory.CreateBooksStore();
+            _booksViewModel = ClassFactory.CreateBooksViewModel();
+            _booksRepository = ClassFactory.CreateBooksRepository();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
         #endregion
 

@@ -1,4 +1,5 @@
 ﻿using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Commands.BooksCommands;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -6,11 +7,11 @@ namespace MyLibrary.ViewModel.ViewModels
 {
     public interface IBooksViewModel : IViewModelBase
     {
-        ICommand AddNewBookCommand { get; }
+        IAddNewBookCommand AddNewBookCommand { get; }
         IEnumerable<Book> Books { get; }
-        ICommand DeleteBookCommand { get; }
-        ICommand EditBookCommand { get; }
-        ICommand LoadBooksCommand { get; }
+        IDeleteBookCommand DeleteBookCommand { get; }
+        IEditBookCommand EditBookCommand { get; }
+        ILoadBooksCommand LoadBooksCommand { get; }
         string Name { get; set; }
         ICommand OrderBooksCommand { get; }
         string PublicationDate { get; set; }

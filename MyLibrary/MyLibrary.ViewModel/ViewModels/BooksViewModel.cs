@@ -1,6 +1,6 @@
 ﻿using MyLibrary.Model.Models;
-using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.BooksCommands;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -103,11 +103,11 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Commands
-        public ICommand LoadBooksCommand { get; }
-        public ICommand AddNewBookCommand { get; }
+        public ILoadBooksCommand LoadBooksCommand { get; }
+        public IAddNewBookCommand AddNewBookCommand { get; }
 
-        public ICommand DeleteBookCommand { get; }
-        public ICommand EditBookCommand { get; }
+        public IDeleteBookCommand DeleteBookCommand { get; }
+        public IEditBookCommand EditBookCommand { get; }
         public ICommand OrderBooksCommand { get; }
 
         public ICommand ReloadClientsCommand { get; }
@@ -115,15 +115,15 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public BooksViewModel(IBooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, BooksRepository booksRepository, IMessageBoxStore messageBoxStore)
+        public BooksViewModel()
         {
-            _messageBoxStore = messageBoxStore;
-            _booksStore = booksStore;
             _books = new ObservableCollection<Book>();
-            LoadBooksCommand = new LoadBooksCommand(_booksStore);
-            AddNewBookCommand = new AddNewBookCommand(_booksStore, this, booksRepository, _messageBoxStore);
-            EditBookCommand = new EditBookCommand(this, _booksStore, booksRepository, _messageBoxStore);
-            DeleteBookCommand = new DeleteBookCommand(this, _booksStore, loanRepository, reservedBooksRepository, _messageBoxStore);
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _booksStore = ClassFactory.CreateBooksStore();
+            LoadBooksCommand = ClassFactory.CreateLoadBooksCommand();
+            AddNewBookCommand = ClassFactory.CreateAddNewBookCommand();
+            EditBookCommand = ClassFactory.CreateEditBookCommand();
+            DeleteBookCommand = ClassFactory.CreateDeleteBookCommand();
             OrderBooksCommand = new OrderBooksByStateCommand(this, _booksStore);
             ReloadClientsCommand = new ReloadBooksCommand(_booksStore);
             _booksStore.BooksUpdated += UpdateBooks;
