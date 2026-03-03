@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using ModalControl;
+using MyLibrary.Model.DbContexts;
 using MyLibrary.Model.Repositories;
 using MyLibrary.View;
 using MyLibrary.ViewModel.Commands;
@@ -10,6 +11,7 @@ using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Commands.MessageBoxCommands;
 using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
 using MyLibrary.ViewModel.Commands.SettingsCommands;
+using MyLibrary.ViewModel.Servicies;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
@@ -131,6 +133,7 @@ namespace MyLibrary.ViewModel
             builder.RegisterType<TimeStore>().As<ITimeStore>().SingleInstance();
             #endregion
             #region Repositorys
+            builder.RegisterType<DbContextFactory>().As<IDbContextFactory>().SingleInstance();
             builder.RegisterType<ClientsRepository>().As<IClientsRepository>().SingleInstance();
             builder.RegisterType<LoanRepository>().As<ILoanRepository>().SingleInstance();
             builder.RegisterType<BooksRepository>().As<IBooksRepository>().SingleInstance();
@@ -138,7 +141,7 @@ namespace MyLibrary.ViewModel
             #endregion
 
             #region Logger
-
+            builder.RegisterType<LoggerService>().As<ILoggerService>().SingleInstance();
             #endregion
 
             #region Modal

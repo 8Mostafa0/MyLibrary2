@@ -4,7 +4,7 @@ namespace MyLibrary.ViewModel.Servicies
 {
     public interface ILoggerService
     {
-        ILogger Logger { get; }
+        ILogger logger { get; }
 
         ILogger CreateLogger();
     }

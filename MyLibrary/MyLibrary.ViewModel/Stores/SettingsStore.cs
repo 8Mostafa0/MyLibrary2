@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using MyLibrary.ViewModel.Servicies;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,9 @@ namespace MyLibrary.ViewModel.Stores
         #endregion
 
         #region Contructor
-        public SettingsStore(ILogger logger)
+        public SettingsStore(ILoggerService logger)
         {
-            _logger = logger;
+            _logger = logger.logger;
         }
         #endregion
 
