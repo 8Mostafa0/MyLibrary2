@@ -1,6 +1,6 @@
 ﻿using MyLibrary.Model.Models;
-using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -78,8 +78,8 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Commands
-        public ICommand ReloadClientsCommand { get; }
-        public ICommand LoadClientsCommand { get; }
+        public IReloadClientsCommand ReloadClientsCommand { get; }
+        public ILoadClientsCommand LoadClientsCommand { get; }
         public ICommand DeleteClientCommand { get; }
         public ICommand AddNewClientCommand { get; }
         public ICommand OrderClientsCommand { get; }
@@ -89,18 +89,18 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public ClientsViewModel(IClientsStore clientsStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
+        public ClientsViewModel()
         {
-            _messageBoxStore = messageBoxStore;
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
             _clients = new ObservableCollection<Client>();
-            _clientsStore = clientsStore;
+            _clientsStore = ClassFactory.CreateClientsStore();
             _clientsStore.ClientAdded += OnClientAdded;
             _clientsStore.ClientsUpdated += UpdateClients;
             _clientsStore.ClientRemoved += OnClientDeleted;
             _clientsStore.ClientEdited += ClientEdited;
-            LoadClientsCommand = new LoadClientsCommand(_clientsStore);
-            ReloadClientsCommand = new ReloadClientsCommand(_clientsStore, this);
+            LoadClientsCommand = ClassFactory.CreateLoadClientsCommand();
+            ReloadClientsCommand = ClassFactory.CreateReloadClientsCommand();
             DeleteClientCommand = new DeleteClientCommand(this, _clientsStore, loanRepository, reservedBooksRepository, _messageBoxStore);
             AddNewClientCommand = new AddNewClientCommand(this, _clientsStore, _messageBoxStore);
             OrderClientsCommand = new OrderClientsCommand(_clientsStore, this);

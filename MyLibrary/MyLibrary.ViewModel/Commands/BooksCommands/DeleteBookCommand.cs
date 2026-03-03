@@ -57,7 +57,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
                 _messageBoxStore.Show("این کتاب امانتی تحویل نشده فعال دارد", "حذف کتاب");
                 return;
             }
-            _messageBoxStore.Show("آیا از حذف این کتاب مطمن هستید؟", "حذف کتاب", "بله", "خیر", new DeleteBookCommand(_booksViewModel, _booksStore, _loanRepository, _reservedBooksRepository, _messageBoxStore));
+            _messageBoxStore.Show("آیا از حذف این کتاب مطمن هستید؟", "حذف کتاب", "بله", "خیر", ClassFactory.CreateDeleteBookCommand());
             if (_messageBoxStore.MessageBoxResult)
             {
                 _messageBoxStore.CloseMessageBox();

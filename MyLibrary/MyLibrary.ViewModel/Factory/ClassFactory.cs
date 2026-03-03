@@ -314,6 +314,12 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new ReloadBooksCommand();
         }
+        #region ClientsCommands
+        public static IReloadClientsCommand CreateReloadClientsCommand()
+        {
+            return new ReloadClientsCommand();
+        }
+        #endregion
         #endregion
 
         #region Stores

@@ -1,4 +1,5 @@
 ﻿using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Commands.ClientsCommands;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -14,9 +15,9 @@ namespace MyLibrary.ViewModel.ViewModels
         string FirstName { get; set; }
         bool IsMessageBoxOpen { get; }
         string LastName { get; set; }
-        ICommand LoadClientsCommand { get; }
+        ILoadClientsCommand LoadClientsCommand { get; }
         ICommand OrderClientsCommand { get; }
-        ICommand ReloadClientsCommand { get; }
+        IReloadClientsCommand ReloadClientsCommand { get; }
         Client SelectedClient { get; set; }
         string SortOrder { get; set; }
         int Tier { get; set; }
