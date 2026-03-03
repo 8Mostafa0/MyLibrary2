@@ -129,12 +129,12 @@ namespace MyLibrary.ViewModel.Factory
         /// <param name="clientsRepository"></param>
         /// <param name="reservedBook"></param>
         /// <returns></returns>
-        public static IAddEditeReserveBookViewModel LoadViewModel(IModalNavigationStore modalNavigationStore, IReservedBooksStore reservedBooksStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, ClientsRepository clientsRepository, IMessageBoxStore messageBoxStore, ReservedBook reservedBook = null)
+        public static IAddEditeReserveBookViewModel CreateAddEditeReserveBookViewModel()
         {
-            AddEditeReserveBookViewModel ViewModel = new AddEditeReserveBookViewModel(modalNavigationStore, reservedBooksStore, clientsStore, booksStore, loanRepository, reservedBooksRepository, clientsRepository, messageBoxStore, reservedBook);
+            AddEditeReserveBookViewModel ViewModel = new AddEditeReserveBookViewModel();
             ViewModel.LoadBooksCommand.Execute(null);
             ViewModel.LoadClientsCommand.Execute(null);
-            ViewModel.SelectedReservedBook = reservedBook is null ? new ReservedBook() { ID = 0, BookId = 0, ClientId = 0 } : reservedBook;
+            //ViewModel.SelectedReservedBook = reservedBook is null ? new ReservedBook() { ID = 0, BookId = 0, ClientId = 0 } : reservedBook;
             return ViewModel;
         }
 
@@ -142,18 +142,10 @@ namespace MyLibrary.ViewModel.Factory
         /// <summary>
         /// Loader for oans view model
         /// </summary>
-        /// <param name="modalNavigationStore"></param>
-        /// <param name="loansStore"></param>
-        /// <param name="clientsStore"></param>
-        /// <param name="booksStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="settingsStore"></param>
-        /// <param name="booksRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
         /// <returns></returns>
-        public static LoansViewModel LoadViewModel(IModalNavigationStore modalNavigationStore, ILoansStore loansStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, ISettingsStore settingsStore, BooksRepository booksRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
+        public static ILoansViewModel CreateLoansViewModel()
         {
-            LoansViewModel viewModel = new LoansViewModel(modalNavigationStore, loansStore, clientsStore, booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, messageBoxStore);
+            LoansViewModel viewModel = new LoansViewModel();
             viewModel.LoadLoansCommand.Execute(null);
             return viewModel;
         }
@@ -266,6 +258,10 @@ namespace MyLibrary.ViewModel.Factory
         public static INavigateToSettingsCommand CreateNavigateToSettingsCommand()
         {
             return new NavigateToSettingsCommand();
+        }
+        public static ILoadBooksCommand CreateLoadBooksCommand()
+        {
+            return new LoadBooksCommand();
         }
         #endregion
 

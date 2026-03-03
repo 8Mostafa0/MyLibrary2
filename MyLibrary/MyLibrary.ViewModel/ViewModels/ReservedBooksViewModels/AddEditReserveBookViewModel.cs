@@ -1,9 +1,9 @@
 ﻿using MyLibrary.Model.Models;
-using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -107,7 +107,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         public ICommand SearchBookNameCommand { get; }
         public ICommand SearchClientNameCommand { get; }
         public ICommand LoadClientsCommand { get; }
-        public ICommand LoadBooksCommand { get; }
+        public ILoadBooksCommand LoadBooksCommand { get; }
         public ICommand OrderBooksCommand { get; }
         public ICommand OrderBooksBySubjectCommand { get; }
 
@@ -116,28 +116,28 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 
         #region Constructor
 
-        public AddEditeReserveBookViewModel(IModalNavigationStore modalNavigationStore, IReservedBooksStore reservedBooksStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loanRepository, ReservedBooksRepository reservedBooksRepository, ClientsRepository clientsRepository, IMessageBoxStore messageBoxStore, ReservedBook reservedBook = null)
+        public AddEditeReserveBookViewModel()
         {
-            _messageBoxStore = messageBoxStore;
             _clients = new ObservableCollection<Client>();
             _books = new ObservableCollection<Book>();
-            _modalNavigationStore = modalNavigationStore;
-            _reservedBooksStore = reservedBooksStore;
-            _clientsStore = clientsStore;
-            _booksStore = booksStore;
-            SelectedReservedBook = reservedBook;
-            if (SelectedReservedBook != null)
-            {
-                TitleOfLoanScreen = "ویرایش نوبت رزرو";
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
+            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _booksStore = ClassFactory.CreateBooksStore();
+            //SelectedReservedBook = reservedBook;
+            //if (SelectedReservedBook != null)
+            //{
+            //    TitleOfLoanScreen = "ویرایش نوبت رزرو";
 
-            }
-            else
-            {
-                TitleOfLoanScreen = "رزرو نوبت جدید";
-            }
+            //}
+            //else
+            //{
+            //    TitleOfLoanScreen = "رزرو نوبت جدید";
+            //}
             _booksStore.BooksUpdated += OnBooksUpdated;
             _clientsStore.ClientsUpdated += OnClientsUpdated;
-            LoadBooksCommand = new LoadBooksCommand(_booksStore);
+            LoadBooksCommand = ClassFactory.CreateLoadBooksCommand();
             LoadClientsCommand = new LoadClientsCommand(_clientsStore);
             CloseModalCommand = new CloseModalCommand(_modalNavigationStore);
             SearchBookNameCommand = new SearchBookNameCommand(_booksStore);

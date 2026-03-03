@@ -27,7 +27,7 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
         /// <param name="parameter">no marametes needed</param>
         public override void Execute(object parameter)
         {
-            _messageBoxStore.Show("میخواهید برنامه را ببندید؟", "خروج", "بله", "خیر", new CloseAppCommand(_messageBoxStore));
+            _messageBoxStore.Show("میخواهید برنامه را ببندید؟", "خروج", "بله", "خیر", ClassFactory.CreateCloseAppCommand());
             if (_messageBoxStore.MessageBoxResult)
             {
                 _messageBoxStore.CloseMessageBox();

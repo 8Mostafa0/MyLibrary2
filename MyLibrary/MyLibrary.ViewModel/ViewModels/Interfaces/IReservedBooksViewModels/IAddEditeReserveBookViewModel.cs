@@ -1,4 +1,5 @@
 ﻿using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Commands.BooksCommands;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -12,7 +13,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         string ClientName { get; set; }
         IEnumerable<Client> Clients { get; }
         ICommand CloseModalCommand { get; }
-        ICommand LoadBooksCommand { get; }
+        ILoadBooksCommand LoadBooksCommand { get; }
         ICommand LoadClientsCommand { get; }
         ICommand OrderBooksBySubjectCommand { get; }
         ICommand OrderBooksCommand { get; }
