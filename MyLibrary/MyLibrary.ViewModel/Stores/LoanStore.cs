@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System;
 using System.Collections.Generic;
@@ -30,15 +29,19 @@ namespace MyLibrary.ViewModel.Stores
         /// <summary>
         /// 
         /// </summary>
-        public LoansStore()
+        public LoansStore(
+            IBooksStore booksStore,
+            IClientsStore clientsStore,
+            ILoanRepository loanRepository
+            )
         {
             _loans = new ObservableCollection<LoanViewModel>();
             _initilizeLazy = new Lazy<Task>(Initialize);
-            _loanRepository = ClassFactory.CreateLoanRepository();
-            _clientsStore = ClassFactory.CreateClientsStore();
-            ClassFactory.CreateLoadClientsCommand().Execute(null);
-            _booksStore = ClassFactory.CreateBooksStore();
-            ClassFactory.CreateLoadBooksCommand().Execute(null);
+            _loanRepository = loanRepository;
+            _clientsStore = clientsStore;
+            _booksStore = booksStore;
+            _clientsStore.Load();
+            _booksStore.Load();
         }
         #endregion
 

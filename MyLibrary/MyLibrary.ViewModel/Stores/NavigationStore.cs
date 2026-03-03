@@ -58,18 +58,18 @@ namespace MyLibrary.ViewModel.Stores
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="navigationBarViewModel"></param>
         /// <param name="homeViewModel"></param>
         /// <param name="statusBarViewModel"></param>
+        /// <param name="navigationBarViewModel"></param>
         public NavigationStore(
-            INavigationBarViewModel navigationBarViewModel,
             IHomeViewModel homeViewModel,
-            IStatusBarViewModel statusBarViewModel
+            IStatusBarViewModel statusBarViewModel,
+            INavigationBarViewModel navigationBarViewModel
             )
         {
-            _mainContentViewModel = navigationBarViewModel;
             _contentScreen = homeViewModel;
             _StatusBarViewModel = statusBarViewModel;
+            _mainContentViewModel = navigationBarViewModel;
         }
         #endregion
         #region Methods

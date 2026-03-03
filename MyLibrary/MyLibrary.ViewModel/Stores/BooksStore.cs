@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,11 +28,12 @@ namespace MyLibrary.ViewModel.Stores
         /// <summary>
         /// 
         /// </summary>
-        public BooksStore()
+        /// <param name="booksRepository"></param>
+        public BooksStore(IBooksRepository booksRepository)
         {
             _books = new List<Book>();
             _initilizerLazy = new Lazy<Task>(Initilize);
-            _booksRepository = ClassFactory.CreateBooksRepository();
+            _booksRepository = booksRepository;
         }
         #endregion
 
