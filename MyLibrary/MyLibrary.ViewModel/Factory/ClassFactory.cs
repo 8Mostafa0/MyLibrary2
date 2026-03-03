@@ -290,6 +290,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new RemoveReservBookCommand();
         }
+        public static IResetReservBookCommand CreateResetReservBookCommand()
+        {
+            return new ResetReservBookCommand();
+        }
         #endregion
 
         #region Stores
