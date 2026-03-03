@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System;
 using System.Collections.Generic;
@@ -72,11 +73,11 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Cntructor
-        public HomeViewModel(IClientsStore clientsStore, IBooksStore booksStore, ILoansStore loansStore)
+        public HomeViewModel()
         {
-            _clientsStore = clientsStore;
-            _booksStore = booksStore;
-            _loansStore = loansStore;
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _booksStore = ClassFactory.CreateBooksStore();
+            _loansStore = ClassFactory.CreateLoansStore();
 
             _settingsStore = new SettingsStore();
             Dictionary<string, bool> settings = _settingsStore.GetLayoutSettings();

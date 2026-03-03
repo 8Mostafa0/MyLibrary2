@@ -1,6 +1,8 @@
-﻿namespace MyLibrary.ViewModel.Commands.LoansCommands
+﻿using System.Windows.Input;
+
+namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
-    public interface IReturnedLoanCommand
+    public interface IReturnedLoanCommand : ICommand
     {
         void Execute(object parameter);
     }

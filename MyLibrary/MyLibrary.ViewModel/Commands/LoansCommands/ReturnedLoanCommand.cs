@@ -48,7 +48,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 _messageBoxStore.Show("این امانت بارگشت داده  شده است", "برگشت کتاب");
                 return;
             }
-            _messageBoxStore.Show("کاربر کتاب را بازگرداند؟", "برگشت کتاب", "بله", "خیر", new ReturnedLoanCommand(_loanViewModel, _loansStore, _messageBoxStore));
+            _messageBoxStore.Show("کاربر کتاب را بازگرداند؟", "برگشت کتاب", "بله", "خیر", ClassFactory.CreateReturnedLoanCommand());
             if (_messageBoxStore.MessageBoxResult)
             {
                 _messageBoxStore.CloseMessageBox();

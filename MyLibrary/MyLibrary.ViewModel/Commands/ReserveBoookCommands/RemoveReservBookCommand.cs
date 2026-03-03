@@ -37,7 +37,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             else
             {
 
-                _messageBoxStore.Show("آیا از حذف این نوبت مطمن هستید؟", "حذف نوبت", "", "", new RemoveReservBookCommand(_reservedBooksViewModel, _reservedBooksStore, _messageBoxStore));
+                _messageBoxStore.Show("آیا از حذف این نوبت مطمن هستید؟", "حذف نوبت", "", "", ClassFactory.CreateRemoveReservBookCommand());
                 if (_messageBoxStore.MessageBoxResult)
                 {
                     _messageBoxStore.CloseMessageBox();

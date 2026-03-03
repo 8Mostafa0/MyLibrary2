@@ -1,5 +1,4 @@
-﻿using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
+﻿using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using System.Windows;
@@ -14,20 +13,9 @@ namespace MyLibrary.View
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            INavigationStore navigationStore = new NavigationStore();
-            IClientsStore clientsStore = new ClientsStore();
-            ILoansStore loansStore = new LoansStore();
-            IBooksStore booksStore = new BooksStore();
-            ISettingsStore settingsStore = new SettingsStore();
-            LoanRepository loanRepository = new LoanRepository();
-            IReservedBooksStore reservedBooksStore = new ReservedBooksStore();
-            ReservedBooksRepository reservedBooksRepository = new ReservedBooksRepository();
-            BooksRepository booksRepository = new BooksRepository();
-            ClientsRepository clientsRepository = new ClientsRepository();
-            IMessageBoxStore messageBoxStore = new MessageBoxStore();
-            IModalNavigationStore modalNavigationStore = new ModalNavigationStore();
+            INavigationStore navigationStore = ClassFactory.CreateNavigationStore();
 
-            navigationStore.ContentScreen = new HomeViewModel(clientsStore, booksStore, loansStore);
+            navigationStore.ContentScreen = ClassFactory.CreateHomeViewModel();
 
             navigationStore.StatusBarViewModel = ClassFactory.CreateStatusBarViewModel();
 
