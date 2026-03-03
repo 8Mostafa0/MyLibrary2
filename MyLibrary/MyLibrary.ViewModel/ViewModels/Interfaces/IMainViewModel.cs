@@ -4,7 +4,7 @@
     {
         IViewModelBase CurrentMessageBox { get; }
         IViewModelBase CurrentModalView { get; }
-        IViewModelBase CurrentViewModel { get; }
+        ILayoutViewModel CurrentViewModel { get; }
         bool IsMessageBoxOpen { get; }
         bool IsModalOpen { get; }
     }

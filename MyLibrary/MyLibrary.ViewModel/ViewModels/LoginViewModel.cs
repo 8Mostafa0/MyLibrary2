@@ -32,7 +32,7 @@ namespace MyLibrary.ViewModel.ViewModels
         public LoginViewModel()
         {
             CloseAppCommand = ClassFactory.CreateCloseAppCommand();
-            LoginCommand = ClassFactory.CreateLoginCommand();
+            LoginCommand = ClassFactory.CreateLoginCommand(this);
             if (ClassFactory.CreateSettingsStore().GetHashedPassword() == null)
             {
                 FirstOpen = true;

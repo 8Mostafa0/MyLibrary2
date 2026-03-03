@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using MyLibrary.Model.Repositories;
+using MyLibrary.View;
 using MyLibrary.ViewModel.Commands;
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
@@ -23,6 +24,11 @@ namespace MyLibrary.ViewModel
         {
             var builder = new ContainerBuilder();
             var assembly = Assembly.GetExecutingAssembly();
+
+
+            builder.RegisterType<MainWindow>().AsSelf().SingleInstance();
+
+
             #region ViewModels
             builder.RegisterType<NavigationStore>().As<INavigationStore>().SingleInstance();
             builder.RegisterType<ClientsStore>().As<IClientsStore>().SingleInstance();

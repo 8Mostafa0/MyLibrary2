@@ -26,9 +26,9 @@ namespace MyLibrary.ViewModel.Factory
         /// Creates a new instance of an object that implements the navigation bar view model interface.
         /// </summary>
         /// <returns>An object implementing <see cref="INavigationBarViewModel"/> representing the navigation bar view model.</returns>
-        public static INavigationBarViewModel CreateNavigationBarViewModel()
+        public static INavigationBarViewModel CreateNavigationBarViewModel(INavigationStore navigationStore)
         {
-            return new NavigationBarViewModel();
+            return new NavigationBarViewModel(navigationStore);
         }
         /// <summary>
         /// status bar view model
@@ -222,9 +222,9 @@ namespace MyLibrary.ViewModel.Factory
         /// Creates a new instance of an object that implements the ILoginCommand interface.
         /// </summary>
         /// <returns>An ILoginCommand instance that can be used to perform login operations.</returns>
-        public static ILoginCommand CreateLoginCommand()
+        public static ILoginCommand CreateLoginCommand(ILoginViewModel loginViewModel)
         {
-            return new LoginCommand();
+            return new LoginCommand(loginViewModel);
         }
 
         /// <summary>
@@ -250,9 +250,9 @@ namespace MyLibrary.ViewModel.Factory
         /// </summary>
         /// <returns>An object implementing <see cref="INavigateHomeScreenCommand"/> that can be executed to perform navigation
         /// to the home screen.</returns>
-        public static INavigateHomeScreenCommand CreateNavigateHomeScreenCommand()
+        public static INavigateHomeScreenCommand CreateNavigateHomeScreenCommand(INavigationStore navigationStore)
         {
-            return new NavigateHomeScreenCommand();
+            return new NavigateHomeScreenCommand(navigationStore);
         }
 
         /// <summary>
@@ -260,43 +260,43 @@ namespace MyLibrary.ViewModel.Factory
         /// </summary>
         /// <returns>An object implementing <see cref="INavigateClientScreenCommand"/> that can be used to initiate navigation to
         /// the client screen.</returns>
-        public static INavigateClientScreenCommand CreateNavigateClientScreenCommand()
+        public static INavigateClientScreenCommand CreateNavigateClientScreenCommand(INavigationStore navigationStore)
         {
-            return new NavigateClientScreenCommand();
+            return new NavigateClientScreenCommand(navigationStore);
         }
         /// <summary>
         /// Creates a command that navigates to the books screen.
         /// </summary>
         /// <returns>An instance of <see cref="INavigateBooksCommand"/> that can be used to initiate navigation to the books
         /// screen.</returns>
-        public static INavigateBooksCommand CreateNavigateBooksScreenCommand()
+        public static INavigateBooksCommand CreateNavigateBooksScreenCommand(INavigationStore navigationStore)
         {
-            return new NavigateBooksCommand();
+            return new NavigateBooksCommand(navigationStore);
         }
         /// <summary>
         /// Creates a new instance of a command used to navigate loans within the application.
         /// </summary>
         /// <returns>An object that implements <see cref="INavigateLoansCommand"/> for navigating loans.</returns>
-        public static INavigateLoansCommand CreateNavigateLoansCommand()
+        public static INavigateLoansCommand CreateNavigateLoansCommand(INavigationStore navigationStore)
         {
-            return new NavigateLoansCommand();
+            return new NavigateLoansCommand(navigationStore);
         }
         /// <summary>
         /// Creates a new command instance for navigating to the reserved books section.
         /// </summary>
         /// <returns>An object implementing <see cref="INavigateReservedBooksCommand"/> that can be used to initiate navigation
         /// to reserved books.</returns>
-        public static INavigateReservedBooksCommand CreateNavigateReservedBooksCommand()
+        public static INavigateReservedBooksCommand CreateNavigateReservedBooksCommand(INavigationStore navigationStore)
         {
-            return new NavigateReservedBooksCommand();
+            return new NavigateReservedBooksCommand(navigationStore);
         }
         /// <summary>
         /// Creates a command that navigates to the application's settings page.
         /// </summary>
         /// <returns>An instance of <see cref="INavigateToSettingsCommand"/> that can be executed to open the settings page.</returns>
-        public static INavigateToSettingsCommand CreateNavigateToSettingsCommand()
+        public static INavigateToSettingsCommand CreateNavigateToSettingsCommand(INavigationStore navigationStore)
         {
-            return new NavigateToSettingsCommand();
+            return new NavigateToSettingsCommand(navigationStore);
         }
 
         #endregion
@@ -526,9 +526,9 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new NavigateSecuritySettingsCommand();
         }
-        public static IChangeLoginPasswordCommand CreateChangeLoginPasswordCommand()
+        public static IChangeLoginPasswordCommand CreateChangeLoginPasswordCommand(ISecuritySettingsViewModel securitySettingsViewModel)
         {
-            return new ChangeLoginPasswordCommand();
+            return new ChangeLoginPasswordCommand(securitySettingsViewModel);
         }
         #endregion
 

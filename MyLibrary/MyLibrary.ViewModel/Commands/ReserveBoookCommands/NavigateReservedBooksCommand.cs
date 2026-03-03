@@ -28,12 +28,12 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <param name="loansRepository"></param>
         /// <param name="clientsRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public NavigateReservedBooksCommand()
+        public NavigateReservedBooksCommand(INavigationStore navigationStore)
         {
+            _navigationStore = navigationStore;
             _booksStore = ClassFactory.CreateBooksStore();
             _clientsStore = ClassFactory.CreateClientsStore();
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _navigationStore = ClassFactory.CreateNavigationStore();
             _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
             _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
             //_reservedBooksViewModel = ClassFactory.;

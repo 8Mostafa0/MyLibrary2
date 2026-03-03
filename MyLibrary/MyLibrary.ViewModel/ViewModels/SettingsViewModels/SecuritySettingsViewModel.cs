@@ -38,9 +38,9 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #region Contructor
         public SecuritySettingsViewModel()
         {
+            ChangeLoginPasswordCommand = ClassFactory.CreateChangeLoginPasswordCommand(this);
             _settingsStore = ClassFactory.CreateSettingsStore();
             _settingNavigationStore = ClassFactory.CreateSettingNavigationStore();
-            ChangeLoginPasswordCommand = ClassFactory.CreateChangeLoginPasswordCommand();
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
 

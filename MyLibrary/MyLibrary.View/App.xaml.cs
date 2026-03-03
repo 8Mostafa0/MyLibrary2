@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using MyLibrary.ViewModel;
-using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
+using System;
 using System.Windows;
 
 namespace MyLibrary.View
@@ -17,16 +17,18 @@ namespace MyLibrary.View
             var Container = ContainerConfig.Configure();
             using (var scope = Container.BeginLifetimeScope())
             {
-                var navigationStore = scope.Resolve<INavigationStore>();
-                navigationStore.ContentScreen = scope.Resolve<IHomeViewModel>();
-                navigationStore.StatusBarViewModel = scope.Resolve<IStatusBarViewModel>();
-                navigationStore.MainContentViewModel = scope.Resolve<INavigationBarViewModel>();
-                var layoutViewModel = scope.Resolve<ILayoutViewModel>();
-                MainWindow _ = new MainWindow()
+                if (Container.IsRegistered<ILayoutViewModel>())
                 {
-                    DataContext = scope.Resolve<IMainViewModel>()
-                };
-                MainWindow.Show();
+                    Console.WriteLine("IMyService is registered");
+                }
+                else
+                {
+                    Console.WriteLine("IMyService is NOT registered");
+                }
+                var app = scope.Resolve<MainWindow>();
+                IMainViewModel mainViewModel = scope.Resolve<IMainViewModel>();
+                app.DataContext = mainViewModel;
+                app.Show();
             }
         }
     }

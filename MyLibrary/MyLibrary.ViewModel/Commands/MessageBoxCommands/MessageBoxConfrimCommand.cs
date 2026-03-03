@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.Commands.MessageBoxCommands
 {
-    internal class MessageBoxConfrimCommand : CommandBase, IMessageBoxConfrimCommand
+    public class MessageBoxConfrimCommand : CommandBase, IMessageBoxConfrimCommand
     {
         #region Dependencies
         private IMessageBoxStore _messageBoxStore;

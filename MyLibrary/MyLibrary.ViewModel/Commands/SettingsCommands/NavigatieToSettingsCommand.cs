@@ -16,9 +16,9 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         /// <summary>
         /// set current view of main navigation to to settings view
         /// </summary>
-        public NavigateToSettingsCommand()
+        public NavigateToSettingsCommand(INavigationStore navigationStore)
         {
-            _navigationStore = ClassFactory.CreateNavigationStore();
+            _navigationStore = navigationStore;
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _settingsViewModel = ClassFactory.CreateSettingsViewModel();
         }

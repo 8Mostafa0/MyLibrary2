@@ -22,9 +22,9 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <param name="loanRepository"></param>
         /// <param name="reservedBooksRepository"></param>
         /// <param name="booksRepository"></param>
-        public NavigateBooksCommand()
+        public NavigateBooksCommand(INavigationStore navigationStore)
         {
-            _navigationStore = ClassFactory.CreateNavigationStore();
+            _navigationStore = navigationStore;
             _booksStore = ClassFactory.CreateBooksStore();
             _booksViewModel = ClassFactory.CreateBooksViewModel();
 

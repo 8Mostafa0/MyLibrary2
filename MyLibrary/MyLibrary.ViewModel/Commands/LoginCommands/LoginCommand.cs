@@ -25,9 +25,9 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
         /// <param name="loanRepository"></param>
         /// <param name="dbContextFactory"></param>
         /// <param name="settingsStore"></param>
-        public LoginCommand()
+        public LoginCommand(ILoginViewModel loginViewModel)
         {
-            _loginViewModel = ClassFactory.CreateLoginViewModel();
+            _loginViewModel = loginViewModel;
             _dbContextFactory = ClassFactory.CreateDbContextFactory();
             _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
             _settinsStore = ClassFactory.CreateSettingsStore();

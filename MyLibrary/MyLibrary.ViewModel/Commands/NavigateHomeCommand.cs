@@ -20,9 +20,9 @@ namespace MyLibrary.ViewModel.Commands
         /// <param name="loansStore"></param>
         /// <param name="clientsStore"></param>
         /// <param name="booksStore"></param>
-        public NavigateHomeScreenCommand()
+        public NavigateHomeScreenCommand(INavigationStore navigationStore)
         {
-            _navigationStore = ClassFactory.CreateNavigationStore();
+            _navigationStore = navigationStore;
             _clientsStore = ClassFactory.CreateClientsStore();
             _booksStore = ClassFactory.CreateBooksStore();
             _loansStore = ClassFactory.CreateLoansStore();

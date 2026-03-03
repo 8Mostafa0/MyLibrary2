@@ -16,9 +16,9 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <summary>
         /// set content of navigate to loans view model
         /// </summary>
-        public NavigateLoansCommand()
+        public NavigateLoansCommand(INavigationStore navigationStore)
         {
-            _navigationStore = ClassFactory.CreateNavigationStore();
+            _navigationStore = navigationStore;
             _loansViewModel = ClassFactory.CreateLoansViewModel();
         }
         #endregion

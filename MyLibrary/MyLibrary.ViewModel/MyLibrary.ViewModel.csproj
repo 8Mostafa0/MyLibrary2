@@ -201,7 +201,6 @@
     <Compile Include="Commands\SettingsCommands\NavigateLoanSettingsCommand.cs" />
     <Compile Include="Commands\SettingsCommands\NavigateSecuritySettingsCommand.cs" />
     <Compile Include="Commands\SettingsCommands\NavigatieToSettingsCommand.cs" />
-    <Compile Include="ContainerConfig.cs" />
     <Compile Include="Factory\ClassFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stores\BooksStore.cs" />

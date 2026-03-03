@@ -21,9 +21,9 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <param name="clientsStore"></param>
         /// <param name="loanRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public NavigateClientScreenCommand()
+        public NavigateClientScreenCommand(INavigationStore navigationStore)
         {
-            _navigationStore = ClassFactory.CreateNavigationStore();
+            _navigationStore = navigationStore;
             _clientsStore = ClassFactory.CreateClientsStore();
             _clientsViewModel = ClassFactory.CreateClientsViewModel();
         }

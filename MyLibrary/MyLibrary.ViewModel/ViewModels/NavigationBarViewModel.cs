@@ -39,22 +39,22 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructr
-        public NavigationBarViewModel()
+        public NavigationBarViewModel(INavigationStore navigationStore)
         {
-            _navigationStore = ClassFactory.CreateNavigationStore();
+            _navigationStore = navigationStore;
             _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
             _clientsStore = ClassFactory.CreateClientsStore();
             _booksStore = ClassFactory.CreateBooksStore();
             _loansStore = ClassFactory.CreateLoansStore();
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            NavigateHomeCommand = ClassFactory.CreateNavigateHomeScreenCommand();
+            NavigateHomeCommand = ClassFactory.CreateNavigateHomeScreenCommand(navigationStore);
             NavigateHomeCommand.Execute(null);
-            ClientsCreenCommand = ClassFactory.CreateNavigateClientScreenCommand();
-            NavigateBooksCommand = ClassFactory.CreateNavigateBooksScreenCommand();
-            NavigateLoansCommand = ClassFactory.CreateNavigateLoansCommand();
-            NavigateReservedBooksCommand = ClassFactory.CreateNavigateReservedBooksCommand();
-            NavigateToSettingsCommand = ClassFactory.CreateNavigateToSettingsCommand();
+            ClientsCreenCommand = ClassFactory.CreateNavigateClientScreenCommand(navigationStore);
+            NavigateBooksCommand = ClassFactory.CreateNavigateBooksScreenCommand(navigationStore);
+            NavigateLoansCommand = ClassFactory.CreateNavigateLoansCommand(navigationStore);
+            NavigateReservedBooksCommand = ClassFactory.CreateNavigateReservedBooksCommand(navigationStore);
+            NavigateToSettingsCommand = ClassFactory.CreateNavigateToSettingsCommand(navigationStore);
             CloseAppCommand = ClassFactory.CreateCloseAppCommand();
         }
         #endregion

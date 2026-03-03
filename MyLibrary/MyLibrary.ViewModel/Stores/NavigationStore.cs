@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.ViewModels;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.ViewModels;
 using System;
 
 namespace MyLibrary.ViewModel.Stores
@@ -54,7 +55,14 @@ namespace MyLibrary.ViewModel.Stores
 
         #endregion
 
-
+        #region Constructor
+        public NavigationStore()
+        {
+            _mainContentViewModel = ClassFactory.CreateNavigationBarViewModel(this);
+            _contentScreen = ClassFactory.CreateHomeViewModel();
+            _StatusBarViewModel = ClassFactory.CreateStatusBarViewModel();
+        }
+        #endregion
         #region Methods
         private void OnMainContentViewModelChanged()
         {

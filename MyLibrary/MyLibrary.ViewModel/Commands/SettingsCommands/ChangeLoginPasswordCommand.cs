@@ -18,12 +18,12 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         /// <summary>
         /// save validated password to registry
         /// </summary>
-        public ChangeLoginPasswordCommand()
+        public ChangeLoginPasswordCommand(ISecuritySettingsViewModel securitySettingsViewModel)
         {
+            _securitySettingViewModel = securitySettingsViewModel;
             _settingsStore = ClassFactory.CreateSettingsStore();
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _settingNavigationStore = ClassFactory.CreateSettingNavigationStore();
-            _securitySettingViewModel = ClassFactory.CreateSecuritySettingsViewModel();
         }
         #endregion
 
