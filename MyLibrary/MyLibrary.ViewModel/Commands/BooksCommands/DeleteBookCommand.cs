@@ -21,24 +21,25 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="booksViewModel"></param>
         /// <param name="booksStore"></param>
+        /// <param name="booksViewModel"></param>
         /// <param name="loanRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
         /// <param name="messageBoxStore"></param>
+        /// <param name="reservedBooksRepository"></param>
         public DeleteBookCommand(
-            IBooksViewModel booksViewModel,
             IBooksStore booksStore,
+            IBooksViewModel booksViewModel,
             ILoanRepository loanRepository,
-            IReservedBooksRepository reservedBooksRepository,
-            IMessageBoxStore messageBoxStore
+            IMessageBoxStore messageBoxStore,
+            IReservedBooksRepository reservedBooksRepository
+
             )
         {
-            _booksViewModel = booksViewModel;
             _booksStore = booksStore;
+            _booksViewModel = booksViewModel;
             _loanRepository = loanRepository;
-            _reservedBooksRepository = reservedBooksRepository;
             _messageBoxStore = messageBoxStore;
+            _reservedBooksRepository = reservedBooksRepository;
         }
 
         #endregion
@@ -67,7 +68,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
                 _messageBoxStore.Show("این کتاب امانتی تحویل نشده فعال دارد", "حذف کتاب");
                 return;
             }
-            _messageBoxStore.Show("آیا از حذف این کتاب مطمن هستید؟", "حذف کتاب", "بله", "خیر", ClassFactory.CreateDeleteBookCommand(_booksViewModel));
+            _messageBoxStore.Show("آیا از حذف این کتاب مطمن هستید؟", "حذف کتاب", "بله", "خیر", this);
             if (_messageBoxStore.MessageBoxResult)
             {
                 _messageBoxStore.CloseMessageBox();

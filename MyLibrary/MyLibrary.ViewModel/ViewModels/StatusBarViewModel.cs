@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using System;
 using System.Timers;
 
@@ -9,13 +8,14 @@ namespace MyLibrary.ViewModel.ViewModels
     {
         #region Dependencies
         private static System.Timers.Timer aTimer;
-        private ITimeStore _timeStore = ClassFactory.CreateTimeStore();
+        private ITimeStore _timeStore;
         public DateTime CloclString => _timeStore.CurrentTime;
         #endregion
 
         #region Constructor
-        public StatusBarViewModel()
+        public StatusBarViewModel(ITimeStore timeStore)
         {
+            _timeStore = timeStore;
             _timeStore.CurrentTime = DateTime.Now;
             aTimer = new System.Timers.Timer(1000);
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);

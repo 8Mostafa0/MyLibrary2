@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
@@ -15,9 +14,13 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public LayoutViewModel()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="navigationStore"></param>
+        public LayoutViewModel(INavigationStore navigationStore)
         {
-            _navigationStore = ClassFactory.CreateNavigationStore();
+            _navigationStore = navigationStore;
             _navigationStore.ContentViewModelChanged += OnContentViewModelChanged;
             _navigationStore.MainContentViewModelChanged += OnMainContentViewModelChanged;
         }

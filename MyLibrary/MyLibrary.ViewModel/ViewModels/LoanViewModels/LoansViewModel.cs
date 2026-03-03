@@ -1,7 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.LoansCommands;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System.Collections.Generic;
@@ -70,26 +69,62 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #endregion
 
         #region Constructor
-        public LoansViewModel()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loansStore"></param>
+        /// <param name="booksStore"></param>
+        /// <param name="clientsStore"></param>
+        /// <param name="settingsStore"></param>
+        /// <param name="loanRepository"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="booksRepository"></param>
+        /// <param name="loadLoansCommand"></param>
+        /// <param name="searchBookCommand"></param>
+        /// <param name="returnedLoanCommand"></param>
+        /// <param name="showLoanModalCommand"></param>
+        /// <param name="sortLoansListCommand"></param>
+        /// <param name="modalNavigationStore"></param>
+        /// <param name="showEditLoanViewModel"></param>
+        /// <param name="reloadLoansListCommand"></param>
+        /// <param name="reservedBooksRepository"></param>
+        public LoansViewModel(
+            ILoansStore loansStore,
+            IBooksStore booksStore,
+            IClientsStore clientsStore,
+            ISettingsStore settingsStore,
+            ILoanRepository loanRepository,
+            IMessageBoxStore messageBoxStore,
+            IBooksRepository booksRepository,
+            ILoadLoansCommand loadLoansCommand,
+            ISearchBookCommand searchBookCommand,
+            IReturnedLoanCommand returnedLoanCommand,
+            IShowLoanModalCommand showLoanModalCommand,
+            ISortLoansListCommand sortLoansListCommand,
+            IModalNavigationStore modalNavigationStore,
+            IShowEditLoanViewModel showEditLoanViewModel,
+            IReloadLoansListCommand reloadLoansListCommand,
+            IReservedBooksRepository reservedBooksRepository
+            )
         {
             _loans = new ObservableCollection<LoanViewModel>();
 
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _loansStore = ClassFactory.CreateLoansStore();
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _booksStore = ClassFactory.CreateBooksStore();
-            _loanRepository = ClassFactory.CreateLoanRepository();
-            _settingsStore = ClassFactory.CreateSettingsStore();
-            _booksRepository = ClassFactory.CreateBooksRepository();
-            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
-            LoadLoansCommand = ClassFactory.CreateLoadLoansCommand();
-            ShowAddLoanModalCommand = ClassFactory.CreateShowLoanModalCommand();
-            ShowEditLoanViewModel = ClassFactory.CreateShowEditLoanViewModel(this);
-            SortLoansListCommand = ClassFactory.CreateSortLoansListCommand(this);
-            ReturnedLoanCommand = ClassFactory.CreateReturnedLoanCommand(this);
-            ReloadLoansListCommand = ClassFactory.CreateReloadLoansListCommand();
-            SearchBookCommand = ClassFactory.CreateSearchBookCommand(this);
+            _loansStore = loansStore;
+            _booksStore = booksStore;
+            _clientsStore = clientsStore;
+            _settingsStore = settingsStore;
+            _loanRepository = loanRepository;
+            _booksRepository = booksRepository;
+            _messageBoxStore = messageBoxStore;
+            LoadLoansCommand = loadLoansCommand;
+            SearchBookCommand = searchBookCommand;
+            ReturnedLoanCommand = returnedLoanCommand;
+            SortLoansListCommand = sortLoansListCommand;
+            _modalNavigationStore = modalNavigationStore;
+            ShowEditLoanViewModel = showEditLoanViewModel;
+            ShowAddLoanModalCommand = showLoanModalCommand;
+            ReloadLoansListCommand = reloadLoansListCommand;
+            _reservedBooksRepository = reservedBooksRepository;
 
 
             _loansStore.LoansUpdated += UpdateLoans;

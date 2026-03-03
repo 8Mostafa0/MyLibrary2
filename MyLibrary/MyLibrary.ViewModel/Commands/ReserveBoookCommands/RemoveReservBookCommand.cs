@@ -6,9 +6,10 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
     public class RemoveReservBookCommand : CommandBase, IRemoveReservBookCommand
     {
         #region Dependencies
+        private IMessageBoxStore _messageBoxStore;
         private IReservedBooksStore _reservedBooksStore;
         private IReservedBooksViewModel _reservedBooksViewModel;
-        private IMessageBoxStore _messageBoxStore;
+        private IRemoveReservBookCommand _removeReservBookCommand;
         #endregion
 
         #region Contructor
@@ -22,12 +23,14 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         public RemoveReservBookCommand(
             IMessageBoxStore messageBoxStore,
             IReservedBooksStore reservedBooksStore,
-            IReservedBooksViewModel reservedBooksViewModel
+            IReservedBooksViewModel reservedBooksViewModel,
+            IRemoveReservBookCommand removeReservBookCommand
             )
         {
             _messageBoxStore = messageBoxStore;
             _reservedBooksStore = reservedBooksStore;
             _reservedBooksViewModel = reservedBooksViewModel;
+            _removeReservBookCommand = removeReservBookCommand;
         }
         #endregion
 
@@ -44,7 +47,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             else
             {
 
-                _messageBoxStore.Show("آیا از حذف این نوبت مطمن هستید؟", "حذف نوبت", "", "", ClassFactory.CreateRemoveReservBookCommand());
+                _messageBoxStore.Show("آیا از حذف این نوبت مطمن هستید؟", "حذف نوبت", "بله", "خیر", _removeReservBookCommand);
                 if (_messageBoxStore.MessageBoxResult)
                 {
                     _messageBoxStore.CloseMessageBox();

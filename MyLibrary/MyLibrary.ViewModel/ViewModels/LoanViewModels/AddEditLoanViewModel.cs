@@ -3,7 +3,6 @@ using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Commands.LoansCommands;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
@@ -135,23 +134,68 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #endregion
 
         #region Contructor
-        public AddEditeLoanViewModel()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="booksStore"></param>
+        /// <param name="loansStore"></param>
+        /// <param name="clientsStore"></param>
+        /// <param name="settingsStore"></param>
+        /// <param name="loanRepository"></param>
+        /// <param name="booksRepository"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="loadBooksCommand"></param>
+        /// <param name="closeModalCommand"></param>
+        /// <param name="loadClientsCommand"></param>
+        /// <param name="saveLoanDataCommand"></param>
+        /// <param name="modalNavigationStore"></param>
+        /// <param name="searchBookNameCommand"></param>
+        /// <param name="reservedBooksRepository"></param>
+        /// <param name="searchClientNameCommand"></param>
+        /// <param name="orderBooksByStateCommand"></param>
+        /// <param name="orderBooksBySubjectCommand"></param>
+        public AddEditeLoanViewModel(
+            IBooksStore booksStore,
+            ILoansStore loansStore,
+            IClientsStore clientsStore,
+            ISettingsStore settingsStore,
+            ILoanRepository loanRepository,
+            IBooksRepository booksRepository,
+            IMessageBoxStore messageBoxStore,
+            ILoadBooksCommand loadBooksCommand,
+            ICloseModalCommand closeModalCommand,
+            ILoadClientsCommand loadClientsCommand,
+            ISaveLoanDataCommand saveLoanDataCommand,
+            IModalNavigationStore modalNavigationStore,
+            ISearchBookNameCommand searchBookNameCommand,
+            IReservedBooksRepository reservedBooksRepository,
+            ISearchClientNameCommand searchClientNameCommand,
+            IOrderBooksByStateCommand orderBooksByStateCommand,
+            IOrderBooksBySubjectCommand orderBooksBySubjectCommand
+            )
         {
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _clients = new ObservableCollection<Client>();
             _books = new ObservableCollection<Book>();
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _clientsStore.ClientsUpdated += OnClientsUpdated;
-            _booksStore = ClassFactory.CreateBooksStore();
+            _clients = new ObservableCollection<Client>();
+
+            _booksStore = booksStore;
+            _loansStore = loansStore;
+            _clientsStore = clientsStore;
+            _settingsStore = settingsStore;
+            _loanRepository = loanRepository;
+            _booksRepository = booksRepository;
+            _messageBoxStore = messageBoxStore;
+            LoadBooksCommand = loadBooksCommand;
+            CloseModalCommand = closeModalCommand;
+            LoadClientsCommand = loadClientsCommand;
+            SaveLoanDataCommand = saveLoanDataCommand;
+            _modalNavigationStore = modalNavigationStore;
+            SearchBookNameCommand = searchBookNameCommand;
+            SearchClientNameCommand = searchClientNameCommand;
+            _reservedBooksRepository = reservedBooksRepository;
+            OrderBooksBySubjectCommand = orderBooksBySubjectCommand;
+
             _booksStore.BooksUpdated += OnBooksUpdated;
-            _loansStore = ClassFactory.CreateLoansStore();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _loanRepository = ClassFactory.CreateLoanRepository();
-            _settingsStore = ClassFactory.CreateSettingsStore();
-            _booksRepository = ClassFactory.CreateBooksRepository();
-            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
-            LoadBooksCommand = ClassFactory.CreateLoadBooksCommand();
-            LoadClientsCommand = ClassFactory.CreateLoadClientsCommand();
+            _clientsStore.ClientsUpdated += OnClientsUpdated;
             //if (loan is null)
             //{
             //    TitleOfLoanScreen = "امانت جدید";
@@ -163,11 +207,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             //    SelectedLoan = loan;
             //    ReturnDate = loan.ReturnDate;
             //}
-            SaveLoanDataCommand = ClassFactory.CreateSaveLoanDataCommand(this);
-            CloseModalCommand = ClassFactory.CreateCloseModalCommand();
-            SearchBookNameCommand = ClassFactory.CreateSearchBookNameCommand();
-            OrderBooksBySubjectCommand = ClassFactory.CreateOrderBooksBySubjectCommand();
-            SearchClientNameCommand = ClassFactory.CreateSearchClientNameCommand();
             _modalNavigationStore.CurrentViewModelChanged += ModalViewModelChange;
 
         }

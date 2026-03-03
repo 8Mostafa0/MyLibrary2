@@ -15,10 +15,11 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         private readonly ISettingsStore _settingsStore;
         private readonly ILoanRepository _loanRepository;
         private readonly IBooksRepository _bookRepository;
+        private readonly IMessageBoxStore _messageBoxStore;
+        private readonly ICloseModalCommand _closeModalCommandl;
         private readonly IModalNavigationStore _modalNavigationStore;
         private readonly IAddEditeLoanViewModel _addEditeLoanViewModel;
         private readonly IReservedBooksRepository _reservedBooksRepository;
-        private readonly IMessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -39,6 +40,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             ILoanRepository loanRepository,
             IMessageBoxStore messageBoxStore,
             IBooksRepository booksRepository,
+            ICloseModalCommand closeModalCommand,
             IModalNavigationStore modalNavigationStore,
             IAddEditeLoanViewModel addEditeLoanViewModel,
             IReservedBooksRepository reservedBooksRepository)
@@ -48,6 +50,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             _loanRepository = loanRepository;
             _bookRepository = booksRepository;
             _messageBoxStore = messageBoxStore;
+            _closeModalCommandl = closeModalCommand;
             _modalNavigationStore = modalNavigationStore;
             _addEditeLoanViewModel = addEditeLoanViewModel;
             _reservedBooksRepository = reservedBooksRepository;
@@ -197,7 +200,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 _addEditeLoanViewModel.ReturnDate = DateTime.Now;
                 #endregion
 
-                ClassFactory.CreateCloseModalCommand().Execute(null);
+                _closeModalCommandl.Execute(null);
             }
             catch (Exception ex)
             {

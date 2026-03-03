@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Commands.BooksCommands;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -114,24 +113,33 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public BooksViewModel()
+        public BooksViewModel(
+            IBooksStore booksStore,
+            IEditBookCommand editBookCommand,
+            IMessageBoxStore messageBoxStore,
+            ILoadBooksCommand loadBooksCommand,
+            IDeleteBookCommand deleteBookCommand,
+            IAddNewBookCommand addNewBookCommand,
+            IReloadBooksCommand reloadBooksCommand,
+            OrderBooksBySubjectCommand orderBooksBySubjectCommand
+            )
         {
             _books = new ObservableCollection<Book>();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _booksStore = ClassFactory.CreateBooksStore();
 
-            LoadBooksCommand = ClassFactory.CreateLoadBooksCommand();
-            AddNewBookCommand = ClassFactory.CreateAddNewBookCommand(this);
-            EditBookCommand = ClassFactory.CreateEditBookCommand(this);
-            DeleteBookCommand = ClassFactory.CreateDeleteBookCommand(this);
-            OrderBooksCommand = ClassFactory.CreateOrderBooksBySubjectCommand();
-            ReloadBooksCommand = ClassFactory.CreateReloadBooksCommand();
+            _booksStore = booksStore;
+            _messageBoxStore = messageBoxStore;
+            EditBookCommand = editBookCommand;
+            LoadBooksCommand = loadBooksCommand;
+            AddNewBookCommand = addNewBookCommand;
+            DeleteBookCommand = deleteBookCommand;
+            ReloadBooksCommand = reloadBooksCommand;
+            OrderBooksCommand = orderBooksBySubjectCommand;
+
             _booksStore.BooksUpdated += UpdateBooks;
             _booksStore.BookEdited += BookEdited;
             _booksStore.BookAdded += AddNewBook;
             _booksStore.BookDeleted += BookDeleted;
             Subject = "رمان";
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
         #endregion
 

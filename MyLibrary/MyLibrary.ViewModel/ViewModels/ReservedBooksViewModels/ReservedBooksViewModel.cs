@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System.Collections.Generic;
@@ -62,28 +61,54 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         #endregion
 
         #region Contructor
-
-        public ReservedBooksViewModel()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="booksStore"></param>
+        /// <param name="clientsStore"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="reservedBooksStore"></param>
+        /// <param name="modalNavigationStore"></param>
+        /// <param name="resetReservBookCommand"></param>
+        /// <param name="editeReservBookCommand"></param>
+        /// <param name="addNewReservBookCommand"></param>
+        /// <param name="removeReservBookCommand"></param>
+        /// <param name="loadReservedBooksCommand"></param>
+        /// <param name="searchBookNameInReservedBookCommand"></param>
+        public ReservedBooksViewModel(
+            IBooksStore booksStore,
+            IClientsStore clientsStore,
+            IMessageBoxStore messageBoxStore,
+            IReservedBooksStore reservedBooksStore,
+            IModalNavigationStore modalNavigationStore,
+            IResetReservBookCommand resetReservBookCommand,
+            IEditeReservBookCommand editeReservBookCommand,
+            IAddNewReservBookCommand addNewReservBookCommand,
+            IRemoveReservBookCommand removeReservBookCommand,
+            ILoadReservedBooksCommand loadReservedBooksCommand,
+            ISearchBookNameInReservedBookCommand searchBookNameInReservedBookCommand
+            )
         {
             _reservedBooks = new ObservableCollection<ReservedBookViewModel>();
 
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _booksStore = ClassFactory.CreateBooksStore();
+            _booksStore = booksStore;
+            _clientsStore = clientsStore;
+            _messageBoxStore = messageBoxStore;
+            _reservedBooksStore = reservedBooksStore;
+            _modalNavigationStore = modalNavigationStore;
+            ResetReservBookCommand = resetReservBookCommand;
+            EditeReservBookCommand = editeReservBookCommand;
+            AddNewReservBookCommand = addNewReservBookCommand;
+            RemoveReservBookCommand = removeReservBookCommand;
+            LoadReservedBooksCommand = loadReservedBooksCommand;
+            SearchBookNameInReservedBookCommand = searchBookNameInReservedBookCommand;
+
 
             _modalNavigationStore.CurrentViewModelChanged += OnModalViewModelChanged;
             _reservedBooksStore.ReseredBooksUpdated += UpdateReservedBooks;
             _reservedBooksStore.ReservBookEdited += OnReservedBookUpdate;
             _reservedBooksStore.ReservBookAdded += OnReservedBookAdded;
             _reservedBooksStore.ReservBookDeleted += OnReservedBookDeleted;
-            LoadReservedBooksCommand = ClassFactory.CreateLoadReservedBooksCommand();
-            EditeReservBookCommand = ClassFactory.CreateEditeReservBookCommand();
-            AddNewReservBookCommand = ClassFactory.CreateAddNewReservBookCommand();
-            RemoveReservBookCommand = ClassFactory.CreateRemoveReservBookCommand();
-            ResetReservBookCommand = ClassFactory.CreateResetReservBookCommand();
-            SearchBookNameInReservedBookCommand = ClassFactory.CreateSearchBookNameInReservedBookCommand();
 
         }
         #endregion

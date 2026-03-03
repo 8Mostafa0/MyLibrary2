@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
@@ -55,9 +54,13 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #endregion
 
         #region Contructor
-        public MainLayoutSettingViewModel()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="settingsStore"></param>
+        public MainLayoutSettingViewModel(ISettingsStore settingsStore)
         {
-            _settingStore = ClassFactory.CreateSettingsStore();
+            _settingStore = settingsStore;
             Dictionary<string, bool> settings = _settingStore.GetLayoutSettings();
             ClientsCount = settings["ShowClientsCount"];
             BooksCount = settings["ShowBooksCount"];

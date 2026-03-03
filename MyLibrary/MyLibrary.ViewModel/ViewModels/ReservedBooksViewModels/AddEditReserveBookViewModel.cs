@@ -3,7 +3,6 @@ using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -114,16 +113,57 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="booksStore"></param>
+        /// <param name="clientsStore"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="loadBooksCommand"></param>
+        /// <param name="closeModalCommand"></param>
+        /// <param name="reservedBooksStore"></param>
+        /// <param name="loadClientsCommand"></param>
+        /// <param name="modalNavigationStore"></param>
+        /// <param name="searchBookNameCommand"></param>
+        /// <param name="searchClientNameCommand"></param>
+        /// <param name="orderBooksByStateCommand"></param>
+        /// <param name="orderBooksBySubjectCommand"></param>
+        /// <param name="saveReservationDataCommand"></param>
+        public AddEditeReserveBookViewModel(
+            IBooksStore booksStore,
+            IClientsStore clientsStore,
+            IMessageBoxStore messageBoxStore,
+            ILoadBooksCommand loadBooksCommand,
+            ICloseModalCommand closeModalCommand,
+            IReservedBooksStore reservedBooksStore,
+            ILoadClientsCommand loadClientsCommand,
+            IModalNavigationStore modalNavigationStore,
+            ISearchBookNameCommand searchBookNameCommand,
+            ISearchClientNameCommand searchClientNameCommand,
+            IOrderBooksByStateCommand orderBooksByStateCommand,
+            IOrderBooksBySubjectCommand orderBooksBySubjectCommand,
+            ISaveReservationDataCommand saveReservationDataCommand
 
-        public AddEditeReserveBookViewModel()
+            )
         {
             _clients = new ObservableCollection<Client>();
             _books = new ObservableCollection<Book>();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _booksStore = ClassFactory.CreateBooksStore();
+
+            _booksStore = booksStore;
+            _clientsStore = clientsStore;
+            _messageBoxStore = messageBoxStore;
+            LoadBooksCommand = loadBooksCommand;
+            CloseModalCommand = closeModalCommand;
+            LoadClientsCommand = loadClientsCommand;
+            _reservedBooksStore = reservedBooksStore;
+            _modalNavigationStore = modalNavigationStore;
+            SearchBookNameCommand = searchBookNameCommand;
+            OrderBooksCommand = orderBooksBySubjectCommand;
+            SearchClientNameCommand = searchClientNameCommand;
+            OrderBooksBySubjectCommand = orderBooksBySubjectCommand;
+            SaveReservedBookDataCommand = saveReservationDataCommand;
+            _booksStore.BooksUpdated += OnBooksUpdated;
+            _clientsStore.ClientsUpdated += OnClientsUpdated;
             //SelectedReservedBook = reservedBook;
             //if (SelectedReservedBook != null)
             //{
@@ -134,16 +174,6 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             //{
             //    TitleOfLoanScreen = "رزرو نوبت جدید";
             //}
-            _booksStore.BooksUpdated += OnBooksUpdated;
-            _clientsStore.ClientsUpdated += OnClientsUpdated;
-            LoadBooksCommand = ClassFactory.CreateLoadBooksCommand();
-            LoadClientsCommand = ClassFactory.CreateLoadClientsCommand();
-            CloseModalCommand = ClassFactory.CreateCloseModalCommand();
-            SearchBookNameCommand = ClassFactory.CreateSearchBookNameCommand();
-            SearchClientNameCommand = ClassFactory.CreateSearchClientNameCommand();
-            OrderBooksCommand = ClassFactory.CreateOrderBooksBySubjectCommand();
-            SaveReservedBookDataCommand = ClassFactory.CreateSaveReservationDataCommand();
-            OrderBooksBySubjectCommand = ClassFactory.CreateOrderBooksBySubjectCommand();
         }
         #endregion
 

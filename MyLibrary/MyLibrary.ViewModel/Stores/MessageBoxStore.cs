@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.ViewModels;
+﻿using MyLibrary.ViewModel.ViewModels;
 using MyLibrary.ViewModel.ViewModels.MessageBoxViewModel;
 using System;
 using System.Windows.Input;
@@ -29,7 +28,7 @@ namespace MyLibrary.ViewModel.Stores
 
         public IViewModelBase Show(string title, string caption, string firstBtText = null, string secondBtText = null, ICommand command = null)
         {
-            MessageBoxViewModel = ClassFactory.CreateMessageBoxViewModel(this, title, caption, firstBtText, secondBtText, command);
+            MessageBoxViewModel = new MessageBoxViewModel(this, title, caption, firstBtText, secondBtText, command);
             return MessageBoxViewModel;
         }
         public void CloseMessageBox()

@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -90,17 +89,36 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public ClientsViewModel(IClientsStore clientsStore, IMessageBoxStore messageBoxStore)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clientsStore"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="editClientCommand"></param>
+        /// <param name="loadClientsCommand"></param>
+        /// <param name="deleteClientCommand"></param>
+        /// <param name="addNewClientCommand"></param>
+        /// <param name="orderClientsCommand"></param>
+        /// <param name="reloadClientsCommand"></param>
+        public ClientsViewModel(
+            IClientsStore clientsStore,
+            IMessageBoxStore messageBoxStore,
+            IEditClientCommand editClientCommand,
+            ILoadClientsCommand loadClientsCommand,
+            IDeleteClientCommand deleteClientCommand,
+            IAddNewClientCommand addNewClientCommand,
+            IOrderClientsCommand orderClientsCommand,
+            IReloadClientsCommand reloadClientsCommand)
         {
             _clients = new ObservableCollection<Client>();
             _clientsStore = clientsStore;
-            LoadClientsCommand = ClassFactory.CreateLoadClientsCommand();
-            ReloadClientsCommand = ClassFactory.CreateReloadClientsCommand();
-            DeleteClientCommand = ClassFactory.CreateDeleteClientCommand(this);
-            AddNewClientCommand = ClassFactory.CreateAddNewClientCommand(this);
-            OrderClientsCommand = ClassFactory.CreateOrderClientsCommand(this);
-            EditClientCommand = ClassFactory.CreateEditClientCommand(this);
             _messageBoxStore = messageBoxStore;
+            EditClientCommand = editClientCommand;
+            LoadClientsCommand = loadClientsCommand;
+            DeleteClientCommand = deleteClientCommand;
+            AddNewClientCommand = addNewClientCommand;
+            OrderClientsCommand = orderClientsCommand;
+            ReloadClientsCommand = reloadClientsCommand;
 
             SortOrder = "0";
 

@@ -1,5 +1,4 @@
 ﻿using MyLibrary.ViewModel.Commands.SettingsCommands;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
@@ -21,14 +20,28 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #endregion
 
         #region Contructor
-        public SettingsViewModel()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="settingNavigationStore"></param>
+        /// <param name="navigateLoanSettingsCommand"></param>
+        /// <param name="navigateLayoutSettingCommand"></param>
+        /// <param name="navigateSecuritySettingsCommand"></param>
+        public SettingsViewModel(
+            IMessageBoxStore messageBoxStore,
+            ISettingNavigationStore settingNavigationStore,
+            INavigateLoanSettingsCommand navigateLoanSettingsCommand,
+            INavigateLayoutSettingCommand navigateLayoutSettingCommand,
+            INavigateSecuritySettingsCommand navigateSecuritySettingsCommand
+            )
         {
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _settingNavigationStore = ClassFactory.CreateSettingNavigationStore();
+            _messageBoxStore = messageBoxStore;
+            _settingNavigationStore = settingNavigationStore;
+            NavigateLoanSettingsCommand = navigateLoanSettingsCommand;
+            NavigateLayoutSettingCommand = navigateLayoutSettingCommand;
+            NavigateSecuritySettingsCommand = navigateSecuritySettingsCommand;
             _settingNavigationStore.SettingViewModelChanged += OnSettingViewModelChanged;
-            NavigateLayoutSettingCommand = ClassFactory.CreateNavigateLayoutSettingCommand();
-            NavigateLoanSettingsCommand = ClassFactory.CreateNavigateLoanSettingsCommand();
-            NavigateSecuritySettingsCommand = ClassFactory.CreateNavigateSecuritySettingsCommand();
         }
 
         #endregion

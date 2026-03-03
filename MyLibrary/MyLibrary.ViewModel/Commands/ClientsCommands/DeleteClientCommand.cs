@@ -13,6 +13,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         private readonly IClientsStore _clientsStore;
         private readonly IClientsViewModel _clientsViewModel;
         private IReservedBooksRepository _reservedBooksRepository;
+        private IDeleteClientCommand _deleteClientCommad;
 
         private IMessageBoxStore _messageBoxStore;
 
@@ -33,17 +34,20 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <param name="reservedBooksRepository"></param>
         /// <param name="messageBoxStore"></param>
         public DeleteClientCommand(
-            IClientsViewModel clientsViewModel,
             IClientsStore clientsStore,
             ILoanRepository loanRepository,
-            IReservedBooksRepository reservedBooksRepository,
-            IMessageBoxStore messageBoxStore)
+            IMessageBoxStore messageBoxStore,
+            IClientsViewModel clientsViewModel,
+            IDeleteClientCommand deleteClientCommand,
+            IReservedBooksRepository reservedBooksRepository
+            )
         {
-            _clientsViewModel = clientsViewModel;
             _clientsStore = clientsStore;
             _loanRepository = loanRepository;
-            _reservedBooksRepository = reservedBooksRepository;
             _messageBoxStore = messageBoxStore;
+            _clientsViewModel = clientsViewModel;
+            _deleteClientCommad = deleteClientCommand;
+            _reservedBooksRepository = reservedBooksRepository;
         }
         #endregion
 
@@ -70,7 +74,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
             else
             {
 
-                _messageBoxStore.Show("کاربر حذف شود؟", "حذف کاربر", "بله", "خیر", ClassFactory.CreateDeleteClientCommand(_clientsViewModel));
+                _messageBoxStore.Show("کاربر حذف شود؟", "حذف کاربر", "بله", "خیر", _deleteClientCommad);
                 if (_messageBoxStore.MessageBoxResult)
                 {
                     _messageBoxStore.CloseMessageBox();

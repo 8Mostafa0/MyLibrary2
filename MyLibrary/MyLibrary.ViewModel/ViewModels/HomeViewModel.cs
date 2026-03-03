@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System;
 using System.Collections.Generic;
@@ -73,12 +72,24 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Cntructor
-        public HomeViewModel()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="booksStore"></param>
+        /// <param name="loansStore"></param>
+        /// <param name="settingsStore"></param>
+        /// <param name="clientsStore"></param>
+        public HomeViewModel(
+            IBooksStore booksStore,
+            ILoansStore loansStore,
+            ISettingsStore settingsStore,
+            IClientsStore clientsStore
+            )
         {
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _booksStore = ClassFactory.CreateBooksStore();
-            _loansStore = ClassFactory.CreateLoansStore();
-            _settingsStore = ClassFactory.CreateSettingsStore();
+            _clientsStore = clientsStore;
+            _booksStore = booksStore;
+            _loansStore = loansStore;
+            _settingsStore = settingsStore;
 
             Dictionary<string, bool> settings = _settingsStore.GetLayoutSettings();
             ShowClientsCount = settings["ShowClientsCount"] ? "Visible" : "Hidden";

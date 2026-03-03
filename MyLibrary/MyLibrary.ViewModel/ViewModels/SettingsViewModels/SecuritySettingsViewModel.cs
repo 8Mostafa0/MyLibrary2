@@ -1,5 +1,4 @@
 ﻿using MyLibrary.ViewModel.Commands.SettingsCommands;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System.Linq;
 
@@ -36,12 +35,16 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #endregion
 
         #region Contructor
-        public SecuritySettingsViewModel()
+        public SecuritySettingsViewModel(
+            ISettingsStore settingsStore,
+            IMessageBoxStore messageBoxStore,
+            ISettingNavigationStore settingNavigationStore,
+            IChangeLoginPasswordCommand changeLoginPasswordCommand)
         {
-            ChangeLoginPasswordCommand = ClassFactory.CreateChangeLoginPasswordCommand(this);
-            _settingsStore = ClassFactory.CreateSettingsStore();
-            _settingNavigationStore = ClassFactory.CreateSettingNavigationStore();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _settingsStore = settingsStore;
+            _messageBoxStore = messageBoxStore;
+            _settingNavigationStore = settingNavigationStore;
+            ChangeLoginPasswordCommand = changeLoginPasswordCommand;
         }
 
         #endregion
