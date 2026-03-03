@@ -280,6 +280,11 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new SearchClientNameCommand();
         }
+
+        public static IOrderBooksBySubjectCommand CreateOrderBooksBySubjectCommand()
+        {
+            return new OrderBooksBySubjectCommand();
+        }
         #endregion
 
         #region Stores

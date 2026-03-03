@@ -108,7 +108,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         public ISearchClientNameCommand SearchClientNameCommand { get; }
         public ILoadClientsCommand LoadClientsCommand { get; }
         public ILoadBooksCommand LoadBooksCommand { get; }
-        public ICommand OrderBooksCommand { get; }
+        public IOrderBooksBySubjectCommand OrderBooksCommand { get; }
         public ICommand OrderBooksBySubjectCommand { get; }
 
 
@@ -142,7 +142,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             CloseModalCommand = ClassFactory.CreateCloseModalCommand();
             SearchBookNameCommand = ClassFactory.CreateSearchBookNameCommand();
             SearchClientNameCommand = ClassFactory.CreateSearchClientNameCommand();
-            OrderBooksCommand = new OrderBooksBySubjectCommand(_booksStore, _messageBoxStore);
+            OrderBooksCommand = ClassFactory.CreateOrderBooksBySubjectCommand();
             SaveReservedBookDataCommand = new SaveReservationDataCommand(this, _modalNavigationStore, _reservedBooksStore, loanRepository, reservedBooksRepository, clientsRepository, _messageBoxStore);
             OrderBooksBySubjectCommand = new OrderBooksBySubjectCommand(_booksStore, _messageBoxStore);
         }

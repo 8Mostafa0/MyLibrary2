@@ -18,7 +18,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         ILoadBooksCommand LoadBooksCommand { get; }
         ILoadClientsCommand LoadClientsCommand { get; }
         ICommand OrderBooksBySubjectCommand { get; }
-        ICommand OrderBooksCommand { get; }
+        IOrderBooksBySubjectCommand OrderBooksCommand { get; }
         ICommand SaveReservedBookDataCommand { get; }
         ISearchBookNameCommand SearchBookNameCommand { get; }
         ISearchClientNameCommand SearchClientNameCommand { get; }
