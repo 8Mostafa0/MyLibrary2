@@ -326,6 +326,7 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new ReloadBooksCommand();
         }
+
         #region SettingsCommands
         public static INavigateLoanSettingsCommand CreateNavigateLoanSettingsCommand()
         {
@@ -338,6 +339,10 @@ namespace MyLibrary.ViewModel.Factory
         public static INavigateSecuritySettingsCommand CreateNavigateSecuritySettingsCommand()
         {
             return new NavigateSecuritySettingsCommand();
+        }
+        public static IChangeLoginPasswordCommand CreateChangeLoginPasswordCommand()
+        {
+            return new ChangeLoginPasswordCommand();
         }
         #endregion
 

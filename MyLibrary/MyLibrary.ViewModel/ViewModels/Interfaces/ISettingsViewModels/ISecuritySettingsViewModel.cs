@@ -1,10 +1,10 @@
-﻿using System.Windows.Input;
+﻿using MyLibrary.ViewModel.Commands.SettingsCommands;
 
 namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
 {
     public interface ISecuritySettingsViewModel : IViewModelBase
     {
-        ICommand ChangeLoginPasswordCommand { get; }
+        IChangeLoginPasswordCommand ChangeLoginPasswordCommand { get; }
         string Password { get; set; }
     }
 }

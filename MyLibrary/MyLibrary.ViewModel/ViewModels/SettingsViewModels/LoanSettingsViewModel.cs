@@ -46,7 +46,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #region Constructor
         public LoanSettingsViewModel()
         {
-            _settingsStore = new SettingsStore();
+            _settingsStore = ClassFactory.CreateSettingsStore();
             Dictionary<string, int> setting = _settingsStore.GetLoansSetting();
             MaxBooksCount = setting["MaxBooksLoan"].ToString();
             MaxLoanDay = setting["MaxLoanDays"].ToString();

@@ -2,7 +2,6 @@
 using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System.Linq;
-using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
 {
@@ -33,7 +32,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         #endregion
 
         #region Commands
-        public ICommand ChangeLoginPasswordCommand { get; }
+        public IChangeLoginPasswordCommand ChangeLoginPasswordCommand { get; }
         #endregion
 
         #region Contructor
@@ -41,7 +40,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
         {
             _settingsStore = ClassFactory.CreateSettingsStore();
             _settingNavigationStore = ClassFactory.CreateSettingNavigationStore();
-            ChangeLoginPasswordCommand = new ChangeLoginPasswordCommand(this, _settingNavigationStore, _settingsStore, _messageBoxStore);
+            ChangeLoginPasswordCommand = ClassFactory.CreateChangeLoginPasswordCommand();
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
 

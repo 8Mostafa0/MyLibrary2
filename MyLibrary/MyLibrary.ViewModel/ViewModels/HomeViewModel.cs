@@ -78,8 +78,8 @@ namespace MyLibrary.ViewModel.ViewModels
             _clientsStore = ClassFactory.CreateClientsStore();
             _booksStore = ClassFactory.CreateBooksStore();
             _loansStore = ClassFactory.CreateLoansStore();
+            _settingsStore = ClassFactory.CreateSettingsStore();
 
-            _settingsStore = new SettingsStore();
             Dictionary<string, bool> settings = _settingsStore.GetLayoutSettings();
             ShowClientsCount = settings["ShowClientsCount"] ? "Visible" : "Hidden";
             ShowBooksCount = settings["ShowBooksCount"] ? "Visible" : "Hidden";

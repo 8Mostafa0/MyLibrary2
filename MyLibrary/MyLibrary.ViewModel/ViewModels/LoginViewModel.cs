@@ -1,6 +1,5 @@
 ﻿using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
@@ -34,7 +33,7 @@ namespace MyLibrary.ViewModel.ViewModels
         {
             CloseAppCommand = ClassFactory.CreateCloseAppCommand();
             LoginCommand = ClassFactory.CreateLoginCommand();
-            if (new SettingsStore().GetHashedPassword() == null)
+            if (ClassFactory.CreateSettingsStore().GetHashedPassword() == null)
             {
                 FirstOpen = true;
                 Title = "رمزی برای پنل مشخص کنید";

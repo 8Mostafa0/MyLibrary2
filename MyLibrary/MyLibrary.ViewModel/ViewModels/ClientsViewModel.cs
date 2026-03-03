@@ -90,22 +90,25 @@ namespace MyLibrary.ViewModel.ViewModels
         #region Constructor
         public ClientsViewModel()
         {
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
             _clients = new ObservableCollection<Client>();
+
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _clientsStore = ClassFactory.CreateClientsStore();
-            _clientsStore.ClientAdded += OnClientAdded;
-            _clientsStore.ClientsUpdated += UpdateClients;
-            _clientsStore.ClientRemoved += OnClientDeleted;
-            _clientsStore.ClientEdited += ClientEdited;
             LoadClientsCommand = ClassFactory.CreateLoadClientsCommand();
             ReloadClientsCommand = ClassFactory.CreateReloadClientsCommand();
             DeleteClientCommand = ClassFactory.CreateDeleteClientCommand();
             AddNewClientCommand = ClassFactory.CreateAddNewClientCommand();
             OrderClientsCommand = ClassFactory.CreateOrderClientsCommand();
             EditClientCommand = ClassFactory.CreateEditClientCommand();
-            SortOrder = "0";
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+
+            SortOrder = "0";
+
+            _clientsStore.ClientAdded += OnClientAdded;
+            _clientsStore.ClientsUpdated += UpdateClients;
+            _clientsStore.ClientRemoved += OnClientDeleted;
+            _clientsStore.ClientEdited += ClientEdited;
+            _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
         }
         #endregion
 

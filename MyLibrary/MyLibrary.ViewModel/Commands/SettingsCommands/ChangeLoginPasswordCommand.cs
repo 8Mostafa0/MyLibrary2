@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.SettingsViewModels;
 using System.Linq;
 
@@ -9,7 +10,7 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         #region Dependencies
         private ISettingsStore _settingsStore;
         private ISettingNavigationStore _settingNavigationStore;
-        private SecuritySettingsViewModel _securitySettingViewModel;
+        private ISecuritySettingsViewModel _securitySettingViewModel;
         private IMessageBoxStore _messageBoxStore;
         #endregion
 
@@ -17,15 +18,12 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         /// <summary>
         /// save validated password to registry
         /// </summary>
-        /// <param name="securitySettingsViewModel"></param>
-        /// <param name="settingNavigationStore"></param>
-        /// <param name="settingsStore"></param>
-        public ChangeLoginPasswordCommand(SecuritySettingsViewModel securitySettingsViewModel, ISettingNavigationStore settingNavigationStore, ISettingsStore settingsStore, IMessageBoxStore messageBoxStore)
+        public ChangeLoginPasswordCommand()
         {
-            _settingsStore = settingsStore;
-            _messageBoxStore = messageBoxStore;
-            _settingNavigationStore = settingNavigationStore;
-            _securitySettingViewModel = securitySettingsViewModel;
+            _settingsStore = ClassFactory.CreateSettingsStore();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _settingNavigationStore = ClassFactory.CreateSettingNavigationStore();
+            _securitySettingViewModel = ClassFactory.CreateSecuritySettingsViewModel();
         }
         #endregion
 
