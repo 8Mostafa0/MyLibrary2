@@ -91,7 +91,6 @@ namespace MyLibrary.ViewModel.ViewModels
         public ClientsViewModel()
         {
             _clients = new ObservableCollection<Client>();
-
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _clientsStore = ClassFactory.CreateClientsStore();
             LoadClientsCommand = ClassFactory.CreateLoadClientsCommand();

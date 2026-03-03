@@ -29,7 +29,6 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// </summary>
         public DeleteClientCommand()
         {
-            _clientsViewModel = ClassFactory.CreateClientsViewModel();
             _clientsStore = ClassFactory.CreateClientsStore();
             _loanRepository = ClassFactory.CreateLoanRepository();
             _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();

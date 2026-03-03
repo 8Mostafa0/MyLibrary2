@@ -1,6 +1,5 @@
 ﻿using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
@@ -8,19 +7,15 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
     {
         #region Dependencies
         private readonly IClientsStore _clientsStore;
-        private readonly IClientsViewModel _clientsViewModel;
         #endregion
 
         #region Contructor
         /// <summary>
         /// reload clients list in clients store
         /// </summary>
-        /// <param name="clientsStore"></param>
-        /// <param name="clientsViewModel"></param>
         public ReloadClientsCommand()
         {
             _clientsStore = ClassFactory.CreateClientsStore();
-            _clientsViewModel = ClassFactory.CreateClientsViewModel();
         }
         #endregion
 
