@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 using System.Collections.Generic;
@@ -23,17 +22,33 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 
         #region Contructor
         /// <summary>
+        /// 
         /// validate reserve data
         /// </summary>
-        public SaveReservationDataCommand()
+        /// <param name="loanRepository"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="clientsRepository"></param>
+        /// <param name="reservedBookStore"></param>
+        /// <param name="modalNavigationStore"></param>
+        /// <param name="reservedbooksRepository"></param>
+        /// <param name="addEditeReserveBookViewModel"></param>
+        public SaveReservationDataCommand(
+            ILoanRepository loanRepository,
+            IMessageBoxStore messageBoxStore,
+            IClientsRepository clientsRepository,
+            IReservedBooksStore reservedBookStore,
+            IModalNavigationStore modalNavigationStore,
+            IReservedBooksRepository reservedbooksRepository,
+            IAddEditeReserveBookViewModel addEditeReserveBookViewModel
+            )
         {
-            _loanRepository = ClassFactory.CreateLoanRepository();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _clientsRepository = ClassFactory.CreateClientsRepository();
-            _reservedBookStore = ClassFactory.CreateReservedBooksStore();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _reservedbooksRepository = ClassFactory.CreateReservedBooksRepository();
-            _addediteReserveBookViewModel = ClassFactory.CreateAddEditeReserveBookViewModel();
+            _loanRepository = loanRepository;
+            _messageBoxStore = messageBoxStore;
+            _clientsRepository = clientsRepository;
+            _reservedBookStore = reservedBookStore;
+            _modalNavigationStore = modalNavigationStore;
+            _reservedbooksRepository = reservedbooksRepository;
+            _addediteReserveBookViewModel = addEditeReserveBookViewModel;
         }
         #endregion
 

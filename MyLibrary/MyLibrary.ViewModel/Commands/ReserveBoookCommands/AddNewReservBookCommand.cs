@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
@@ -20,18 +19,36 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 
         #region Contructor
         /// <summary>
+        /// 
         /// load addedite reserved book view model to modal navigation view
         /// </summary>
-        public AddNewReservBookCommand()
+        /// <param name="booksStore"></param>
+        /// <param name="clientsStore"></param>
+        /// <param name="loanRepository"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="clientsRepository"></param>
+        /// <param name="reservedBooksStore"></param>
+        /// <param name="modalNavigationStore"></param>
+        /// <param name="reservedBooksRepository"></param>
+        public AddNewReservBookCommand(
+            IBooksStore booksStore,
+            IClientsStore clientsStore,
+            ILoanRepository loanRepository,
+            IMessageBoxStore messageBoxStore,
+            IClientsRepository clientsRepository,
+            IReservedBooksStore reservedBooksStore,
+            IModalNavigationStore modalNavigationStore,
+            IReservedBooksRepository reservedBooksRepository
+            )
         {
-            _booksStore = ClassFactory.CreateBooksStore();
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
-            _loanRepository = ClassFactory.CreateLoanRepository();
-            _clientsRepository = ClassFactory.CreateClientsRepository();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _booksStore = booksStore;
+            _clientsStore = clientsStore;
+            _loanRepository = loanRepository;
+            _messageBoxStore = messageBoxStore;
+            _clientsRepository = clientsRepository;
+            _reservedBooksStore = reservedBooksStore;
+            _modalNavigationStore = modalNavigationStore;
+            _reservedBooksRepository = reservedBooksRepository;
         }
         #endregion
 

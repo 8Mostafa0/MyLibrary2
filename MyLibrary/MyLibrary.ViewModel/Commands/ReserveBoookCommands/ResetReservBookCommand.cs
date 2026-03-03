@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
@@ -14,9 +13,9 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <summary>
         /// load all reserved book from database to reserved book store
         /// </summary>
-        public ResetReservBookCommand()
+        public ResetReservBookCommand(IReservedBooksStore reservedBooksStore)
         {
-            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
+            _reservedBooksStore = reservedBooksStore;
         }
         #endregion
 

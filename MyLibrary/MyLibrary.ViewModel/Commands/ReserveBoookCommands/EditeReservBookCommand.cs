@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
@@ -24,17 +23,27 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <summary>
         /// validate selected reserv and fill to the add edite view modal
         /// </summary>
-        public EditeReservBookCommand()
+        public EditeReservBookCommand(
+            IBooksStore booksStore,
+            IClientsStore clientsStore,
+            ILoanRepository loanRepository,
+            IMessageBoxStore messageBoxStore,
+            IClientsRepository clientsRepository,
+            IReservedBooksStore reservedBooksStore,
+            IModalNavigationStore modalNavigationStore,
+            IReservedBooksRepository reservedBooksRepository,
+            IReservedBooksViewModel reservedBooksViewModel
+            )
         {
-            _booksStore = ClassFactory.CreateBooksStore();
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _loansRepository = ClassFactory.CreateLoanRepository();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _clientRepository = ClassFactory.CreateClientsRepository();
-            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _reservedBooksViewModel = ClassFactory.CreateReservedBooksViewModel();
-            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
+            _booksStore = booksStore;
+            _clientsStore = clientsStore;
+            _loansRepository = loanRepository;
+            _messageBoxStore = messageBoxStore;
+            _clientRepository = clientsRepository;
+            _reservedBooksStore = reservedBooksStore;
+            _modalNavigationStore = modalNavigationStore;
+            _reservedBooksViewModel = reservedBooksViewModel;
+            _reservedBooksRepository = reservedBooksRepository;
         }
         #endregion
 

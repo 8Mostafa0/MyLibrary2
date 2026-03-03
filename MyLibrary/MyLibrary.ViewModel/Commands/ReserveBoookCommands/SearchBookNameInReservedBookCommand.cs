@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
@@ -14,12 +13,15 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 
         #region Contructor
         /// <summary>
+        /// 
         /// search book name in reserved books list
         /// </summary>
-        public SearchBookNameInReservedBookCommand()
+        /// <param name="reservedBooksStore"></param>
+        /// <param name="reservedBooksViewModel"></param>
+        public SearchBookNameInReservedBookCommand(IReservedBooksStore reservedBooksStore, IReservedBooksViewModel reservedBooksViewModel)
         {
-            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
-            _reservedBooksViewModel = ClassFactory.CreateReservedBooksViewModel();
+            _reservedBooksStore = reservedBooksStore;
+            _reservedBooksViewModel = reservedBooksViewModel;
         }
         #endregion
 
