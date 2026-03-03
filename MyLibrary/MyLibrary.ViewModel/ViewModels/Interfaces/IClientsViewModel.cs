@@ -1,7 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using System.Collections.Generic;
-using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
@@ -11,7 +10,7 @@ namespace MyLibrary.ViewModel.ViewModels
         IEnumerable<Client> Clients { get; }
         IViewModelBase CurrentMessageBox { get; }
         IDeleteClientCommand DeleteClientCommand { get; }
-        ICommand EditClientCommand { get; }
+        IEditClientCommand EditClientCommand { get; }
         string FirstName { get; set; }
         bool IsMessageBoxOpen { get; }
         string LastName { get; set; }

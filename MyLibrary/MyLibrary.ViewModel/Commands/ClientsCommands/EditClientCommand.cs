@@ -1,4 +1,5 @@
 ﻿using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
@@ -16,13 +17,11 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <summary>
         ///  validate selected client then input values the edite client using clients store
         /// </summary>
-        /// <param name="clientsViewModel"></param>
-        /// <param name="clientsStore"></param>
-        public EditClientCommand(IClientsViewModel clientsViewModel, IClientsStore clientsStore, IMessageBoxStore messageBoxStore)
+        public EditClientCommand()
         {
-            _clientsViewModel = clientsViewModel;
-            _clientsStore = clientsStore;
-            _messageBoxStore = messageBoxStore;
+            _clientsViewModel = ClassFactory.CreateClientsViewModel();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
         #endregion
 

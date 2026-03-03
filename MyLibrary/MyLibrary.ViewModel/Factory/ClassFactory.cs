@@ -331,6 +331,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new OrderClientsCommand();
         }
+        public static IEditClientCommand CreateEditClientCommand()
+        {
+            return new EditClientCommand();
+        }
         #endregion
         #endregion
 

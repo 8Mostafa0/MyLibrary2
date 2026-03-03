@@ -5,7 +5,6 @@ using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
@@ -84,7 +83,7 @@ namespace MyLibrary.ViewModel.ViewModels
         public IAddNewClientCommand AddNewClientCommand { get; }
         public IOrderClientsCommand OrderClientsCommand { get; }
 
-        public ICommand EditClientCommand { get; }
+        public IEditClientCommand EditClientCommand { get; }
 
         #endregion
 
@@ -104,7 +103,7 @@ namespace MyLibrary.ViewModel.ViewModels
             DeleteClientCommand = ClassFactory.CreateDeleteClientCommand();
             AddNewClientCommand = ClassFactory.CreateAddNewClientCommand();
             OrderClientsCommand = ClassFactory.CreateOrderClientsCommand();
-            EditClientCommand = new EditClientCommand(this, _clientsStore, _messageBoxStore);
+            EditClientCommand = ClassFactory.CreateEditClientCommand();
             SortOrder = "0";
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
