@@ -8,7 +8,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     {
         #region Dependencies
         private IModalNavigationStore _modalNavigationStore;
-        private AddEditeLoanViewModel _addEditeLoanViewModel;
+        private IAddEditeLoanViewModel _addEditeLoanViewModel;
         #endregion
 
 
@@ -16,19 +16,10 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <summary>
         /// show loan modal by set modal view to the loan modal
         /// </summary>
-        /// <param name="modalNavigationStore"></param>
-        /// <param name="booksStore"></param>
-        /// <param name="clientsStore"></param>
-        /// <param name="loansStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="settingsStore"></param>
-        /// <param name="booksRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
-        /// <param name="loan"></param>
         public ShowLoanModalCommand()
         {
             _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            //_addEditeLoanViewModel = AddEditeLoanViewModel.LoadViewModel(modalNavigationStore, booksStore, clientsStore, loansStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, messageBoxStore, loan);
+            _addEditeLoanViewModel = ClassFactory.CreateAddEditeLoanViewModel();
         }
         #endregion
 

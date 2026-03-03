@@ -21,9 +21,9 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// </summary>
         /// <param name="loansViewModel"></param>
         /// <param name="loansStore"></param>
-        public SortLoansListCommand()
+        public SortLoansListCommand(ILoansViewModel loansViewModel)
         {
-            _loansViewModel = ClassFactory.CreateLoansViewModel();
+            _loansViewModel = loansViewModel;
             _loansStore = ClassFactory.CreateLoansStore();
         }
         #endregion

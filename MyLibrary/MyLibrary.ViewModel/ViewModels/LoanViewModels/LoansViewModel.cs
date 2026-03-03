@@ -85,11 +85,11 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
             LoadLoansCommand = ClassFactory.CreateLoadLoansCommand();
             ShowAddLoanModalCommand = ClassFactory.CreateShowLoanModalCommand();
-            ShowEditLoanViewModel = ClassFactory.CreateShowEditLoanViewModel();
-            SortLoansListCommand = ClassFactory.CreateSortLoansListCommand();
-            ReturnedLoanCommand = ClassFactory.CreateReturnedLoanCommand();
+            ShowEditLoanViewModel = ClassFactory.CreateShowEditLoanViewModel(this);
+            SortLoansListCommand = ClassFactory.CreateSortLoansListCommand(this);
+            ReturnedLoanCommand = ClassFactory.CreateReturnedLoanCommand(this);
             ReloadLoansListCommand = ClassFactory.CreateReloadLoansListCommand();
-            SearchBookCommand = ClassFactory.CreateSearchBookCommand();
+            SearchBookCommand = ClassFactory.CreateSearchBookCommand(this);
 
 
             _loansStore.LoansUpdated += UpdateLoans;

@@ -18,10 +18,10 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// </summary>
         /// <param name="loansViewModel"></param>
         /// <param name="loansStore"></param>
-        public SearchBookCommand()
+        public SearchBookCommand(ILoansViewModel loansViewModel)
         {
+            _loansViewModel = loansViewModel;
             _loansStore = ClassFactory.CreateLoansStore();
-            _loansViewModel = ClassFactory.CreateLoansViewModel();
         }
         #endregion
 

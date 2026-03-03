@@ -34,15 +34,15 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="settingsStore"></param>
         /// <param name="booksRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public SaveLoanDataCommand()
+        public SaveLoanDataCommand(IAddEditeLoanViewModel addEditeLoanViewModel)
         {
+            _addEditeLoanViewModel = addEditeLoanViewModel;
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _loansStore = ClassFactory.CreateLoansStore();
             _settingsStore = ClassFactory.CreateSettingsStore();
             _loanRepository = ClassFactory.CreateLoanRepository();
             _bookRepository = ClassFactory.CreateBooksRepository();
             _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _addEditeLoanViewModel = ClassFactory.CreateAddEditeLoanViewModel();
             _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
         }
         #endregion

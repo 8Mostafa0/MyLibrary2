@@ -22,10 +22,10 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// </summary>
         /// <param name="loansViewModel"></param>
         /// <param name="loansStore"></param>
-        public ReturnedLoanCommand()
+        public ReturnedLoanCommand(ILoansViewModel loansViewModel)
         {
+            _loanViewModel = loansViewModel;
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _loanViewModel = ClassFactory.CreateLoansViewModel();
             _loansStore = ClassFactory.CreateLoansStore();
         }
         #endregion
@@ -48,7 +48,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 _messageBoxStore.Show("این امانت بارگشت داده  شده است", "برگشت کتاب");
                 return;
             }
-            _messageBoxStore.Show("کاربر کتاب را بازگرداند؟", "برگشت کتاب", "بله", "خیر", ClassFactory.CreateReturnedLoanCommand());
+            _messageBoxStore.Show("کاربر کتاب را بازگرداند؟", "برگشت کتاب", "بله", "خیر", ClassFactory.CreateReturnedLoanCommand(_loanViewModel));
             if (_messageBoxStore.MessageBoxResult)
             {
                 _messageBoxStore.CloseMessageBox();

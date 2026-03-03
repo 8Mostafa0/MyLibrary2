@@ -163,7 +163,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             //    SelectedLoan = loan;
             //    ReturnDate = loan.ReturnDate;
             //}
-            SaveLoanDataCommand = ClassFactory.CreateSaveLoanDataCommand();
+            SaveLoanDataCommand = ClassFactory.CreateSaveLoanDataCommand(this);
             CloseModalCommand = ClassFactory.CreateCloseModalCommand();
             SearchBookNameCommand = ClassFactory.CreateSearchBookNameCommand();
             OrderBooksBySubjectCommand = ClassFactory.CreateOrderBooksBySubjectCommand();

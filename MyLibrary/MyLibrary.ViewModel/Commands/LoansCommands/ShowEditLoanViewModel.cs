@@ -36,14 +36,14 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="booksRepository"></param>
         /// <param name="MessageBoxStore"></param>
         /// <param name="reservedBooksRepository"></param>
-        public ShowEditLoanViewModel()
+        public ShowEditLoanViewModel(ILoansViewModel loansViewModel)
         {
+            _loansViewModel = loansViewModel;
             _loansStore = ClassFactory.CreateLoansStore();
             _booksStore = ClassFactory.CreateBooksStore();
             _clientsStore = ClassFactory.CreateClientsStore();
             _settingsStore = ClassFactory.CreateSettingsStore();
             _loanRepository = ClassFactory.CreateLoanRepository();
-            _loansViewModel = ClassFactory.CreateLoansViewModel();
             _booksRepository = ClassFactory.CreateBooksRepository();
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _modalNavigationStore = ClassFactory.CreateModalNavigationStore();

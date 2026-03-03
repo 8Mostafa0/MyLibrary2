@@ -334,17 +334,17 @@ namespace MyLibrary.ViewModel.Factory
         /// </summary>
         /// <returns>An object that implements <see cref="IShowEditLoanViewModel"/> for managing the display and editing of loan
         /// details.</returns>
-        public static IShowEditLoanViewModel CreateShowEditLoanViewModel()
+        public static IShowEditLoanViewModel CreateShowEditLoanViewModel(ILoansViewModel loansViewModel)
         {
-            return new ShowEditLoanViewModel();
+            return new ShowEditLoanViewModel(loansViewModel);
         }
         /// <summary>
         /// Creates a new instance of a command that sorts a list of loans.
         /// </summary>
         /// <returns>An object implementing <see cref="ISortLoansListCommand"/> that can be used to sort loan lists.</returns>
-        public static ISortLoansListCommand CreateSortLoansListCommand()
+        public static ISortLoansListCommand CreateSortLoansListCommand(ILoansViewModel loansViewModel)
         {
-            return new SortLoansListCommand();
+            return new SortLoansListCommand(loansViewModel);
         }
 
         /// <summary>
@@ -352,9 +352,9 @@ namespace MyLibrary.ViewModel.Factory
         /// </summary>
         /// <returns>An object implementing <see cref="IReturnedLoanCommand"/> that can be used to handle returned loan
         /// operations.</returns>
-        public static IReturnedLoanCommand CreateReturnedLoanCommand()
+        public static IReturnedLoanCommand CreateReturnedLoanCommand(ILoansViewModel loansViewModel)
         {
-            return new ReturnedLoanCommand();
+            return new ReturnedLoanCommand(loansViewModel);
         }
         /// <summary>
         /// Creates a new instance of a command that reloads the loans list.
@@ -369,9 +369,9 @@ namespace MyLibrary.ViewModel.Factory
         /// Creates a new instance of a command used to save loan data.
         /// </summary>
         /// <returns>An object that implements <see cref="ISaveLoanDataCommand"/> for saving loan data.</returns>
-        public static ISaveLoanDataCommand CreateSaveLoanDataCommand()
+        public static ISaveLoanDataCommand CreateSaveLoanDataCommand(IAddEditeLoanViewModel addEditeLoanViewModel)
         {
-            return new SaveLoanDataCommand();
+            return new SaveLoanDataCommand(addEditeLoanViewModel);
         }
 
         #endregion
@@ -381,9 +381,9 @@ namespace MyLibrary.ViewModel.Factory
         /// Creates a new instance of a command used to search for books.
         /// </summary>
         /// <returns>An object that implements <see cref="ISearchBookCommand"/> for performing book search operations.</returns>
-        public static ISearchBookCommand CreateSearchBookCommand()
+        public static ISearchBookCommand CreateSearchBookCommand(ILoansViewModel loansViewModel)
         {
-            return new SearchBookCommand();
+            return new SearchBookCommand(loansViewModel);
         }
         /// <summary>
         /// Creates a new command instance for retrieving order books grouped by state.
