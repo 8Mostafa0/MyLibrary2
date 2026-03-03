@@ -6,6 +6,8 @@ using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Commands.LoginCommands;
+using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
+using MyLibrary.ViewModel.Commands.SettingsCommands;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
@@ -252,6 +254,18 @@ namespace MyLibrary.ViewModel.Factory
         public static ISearchBookCommand CreateSearchBookCommand()
         {
             return new SearchBookCommand();
+        }
+        public static IOrderBooksByStateCommand CreateOrderBooksCommand()
+        {
+            return new OrderBooksByStateCommand();
+        }
+        public static INavigateReservedBooksCommand CreateNavigateReservedBooksCommand()
+        {
+            return new NavigateReservedBooksCommand();
+        }
+        public static INavigateToSettingsCommand CreateNavigateToSettingsCommand()
+        {
+            return new NavigateToSettingsCommand();
         }
         #endregion
 

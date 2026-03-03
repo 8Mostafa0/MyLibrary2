@@ -1,7 +1,6 @@
 ﻿using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System.Collections.Generic;
-using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 {
@@ -12,7 +11,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         bool IsModalOpen { get; }
         ILoadLoansCommand LoadLoansCommand { get; }
         IEnumerable<LoanViewModel> Loans { get; }
-        ICommand OrderBooksCommand { get; }
         IReloadLoansListCommand ReloadLoansListCommand { get; }
         IReturnedLoanCommand ReturnedLoanCommand { get; }
         ISearchBookCommand SearchBookCommand { get; }

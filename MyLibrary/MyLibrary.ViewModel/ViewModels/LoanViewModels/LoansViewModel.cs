@@ -7,7 +7,6 @@ using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 {
@@ -64,7 +63,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         public IShowLoanModalCommand ShowAddLoanModalCommand { get; }
         public IShowEditLoanViewModel ShowEditLoanViewModel { get; }
         public ILoadLoansCommand LoadLoansCommand { get; }
-        public ICommand OrderBooksCommand { get; }
         public ISearchBookCommand SearchBookCommand { get; }
         public IReturnedLoanCommand ReturnedLoanCommand { get; }
         public IReloadLoansListCommand ReloadLoansListCommand { get; }
@@ -74,9 +72,10 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         #region Constructor
         public LoansViewModel()
         {
+            _loans = new ObservableCollection<LoanViewModel>();
+
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
             _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _loans = new ObservableCollection<LoanViewModel>();
             _loansStore = ClassFactory.CreateLoansStore();
             _clientsStore = ClassFactory.CreateClientsStore();
             _booksStore = ClassFactory.CreateBooksStore();
@@ -84,7 +83,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             _settingsStore = ClassFactory.CreateSettingsStore();
             _booksRepository = ClassFactory.CreateBooksRepository();
             _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
-
             LoadLoansCommand = ClassFactory.CreateLoadLoansCommand();
             ShowAddLoanModalCommand = ClassFactory.CreateShowLoanModalCommand();
             ShowEditLoanViewModel = ClassFactory.CreateShowEditLoanViewModel();
@@ -92,6 +90,8 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             ReturnedLoanCommand = ClassFactory.CreateReturnedLoanCommand();
             ReloadLoansListCommand = ClassFactory.CreateReloadLoansListCommand();
             SearchBookCommand = ClassFactory.CreateSearchBookCommand();
+
+
             _loansStore.LoansUpdated += UpdateLoans;
             _loansStore.LoanIsAdded += LoanAdded;
             _loansStore.LoanIsUpdated += LoanIsUpdated;

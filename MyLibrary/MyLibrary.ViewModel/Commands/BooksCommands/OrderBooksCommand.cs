@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
@@ -19,10 +20,10 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// </summary>
         /// <param name="booksViewModel"></param>
         /// <param name="booksStore"></param>
-        public OrderBooksByStateCommand(IBooksViewModel booksViewModel, IBooksStore booksStore)
+        public OrderBooksByStateCommand()
         {
-            _booksStore = booksStore;
-            _booksViewModel = booksViewModel;
+            _booksStore = ClassFactory.CreateBooksStore();
+            _booksViewModel = ClassFactory.CreateBooksViewModel();
         }
         #endregion
 

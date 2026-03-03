@@ -32,10 +32,10 @@ namespace MyLibrary.ViewModel.ViewModels
         public INavigateBooksCommand NavigateBooksCommand { get; }
 
         public ICommand OpenModalCommand { get; }
-        public ICommand NavigateLoansCommand { get; }
-        public ICommand NavigateToSettingsCommand { get; }
-        public ICommand NavigateReservedBooksCommand { get; }
-        public ICommand CloseAppCommand { get; }
+        public INavigateLoansCommand NavigateLoansCommand { get; }
+        public INavigateToSettingsCommand NavigateToSettingsCommand { get; }
+        public INavigateReservedBooksCommand NavigateReservedBooksCommand { get; }
+        public ICloseAppCommand CloseAppCommand { get; }
         #endregion
 
         #region Constructr
@@ -52,10 +52,10 @@ namespace MyLibrary.ViewModel.ViewModels
             NavigateHomeCommand.Execute(null);
             ClientsCreenCommand = ClassFactory.CreateNavigateClientScreenCommand();
             NavigateBooksCommand = ClassFactory.CreateNavigateBooksScreenCommand();
-            NavigateLoansCommand = new NavigateLoansCommand(_navigationStore, _modalNavigationStore, _loansStore, _clientsStore, _booksStore, loanRepository, settingsStore, booksRepository, reservedBooksRepository, _messageBoxStore);
-            NavigateReservedBooksCommand = new NavigateReservedBooksCommand(_navigationStore, _modalNavigationStore, _reservedBooksStore, clientsStore, booksStore, loanRepository, clientsRepository, reservedBooksRepository, _messageBoxStore);
-            NavigateToSettingsCommand = new NavigateToSettingsCommand(_navigationStore, _messageBoxStore);
-            CloseAppCommand = new CloseAppCommand(_messageBoxStore);
+            NavigateLoansCommand = ClassFactory.CreateNavigateLoansCommand();
+            NavigateReservedBooksCommand = ClassFactory.CreateNavigateReservedBooksCommand();
+            NavigateToSettingsCommand = ClassFactory.CreateNavigateToSettingsCommand();
+            CloseAppCommand = ClassFactory.CreateCloseAppCommand();
         }
         #endregion
     }

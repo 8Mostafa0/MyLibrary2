@@ -1,4 +1,4 @@
-﻿using MyLibrary.Model.Repositories;
+﻿using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
@@ -28,25 +28,15 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <param name="loansRepository"></param>
         /// <param name="clientsRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public NavigateReservedBooksCommand(
-            INavigationStore navigationStore,
-            IModalNavigationStore modalNavigationStore,
-            IReservedBooksStore reservedBooksStore,
-            IClientsStore clientsStore,
-            IBooksStore booksStore,
-            LoanRepository loansRepository,
-            ClientsRepository clientsRepository,
-            ReservedBooksRepository reservedBooksRepository,
-            IMessageBoxStore messageBoxStore
-            )
+        public NavigateReservedBooksCommand()
         {
-            _booksStore = booksStore;
-            _clientsStore = clientsStore;
-            _messageBoxStore = messageBoxStore;
-            _navigationStore = navigationStore;
-            _reservedBooksStore = reservedBooksStore;
-            _modalNavigationStore = modalNavigationStore;
-            //_reservedBooksViewModel = ReservedBooksViewModel.LoadViewModel(_reservedBooksStore, _modalNavigationStore, _clientsStore, _booksStore, loansRepository, clientsRepository, reservedBooksRepository, _messageBoxStore);
+            _booksStore = ClassFactory.CreateBooksStore();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _navigationStore = ClassFactory.CreateNavigationStore();
+            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
+            //_reservedBooksViewModel = ClassFactory.;
         }
         #endregion
 

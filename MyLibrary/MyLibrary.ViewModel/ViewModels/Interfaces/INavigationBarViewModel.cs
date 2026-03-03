@@ -1,6 +1,10 @@
 ﻿using MyLibrary.ViewModel.Commands;
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
+using MyLibrary.ViewModel.Commands.LoansCommands;
+using MyLibrary.ViewModel.Commands.LoginCommands;
+using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
+using MyLibrary.ViewModel.Commands.SettingsCommands;
 using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
@@ -8,13 +12,13 @@ namespace MyLibrary.ViewModel.ViewModels
     public interface INavigationBarViewModel
     {
         INavigateClientScreenCommand ClientsCreenCommand { get; }
-        ICommand CloseAppCommand { get; }
+        ICloseAppCommand CloseAppCommand { get; }
         ICommand DatabaseCommand { get; }
         INavigateBooksCommand NavigateBooksCommand { get; }
         INavigateHomeScreenCommand NavigateHomeCommand { get; }
-        ICommand NavigateLoansCommand { get; }
-        ICommand NavigateReservedBooksCommand { get; }
-        ICommand NavigateToSettingsCommand { get; }
+        INavigateLoansCommand NavigateLoansCommand { get; }
+        INavigateReservedBooksCommand NavigateReservedBooksCommand { get; }
+        INavigateToSettingsCommand NavigateToSettingsCommand { get; }
         ICommand OpenModalCommand { get; }
     }
 }
