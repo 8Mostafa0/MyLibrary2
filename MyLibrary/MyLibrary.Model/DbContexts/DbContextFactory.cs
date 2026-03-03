@@ -16,8 +16,9 @@ namespace MyLibrary.Model.DbContexts
 
         #region Contructor
         /// <summary>
-        /// seted 
+        /// 
         /// </summary>
+        /// <param name="logger"></param>
         public DbContextFactory(ILogger logger)
         {
             _connectionString = "Server=localhost;User Id=Mosielite;Password=iFSevr60k7uT;TrustServerCertificate=True;";

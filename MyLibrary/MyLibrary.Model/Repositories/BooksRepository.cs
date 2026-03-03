@@ -19,7 +19,10 @@ namespace MyLibrary.Model.Repositories
 
         #region Contructor
         /// <summary>
+        /// 
         /// </summary>
+        /// <param name="dbContextFactory"></param>
+        /// <param name="logger"></param>
         public BooksRepository(IDbContextFactory dbContextFactory, ILogger logger)
         {
             _dbContextFactory = dbContextFactory;

@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.Models;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using System;
@@ -16,12 +15,19 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
 
         #region Contructor
         /// <summary>
+        /// 
         /// Checks To Validate Clients Data First Then Add New Client Using Clients Store
         /// </summary>
-        public AddNewClientCommand(IClientsViewModel clientsViewModel)
+        /// <param name="clientsViewModel"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="clientsStore"></param>
+        public AddNewClientCommand(
+            IClientsViewModel clientsViewModel,
+            IMessageBoxStore messageBoxStore,
+            IClientsStore clientsStore)
         {
-            _clientStore = ClassFactory.CreateClientsStore();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _clientStore = clientsStore;
+            _messageBoxStore = messageBoxStore;
             _clientViewModel = clientsViewModel;
         }
         #endregion

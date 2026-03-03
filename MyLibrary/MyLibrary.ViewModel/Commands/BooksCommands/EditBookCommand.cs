@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
@@ -20,12 +19,20 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <summary>
         /// 
         /// </summary>
-        public EditBookCommand(IBooksViewModel booksViewModel)
+        /// <param name="booksViewModel"></param>
+        /// <param name="booksStore"></param>
+        /// <param name="booksRepository"></param>
+        /// <param name="messageBoxStore"></param>
+        public EditBookCommand(
+            IBooksViewModel booksViewModel,
+            IBooksStore booksStore,
+            BooksRepository booksRepository,
+            MessageBoxStore messageBoxStore)
         {
             _booksViewModel = booksViewModel;
-            _booksStore = ClassFactory.CreateBooksStore();
-            _booksRepository = ClassFactory.CreateBooksRepository();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _booksStore = booksStore;
+            _booksRepository = booksRepository;
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 

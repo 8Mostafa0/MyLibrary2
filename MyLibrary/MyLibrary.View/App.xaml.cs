@@ -17,14 +17,6 @@ namespace MyLibrary.View
             var Container = ContainerConfig.Configure();
             using (var scope = Container.BeginLifetimeScope())
             {
-                if (Container.IsRegistered<ILayoutViewModel>())
-                {
-                    Console.WriteLine("IMyService is registered");
-                }
-                else
-                {
-                    Console.WriteLine("IMyService is NOT registered");
-                }
                 var app = scope.Resolve<MainWindow>();
                 IMainViewModel mainViewModel = scope.Resolve<IMainViewModel>();
                 app.DataContext = mainViewModel;

@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
@@ -16,10 +15,14 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <summary>
         /// set content of navigate to loans view model
         /// </summary>
-        public NavigateLoansCommand(INavigationStore navigationStore)
+        /// <param name="navigationStore"></param>
+        /// <param name="loansViewModel"></param>
+        public NavigateLoansCommand(
+            INavigationStore navigationStore,
+            ILoansViewModel loansViewModel)
         {
             _navigationStore = navigationStore;
-            _loansViewModel = ClassFactory.CreateLoansViewModel();
+            _loansViewModel = loansViewModel;
         }
         #endregion
 

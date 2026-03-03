@@ -20,6 +20,8 @@ namespace MyLibrary.Model.Repositories
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="dbContextFactory"></param>
+        /// <param name="logger"></param>
         public ReservedBooksRepository(IDbContextFactory dbContextFactory, ILogger logger)
         {
             _dbContextFactory = dbContextFactory;

@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using System;
@@ -22,12 +21,17 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <summary>
         /// Create New Book And Store It In Database
         /// </summary>
-        public AddNewBookCommand(IBooksViewModel booksViewModel)
+        public AddNewBookCommand(
+            IBooksViewModel booksViewModel,
+            IBooksStore booksStore,
+            IBooksRepository booksRepository,
+            IMessageBoxStore messageBoxStore
+            )
         {
             _booksViewModel = booksViewModel;
-            _booksStore = ClassFactory.CreateBooksStore();
-            _booksRepository = ClassFactory.CreateBooksRepository();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _booksStore = booksStore;
+            _booksRepository = booksRepository;
+            _messageBoxStore = messageBoxStore;
         }
 
         #endregion

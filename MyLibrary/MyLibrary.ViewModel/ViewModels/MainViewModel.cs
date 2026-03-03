@@ -1,4 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
+﻿using MyLibrary.ViewModel.Commands;
 using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.ViewModels
@@ -19,15 +19,27 @@ namespace MyLibrary.ViewModel.ViewModels
         public bool IsMessageBoxOpen => _messageBoxStore.IsMessageOpen;
         #endregion
         #region Constructor
-        public MainViewModel()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="layoutViewModel"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="loginModalCommand"></param>
+        /// <param name="modalNavigationStore"></param>
+        public MainViewModel(
+            ILayoutViewModel layoutViewModel,
+            IMessageBoxStore messageBoxStore,
+            ILoginModalCommand loginModalCommand,
+            IModalNavigationStore modalNavigationStore)
         {
-            _layoutViewModel = ClassFactory.CreateLayoutViewModel();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _modalNavigationStore.CurrentViewModelChanged += OnModalChanged;
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
-            ClassFactory.CreateLoginModalCommand().Execute(null);
+            _layoutViewModel = layoutViewModel;
+            _messageBoxStore = messageBoxStore;
+            _modalNavigationStore = modalNavigationStore;
 
+            _modalNavigationStore.CurrentViewModelChanged += OnModalChanged;
+            _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
+
+            loginModalCommand.Execute(null);
         }
         #endregion
         #region Methods

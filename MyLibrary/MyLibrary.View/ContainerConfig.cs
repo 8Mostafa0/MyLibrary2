@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using ModalControl;
 using MyLibrary.Model.Repositories;
 using MyLibrary.View;
 using MyLibrary.ViewModel.Commands;
@@ -138,6 +139,10 @@ namespace MyLibrary.ViewModel
 
             #region Logger
 
+            #endregion
+
+            #region Modal
+            builder.RegisterType<Modal>().As<IModal>().SingleInstance();
             #endregion
             return builder.Build();
         }

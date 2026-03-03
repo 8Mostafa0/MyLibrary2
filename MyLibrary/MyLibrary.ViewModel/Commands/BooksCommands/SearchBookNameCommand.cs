@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
@@ -15,9 +14,9 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// Search Book Using Name From BookStore.
         /// </summary>
         /// <param name="booksStore"></param>
-        public SearchBookNameCommand()
+        public SearchBookNameCommand(IBooksStore booksStore)
         {
-            _booksStore = ClassFactory.CreateBooksStore();
+            _booksStore = booksStore;
         }
         #endregion
 

@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands
@@ -16,13 +15,14 @@ namespace MyLibrary.ViewModel.Commands
         /// set current view of modal navigation to login view
         /// </summary>
         /// <param name="modalNavigationStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="dbContextFactory"></param>
-        /// <param name="settingsStores"></param>
-        public LoginModalCommand()
+        /// <param name="loginViewModel"></param>
+        public LoginModalCommand(
+            IModalNavigationStore modalNavigationStore,
+            ILoginViewModel loginViewModel
+            )
         {
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _loginViewModel = ClassFactory.CreateLoginViewModel();
+            _modalNavigationStore = modalNavigationStore;
+            _loginViewModel = loginViewModel;
         }
         #endregion
 

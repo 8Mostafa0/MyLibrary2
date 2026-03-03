@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
@@ -13,30 +12,37 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         private INavigationStore _navigationStore;
         private IReservedBooksStore _reservedBooksStore;
         private IModalNavigationStore _modalNavigationStore;
-        private ReservedBooksViewModel _reservedBooksViewModel;
+        private IReservedBooksViewModel _reservedBooksViewModel;
         #endregion
 
         #region Contructor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="navigationStore"></param>
-        /// <param name="modalNavigationStore"></param>
-        /// <param name="reservedBooksStore"></param>
-        /// <param name="clientsStore"></param>
         /// <param name="booksStore"></param>
-        /// <param name="loansRepository"></param>
-        /// <param name="clientsRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
-        public NavigateReservedBooksCommand(INavigationStore navigationStore)
+        /// <param name="clientsStore"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="navigationStore"></param>
+        /// <param name="reservedBooksStore"></param>
+        /// <param name="modalNavigationStore"></param>
+        /// <param name="reservedBooksViewModel"></param>
+        public NavigateReservedBooksCommand(
+            IBooksStore booksStore,
+            IClientsStore clientsStore,
+            IMessageBoxStore messageBoxStore,
+            INavigationStore navigationStore,
+            IReservedBooksStore reservedBooksStore,
+            IModalNavigationStore modalNavigationStore,
+            IReservedBooksViewModel reservedBooksViewModel
+            )
         {
+            _booksStore = booksStore;
+            _clientsStore = clientsStore;
+            _messageBoxStore = messageBoxStore;
             _navigationStore = navigationStore;
-            _booksStore = ClassFactory.CreateBooksStore();
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            //_reservedBooksViewModel = ClassFactory.;
+            _reservedBooksStore = reservedBooksStore;
+            _modalNavigationStore = modalNavigationStore;
+            _reservedBooksViewModel = reservedBooksViewModel;
         }
         #endregion
 

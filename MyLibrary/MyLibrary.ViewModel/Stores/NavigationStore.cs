@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.ViewModels;
+﻿using MyLibrary.ViewModel.ViewModels;
 using System;
 
 namespace MyLibrary.ViewModel.Stores
@@ -56,11 +55,21 @@ namespace MyLibrary.ViewModel.Stores
         #endregion
 
         #region Constructor
-        public NavigationStore()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="navigationBarViewModel"></param>
+        /// <param name="homeViewModel"></param>
+        /// <param name="statusBarViewModel"></param>
+        public NavigationStore(
+            INavigationBarViewModel navigationBarViewModel,
+            IHomeViewModel homeViewModel,
+            IStatusBarViewModel statusBarViewModel
+            )
         {
-            _mainContentViewModel = ClassFactory.CreateNavigationBarViewModel(this);
-            _contentScreen = ClassFactory.CreateHomeViewModel();
-            _StatusBarViewModel = ClassFactory.CreateStatusBarViewModel();
+            _mainContentViewModel = navigationBarViewModel;
+            _contentScreen = homeViewModel;
+            _StatusBarViewModel = statusBarViewModel;
         }
         #endregion
         #region Methods

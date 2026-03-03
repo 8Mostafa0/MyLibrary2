@@ -5,7 +5,6 @@ using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
 using MyLibrary.ViewModel.Commands.SettingsCommands;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using System.Windows.Input;
 
@@ -39,23 +38,56 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructr
-        public NavigationBarViewModel(INavigationStore navigationStore)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="navigationStore"></param>
+        /// <param name="reservedBooksStore"></param>
+        /// <param name="clientsStore"></param>
+        /// <param name="booksStore"></param>
+        /// <param name="loansStore"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="modalNavigationStore"></param>
+        /// <param name="navigateHomeScreenCommand"></param>
+        /// <param name="navigateClientScreenCommand"></param>
+        /// <param name="navigateBooksCommand"></param>
+        /// <param name="navigateLoansCommand"></param>
+        /// <param name="navigateReservedBooksCommand"></param>
+        /// <param name="navigateToSettingsCommand"></param>
+        /// <param name="closeAppCommand"></param>
+        public NavigationBarViewModel(
+            INavigationStore navigationStore,
+            IReservedBooksStore reservedBooksStore,
+            IClientsStore clientsStore,
+            IBooksStore booksStore,
+            ILoansStore loansStore,
+            IMessageBoxStore messageBoxStore,
+            IModalNavigationStore modalNavigationStore,
+            INavigateHomeScreenCommand navigateHomeScreenCommand,
+            INavigateClientScreenCommand navigateClientScreenCommand,
+            INavigateBooksCommand navigateBooksCommand,
+            INavigateLoansCommand navigateLoansCommand,
+            INavigateReservedBooksCommand navigateReservedBooksCommand,
+            INavigateToSettingsCommand navigateToSettingsCommand,
+            ICloseAppCommand closeAppCommand
+            )
         {
             _navigationStore = navigationStore;
-            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _booksStore = ClassFactory.CreateBooksStore();
-            _loansStore = ClassFactory.CreateLoansStore();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            NavigateHomeCommand = ClassFactory.CreateNavigateHomeScreenCommand(navigationStore);
+            _reservedBooksStore = reservedBooksStore;
+            _clientsStore = clientsStore;
+            _booksStore = booksStore;
+            _loansStore = loansStore;
+            _messageBoxStore = messageBoxStore;
+            _modalNavigationStore = modalNavigationStore;
+
+            NavigateHomeCommand = navigateHomeScreenCommand;
             NavigateHomeCommand.Execute(null);
-            ClientsCreenCommand = ClassFactory.CreateNavigateClientScreenCommand(navigationStore);
-            NavigateBooksCommand = ClassFactory.CreateNavigateBooksScreenCommand(navigationStore);
-            NavigateLoansCommand = ClassFactory.CreateNavigateLoansCommand(navigationStore);
-            NavigateReservedBooksCommand = ClassFactory.CreateNavigateReservedBooksCommand(navigationStore);
-            NavigateToSettingsCommand = ClassFactory.CreateNavigateToSettingsCommand(navigationStore);
-            CloseAppCommand = ClassFactory.CreateCloseAppCommand();
+            ClientsCreenCommand = navigateClientScreenCommand;
+            NavigateBooksCommand = navigateBooksCommand;
+            NavigateLoansCommand = navigateLoansCommand;
+            NavigateReservedBooksCommand = navigateReservedBooksCommand;
+            NavigateToSettingsCommand = navigateToSettingsCommand;
+            CloseAppCommand = closeAppCommand;
         }
         #endregion
     }

@@ -1,5 +1,5 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
+using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands
 {
@@ -10,6 +10,7 @@ namespace MyLibrary.ViewModel.Commands
         private readonly IBooksStore _booksStore;
         private readonly IClientsStore _clientsStore;
         private readonly INavigationStore _navigationStore;
+        private readonly IHomeViewModel _homeViewModel;
         #endregion
 
         #region Contructor
@@ -17,15 +18,23 @@ namespace MyLibrary.ViewModel.Commands
         /// set current view of main navigation to home view 
         /// </summary>
         /// <param name="navigationStore"></param>
-        /// <param name="loansStore"></param>
         /// <param name="clientsStore"></param>
         /// <param name="booksStore"></param>
-        public NavigateHomeScreenCommand(INavigationStore navigationStore)
+        /// <param name="loansStore"></param>
+        /// <param name="homeViewModel"></param>
+        public NavigateHomeScreenCommand(
+            INavigationStore navigationStore,
+            IClientsStore clientsStore,
+            IBooksStore booksStore,
+            ILoansStore loansStore,
+            IHomeViewModel homeViewModel
+            )
         {
             _navigationStore = navigationStore;
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _booksStore = ClassFactory.CreateBooksStore();
-            _loansStore = ClassFactory.CreateLoansStore();
+            _clientsStore = clientsStore;
+            _booksStore = booksStore;
+            _loansStore = loansStore;
+            _homeViewModel = homeViewModel;
         }
         #endregion
 
@@ -38,7 +47,7 @@ namespace MyLibrary.ViewModel.Commands
             await _clientsStore.Load();
             await _booksStore.Load();
             await _loansStore.Load();
-            _navigationStore.ContentScreen = ClassFactory.CreateHomeViewModel();
+            _navigationStore.ContentScreen = _homeViewModel;
         }
         #endregion
     }

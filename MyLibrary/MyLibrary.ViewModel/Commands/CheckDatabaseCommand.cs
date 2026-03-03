@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.DbContexts;
-using MyLibrary.ViewModel.Factory;
 
 namespace MyLibrary.ViewModel.Commands
 {
@@ -13,9 +12,9 @@ namespace MyLibrary.ViewModel.Commands
         /// <summary>
         /// check ans validate database and tables
         /// </summary>
-        public CheckDatabaseCommand()
+        public CheckDatabaseCommand(IDbContextFactory dbContextFactory)
         {
-            _dbContextFactory = ClassFactory.CreateDbContextFactory();
+            _dbContextFactory = dbContextFactory;
         }
         #endregion
 

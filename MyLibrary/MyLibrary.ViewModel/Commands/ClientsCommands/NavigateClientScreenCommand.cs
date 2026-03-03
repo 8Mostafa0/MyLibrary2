@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
@@ -19,13 +18,16 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// </summary>
         /// <param name="navigationStore"></param>
         /// <param name="clientsStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
-        public NavigateClientScreenCommand(INavigationStore navigationStore)
+        /// <param name="clientsViewModel"></param>
+        public NavigateClientScreenCommand(
+            INavigationStore navigationStore,
+            IClientsStore clientsStore,
+            IClientsViewModel clientsViewModel
+            )
         {
             _navigationStore = navigationStore;
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _clientsViewModel = ClassFactory.CreateClientsViewModel();
+            _clientsStore = clientsStore;
+            _clientsViewModel = clientsViewModel;
         }
         #endregion
 

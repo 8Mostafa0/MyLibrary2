@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using System.Collections.Generic;
@@ -22,13 +21,24 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <summary>
         /// 
         /// </summary>
-        public DeleteBookCommand(IBooksViewModel booksViewModel)
+        /// <param name="booksViewModel"></param>
+        /// <param name="booksStore"></param>
+        /// <param name="loanRepository"></param>
+        /// <param name="reservedBooksRepository"></param>
+        /// <param name="messageBoxStore"></param>
+        public DeleteBookCommand(
+            IBooksViewModel booksViewModel,
+            IBooksStore booksStore,
+            ILoanRepository loanRepository,
+            IReservedBooksRepository reservedBooksRepository,
+            IMessageBoxStore messageBoxStore
+            )
         {
             _booksViewModel = booksViewModel;
-            _booksStore = ClassFactory.CreateBooksStore();
-            _loanRepository = ClassFactory.CreateLoanRepository();
-            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _booksStore = booksStore;
+            _loanRepository = loanRepository;
+            _reservedBooksRepository = reservedBooksRepository;
+            _messageBoxStore = messageBoxStore;
         }
 
         #endregion

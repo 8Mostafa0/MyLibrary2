@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
@@ -19,14 +18,15 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// </summary>
         /// <param name="navigationStore"></param>
         /// <param name="booksStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
-        /// <param name="booksRepository"></param>
-        public NavigateBooksCommand(INavigationStore navigationStore)
+        /// <param name="booksViewModel"></param>
+        public NavigateBooksCommand(
+            INavigationStore navigationStore,
+            IBooksStore booksStore,
+            IBooksViewModel booksViewModel)
         {
             _navigationStore = navigationStore;
-            _booksStore = ClassFactory.CreateBooksStore();
-            _booksViewModel = ClassFactory.CreateBooksViewModel();
+            _booksStore = booksStore;
+            _booksViewModel = booksViewModel;
 
         }
 

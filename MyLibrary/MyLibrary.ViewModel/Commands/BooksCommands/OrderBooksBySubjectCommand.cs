@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
@@ -15,10 +14,13 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// Order Book By Entered Subject
         /// </summary>
         /// <param name="booksStore"></param>
-        public OrderBooksBySubjectCommand()
+        /// <param name="messageBoxStore"></param>
+        public OrderBooksBySubjectCommand(
+            IBooksStore booksStore,
+            IMessageBoxStore messageBoxStore)
         {
-            _booksStore = ClassFactory.CreateBooksStore();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _booksStore = booksStore;
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 

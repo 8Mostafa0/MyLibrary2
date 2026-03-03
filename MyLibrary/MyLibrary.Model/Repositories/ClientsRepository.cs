@@ -17,6 +17,11 @@ namespace MyLibrary.Model.Repositories
         #endregion
 
         #region Contructor
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dbContextFactory"></param>
+        /// <param name="logger"></param>
         public ClientsRepository(IDbContextFactory dbContextFactory, ILogger logger)
         {
             _dbContextFactory = dbContextFactory;

@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.SettingsViewModels;
 
 namespace MyLibrary.ViewModel.Commands.SettingsCommands
@@ -16,11 +15,18 @@ namespace MyLibrary.ViewModel.Commands.SettingsCommands
         /// <summary>
         /// set current view of main navigation to to settings view
         /// </summary>
-        public NavigateToSettingsCommand(INavigationStore navigationStore)
+        /// <param name="navigationStore"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="settingsViewModel"></param>
+        public NavigateToSettingsCommand(
+            INavigationStore navigationStore,
+            IMessageBoxStore messageBoxStore,
+            ISettingsViewModel settingsViewModel
+            )
         {
             _navigationStore = navigationStore;
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _settingsViewModel = ClassFactory.CreateSettingsViewModel();
+            _messageBoxStore = messageBoxStore;
+            _settingsViewModel = settingsViewModel;
         }
         #endregion
 
