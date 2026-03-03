@@ -94,17 +94,10 @@ namespace MyLibrary.ViewModel.Factory
         /// <summary>
         /// Loader method for reservedbooks view model
         /// </summary>
-        /// <param name="reservedBooksStore"></param>
-        /// <param name="modalNavigationStore"></param>
-        /// <param name="clientsStore"></param>
-        /// <param name="booksStore"></param>
-        /// <param name="loansRepository"></param>
-        /// <param name="clientsRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
         /// <returns></returns>
-        public static ReservedBooksViewModel LoadViewModel(IReservedBooksStore reservedBooksStore, IModalNavigationStore modalNavigationStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loansRepository, ClientsRepository clientsRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
+        public static IReservedBooksViewModel CreateReservedBooksViewModel()
         {
-            ReservedBooksViewModel ViewModel = new ReservedBooksViewModel(reservedBooksStore, modalNavigationStore, clientsStore, booksStore, loansRepository, clientsRepository, reservedBooksRepository, messageBoxStore);
+            ReservedBooksViewModel ViewModel = new ReservedBooksViewModel();
             ViewModel.LoadReservedBooksCommand.Execute(null);
             return ViewModel;
         }
@@ -280,6 +273,10 @@ namespace MyLibrary.ViewModel.Factory
         public static ISaveLoanDataCommand CreateSaveLoanDataCommand()
         {
             return new SaveLoanDataCommand();
+        }
+        public static ILoadReservedBooksCommand CreateLoadReservedBooksCommand()
+        {
+            return new LoadReservedBooksCommand();
         }
         #endregion
 

@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 {
@@ -128,11 +127,11 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         public IViewModelBase CurrentModelViewModel => _modalNavigationStore.CurrentViewModel;
         public ILoadBooksCommand LoadBooksCommand { get; }
         public ILoadClientsCommand LoadClientsCommand { get; }
-        public ICommand CloseModalCommand { get; }
+        public ICloseModalCommand CloseModalCommand { get; }
         public ISaveLoanDataCommand SaveLoanDataCommand { get; }
-        public ICommand SearchBookNameCommand { get; }
-        public ICommand OrderBooksBySubjectCommand { get; }
-        public ICommand SearchClientNameCommand { get; }
+        public ISearchBookNameCommand SearchBookNameCommand { get; }
+        public IOrderBooksBySubjectCommand OrderBooksBySubjectCommand { get; }
+        public ISearchClientNameCommand SearchClientNameCommand { get; }
         #endregion
 
         #region Contructor
@@ -165,10 +164,10 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             //    ReturnDate = loan.ReturnDate;
             //}
             SaveLoanDataCommand = ClassFactory.CreateSaveLoanDataCommand();
-            CloseModalCommand = new CloseModalCommand(_modalNavigationStore);
-            SearchBookNameCommand = new SearchBookNameCommand(_booksStore);
-            OrderBooksBySubjectCommand = new OrderBooksBySubjectCommand(_booksStore, _messageBoxStore);
-            SearchClientNameCommand = new SearchClientNameCommand(_clientsStore);
+            CloseModalCommand = ClassFactory.CreateCloseModalCommand();
+            SearchBookNameCommand = ClassFactory.CreateSearchBookNameCommand();
+            OrderBooksBySubjectCommand = ClassFactory.CreateOrderBooksBySubjectCommand();
+            SearchClientNameCommand = ClassFactory.CreateSearchClientNameCommand();
             _modalNavigationStore.CurrentViewModelChanged += ModalViewModelChange;
 
         }

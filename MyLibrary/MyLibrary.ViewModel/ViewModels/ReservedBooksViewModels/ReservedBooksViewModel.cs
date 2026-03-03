@@ -1,6 +1,6 @@
 ﻿using MyLibrary.Model.Models;
-using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System.Collections.Generic;
@@ -57,28 +57,29 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         public ICommand EditeReservBookCommand { get; }
         public ICommand ResetReservBookCommand { get; }
 
-        public ICommand LoadReservedBooksCommand { get; }
+        public ILoadReservedBooksCommand LoadReservedBooksCommand { get; }
 
         public ICommand SearchBookNameInReservedBookCommand { get; }
         #endregion
 
         #region Contructor
 
-        public ReservedBooksViewModel(IReservedBooksStore reservedBooksStore, IModalNavigationStore modalNavigationStore, IClientsStore clientsStore, IBooksStore booksStore, LoanRepository loansRepository, ClientsRepository clientsRepository, ReservedBooksRepository reservedBooksRepository, IMessageBoxStore messageBoxStore)
+        public ReservedBooksViewModel()
         {
-            _messageBoxStore = messageBoxStore;
-            _reservedBooksStore = reservedBooksStore;
             _reservedBooks = new ObservableCollection<ReservedBookViewModel>();
-            _modalNavigationStore = modalNavigationStore;
-            _clientsStore = clientsStore;
-            _booksStore = booksStore;
-            _reservedBooksStore = reservedBooksStore;
+
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _booksStore = ClassFactory.CreateBooksStore();
+
             _modalNavigationStore.CurrentViewModelChanged += OnModalViewModelChanged;
             _reservedBooksStore.ReseredBooksUpdated += UpdateReservedBooks;
             _reservedBooksStore.ReservBookEdited += OnReservedBookUpdate;
             _reservedBooksStore.ReservBookAdded += OnReservedBookAdded;
             _reservedBooksStore.ReservBookDeleted += OnReservedBookDeleted;
-            LoadReservedBooksCommand = new LoadReservedBooksCommand(_reservedBooksStore);
+            LoadReservedBooksCommand = ClassFactory.CreateLoadReservedBooksCommand();
             EditeReservBookCommand = new EditeReservBookCommand(
                 _booksStore,
                 _clientsStore,
