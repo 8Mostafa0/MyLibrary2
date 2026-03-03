@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,9 +13,9 @@ namespace MyLibrary.ViewModel.Stores
 
         private readonly IClientsRepository _clientRepository;
         private List<Client> _clients;
-
         private readonly Lazy<Task> _initiilizeLazy;
 
+        public Client SelectedClient { get; set; }
 
         public IEnumerable<Client> Clients => _clients;
 
@@ -36,9 +35,9 @@ namespace MyLibrary.ViewModel.Stores
         /// <summary>
         /// 
         /// </summary>
-        public ClientsStore()
+        public ClientsStore(IClientsRepository clientsRepository)
         {
-            _clientRepository = ClassFactory.CreateClientsRepository();
+            _clientRepository = clientsRepository;
             _initiilizeLazy = new Lazy<Task>(Initilize);
             _clients = new List<Client>();
         }

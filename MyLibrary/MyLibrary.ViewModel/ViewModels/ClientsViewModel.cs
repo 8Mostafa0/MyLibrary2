@@ -38,6 +38,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _firstName = value;
+                SelectedClient.FirstName = value;
                 OnProperychanged(nameof(FirstName));
             }
         }
@@ -48,6 +49,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _lastName = value;
+                SelectedClient.LastName = value;
                 OnProperychanged(nameof(LastName));
             }
         }
@@ -88,18 +90,17 @@ namespace MyLibrary.ViewModel.ViewModels
         #endregion
 
         #region Constructor
-        public ClientsViewModel()
+        public ClientsViewModel(IClientsStore clientsStore, IMessageBoxStore messageBoxStore)
         {
             _clients = new ObservableCollection<Client>();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _clientsStore = ClassFactory.CreateClientsStore();
+            _clientsStore = clientsStore;
             LoadClientsCommand = ClassFactory.CreateLoadClientsCommand();
             ReloadClientsCommand = ClassFactory.CreateReloadClientsCommand();
-            DeleteClientCommand = ClassFactory.CreateDeleteClientCommand();
-            AddNewClientCommand = ClassFactory.CreateAddNewClientCommand();
-            OrderClientsCommand = ClassFactory.CreateOrderClientsCommand();
-            EditClientCommand = ClassFactory.CreateEditClientCommand();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            DeleteClientCommand = ClassFactory.CreateDeleteClientCommand(this);
+            AddNewClientCommand = ClassFactory.CreateAddNewClientCommand(this);
+            OrderClientsCommand = ClassFactory.CreateOrderClientsCommand(this);
+            EditClientCommand = ClassFactory.CreateEditClientCommand(this);
+            _messageBoxStore = messageBoxStore;
 
             SortOrder = "0";
 
@@ -195,7 +196,7 @@ namespace MyLibrary.ViewModel.ViewModels
                 FirstName = client.FirstName;
                 LastName = client.LastName;
                 Tier = client.Tier;
-
+                _clientsStore.SelectedClient = client;
             }
         }
         #endregion

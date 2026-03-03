@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using MyLibrary.ViewModel.Servicies;
 using Serilog;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -19,10 +18,10 @@ namespace MyLibrary.Model.DbContexts
         /// <summary>
         /// seted 
         /// </summary>
-        public DbContextFactory()
+        public DbContextFactory(ILogger logger)
         {
             _connectionString = "Server=localhost;User Id=Mosielite;Password=iFSevr60k7uT;TrustServerCertificate=True;";
-            _logger = LoggerService.Logger;
+            _logger = logger;
         }
         #endregion
 

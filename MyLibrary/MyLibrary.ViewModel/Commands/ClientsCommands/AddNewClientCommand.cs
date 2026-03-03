@@ -18,11 +18,11 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <summary>
         /// Checks To Validate Clients Data First Then Add New Client Using Clients Store
         /// </summary>
-        public AddNewClientCommand()
+        public AddNewClientCommand(IClientsViewModel clientsViewModel)
         {
             _clientStore = ClassFactory.CreateClientsStore();
-            _clientViewModel = ClassFactory.CreateClientsViewModel();
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _clientViewModel = clientsViewModel;
         }
         #endregion
 

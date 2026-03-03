@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using MyLibrary.Model.DbContexts;
 using MyLibrary.Model.Models;
-using MyLibrary.ViewModel.Servicies;
 using Serilog;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -13,15 +12,15 @@ namespace MyLibrary.Model.Repositories
     public class ClientsRepository : IClientsRepository
     {
         #region Dependencies
-        private readonly DbContextFactory _dbContextFactory;
+        private readonly IDbContextFactory _dbContextFactory;
         private ILogger _logger;
         #endregion
 
         #region Contructor
-        public ClientsRepository()
+        public ClientsRepository(IDbContextFactory dbContextFactory, ILogger logger)
         {
-            _dbContextFactory = new DbContextFactory();
-            _logger = LoggerService.Logger;
+            _dbContextFactory = dbContextFactory;
+            _logger = logger;
         }
         #endregion
 

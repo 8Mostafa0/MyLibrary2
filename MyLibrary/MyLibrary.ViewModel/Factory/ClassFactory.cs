@@ -7,12 +7,14 @@ using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
 using MyLibrary.ViewModel.Commands.SettingsCommands;
+using MyLibrary.ViewModel.Servicies;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 using MyLibrary.ViewModel.ViewModels.MessageBoxViewModel;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 using MyLibrary.ViewModel.ViewModels.SettingsViewModels;
+using Serilog;
 using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.Factory
@@ -79,7 +81,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <returns></returns>
         public static IClientsViewModel CreateClientsViewModel()
         {
-            IClientsViewModel ViewModel = new ClientsViewModel();
+            IClientsViewModel ViewModel = new ClientsViewModel(CreateClientsStore(), CreateMessageBoxStore());
             ViewModel.LoadClientsCommand.Execute(null);
             return ViewModel;
         }
@@ -543,33 +545,33 @@ namespace MyLibrary.ViewModel.Factory
         ///method that creates a new instance of a command used to delete a client from the collection.
         /// </summary>
         /// <returns></returns>
-        public static IDeleteClientCommand CreateDeleteClientCommand()
+        public static IDeleteClientCommand CreateDeleteClientCommand(IClientsViewModel clientsViewModel)
         {
-            return new DeleteClientCommand();
+            return new DeleteClientCommand(clientsViewModel);
         }
         /// <summary>
         /// method that creates a new instance of a command used to add a client to the collection.
         /// </summary>
         /// <returns></returns>
-        public static IAddNewClientCommand CreateAddNewClientCommand()
+        public static IAddNewClientCommand CreateAddNewClientCommand(IClientsViewModel clientsViewModel)
         {
-            return new AddNewClientCommand();
+            return new AddNewClientCommand(clientsViewModel);
         }
         /// <summary>
         ///  method that creates a new instance of a command used to order clients by name.
         /// </summary>
         /// <returns></returns>
-        public static IOrderClientsCommand CreateOrderClientsCommand()
+        public static IOrderClientsCommand CreateOrderClientsCommand(IClientsViewModel clientsViewModel)
         {
-            return new OrderClientsCommand();
+            return new OrderClientsCommand(clientsViewModel);
         }
         /// <summary>
         /// method that creates a new instance of a command used to edit client information.
         /// </summary>
         /// <returns></returns>
-        public static IEditClientCommand CreateEditClientCommand()
+        public static IEditClientCommand CreateEditClientCommand(IClientsViewModel clientsViewModel)
         {
-            return new EditClientCommand();
+            return new EditClientCommand(clientsViewModel);
         }
         /// <summary>
         /// Creates a new instance of a command used to load client data.
@@ -615,7 +617,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <returns></returns>
         public static IClientsStore CreateClientsStore()
         {
-            return new ClientsStore();
+            return new ClientsStore(CreateClientsRepository());
         }
         /// <summary>
         /// <see langword="fixed"/> method that creates a new instance of an object that implements the loans store interface.
@@ -663,7 +665,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <returns></returns>
         public static ISettingsStore CreateSettingsStore()
         {
-            return new SettingsStore();
+            return new SettingsStore(CreateLogger());
         }
         /// <summary>
         /// <see langword="fixed"/> method that creates a new instance of an object that implements the time store interface.
@@ -682,7 +684,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <returns></returns>
         public static IDbContextFactory CreateDbContextFactory()
         {
-            return new DbContextFactory();
+            return new DbContextFactory(CreateLogger());
         }
         /// <summary>
         /// <see langword="fixed"/> method that creates a new instance of an object that implements the books repository interface.
@@ -690,7 +692,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <returns></returns>
         public static IBooksRepository CreateBooksRepository()
         {
-            return new BooksRepository();
+            return new BooksRepository(CreateDbContextFactory(), CreateLogger());
         }
         /// <summary>
         /// <see langword="fixed"/> method that creates a new instance of an object that implements the clients repository interface.
@@ -698,7 +700,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <returns></returns>
         public static IClientsRepository CreateClientsRepository()
         {
-            return new ClientsRepository();
+            return new ClientsRepository(CreateDbContextFactory(), CreateLogger());
         }
         /// <summary>
         /// <see langword="fixed"/> method that creates a new instance of an object that implements the loans repository interface.
@@ -706,7 +708,7 @@ namespace MyLibrary.ViewModel.Factory
         /// <returns></returns>
         public static ILoanRepository CreateLoanRepository()
         {
-            return new LoanRepository();
+            return new LoanRepository(CreateDbContextFactory(), CreateLogger());
         }
         /// <summary>
         /// <see langword="fixed"/> method that creates a new instance of an object that implements the reserved books repository interface. 
@@ -714,12 +716,16 @@ namespace MyLibrary.ViewModel.Factory
         /// <returns></returns>
         public static IReservedBooksRepository CreateReservedBooksRepository()
         {
-            return new ReservedBooksRepository();
+            return new ReservedBooksRepository(CreateDbContextFactory(), CreateLogger());
         }
 
         #endregion
-
         #region Logger
+        public static ILogger CreateLogger()
+        {
+            return new LoggerService().Logger;
+        }
         #endregion
+
     }
 }

@@ -17,9 +17,9 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <summary>
         ///  validate selected client then input values the edite client using clients store
         /// </summary>
-        public EditClientCommand()
+        public EditClientCommand(IClientsViewModel clientsViewModel)
         {
-            _clientsViewModel = ClassFactory.CreateClientsViewModel();
+            _clientsViewModel = clientsViewModel;
             _clientsStore = ClassFactory.CreateClientsStore();
             _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }

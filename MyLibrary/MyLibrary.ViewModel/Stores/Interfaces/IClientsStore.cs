@@ -9,6 +9,7 @@ namespace MyLibrary.ViewModel.Stores
     {
         IEnumerable<Client> Clients { get; }
         string SearchClientName { get; set; }
+        Client SelectedClient { get; set; }
 
         event Action<Client> ClientAdded;
         event Action<Client> ClientEdited;

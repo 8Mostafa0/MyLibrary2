@@ -27,8 +27,9 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// 2_ Remove All Saved Loans Of Client
         /// 3_ Delete Client Using Clients Store
         /// </summary>
-        public DeleteClientCommand()
+        public DeleteClientCommand(IClientsViewModel clientsViewModel)
         {
+            _clientsViewModel = clientsViewModel;
             _clientsStore = ClassFactory.CreateClientsStore();
             _loanRepository = ClassFactory.CreateLoanRepository();
             _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
@@ -59,7 +60,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
             else
             {
 
-                _messageBoxStore.Show("کاربر حذف شود؟", "حذف کاربر", "بله", "خیر", ClassFactory.CreateDeleteClientCommand());
+                _messageBoxStore.Show("کاربر حذف شود؟", "حذف کاربر", "بله", "خیر", ClassFactory.CreateDeleteClientCommand(_clientsViewModel));
                 if (_messageBoxStore.MessageBoxResult)
                 {
                     _messageBoxStore.CloseMessageBox();

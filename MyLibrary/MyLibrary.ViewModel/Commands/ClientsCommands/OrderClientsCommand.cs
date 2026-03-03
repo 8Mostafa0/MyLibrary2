@@ -15,10 +15,10 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <summary>
         /// order clients based on tier
         /// </summary>
-        public OrderClientsCommand()
+        public OrderClientsCommand(IClientsViewModel clientsViewModel)
         {
             _clitentsStore = ClassFactory.CreateClientsStore();
-            _clientsViewModel = ClassFactory.CreateClientsViewModel();
+            _clientsViewModel = clientsViewModel;
         }
         #endregion
 

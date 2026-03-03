@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using MyLibrary.Model.DbContexts;
 using MyLibrary.Model.Models;
-using MyLibrary.ViewModel.Servicies;
 using Serilog;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -13,7 +12,7 @@ namespace MyLibrary.Model.Repositories
     public class BooksRepository : IBooksRepository
     {
         #region Dependencies
-        private DbContextFactory _dbContextFactory;
+        private IDbContextFactory _dbContextFactory;
         private ILogger _logger;
         #endregion
 
@@ -21,10 +20,10 @@ namespace MyLibrary.Model.Repositories
         #region Contructor
         /// <summary>
         /// </summary>
-        public BooksRepository()
+        public BooksRepository(IDbContextFactory dbContextFactory, ILogger logger)
         {
-            _dbContextFactory = new DbContextFactory();
-            _logger = LoggerService.Logger;
+            _dbContextFactory = dbContextFactory;
+            _logger = logger;
         }
         #endregion
 
