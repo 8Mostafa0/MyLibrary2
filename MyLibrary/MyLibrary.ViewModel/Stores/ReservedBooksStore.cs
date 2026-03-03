@@ -1,5 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Factory;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace MyLibrary.ViewModel.Stores
     public class ReservedBooksStore : IReservedBooksStore
     {
         #region Dependencies
-        private ReservedBooksRepository _resrvedBooksRepository;
+        private IReservedBooksRepository _resrvedBooksRepository;
         private List<ReservedBook> _reservedBooks;
 
         public IEnumerable<ReservedBook> ReservedBook => _reservedBooks;
@@ -29,7 +30,7 @@ namespace MyLibrary.ViewModel.Stores
         {
             _reservedBooks = new List<ReservedBook>();
             _initilizeLazy = new Lazy<Task>(Initilize);
-            _resrvedBooksRepository = new ReservedBooksRepository();
+            _resrvedBooksRepository = ClassFactory.CreateReservedBooksRepository();
         }
         #endregion
 
