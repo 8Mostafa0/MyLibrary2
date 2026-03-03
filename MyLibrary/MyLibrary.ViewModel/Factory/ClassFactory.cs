@@ -240,6 +240,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new SortLoansListCommand();
         }
+        public static IReturnedLoanCommand CreateReturnedLoanCommand()
+        {
+            return new ReturnedLoanCommand();
+        }
         #endregion
 
         #region Stores

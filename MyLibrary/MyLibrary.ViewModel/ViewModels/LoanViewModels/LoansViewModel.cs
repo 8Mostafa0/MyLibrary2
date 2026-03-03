@@ -66,7 +66,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         public ILoadLoansCommand LoadLoansCommand { get; }
         public ICommand OrderBooksCommand { get; }
         public ICommand SearchBookCommand { get; }
-        public ICommand ReturnedLoanCommand { get; }
+        public IReturnedLoanCommand ReturnedLoanCommand { get; }
         public ICommand ReloadLoansListCommand { get; }
         public ISortLoansListCommand SortLoansListCommand { get; }
         #endregion
@@ -89,7 +89,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             ShowAddLoanModalCommand = ClassFactory.CreateShowLoanModalCommand();
             ShowEditLoanViewModel = ClassFactory.CreateShowEditLoanViewModel();
             SortLoansListCommand = ClassFactory.CreateSortLoansListCommand();
-            ReturnedLoanCommand = new ReturnedLoanCommand(this, _loansStore, _messageBoxStore);
+            ReturnedLoanCommand = ClassFactory.CreateReturnedLoanCommand();
             ReloadLoansListCommand = new ReloadLoansListCommand(_loansStore);
             SearchBookCommand = new SearchBookCommand(this, _loansStore);
             _loansStore.LoansUpdated += UpdateLoans;

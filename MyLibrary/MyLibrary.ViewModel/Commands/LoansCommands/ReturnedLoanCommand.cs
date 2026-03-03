@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System;
@@ -9,7 +10,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     {
         #region Dependencies
         private ILoansStore _loansStore;
-        private LoansViewModel _loanViewModel;
+        private ILoansViewModel _loanViewModel;
         private IMessageBoxStore _messageBoxStore;
         #endregion
 
@@ -21,11 +22,11 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// </summary>
         /// <param name="loansViewModel"></param>
         /// <param name="loansStore"></param>
-        public ReturnedLoanCommand(LoansViewModel loansViewModel, ILoansStore loansStore, IMessageBoxStore messageBoxStore)
+        public ReturnedLoanCommand()
         {
-            _messageBoxStore = messageBoxStore;
-            _loanViewModel = loansViewModel;
-            _loansStore = loansStore;
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _loanViewModel = ClassFactory.CreateLoansViewModel();
+            _loansStore = ClassFactory.CreateLoansStore();
         }
         #endregion
 

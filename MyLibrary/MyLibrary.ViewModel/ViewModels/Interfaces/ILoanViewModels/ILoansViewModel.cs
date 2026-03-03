@@ -14,7 +14,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         IEnumerable<LoanViewModel> Loans { get; }
         ICommand OrderBooksCommand { get; }
         ICommand ReloadLoansListCommand { get; }
-        ICommand ReturnedLoanCommand { get; }
+        IReturnedLoanCommand ReturnedLoanCommand { get; }
         ICommand SearchBookCommand { get; }
         LoanViewModel SelectedLoan { get; set; }
         IShowLoanModalCommand ShowAddLoanModalCommand { get; }
