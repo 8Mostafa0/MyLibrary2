@@ -52,7 +52,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         #region Commands
 
         public IAddNewReservBookCommand AddNewReservBookCommand { get; }
-        public ICommand RemoveReservBookCommand { get; }
+        public IRemoveReservBookCommand RemoveReservBookCommand { get; }
 
         public IEditeReservBookCommand EditeReservBookCommand { get; }
         public ICommand ResetReservBookCommand { get; }
@@ -82,7 +82,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             LoadReservedBooksCommand = ClassFactory.CreateLoadReservedBooksCommand();
             EditeReservBookCommand = ClassFactory.CreateEditeReservBookCommand();
             AddNewReservBookCommand = ClassFactory.CreateAddNewReservBookCommand();
-            RemoveReservBookCommand = new RemoveReservBookCommand(this, _reservedBooksStore, _messageBoxStore);
+            RemoveReservBookCommand = ClassFactory.CreateRemoveReservBookCommand();
             ResetReservBookCommand = new ResetReservBookCommand(_reservedBooksStore);
             SearchBookNameInReservedBookCommand = new SearchBookNameInReservedBookCommand(this, _reservedBooksStore);
 

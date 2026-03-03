@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
@@ -7,7 +8,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
     {
         #region Dependencies
         private IReservedBooksStore _reservedBooksStore;
-        private ReservedBooksViewModel _reservedBooksViewModel;
+        private IReservedBooksViewModel _reservedBooksViewModel;
         private IMessageBoxStore _messageBoxStore;
         #endregion
 
@@ -15,13 +16,11 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <summary>
         /// validate selected reserv then ask for delete
         /// </summary>
-        /// <param name="reservedBooksViewModel"></param>
-        /// <param name="reservedBooksStore"></param>
-        public RemoveReservBookCommand(ReservedBooksViewModel reservedBooksViewModel, IReservedBooksStore reservedBooksStore, IMessageBoxStore messageBoxStore)
+        public RemoveReservBookCommand()
         {
-            _reservedBooksStore = reservedBooksStore;
-            _reservedBooksViewModel = reservedBooksViewModel;
-            _messageBoxStore = messageBoxStore;
+            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
+            _reservedBooksViewModel = ClassFactory.CreateReservedBooksViewModel();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
         #endregion
 
