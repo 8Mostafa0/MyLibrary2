@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 
@@ -24,30 +23,38 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
 
         #region Contructor
         /// <summary>
+        /// 
         /// validate loan be not returned and fill loan data to addedit view model
         /// </summary>
-        /// <param name="modalNavigationStore"></param>
         /// <param name="loansStore"></param>
         /// <param name="booksStore"></param>
         /// <param name="clientsStore"></param>
-        /// <param name="loansViewModel"></param>
-        /// <param name="loanRepository"></param>
         /// <param name="settingsStore"></param>
+        /// <param name="loanRepository"></param>
+        /// <param name="loansViewModel"></param>
         /// <param name="booksRepository"></param>
-        /// <param name="MessageBoxStore"></param>
-        /// <param name="reservedBooksRepository"></param>
-        public ShowEditLoanViewModel(ILoansViewModel loansViewModel)
+        public ShowEditLoanViewModel(
+            ILoansStore loansStore,
+            IBooksStore booksStore,
+            IClientsStore clientsStore,
+            ISettingsStore settingsStore,
+            ILoanRepository loanRepository,
+            ILoansViewModel loansViewModel,
+            IBooksRepository booksRepository,
+            IMessageBoxStore messageBoxStore,
+            IModalNavigationStore modalNavigationStore,
+            IReservedBooksRepository reservedBooksRepository)
         {
+            _loansStore = loansStore;
+            _booksStore = booksStore;
+            _clientsStore = clientsStore;
+            _settingsStore = settingsStore;
             _loansViewModel = loansViewModel;
-            _loansStore = ClassFactory.CreateLoansStore();
-            _booksStore = ClassFactory.CreateBooksStore();
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _settingsStore = ClassFactory.CreateSettingsStore();
-            _loanRepository = ClassFactory.CreateLoanRepository();
-            _booksRepository = ClassFactory.CreateBooksRepository();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
+            _loanRepository = loanRepository;
+            _booksRepository = booksRepository;
+            _messageBoxStore = messageBoxStore;
+            _modalNavigationStore = modalNavigationStore;
+            _reservedBooksRepository = reservedBooksRepository;
         }
         #endregion
 

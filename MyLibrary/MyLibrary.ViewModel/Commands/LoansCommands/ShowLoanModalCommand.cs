@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
@@ -14,12 +13,15 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
 
         #region Contructor
         /// <summary>
+        /// 
         /// show loan modal by set modal view to the loan modal
         /// </summary>
-        public ShowLoanModalCommand()
+        /// <param name="modalNavigationStore"></param>
+        /// <param name="addEditeLoanViewModel"></param>
+        public ShowLoanModalCommand(IModalNavigationStore modalNavigationStore, IAddEditeLoanViewModel addEditeLoanViewModel)
         {
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _addEditeLoanViewModel = ClassFactory.CreateAddEditeLoanViewModel();
+            _modalNavigationStore = modalNavigationStore;
+            _addEditeLoanViewModel = addEditeLoanViewModel;
         }
         #endregion
 

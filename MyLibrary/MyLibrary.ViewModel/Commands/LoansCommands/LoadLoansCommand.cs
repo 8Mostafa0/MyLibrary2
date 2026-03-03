@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
@@ -15,9 +14,9 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// load all loans from database to loans store
         /// </summary>
         /// <param name="loansStore"></param>
-        public LoadLoansCommand()
+        public LoadLoansCommand(ILoansStore loansStore)
         {
-            _loansStore = ClassFactory.CreateLoansStore();
+            _loansStore = loansStore;
         }
         #endregion
 

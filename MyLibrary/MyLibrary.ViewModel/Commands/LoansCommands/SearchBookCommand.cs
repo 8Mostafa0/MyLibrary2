@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
@@ -18,10 +17,10 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// </summary>
         /// <param name="loansViewModel"></param>
         /// <param name="loansStore"></param>
-        public SearchBookCommand(ILoansViewModel loansViewModel)
+        public SearchBookCommand(ILoansViewModel loansViewModel, ILoansStore loansStore)
         {
             _loansViewModel = loansViewModel;
-            _loansStore = ClassFactory.CreateLoansStore();
+            _loansStore = loansStore;
         }
         #endregion
 

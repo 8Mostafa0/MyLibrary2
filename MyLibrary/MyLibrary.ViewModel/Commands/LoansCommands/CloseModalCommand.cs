@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
@@ -14,9 +13,9 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         ///  close modal by set current view model to null
         /// </summary>
         /// <param name="modalNavigationStore"></param>
-        public CloseModalCommand()
+        public CloseModalCommand(IModalNavigationStore modalNavigationStore)
         {
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
+            _modalNavigationStore = modalNavigationStore;
         }
         #endregion
 

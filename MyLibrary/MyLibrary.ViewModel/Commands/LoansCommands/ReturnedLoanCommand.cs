@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System;
@@ -17,16 +16,21 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
 
         #region Contructor
         /// <summary>
+        /// 
         /// check and validate selected loan and
         /// set ReturnedDate to now 
         /// </summary>
         /// <param name="loansViewModel"></param>
+        /// <param name="messageBoxStore"></param>
         /// <param name="loansStore"></param>
-        public ReturnedLoanCommand(ILoansViewModel loansViewModel)
+        public ReturnedLoanCommand(
+            ILoansViewModel loansViewModel,
+            IMessageBoxStore messageBoxStore,
+            ILoansStore loansStore)
         {
             _loanViewModel = loansViewModel;
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _loansStore = ClassFactory.CreateLoansStore();
+            _messageBoxStore = messageBoxStore;
+            _loansStore = loansStore;
         }
         #endregion
 

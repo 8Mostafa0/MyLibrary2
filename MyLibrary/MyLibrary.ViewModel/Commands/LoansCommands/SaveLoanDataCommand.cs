@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 using System;
@@ -34,16 +33,24 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="settingsStore"></param>
         /// <param name="booksRepository"></param>
         /// <param name="reservedBooksRepository"></param>
-        public SaveLoanDataCommand(IAddEditeLoanViewModel addEditeLoanViewModel)
+        public SaveLoanDataCommand(
+            ILoansStore loansStore,
+            ISettingsStore settingsStore,
+            ILoanRepository loanRepository,
+            IMessageBoxStore messageBoxStore,
+            IBooksRepository booksRepository,
+            IModalNavigationStore modalNavigationStore,
+            IAddEditeLoanViewModel addEditeLoanViewModel,
+            IReservedBooksRepository reservedBooksRepository)
         {
+            _loansStore = loansStore;
+            _settingsStore = settingsStore;
+            _loanRepository = loanRepository;
+            _bookRepository = booksRepository;
+            _messageBoxStore = messageBoxStore;
+            _modalNavigationStore = modalNavigationStore;
             _addEditeLoanViewModel = addEditeLoanViewModel;
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
-            _loansStore = ClassFactory.CreateLoansStore();
-            _settingsStore = ClassFactory.CreateSettingsStore();
-            _loanRepository = ClassFactory.CreateLoanRepository();
-            _bookRepository = ClassFactory.CreateBooksRepository();
-            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
-            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
+            _reservedBooksRepository = reservedBooksRepository;
         }
         #endregion
 
