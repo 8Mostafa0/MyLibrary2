@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace ModalControl
 {
-    public class Modal : ContentControl
+    public class Modal : ContentControl, IModal
     {
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register("IsOpen", typeof(bool), typeof(Modal), new PropertyMetadata(false));
 
