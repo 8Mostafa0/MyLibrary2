@@ -7,7 +7,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 {
     public interface IReservedBooksViewModel : IViewModelBase
     {
-        ICommand AddNewReservBookCommand { get; }
+        IAddNewReservBookCommand AddNewReservBookCommand { get; }
         string BookName { get; set; }
         IViewModelBase CurrentModalViewModel { get; }
         IEditeReservBookCommand EditeReservBookCommand { get; }

@@ -1,4 +1,5 @@
 ﻿using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
@@ -10,9 +11,9 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         private IClientsStore _clientsStore;
         private IReservedBooksStore _reservedBooksStore;
         private IModalNavigationStore _modalNavigationStore;
-        private ReservedBooksRepository _reservedBooksRepository;
-        private LoanRepository _loanRepository;
-        private ClientsRepository _clientsRepository;
+        private IReservedBooksRepository _reservedBooksRepository;
+        private ILoanRepository _loanRepository;
+        private IClientsRepository _clientsRepository;
         private IMessageBoxStore _messageBoxStore;
         #endregion
 
@@ -21,33 +22,16 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <summary>
         /// load addedite reserved book view model to modal navigation view
         /// </summary>
-        /// <param name="reservedBooksViewModel"></param>
-        /// <param name="modalNavigationStore"></param>
-        /// <param name="reservedBooksStore"></param>
-        /// <param name="clientsStore"></param>
-        /// <param name="booksStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
-        /// <param name="clientsRepository"></param>
-        public AddNewReservBookCommand(
-            IModalNavigationStore modalNavigationStore,
-            IReservedBooksStore reservedBooksStore,
-            IClientsStore clientsStore,
-            IBooksStore booksStore,
-            LoanRepository loanRepository,
-            ReservedBooksRepository reservedBooksRepository,
-            ClientsRepository clientsRepository,
-            IMessageBoxStore messageBoxStore
-            )
+        public AddNewReservBookCommand()
         {
-            _booksStore = booksStore;
-            _clientsStore = clientsStore;
-            _reservedBooksStore = reservedBooksStore;
-            _modalNavigationStore = modalNavigationStore;
-            _reservedBooksRepository = reservedBooksRepository;
-            _loanRepository = loanRepository;
-            _clientsRepository = clientsRepository;
-            _messageBoxStore = messageBoxStore;
+            _booksStore = ClassFactory.CreateBooksStore();
+            _clientsStore = ClassFactory.CreateClientsStore();
+            _reservedBooksStore = ClassFactory.CreateReservedBooksStore();
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
+            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
+            _loanRepository = ClassFactory.CreateLoanRepository();
+            _clientsRepository = ClassFactory.CreateClientsRepository();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
         #endregion
 
