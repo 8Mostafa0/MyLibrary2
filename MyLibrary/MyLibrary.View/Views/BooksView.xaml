@@ -96,7 +96,7 @@
                 <Button Grid.Row="8" Grid.Column="0" Content="ذخیره" Margin="5" VerticalAlignment="Center"  Command="{Binding AddNewBookCommand}"/>
                 <Button Grid.Row="8" Grid.Column="1" Content="ویرایش" Margin="5" VerticalAlignment="Center" Command="{Binding EditBookCommand}"/>
                 <Button Grid.Row="9" Grid.Column="0" Content="حذف" Margin="5" VerticalAlignment="Center"  Command="{Binding DeleteBookCommand}"/>
-                <Button Grid.Row="9" Grid.Column="1" Content="ریست" Margin="5" VerticalAlignment="Center"  Command="{Binding ReloadClientsCommand}"/>
+                <Button Grid.Row="9" Grid.Column="1" Content="ریست" Margin="5" VerticalAlignment="Center"  Command="{Binding ReloadBooksCommand }"/>
             </Grid>
         </Border>
 

@@ -1,7 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using System.Collections.Generic;
-using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
@@ -13,10 +12,10 @@ namespace MyLibrary.ViewModel.ViewModels
         IEditBookCommand EditBookCommand { get; }
         ILoadBooksCommand LoadBooksCommand { get; }
         string Name { get; set; }
-        ICommand OrderBooksCommand { get; }
+        IOrderBooksBySubjectCommand OrderBooksCommand { get; }
         string PublicationDate { get; set; }
         string Publisher { get; set; }
-        ICommand ReloadClientsCommand { get; }
+        IReloadBooksCommand ReloadBooksCommand { get; }
         Book SelectedBook { get; set; }
         int SortIndex { get; set; }
         string Subject { get; set; }

@@ -310,6 +310,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new DeleteBookCommand();
         }
+        public static IReloadBooksCommand CreateReloadBooksCommand()
+        {
+            return new ReloadBooksCommand();
+        }
         #endregion
 
         #region Stores

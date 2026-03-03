@@ -5,7 +5,6 @@ using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
@@ -108,9 +107,9 @@ namespace MyLibrary.ViewModel.ViewModels
 
         public IDeleteBookCommand DeleteBookCommand { get; }
         public IEditBookCommand EditBookCommand { get; }
-        public ICommand OrderBooksCommand { get; }
+        public IOrderBooksBySubjectCommand OrderBooksCommand { get; }
 
-        public ICommand ReloadClientsCommand { get; }
+        public IReloadBooksCommand ReloadBooksCommand { get; }
 
         #endregion
 
@@ -124,14 +123,14 @@ namespace MyLibrary.ViewModel.ViewModels
             AddNewBookCommand = ClassFactory.CreateAddNewBookCommand();
             EditBookCommand = ClassFactory.CreateEditBookCommand();
             DeleteBookCommand = ClassFactory.CreateDeleteBookCommand();
-            OrderBooksCommand = new OrderBooksByStateCommand(this, _booksStore);
-            ReloadClientsCommand = new ReloadBooksCommand(_booksStore);
+            OrderBooksCommand = ClassFactory.CreateOrderBooksBySubjectCommand();
+            ReloadBooksCommand = ClassFactory.CreateReloadBooksCommand();
             _booksStore.BooksUpdated += UpdateBooks;
             _booksStore.BookEdited += BookEdited;
             _booksStore.BookAdded += AddNewBook;
             _booksStore.BookDeleted += BookDeleted;
             Subject = "رمان";
-            _messageBoxStore = messageBoxStore;
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
         }
         #endregion
 
