@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Factory;
+using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
@@ -14,9 +15,9 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         ///  reload all loans from database to loans store
         /// </summary>
         /// <param name="loansStore"></param>
-        public ReloadLoansListCommand(ILoansStore loansStore)
+        public ReloadLoansListCommand()
         {
-            _loansStore = loansStore;
+            _loansStore = ClassFactory.CreateLoansStore();
         }
         #endregion
 

@@ -244,6 +244,15 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new ReturnedLoanCommand();
         }
+
+        internal static IReloadLoansListCommand CreateReloadLoansListCommand()
+        {
+            return new ReloadLoansListCommand();
+        }
+        public static ISearchBookCommand CreateSearchBookCommand()
+        {
+            return new SearchBookCommand();
+        }
         #endregion
 
         #region Stores
@@ -317,6 +326,7 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new ReservedBooksRepository();
         }
+
         #endregion
     }
 }

@@ -13,9 +13,9 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         ILoadLoansCommand LoadLoansCommand { get; }
         IEnumerable<LoanViewModel> Loans { get; }
         ICommand OrderBooksCommand { get; }
-        ICommand ReloadLoansListCommand { get; }
+        IReloadLoansListCommand ReloadLoansListCommand { get; }
         IReturnedLoanCommand ReturnedLoanCommand { get; }
-        ICommand SearchBookCommand { get; }
+        ISearchBookCommand SearchBookCommand { get; }
         LoanViewModel SelectedLoan { get; set; }
         IShowLoanModalCommand ShowAddLoanModalCommand { get; }
         IShowEditLoanViewModel ShowEditLoanViewModel { get; }
