@@ -285,6 +285,10 @@ namespace MyLibrary.ViewModel.Factory
         {
             return new OrderBooksBySubjectCommand();
         }
+        public static ISaveReservationDataCommand CreateSaveReservationDataCommand()
+        {
+            return new SaveReservationDataCommand();
+        }
         #endregion
 
         #region Stores

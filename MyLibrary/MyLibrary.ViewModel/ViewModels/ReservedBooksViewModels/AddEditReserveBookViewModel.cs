@@ -103,7 +103,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         #region Commands
 
         public ICloseModalCommand CloseModalCommand { get; }
-        public ICommand SaveReservedBookDataCommand { get; }
+        public ISaveReservationDataCommand SaveReservedBookDataCommand { get; }
         public ISearchBookNameCommand SearchBookNameCommand { get; }
         public ISearchClientNameCommand SearchClientNameCommand { get; }
         public ILoadClientsCommand LoadClientsCommand { get; }
@@ -143,7 +143,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             SearchBookNameCommand = ClassFactory.CreateSearchBookNameCommand();
             SearchClientNameCommand = ClassFactory.CreateSearchClientNameCommand();
             OrderBooksCommand = ClassFactory.CreateOrderBooksBySubjectCommand();
-            SaveReservedBookDataCommand = new SaveReservationDataCommand(this, _modalNavigationStore, _reservedBooksStore, loanRepository, reservedBooksRepository, clientsRepository, _messageBoxStore);
+            SaveReservedBookDataCommand = ClassFactory.CreateSaveReservationDataCommand();
             OrderBooksBySubjectCommand = new OrderBooksBySubjectCommand(_booksStore, _messageBoxStore);
         }
         #endregion

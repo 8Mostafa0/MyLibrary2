@@ -2,6 +2,7 @@
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Commands.LoansCommands;
+using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -19,7 +20,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         ILoadClientsCommand LoadClientsCommand { get; }
         ICommand OrderBooksBySubjectCommand { get; }
         IOrderBooksBySubjectCommand OrderBooksCommand { get; }
-        ICommand SaveReservedBookDataCommand { get; }
+        ISaveReservationDataCommand SaveReservedBookDataCommand { get; }
         ISearchBookNameCommand SearchBookNameCommand { get; }
         ISearchClientNameCommand SearchClientNameCommand { get; }
         Book SelectedBook { get; set; }

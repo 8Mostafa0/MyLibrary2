@@ -1,5 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 using System.Collections.Generic;
@@ -10,12 +11,12 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
     public class SaveReservationDataCommand : CommandBase, ISaveReservationDataCommand
     {
         #region Dependencies
-        private LoanRepository _loanRepository;
+        private ILoanRepository _loanRepository;
         private IMessageBoxStore _messageBoxStore;
-        private ClientsRepository _clientsRepository;
+        private IClientsRepository _clientsRepository;
         private IReservedBooksStore _reservedBookStore;
         private IModalNavigationStore _modalNavigationStore;
-        private ReservedBooksRepository _reservedbooksRepository;
+        private IReservedBooksRepository _reservedbooksRepository;
         private IAddEditeReserveBookViewModel _addediteReserveBookViewModel;
         #endregion
 
@@ -24,29 +25,15 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <summary>
         /// validate reserve data
         /// </summary>
-        /// <param name="addediteReserveBookViewModel"></param>
-        /// <param name="modalNavigationStore"></param>
-        /// <param name="reservedBooksStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="reservedBooksRepository"></param>
-        /// <param name="clientsRepository"></param>
-        public SaveReservationDataCommand(
-            IAddEditeReserveBookViewModel addediteReserveBookViewModel,
-            IModalNavigationStore modalNavigationStore,
-            IReservedBooksStore reservedBooksStore,
-            LoanRepository loanRepository,
-            ReservedBooksRepository reservedBooksRepository,
-            ClientsRepository clientsRepository,
-            IMessageBoxStore messageBoxStore
-            )
+        public SaveReservationDataCommand()
         {
-            _loanRepository = loanRepository;
-            _messageBoxStore = messageBoxStore;
-            _clientsRepository = clientsRepository;
-            _reservedBookStore = reservedBooksStore;
-            _modalNavigationStore = modalNavigationStore;
-            _reservedbooksRepository = reservedBooksRepository;
-            _addediteReserveBookViewModel = addediteReserveBookViewModel;
+            _loanRepository = ClassFactory.CreateLoanRepository();
+            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _clientsRepository = ClassFactory.CreateClientsRepository();
+            _reservedBookStore = ClassFactory.CreateReservedBooksStore();
+            _modalNavigationStore = ClassFactory.CreateModalNavigationStore();
+            _reservedbooksRepository = ClassFactory.CreateReservedBooksRepository();
+            _addediteReserveBookViewModel = ClassFactory.CreateAddEditeReserveBookViewModel();
         }
         #endregion
 
