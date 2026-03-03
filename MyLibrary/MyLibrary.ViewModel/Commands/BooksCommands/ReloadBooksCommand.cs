@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
@@ -14,9 +13,9 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <summary>
         /// 
         /// </summary>
-        public ReloadBooksCommand()
+        public ReloadBooksCommand(IBooksStore booksStore)
         {
-            _booksStore = ClassFactory.CreateBooksStore();
+            _booksStore = booksStore;
         }
         #endregion
 

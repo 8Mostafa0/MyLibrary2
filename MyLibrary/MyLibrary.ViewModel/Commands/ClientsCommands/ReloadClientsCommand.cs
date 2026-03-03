@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
@@ -11,11 +10,13 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
 
         #region Contructor
         /// <summary>
+        /// 
         /// reload clients list in clients store
         /// </summary>
-        public ReloadClientsCommand()
+        /// <param name="clientsStore"></param>
+        public ReloadClientsCommand(IClientsStore clientsStore)
         {
-            _clientsStore = ClassFactory.CreateClientsStore();
+            _clientsStore = clientsStore;
         }
         #endregion
 

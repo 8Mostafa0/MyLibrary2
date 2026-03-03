@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
-using MyLibrary.ViewModel.Factory;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 using System.Collections.Generic;
@@ -22,18 +21,29 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
 
         #region Constructor
         /// <summary>
+        /// 
         /// Check For Selected Client And If Clients Not Have Not Returned Loan Then :
         /// 1_ Remove All Reservations of Client
         /// 2_ Remove All Saved Loans Of Client
         /// 3_ Delete Client Using Clients Store
         /// </summary>
-        public DeleteClientCommand(IClientsViewModel clientsViewModel)
+        /// <param name="clientsViewModel"></param>
+        /// <param name="clientsStore"></param>
+        /// <param name="loanRepository"></param>
+        /// <param name="reservedBooksRepository"></param>
+        /// <param name="messageBoxStore"></param>
+        public DeleteClientCommand(
+            IClientsViewModel clientsViewModel,
+            IClientsStore clientsStore,
+            ILoanRepository loanRepository,
+            IReservedBooksRepository reservedBooksRepository,
+            IMessageBoxStore messageBoxStore)
         {
             _clientsViewModel = clientsViewModel;
-            _clientsStore = ClassFactory.CreateClientsStore();
-            _loanRepository = ClassFactory.CreateLoanRepository();
-            _reservedBooksRepository = ClassFactory.CreateReservedBooksRepository();
-            _messageBoxStore = ClassFactory.CreateMessageBoxStore();
+            _clientsStore = clientsStore;
+            _loanRepository = loanRepository;
+            _reservedBooksRepository = reservedBooksRepository;
+            _messageBoxStore = messageBoxStore;
         }
         #endregion
 

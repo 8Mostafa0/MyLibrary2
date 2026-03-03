@@ -1,5 +1,4 @@
-﻿using MyLibrary.ViewModel.Factory;
-using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
@@ -13,11 +12,14 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
 
         #region Contructor
         /// <summary>
+        /// 
         /// order clients based on tier
         /// </summary>
-        public OrderClientsCommand(IClientsViewModel clientsViewModel)
+        /// <param name="clientsStore"></param>
+        /// <param name="clientsViewModel"></param>
+        public OrderClientsCommand(IClientsStore clientsStore, IClientsViewModel clientsViewModel)
         {
-            _clitentsStore = ClassFactory.CreateClientsStore();
+            _clitentsStore = clientsStore;
             _clientsViewModel = clientsViewModel;
         }
         #endregion
