@@ -51,12 +51,12 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         public override async void Execute(object parameter)
         {
             #region Input Validation
-            if (_reservedBookStore.SelectedClient == null)
+            if (_reservedBookStore.SelectedClient is null)
             {
                 _messageBoxStore.Show("لطفا کاربری را انتخاب کنید", "رزرو کتاب");
                 return;
             }
-            if (_reservedBookStore.SelectedBook == null)
+            if (_reservedBookStore.SelectedBook is null)
             {
                 _messageBoxStore.Show("لطفا کتابی را انتخاب کنید", "رزرو کتاب");
                 return;

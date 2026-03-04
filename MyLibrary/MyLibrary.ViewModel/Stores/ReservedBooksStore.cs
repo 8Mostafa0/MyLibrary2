@@ -11,7 +11,7 @@ namespace MyLibrary.ViewModel.Stores
         #region Dependencies
         private IReservedBooksRepository _resrvedBooksRepository;
         private List<ReservedBook> _reservedBooks;
-        public ReservedBook SelectedReserv { get; set; }
+        public ReservedBook SelectedReserv { get; set; } = new ReservedBook() { ID = 0 };
         public Client SelectedClient { get; set; }
         public Book SelectedBook { get; set; }
         public IEnumerable<ReservedBook> ReservedBook => _reservedBooks;

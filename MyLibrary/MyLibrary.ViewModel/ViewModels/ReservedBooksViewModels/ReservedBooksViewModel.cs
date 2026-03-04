@@ -11,22 +11,31 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
     public class ReservedBooksViewModel : ViewModelBase, IReservedBooksViewModel
     {
         #region Dependencies
-        private IModalNavigationStore _modalNavigationStore;
         private IBooksStore _booksStore;
         private IClientsStore _clientsStore;
-        private IReservedBooksStore _reservedBooksStore;
-        private string _bookName;
-        private ObservableCollection<ReservedBookViewModel> _reservedBooks;
         private IMessageBoxStore _messageBoxStore;
-        public IEnumerable<ReservedBookViewModel> ReservedBooks => _reservedBooks;
+        private IReservedBooksStore _reservedBooksStore;
+        private IModalNavigationStore _modalNavigationStore;
+        private ObservableCollection<ReservedBookViewModel> _reservedBooks;
         private ReservedBookViewModel _selectedReservBook;
+        public IEnumerable<ReservedBookViewModel> ReservedBooks => _reservedBooks;
 
+        private string _bookName;
         public ReservedBookViewModel SelectedReservedBook
         {
             get => _selectedReservBook;
             set
             {
-                _selectedReservBook = value;
+                if (value is null)
+                {
+                    _selectedReservBook = new ReservedBookViewModel(new ReservedBook(), _clientsStore, _booksStore);
+                }
+                else
+                {
+                    _selectedReservBook = value;
+                }
+
+                _reservedBooksStore.SelectedReserv = _selectedReservBook.ToReservedBook();
                 OnProperychanged(nameof(SelectedReservedBook));
             }
         }
@@ -109,7 +118,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             _reservedBooksStore.ReservBookEdited += OnReservedBookUpdate;
             _reservedBooksStore.ReservBookAdded += OnReservedBookAdded;
             _reservedBooksStore.ReservBookDeleted += OnReservedBookDeleted;
-
+            LoadReservedBooksCommand.Execute(null);
         }
         #endregion
 
@@ -120,13 +129,13 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         /// <param name="book"></param>
         private void OnReservedBookUpdate(ReservedBook book)
         {
-            ReservedBookViewModel reserveBook = _reservedBooks.SingleOrDefault(t => t.BookId == book.ID);
+            ReservedBookViewModel reserveBook = _reservedBooks.SingleOrDefault(t => t.ID == book.ID);
             int index = _reservedBooks.IndexOf(reserveBook);
-            _reservedBooks.RemoveAt(index);
-            _reservedBooks.Add(reserveBook);
-            int newIndex = _reservedBooks.IndexOf(reserveBook);
-            _reservedBooks.Move(newIndex, index);
-            _messageBoxStore.Show("رزرو با موفقیت ویرایش شد", "ویرایش رزرو");
+            if (index > 0)
+            {
+                _reservedBooks[index] = new ReservedBookViewModel(book, _clientsStore, _booksStore);
+                _messageBoxStore.Show("رزرو با موفقیت ویرایش شد", "ویرایش رزرو");
+            }
         }
         /// <summary>
         /// get call each time a reserved book event triger to remove it from reserved books list
@@ -134,8 +143,14 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         /// <param name="book"></param>
         private void OnReservedBookDeleted(ReservedBook book)
         {
-            _reservedBooks.Remove(_selectedReservBook);
-            _messageBoxStore.Show("رزرو کتاب با موفقیت حذف شد", "حذف رزرو");
+            SelectedReservedBook = null;
+            int index = _reservedBooks.IndexOf(_reservedBooks.SingleOrDefault(t => t.BookId == book.BookId));
+            if (index > 0)
+            {
+                ReservedBookViewModel reserveBook = _reservedBooks.SingleOrDefault(t => t.BookId == book.BookId);
+                _reservedBooks.Remove(reserveBook);
+                _messageBoxStore.Show("رزرو کتاب با موفقیت حذف شد", "حذف رزرو");
+            }
         }
         /// <summary>
         /// called each time reserved book add event get trigred to add it to reserved books list
@@ -155,10 +170,10 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         /// </summary>
         private void UpdateReservedBooks()
         {
+            SelectedReservedBook = new ReservedBookViewModel(new ReservedBook(), _clientsStore, _booksStore);
             _reservedBooks.Clear();
             foreach (ReservedBook reservedBooks in _reservedBooksStore.ReservedBook)
                 _reservedBooks.Add(new ReservedBookViewModel(reservedBooks, _clientsStore, _booksStore));
-            SelectedReservedBook = null;
         }
 
         /// <summary>

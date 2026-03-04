@@ -52,6 +52,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <param name="parameter">no marametes needed</param>
         public override void Execute(object parameter)
         {
+
             _navigationStore.ContentScreen = _reservedBooksViewModel;
         }
         #endregion

@@ -128,7 +128,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         {
             BookName = "";
             SortIndex = 0;
-            SelectedLoan = null;
+            SelectedLoan = new LoanViewModel(new Loan() { Id = 0 }, _clientsStore, _booksStore);
         }
 
         private void LoanIsReturned(Loan loan)

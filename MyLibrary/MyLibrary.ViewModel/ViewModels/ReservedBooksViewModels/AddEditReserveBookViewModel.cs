@@ -13,17 +13,17 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
     public class AddEditeReserveBookViewModel : ViewModelBase, IAddEditeReserveBookViewModel
     {
         #region Dependencies
-        private IModalNavigationStore _modalNavigationStore;
-        private IReservedBooksStore _reservedBooksStore;
-        private IClientsStore _clientsStore;
-        private IBooksStore _booksStore;
         private Book _selectedBook;
         private Client _selectedClient;
+        private IBooksStore _booksStore;
+        private IClientsStore _clientsStore;
+        private IMessageBoxStore _messageBoxStore;
         private ReservedBook _selectedReservedBook;
+        private IReservedBooksStore _reservedBooksStore;
+        private IModalNavigationStore _modalNavigationStore;
         private string _bookName;
         private string _clientName;
         private int _bookSubject;
-        private IMessageBoxStore _messageBoxStore;
 
         private ObservableCollection<Book> _books;
         private ObservableCollection<Client> _clients;
@@ -60,6 +60,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             {
 
                 _selectedBook = value;
+                _reservedBooksStore.SelectedBook = value;
                 OnProperychanged(nameof(SelectedBook));
             }
         }
@@ -70,6 +71,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             set
             {
                 _selectedClient = value;
+                _reservedBooksStore.SelectedClient = value;
                 OnProperychanged(nameof(SelectedClient));
             }
         }
@@ -100,9 +102,10 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 
         #region Commands
 
+        private ILoadReservedBooksCommand _loadReservedBooksCommand;
         public ICloseModalCommand CloseModalCommand { get; }
         public ISaveReservationDataCommand SaveReservedBookDataCommand { get; }
-        public ISearchBookNameCommand SearchBookNameCommand { get; }
+        public ISearchBookNameInReservedBookCommand SearchBookNameCommand { get; }
         public ISearchClientNameCommand SearchClientNameCommand { get; }
         public ILoadClientsCommand LoadClientsCommand { get; }
         public ILoadBooksCommand LoadBooksCommand { get; }
@@ -124,7 +127,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         /// <param name="reservedBooksStore"></param>
         /// <param name="loadClientsCommand"></param>
         /// <param name="modalNavigationStore"></param>
-        /// <param name="searchBookNameCommand"></param>
+        /// <param name="searchBookNameInReservedBookCommand"></param>
         /// <param name="searchClientNameCommand"></param>
         /// <param name="orderBooksByStateCommand"></param>
         /// <param name="orderBooksBySubjectCommand"></param>
@@ -138,11 +141,12 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             IReservedBooksStore reservedBooksStore,
             ILoadClientsCommand loadClientsCommand,
             IModalNavigationStore modalNavigationStore,
-            ISearchBookNameCommand searchBookNameCommand,
             ISearchClientNameCommand searchClientNameCommand,
             IOrderBooksByStateCommand orderBooksByStateCommand,
+            ILoadReservedBooksCommand loadReservedBooksCommand,
             IOrderBooksBySubjectCommand orderBooksBySubjectCommand,
-            ISaveReservationDataCommand saveReservationDataCommand
+            ISaveReservationDataCommand saveReservationDataCommand,
+            ISearchBookNameInReservedBookCommand searchBookNameInReservedBookCommand
 
             )
         {
@@ -157,23 +161,26 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             LoadClientsCommand = loadClientsCommand;
             _reservedBooksStore = reservedBooksStore;
             _modalNavigationStore = modalNavigationStore;
-            SearchBookNameCommand = searchBookNameCommand;
             OrderBooksCommand = orderBooksBySubjectCommand;
             SearchClientNameCommand = searchClientNameCommand;
+            _loadReservedBooksCommand = loadReservedBooksCommand;
             OrderBooksBySubjectCommand = orderBooksBySubjectCommand;
             SaveReservedBookDataCommand = saveReservationDataCommand;
+            SearchBookNameCommand = searchBookNameInReservedBookCommand;
             _booksStore.BooksUpdated += OnBooksUpdated;
             _clientsStore.ClientsUpdated += OnClientsUpdated;
-            //SelectedReservedBook = reservedBook;
-            //if (SelectedReservedBook != null)
-            //{
-            //    TitleOfLoanScreen = "ویرایش نوبت رزرو";
 
-            //}
-            //else
-            //{
-            //    TitleOfLoanScreen = "رزرو نوبت جدید";
-            //}
+            SelectedReservedBook = _reservedBooksStore.SelectedReserv;
+
+            if (_reservedBooksStore.SelectedReserv.ID != 0)
+            {
+                TitleOfLoanScreen = "ویرایش نوبت رزرو";
+
+            }
+            else
+            {
+                TitleOfLoanScreen = "رزرو نوبت جدید";
+            }
         }
         #endregion
 
@@ -210,9 +217,9 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             if (!(_selectedReservedBook is null))
             {
                 Book book = _books.SingleOrDefault(b => b.ID == _selectedReservedBook.BookId);
-                _selectedBook = book;
+                SelectedBook = book;
                 Client client = _clients.SingleOrDefault(c => c.ID == _selectedReservedBook.ClientId);
-                _selectedClient = client;
+                SelectedClient = client;
             }
         }
         #endregion

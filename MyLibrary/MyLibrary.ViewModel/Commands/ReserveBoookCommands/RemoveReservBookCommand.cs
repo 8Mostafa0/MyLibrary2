@@ -32,7 +32,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <param name="parameter">no marametes needed</param>
         public override async void Execute(object parameter)
         {
-            if (_reservedBooksStore.SelectedReserv is null)
+            if (_reservedBooksStore.SelectedReserv.ID == 0)
             {
                 _messageBoxStore.Show("لطفا نوبتی را برای حذف انتخاب کنید", "حذف نوبت");
             }

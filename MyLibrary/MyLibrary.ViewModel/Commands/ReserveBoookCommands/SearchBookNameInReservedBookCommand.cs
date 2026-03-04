@@ -34,12 +34,11 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <param name="parameter">no marametes needed</param>
         public override async void Execute(object parameter)
         {
-            if (_reservedBooksStore.SelectedBook.Name == "" && _reservedBooksStore.SelectedBook.Name is null)
+            if (_reservedBooksStore.SelectedBook is null || _reservedBooksStore.SelectedBook.Name == "")
             {
                 _messageBoxStore.Show("لطفا نام کتاب را وراد کنید", "جستجوی کتاب");
                 return;
             }
-            _reservedBooksStore.Clear();
             string SearchSql = $"SELECT * FROM ReservedBooks WHERE EXISTS (SELECT 1 FROM Books WHERE Books.Name LIKE N'%{_reservedBooksStore.SelectedBook.Name}%' AND Books.Id = ReservedBooks.BookId )";
             await _reservedBooksStore.GetReservedBooksAsync(SearchSql);
         }
