@@ -1,7 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +16,6 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         private readonly IBooksRepository _bookRepository;
         private readonly IMessageBoxStore _messageBoxStore;
         private readonly ICloseModalCommand _closeModalCommandl;
-        private readonly IModalNavigationStore _modalNavigationStore;
-        private readonly IAddEditeLoanViewModel _addEditeLoanViewModel;
         private readonly IReservedBooksRepository _reservedBooksRepository;
         #endregion
 
@@ -27,9 +24,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <summary>
         /// validate loan data from book and client then remove reserved data in ReservedBook table and then add new loan to Loans table
         /// </summary>
-        /// <param name="addEditeLoanViewModel"></param>
         /// <param name="loansStore"></param>
-        /// <param name="modalNavigationStore"></param>
         /// <param name="loanRepository"></param>
         /// <param name="settingsStore"></param>
         /// <param name="booksRepository"></param>
@@ -41,8 +36,6 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             IMessageBoxStore messageBoxStore,
             IBooksRepository booksRepository,
             ICloseModalCommand closeModalCommand,
-            IModalNavigationStore modalNavigationStore,
-            IAddEditeLoanViewModel addEditeLoanViewModel,
             IReservedBooksRepository reservedBooksRepository)
         {
             _loansStore = loansStore;
@@ -51,8 +44,6 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             _bookRepository = booksRepository;
             _messageBoxStore = messageBoxStore;
             _closeModalCommandl = closeModalCommand;
-            _modalNavigationStore = modalNavigationStore;
-            _addEditeLoanViewModel = addEditeLoanViewModel;
             _reservedBooksRepository = reservedBooksRepository;
         }
         #endregion
@@ -67,12 +58,12 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             try
             {
                 #region Inputs Validation
-                if (_addEditeLoanViewModel.SelectedBook is null)
+                if (_loansStore.SelectedBook is null)
                 {
                     _messageBoxStore.Show("لطفا کتابی را برای امانت انتخاب کنید", "ثبت امانت");
                     return;
                 }
-                if (_addEditeLoanViewModel.SelectedClient is null)
+                if (_loansStore.SelectedClient is null)
                 {
                     _messageBoxStore.Show("لطفا کاربری را برای امانت انتخاب کنید", "ثبت امانت");
                     return;
@@ -85,7 +76,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
 
                 #region Date Validation
 
-                DateTime ReturnDate = _addEditeLoanViewModel.ReturnDate;
+                DateTime ReturnDate = _loansStore.SelectedLoan.ReturnDate;
                 if ((ReturnDate - DateTime.Now).Days > LoanSettings["MaxLoanDays"])
                 {
                     _messageBoxStore.Show($"لطفا تاریخ برگشت را زودتر انتخاب کنید حداکثر{LoanSettings["MaxLoanDays"]}روز", "ثبت امانت");
@@ -101,21 +92,21 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
 
                 #region Client Validateion
 
-                if (_addEditeLoanViewModel.SelectedLoan.ClientId != _addEditeLoanViewModel.SelectedClient.ID)
+                if (_loansStore.SelectedLoan.ClientID != _loansStore.SelectedClient.ID)
                 {
-                    if (_addEditeLoanViewModel.SelectedBook.Tier > _addEditeLoanViewModel.SelectedClient.Tier)
+                    if (_loansStore.SelectedBook.Tier > _loansStore.SelectedClient.Tier)
                     {
                         _messageBoxStore.Show("این کتاب برای کاربران ویژه است", "ثبت امانت");
                         return;
                     }
 
-                    List<Loan> AllUserLoans = await _loanRepository.GetAllClientLoans(_addEditeLoanViewModel.SelectedClient.ID);
+                    List<Loan> AllUserLoans = await _loanRepository.GetAllClientLoans(_loansStore.SelectedClient.ID);
                     if (!(AllUserLoans is null) && AllUserLoans.Count() > LoanSettings["MaxBooksLoan"])
                     {
                         _messageBoxStore.Show("این کاربر به حداکثر تعداد امانت فعال رسیده است", "ثبت امانت");
                         return;
                     }
-                    List<Loan> Dilayedloans = await _loanRepository.UserHaveDilayedLoan(_addEditeLoanViewModel.SelectedClient.ID);
+                    List<Loan> Dilayedloans = await _loanRepository.UserHaveDilayedLoan(_loansStore.SelectedClient.ID);
                     if (!(Dilayedloans is null) && Dilayedloans.Count() > 0)
                     {
 
@@ -126,9 +117,9 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 #endregion
 
                 #region Book Validation
-                if (_addEditeLoanViewModel.SelectedLoan.BookId != _addEditeLoanViewModel.SelectedBook.ID)
+                if (_loansStore.SelectedLoan.BookID != _loansStore.SelectedBook.ID)
                 {
-                    List<Book> BookCopies = await _bookRepository.GetBooksByName(_addEditeLoanViewModel.SelectedBook.Name);
+                    List<Book> BookCopies = await _bookRepository.GetBooksByName(_loansStore.SelectedBook.Name);
                     int NotReturnedLoansCount = 0;
                     foreach (Book book in BookCopies)
                     {
@@ -136,7 +127,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                         NotReturnedLoansCount += NotReturnedLoans.Count();
                     }
 
-                    List<ReservedBook> BookReservs = await _reservedBooksRepository.GetReservationForBook(_addEditeLoanViewModel.SelectedBook.ID);
+                    List<ReservedBook> BookReservs = await _reservedBooksRepository.GetReservationForBook(_loansStore.SelectedBook.ID);
 
                     if (!(BookCopies is null) && BookCopies.Count() - 1 < NotReturnedLoansCount)
                     {
@@ -148,7 +139,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                     {
                         foreach (ReservedBook reservedBook in BookReservs)
                         {
-                            if (reservedBook.ClientId == _addEditeLoanViewModel.SelectedClient.ID)
+                            if (reservedBook.ClientId == _loansStore.SelectedClient.ID)
                             {
                                 IsUserReservedBook = false;
                                 break;
@@ -168,7 +159,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
 
                     if (!(BookReservs is null) && BookReservs.Any())
                     {
-                        await _reservedBooksRepository.DeleteReservedBookWithClientToDb(BookReservs.SingleOrDefault(r => r.ClientId == _addEditeLoanViewModel.SelectedClient.ID));
+                        await _reservedBooksRepository.DeleteReservedBookWithClientToDb(BookReservs.SingleOrDefault(r => r.ClientId == _loansStore.SelectedClient.ID));
                     }
                 }
 
@@ -178,26 +169,26 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 #region Save Book
                 Loan loan = new Loan()
                 {
-                    ClientId = _addEditeLoanViewModel.SelectedClient.ID,
-                    BookId = _addEditeLoanViewModel.SelectedBook.ID,
-                    ReturnDate = _addEditeLoanViewModel.ReturnDate,
+                    ClientId = _loansStore.SelectedClient.ID,
+                    BookId = _loansStore.SelectedBook.ID,
+                    ReturnDate = _loansStore.SelectedLoan.ReturnDate,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 };
 
-                if (_addEditeLoanViewModel.SelectedLoan.Id == 0)
+                if (_loansStore.SelectedLoan.ID == 0)
                 {
                     await _loansStore.AddLoan(loan);
 
                 }
                 else
                 {
-                    loan.Id = _addEditeLoanViewModel.SelectedLoan.Id;
+                    loan.Id = _loansStore.SelectedLoan.ID;
                     await _loansStore.UpdateLoan(loan);
                 }
-                _addEditeLoanViewModel.SelectedBook = null;
-                _addEditeLoanViewModel.SelectedClient = null;
-                _addEditeLoanViewModel.ReturnDate = DateTime.Now;
+                _loansStore.SelectedBook = null;
+                _loansStore.SelectedClient = null;
+                _loansStore.SelectedLoan._loan.ReturnDate = DateTime.Now;
                 #endregion
 
                 _closeModalCommandl.Execute(null);

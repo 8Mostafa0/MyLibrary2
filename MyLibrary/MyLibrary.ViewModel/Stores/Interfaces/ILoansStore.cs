@@ -19,6 +19,8 @@ namespace MyLibrary.ViewModel.Stores
         string BookName { get; set; }
         string ClientName { get; set; }
         int SortIndex { get; set; }
+        Book SelectedBook { get; set; }
+        Client SelectedClient { get; set; }
         Task AddLoan(Loan loan);
         Task GetAllLoans(string customSql = "");
         Task Load();

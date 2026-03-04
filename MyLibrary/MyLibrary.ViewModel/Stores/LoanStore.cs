@@ -21,6 +21,8 @@ namespace MyLibrary.ViewModel.Stores
         public LoanViewModel SelectedLoan { get; set; }
         public string BookName { get; set; }
         public string ClientName { get; set; }
+        public Book SelectedBook { get; set; }
+        public Client SelectedClient { get; set; }
         public int SortIndex { get; set; }
         public event Action LoansUpdated;
         public event Action<Loan> LoanIsAdded;

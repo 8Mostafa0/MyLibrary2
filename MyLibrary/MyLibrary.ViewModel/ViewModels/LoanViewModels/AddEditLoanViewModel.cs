@@ -56,6 +56,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             set
             {
                 _seletedClient = value;
+                _loansStore.SelectedClient = value;
                 OnProperychanged(nameof(SelectedClient));
             }
         }
@@ -67,6 +68,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             set
             {
                 _selectedBook = value;
+                _loansStore.SelectedBook = value;
                 OnProperychanged(nameof(SelectedBook));
             }
         }
@@ -115,6 +117,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             set
             {
                 _returnDate = value;
+                _loansStore.SelectedLoan._loan.ReturnDate = value;
                 OnProperychanged(nameof(ReturnDate));
             }
         }
