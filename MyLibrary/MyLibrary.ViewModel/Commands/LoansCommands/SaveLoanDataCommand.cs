@@ -77,7 +77,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 #region Date Validation
 
                 DateTime ReturnDate = _loansStore.SelectedLoan.ReturnDate;
-                if ((ReturnDate - DateTime.Now).Days > LoanSettings["MaxLoanDays"])
+                if ((ReturnDate - DateTime.Now).Days >= LoanSettings["MaxLoanDays"])
                 {
                     _messageBoxStore.Show($"لطفا تاریخ برگشت را زودتر انتخاب کنید حداکثر{LoanSettings["MaxLoanDays"]}روز", "ثبت امانت");
                     return;
@@ -101,7 +101,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                     }
 
                     List<Loan> AllUserLoans = await _loanRepository.GetAllClientLoans(_loansStore.SelectedClient.ID);
-                    if (!(AllUserLoans is null) && AllUserLoans.Count() > LoanSettings["MaxBooksLoan"])
+                    if (!(AllUserLoans is null) && AllUserLoans.Count() >= LoanSettings["MaxBooksLoan"])
                     {
                         _messageBoxStore.Show("این کاربر به حداکثر تعداد امانت فعال رسیده است", "ثبت امانت");
                         return;

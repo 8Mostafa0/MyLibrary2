@@ -253,7 +253,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         {
             if (!(_selectedLoan is null))
             {
-                _messageBoxStore.Show(_books.Count().ToString(), "here");
                 Book book = _books.SingleOrDefault(b => b.ID == _selectedLoan.BookId);
                 SelectedBook = book;
                 Client client = _clients.SingleOrDefault(c => c.ID == _selectedLoan.ClientId);
