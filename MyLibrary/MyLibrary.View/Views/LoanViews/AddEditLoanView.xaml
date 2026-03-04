@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:MyLibrary.View.Views.LoanViews"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Width="600" Height="400">
+    <Border CornerRadius="15">
+        <Grid Width="600" Height="400">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -182,4 +183,5 @@
             </ListView.View>
         </ListView>
     </Grid>
+    </Border>
 </UserControl>

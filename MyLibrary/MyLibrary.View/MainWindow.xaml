@@ -70,12 +70,14 @@
             </DataTemplate>
         </Grid.Resources>
 
-        <md:Modal Panel.ZIndex="100" IsOpen="{Binding IsMessageBoxOpen}">
+        <md:Modal Panel.ZIndex="11" IsOpen="{Binding IsMessageBoxOpen}">
             <ContentControl Content="{Binding CurrentMessageBox}"/>
         </md:Modal>
-            <md:Modal Panel.ZIndex="90" IsOpen="{Binding IsModalOpen}">
-                <ContentControl Content="{Binding CurrentModalView}"/>
-            </md:Modal>
+        
+        <md:Modal Panel.ZIndex="10" IsOpen="{Binding IsModalOpen}">
+            <ContentControl Content="{Binding CurrentModalView}"/>
+        </md:Modal>
+        
         <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

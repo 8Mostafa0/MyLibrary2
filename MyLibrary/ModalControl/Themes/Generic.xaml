@@ -17,12 +17,11 @@
                         <Border 
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
                             Background="Gray" 
-                            CornerRadius="5">
+                            CornerRadius="15"
+                            >
                             <Grid>
-                                <Border x:Name="border" Background="White">
+                                <Border x:Name="border" Background="#6CA651" CornerRadius="15">
                                     <ContentControl Content="{TemplateBinding Content}"/>
                                 </Border>
                             </Grid>
