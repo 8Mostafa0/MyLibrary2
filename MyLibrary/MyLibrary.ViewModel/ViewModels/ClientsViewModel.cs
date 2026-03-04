@@ -37,7 +37,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _firstName = value;
-                SelectedClient.FirstName = value;
+                _clientsStore.SelectedClient.FirstName = value;
                 OnProperychanged(nameof(FirstName));
             }
         }
@@ -48,7 +48,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _lastName = value;
-                SelectedClient.LastName = value;
+                _clientsStore.SelectedClient.LastName = value;
                 OnProperychanged(nameof(LastName));
             }
         }
@@ -61,7 +61,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _tier = value;
-                SelectedClient.Tier = value;
+                _clientsStore.SelectedClient.Tier = value;
                 OnProperychanged(nameof(Tier));
             }
         }
@@ -129,6 +129,8 @@ namespace MyLibrary.ViewModel.ViewModels
             _clientsStore.ClientRemoved += OnClientDeleted;
             _clientsStore.ClientEdited += ClientEdited;
             _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
+
+            loadClientsCommand.Execute(null);
         }
         #endregion
 

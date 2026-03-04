@@ -15,7 +15,7 @@ namespace MyLibrary.ViewModel.Stores
         private List<Client> _clients;
         private readonly Lazy<Task> _initiilizeLazy;
 
-        public Client SelectedClient { get; set; }
+        public Client SelectedClient { get; set; } = new Client();
 
         public IEnumerable<Client> Clients => _clients;
 
