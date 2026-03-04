@@ -33,7 +33,6 @@ namespace MyLibrary.ViewModel
 
 
             #region ViewModels
-            builder.RegisterType<NavigationStore>().As<INavigationStore>().SingleInstance();
             builder.RegisterType<ClientsStore>().As<IClientsStore>().SingleInstance();
 
             builder.RegisterType<LoansViewModel>().As<ILoansViewModel>().SingleInstance();
@@ -120,6 +119,7 @@ namespace MyLibrary.ViewModel
 
             #endregion
             #region Stores
+            builder.RegisterType<NavigationStore>().As<INavigationStore>();
             builder.RegisterType<BooksStore>().As<IBooksStore>().SingleInstance();
             builder.RegisterType<LoansStore>().As<ILoansStore>().SingleInstance();
             builder.RegisterType<SettingsStore>().As<ISettingsStore>().SingleInstance();
@@ -131,6 +131,7 @@ namespace MyLibrary.ViewModel
             builder.RegisterType<SettingNavigationStore>().As<ISettingNavigationStore>().SingleInstance();
             builder.RegisterType<SettingsStore>().As<ISettingsStore>().SingleInstance();
             builder.RegisterType<TimeStore>().As<ITimeStore>().SingleInstance();
+            builder.RegisterType<LoginStore>().As<ILoginStore>().SingleInstance();
             #endregion
             #region Repositorys
             builder.RegisterType<DbContextFactory>().As<IDbContextFactory>().SingleInstance();
