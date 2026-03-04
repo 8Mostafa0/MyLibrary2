@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels;
 using System;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
@@ -9,7 +8,6 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
     {
         #region Dependencies
         private readonly IClientsStore _clientStore;
-        private readonly IClientsViewModel _clientViewModel;
         private IMessageBoxStore _messageBoxStore;
         #endregion
 
@@ -18,17 +16,14 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// 
         /// Checks To Validate Clients Data First Then Add New Client Using Clients Store
         /// </summary>
-        /// <param name="clientsViewModel"></param>
         /// <param name="messageBoxStore"></param>
         /// <param name="clientsStore"></param>
         public AddNewClientCommand(
-            IClientsViewModel clientsViewModel,
             IMessageBoxStore messageBoxStore,
             IClientsStore clientsStore)
         {
             _clientStore = clientsStore;
             _messageBoxStore = messageBoxStore;
-            _clientViewModel = clientsViewModel;
         }
         #endregion
 
@@ -40,21 +35,21 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <param name="parameter">No Perameer Needed</param>
         public override async void Execute(object parameter)
         {
-            if (string.IsNullOrEmpty(_clientViewModel.FirstName))
+            if (string.IsNullOrEmpty(_clientStore.SelectedClient.FirstName))
             {
                 _messageBoxStore.Show("لطفا ابتدا نام را وارد کنید", "افزودن کاربر");
                 return;
             }
-            if (string.IsNullOrEmpty(_clientViewModel.LastName))
+            if (string.IsNullOrEmpty(_clientStore.SelectedClient.LastName))
             {
                 _messageBoxStore.Show("لطفا ابتدا فامیلی را وارد کنید", "افزودن کاربر");
                 return;
             }
             Client client = new Client()
             {
-                FirstName = _clientViewModel.FirstName,
-                LastName = _clientViewModel.LastName,
-                Tier = _clientViewModel.Tier,
+                FirstName = _clientStore.SelectedClient.FirstName,
+                LastName = _clientStore.SelectedClient.LastName,
+                Tier = _clientStore.SelectedClient.Tier,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
             };
