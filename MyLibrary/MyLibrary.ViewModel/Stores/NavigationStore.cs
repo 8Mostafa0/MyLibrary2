@@ -10,7 +10,7 @@ namespace MyLibrary.ViewModel.Stores
         public event Action ContentViewModelChanged;
         public event Action StatusBarViewModelChanged;
 
-        private INavigationBarViewModel _mainContentViewModel;
+        private INavigationBarViewModel _mainContentViewModel { get; set; }
         private IViewModelBase _contentScreen;
         private IStatusBarViewModel _StatusBarViewModel;
 
@@ -63,13 +63,13 @@ namespace MyLibrary.ViewModel.Stores
         /// <param name="navigationBarViewModel"></param>
         public NavigationStore(
             IHomeViewModel homeViewModel,
-            IStatusBarViewModel statusBarViewModel,
-            INavigationBarViewModel navigationBarViewModel
+            IStatusBarViewModel statusBarViewModel
+            //INavigationBarViewModel navigationBarViewModel
             )
         {
             _contentScreen = homeViewModel;
             _StatusBarViewModel = statusBarViewModel;
-            _mainContentViewModel = navigationBarViewModel;
+            //_mainContentViewModel = navigationBarViewModel;
         }
         #endregion
         #region Methods

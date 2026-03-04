@@ -15,10 +15,9 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
         /// 
         /// </summary>
         /// <param name="messageBoxStore"></param>
-        public CloseAppCommand(IMessageBoxStore messageBoxStore, ICloseAppCommand closeAppCommand)
+        public CloseAppCommand(IMessageBoxStore messageBoxStore)
         {
             _messageBoxStore = messageBoxStore;
-            _closeAppCommand = closeAppCommand;
         }
         #endregion
 
@@ -30,7 +29,7 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
         /// <param name="parameter">no marametes needed</param>
         public override void Execute(object parameter)
         {
-            _messageBoxStore.Show("میخواهید برنامه را ببندید؟", "خروج", "بله", "خیر", _closeAppCommand);
+            _messageBoxStore.Show("میخواهید برنامه را ببندید؟", "خروج", "بله", "خیر", this);
             if (_messageBoxStore.MessageBoxResult)
             {
                 _messageBoxStore.CloseMessageBox();

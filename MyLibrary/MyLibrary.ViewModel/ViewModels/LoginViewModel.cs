@@ -7,9 +7,8 @@ namespace MyLibrary.ViewModel.ViewModels
     {
         #region Dependencies
         private string _password;
+        private ILoginStore _loginStore;
 
-
-        public bool FirstOpen { get; }
         public string Title { get; set; }
         public string Password
         {
@@ -17,6 +16,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _password = value;
+                _loginStore.Password = value;
                 OnProperychanged(nameof(Password));
             }
         }
@@ -32,14 +32,15 @@ namespace MyLibrary.ViewModel.ViewModels
         public LoginViewModel(
             ILoginCommand loginCommand,
             ICloseAppCommand closeAppCommand,
-            ISettingsStore settingsStore
+            ISettingsStore settingsStore,
+            ILoginStore loginStore
             )
         {
+            _loginStore = loginStore;
             CloseAppCommand = closeAppCommand;
             LoginCommand = loginCommand;
             if (settingsStore.GetHashedPassword() == null)
             {
-                FirstOpen = true;
                 Title = "رمزی برای پنل مشخص کنید";
             }
             else
