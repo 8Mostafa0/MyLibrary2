@@ -11,7 +11,7 @@ namespace MyLibrary.ViewModel.Stores
         #region Dependencies
         private IReservedBooksRepository _resrvedBooksRepository;
         private List<ReservedBook> _reservedBooks;
-
+        public ReservedBook SelectedReserv { get; set; }
         public IEnumerable<ReservedBook> ReservedBook => _reservedBooks;
         public Lazy<Task> _initilizeLazy;
         public event Action ReseredBooksUpdated;

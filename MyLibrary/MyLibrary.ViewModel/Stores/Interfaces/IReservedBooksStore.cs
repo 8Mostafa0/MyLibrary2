@@ -14,6 +14,7 @@ namespace MyLibrary.ViewModel.Stores
         event Action<ReservedBook> ReservBookDeleted;
         event Action<ReservedBook> ReservBookEdited;
 
+        ReservedBook SelectedReserv { get; set; }
         Task AddReservBook(ReservedBook reservedBook);
         void Clear();
         Task DeleteReservBook(ReservedBook reservedBook);
