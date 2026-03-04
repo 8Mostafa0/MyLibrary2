@@ -262,6 +262,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         {
             OnProperychanged(nameof(CurrentModelViewModel));
         }
+
         #endregion
     }
 }
