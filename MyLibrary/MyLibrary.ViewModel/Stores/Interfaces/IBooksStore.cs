@@ -11,6 +11,11 @@ namespace MyLibrary.ViewModel.Stores
         string SearchBookName { get; set; }
         int SearchSubject { get; set; }
 
+        Book SelectedBook { get; set; }
+        int SortIndex
+        {
+            get; set;
+        }
         event Action<Book> BookAdded;
         event Action<Book> BookDeleted;
         event Action<Book> BookEdited;

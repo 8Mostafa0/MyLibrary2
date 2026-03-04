@@ -28,6 +28,7 @@ namespace MyLibrary.ViewModel.ViewModels
                     Publisher = value.Publisher;
                     PublicationDate = value.PublicationDate;
                     Tier = value.Tier;
+                    _booksStore.SelectedBook = value;
                 }
 
                 OnProperychanged(nameof(SelectedBook));
@@ -41,6 +42,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _name = value;
+                _booksStore.SelectedBook.Name = value;
                 OnProperychanged(nameof(Name));
             }
         }
@@ -51,6 +53,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _publisher = value;
+                _booksStore.SelectedBook.Publisher = value;
                 OnProperychanged(nameof(Publisher));
             }
         }
@@ -62,6 +65,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _subject = value;
+                _booksStore.SelectedBook.Subject = value;
                 OnProperychanged(nameof(Subject));
             }
         }
@@ -73,6 +77,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _publicationDate = value;
+                _booksStore.SelectedBook.PublicationDate = value;
                 OnProperychanged(nameof(PublicationDate));
             }
         }
@@ -84,6 +89,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _tier = value;
+                _booksStore.SelectedBook.Tier = value;
                 OnProperychanged(nameof(Tier));
             }
         }
@@ -95,6 +101,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _sortIndex = value;
+                _booksStore.SortIndex = value;
                 OnProperychanged(nameof(SortIndex));
             }
         }
@@ -121,7 +128,7 @@ namespace MyLibrary.ViewModel.ViewModels
             IDeleteBookCommand deleteBookCommand,
             IAddNewBookCommand addNewBookCommand,
             IReloadBooksCommand reloadBooksCommand,
-            OrderBooksBySubjectCommand orderBooksBySubjectCommand
+            IOrderBooksBySubjectCommand orderBooksBySubjectCommand
             )
         {
             _books = new ObservableCollection<Book>();

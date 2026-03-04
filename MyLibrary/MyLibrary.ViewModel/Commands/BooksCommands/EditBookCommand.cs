@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.Models;
-using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
@@ -10,7 +9,6 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         #region Dependencies
         private IBooksStore _booksStore;
         private IBooksViewModel _booksViewModel;
-        private IBooksRepository _booksRepository;
         private IMessageBoxStore _messageBoxStore;
         #endregion
 
@@ -19,19 +17,14 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="booksViewModel"></param>
         /// <param name="booksStore"></param>
         /// <param name="booksRepository"></param>
         /// <param name="messageBoxStore"></param>
         public EditBookCommand(
-            IBooksViewModel booksViewModel,
             IBooksStore booksStore,
-            BooksRepository booksRepository,
-            MessageBoxStore messageBoxStore)
+            IMessageBoxStore messageBoxStore)
         {
-            _booksViewModel = booksViewModel;
             _booksStore = booksStore;
-            _booksRepository = booksRepository;
             _messageBoxStore = messageBoxStore;
         }
         #endregion
@@ -45,47 +38,46 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// Data : Name,Publisher,Subject,PublicationDate</param>
         public override async void Execute(object parameter)
         {
-            Book SelectedBook = _booksViewModel.SelectedBook;
+            Book SelectedBook = _booksStore.SelectedBook;
             if (SelectedBook == null)
             {
                 _messageBoxStore.Show("لطفا کتابی را برای ویرایش انتخاب کنید", "ویرایش کتاب");
             }
 
-            if (_booksViewModel.Name is null || _booksViewModel.Name == "")
+            if (_booksStore.SelectedBook.Name is null || _booksStore.SelectedBook.Name == "")
             {
                 _messageBoxStore.Show("لطفا نام کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            if (_booksViewModel.Publisher is null || _booksViewModel.Publisher == "")
+            if (_booksStore.SelectedBook.Publisher is null || _booksStore.SelectedBook.Publisher == "")
             {
                 _messageBoxStore.Show("لطفا منتشرکننده کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            if (_booksViewModel.Subject is null || _booksViewModel.Subject == "")
+            if (_booksStore.SelectedBook.Subject is null || _booksStore.SelectedBook.Subject == "")
             {
                 _messageBoxStore.Show("لطفا نوع کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            if (_booksViewModel.PublicationDate is null || _booksViewModel.PublicationDate == "")
+            if (_booksStore.SelectedBook.PublicationDate is null || _booksStore.SelectedBook.PublicationDate == "")
             {
                 _messageBoxStore.Show("لطفا تاریخ انتشار کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
             int PublicationYear = 0;
-            if (!int.TryParse(_booksViewModel.PublicationDate, out PublicationYear) || _booksViewModel.PublicationDate.Length != 4)
+            if (!int.TryParse(_booksStore.SelectedBook.PublicationDate, out PublicationYear) || _booksStore.SelectedBook.PublicationDate.Length != 4)
             {
                 _messageBoxStore.Show("لطفا تاریخ انتشار کتاب را عدد 4 رقمی وارد کنید", "افزودن کتاب");
-                _booksViewModel.PublicationDate = "";
                 return;
             }
 
 
 
-            SelectedBook.Name = _booksViewModel.Name;
-            SelectedBook.Publisher = _booksViewModel.Publisher;
-            SelectedBook.Subject = _booksViewModel.Subject;
-            SelectedBook.PublicationDate = _booksViewModel.PublicationDate;
-            SelectedBook.Tier = _booksViewModel.Tier;
+            SelectedBook.Name = _booksStore.SelectedBook.Name;
+            SelectedBook.Publisher = _booksStore.SelectedBook.Publisher;
+            SelectedBook.Subject = _booksStore.SelectedBook.Subject;
+            SelectedBook.PublicationDate = _booksStore.SelectedBook.PublicationDate;
+            SelectedBook.Tier = _booksStore.SelectedBook.Tier;
             await _booksStore.EditBook(SelectedBook);
         }
         #endregion

@@ -21,6 +21,8 @@ namespace MyLibrary.ViewModel.Stores
         public event Action<Book> BookDeleted;
 
         public string SearchBookName { get; set; }
+        public Book SelectedBook { get; set; }
+        public int SortIndex { get; set; }
         public int SearchSubject { get; set; }
         #endregion
 
