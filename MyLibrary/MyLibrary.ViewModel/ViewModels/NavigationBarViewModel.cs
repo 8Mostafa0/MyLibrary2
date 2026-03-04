@@ -81,13 +81,14 @@ namespace MyLibrary.ViewModel.ViewModels
             _modalNavigationStore = modalNavigationStore;
 
             NavigateHomeCommand = navigateHomeScreenCommand;
-            NavigateHomeCommand.Execute(null);
             ClientsCreenCommand = navigateClientScreenCommand;
             NavigateBooksCommand = navigateBooksCommand;
             NavigateLoansCommand = navigateLoansCommand;
             NavigateReservedBooksCommand = navigateReservedBooksCommand;
             NavigateToSettingsCommand = navigateToSettingsCommand;
             CloseAppCommand = closeAppCommand;
+
+            NavigateHomeCommand.Execute(null);
         }
         #endregion
     }

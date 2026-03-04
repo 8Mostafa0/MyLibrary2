@@ -12,7 +12,7 @@ namespace MyLibrary.ViewModel.ViewModels
         IEditBookCommand EditBookCommand { get; }
         ILoadBooksCommand LoadBooksCommand { get; }
         string Name { get; set; }
-        IOrderBooksBySubjectCommand OrderBooksCommand { get; }
+        IOrderBooksByStateCommand OrderBooksCommand { get; }
         string PublicationDate { get; set; }
         string Publisher { get; set; }
         IReloadBooksCommand ReloadBooksCommand { get; }

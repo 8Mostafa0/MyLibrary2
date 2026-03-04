@@ -113,7 +113,7 @@ namespace MyLibrary.ViewModel.ViewModels
 
         public IDeleteBookCommand DeleteBookCommand { get; }
         public IEditBookCommand EditBookCommand { get; }
-        public IOrderBooksBySubjectCommand OrderBooksCommand { get; }
+        public IOrderBooksByStateCommand OrderBooksCommand { get; }
 
         public IReloadBooksCommand ReloadBooksCommand { get; }
 
@@ -128,7 +128,7 @@ namespace MyLibrary.ViewModel.ViewModels
             IDeleteBookCommand deleteBookCommand,
             IAddNewBookCommand addNewBookCommand,
             IReloadBooksCommand reloadBooksCommand,
-            IOrderBooksBySubjectCommand orderBooksBySubjectCommand
+            IOrderBooksByStateCommand orderBooksByStateCommand
             )
         {
             _books = new ObservableCollection<Book>();
@@ -140,12 +140,15 @@ namespace MyLibrary.ViewModel.ViewModels
             AddNewBookCommand = addNewBookCommand;
             DeleteBookCommand = deleteBookCommand;
             ReloadBooksCommand = reloadBooksCommand;
-            OrderBooksCommand = orderBooksBySubjectCommand;
+            OrderBooksCommand = orderBooksByStateCommand;
 
             _booksStore.BooksUpdated += UpdateBooks;
             _booksStore.BookEdited += BookEdited;
             _booksStore.BookAdded += AddNewBook;
             _booksStore.BookDeleted += BookDeleted;
+
+            loadBooksCommand.Execute(null);
+
             Subject = "رمان";
         }
         #endregion
@@ -182,10 +185,15 @@ namespace MyLibrary.ViewModel.ViewModels
         /// <param name="book"></param>
         private void BookEdited(Book book)
         {
-            ClearInputs();
-            int index = _books.IndexOf(book);
-            _books[index] = book;
-            _messageBoxStore.Show("کتاب با موفقیت ویرایش شد", "ویرایش کتاب");
+            int index = _books.IndexOf(_books.FirstOrDefault(c => c.ID == book.ID));
+            if (index >= 0)
+            {
+                _books.RemoveAt(index);
+                _books.Add(book);
+                int newIndex = _books.IndexOf(_books.FirstOrDefault(c => c.ID == book.ID));
+                _books.Move(newIndex, index);
+                _messageBoxStore.Show("کتاب با موفقیت ویرایش شد", "ویرایش کتاب");
+            }
         }
 
         /// <summary>

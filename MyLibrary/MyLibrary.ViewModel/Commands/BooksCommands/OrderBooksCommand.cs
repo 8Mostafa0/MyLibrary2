@@ -1,5 +1,4 @@
 ﻿using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
@@ -7,7 +6,6 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     {
         #region Dependencies
         private IBooksStore _booksStore;
-        private IBooksViewModel _booksViewModel;
         #endregion
 
 
@@ -17,12 +15,10 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         ///  1 => Not Returned Loans
         ///  2 => Delaiyed Loans
         /// </summary>
-        /// <param name="booksViewModel"></param>
         /// <param name="booksStore"></param>
-        public OrderBooksByStateCommand(IBooksStore booksStore, IBooksViewModel booksViewModel)
+        public OrderBooksByStateCommand(IBooksStore booksStore)
         {
             _booksStore = booksStore;
-            _booksViewModel = booksViewModel;
         }
         #endregion
 
@@ -38,11 +34,11 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
             _booksStore.clear();
             string CustomSql = "";
 
-            if (_booksViewModel.SortIndex == 1)
+            if (_booksStore.SortIndex == 1)
             {
                 CustomSql += "SELECT * FROM Books b WHERE EXISTS ( SELECT 1 FROM Loans l WHERE l.BookId = b.Id AND l.ReturnedDate IS NULL)";
             }
-            else if (_booksViewModel.SortIndex == 2)
+            else if (_booksStore.SortIndex == 2)
             {
                 CustomSql = "SELECT * FROM Books WHERE Id IN ( SELECT DISTINCT BookId FROM Loans WHERE ReturnedDate IS NULL AND ReturnDate < GETDATE())";
             }
