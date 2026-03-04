@@ -1,7 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +10,6 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
     {
         #region Dependencies
         private IBooksStore _booksStore;
-        private IBooksViewModel _booksViewModel;
         private IBooksRepository _booksRepository;
         private IMessageBoxStore _messageBoxStore;
         #endregion
@@ -22,13 +20,11 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// Create New Book And Store It In Database
         /// </summary>
         public AddNewBookCommand(
-            IBooksViewModel booksViewModel,
             IBooksStore booksStore,
             IBooksRepository booksRepository,
             IMessageBoxStore messageBoxStore
             )
         {
-            _booksViewModel = booksViewModel;
             _booksStore = booksStore;
             _booksRepository = booksRepository;
             _messageBoxStore = messageBoxStore;
@@ -46,39 +42,38 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// </param>
         public override async void Execute(object parameter)
         {
-            if (_booksViewModel.Name is null || _booksViewModel.Name == "")
+            if (_booksStore.SelectedBook.Name is null || _booksStore.SelectedBook.Name == "")
             {
                 _messageBoxStore.Show("لطفا نام کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            if (_booksViewModel.Publisher is null || _booksViewModel.Publisher == "")
+            if (_booksStore.SelectedBook.Publisher is null || _booksStore.SelectedBook.Publisher == "")
             {
                 _messageBoxStore.Show("لطفا منتشرکننده کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            if (_booksViewModel.Subject is null || _booksViewModel.Subject == "")
+            if (_booksStore.SelectedBook.Subject is null || _booksStore.SelectedBook.Subject == "")
             {
                 _messageBoxStore.Show("لطفا نوع کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            if (_booksViewModel.PublicationDate is null || _booksViewModel.PublicationDate == "")
+            if (_booksStore.SelectedBook.PublicationDate is null || _booksStore.SelectedBook.PublicationDate == "")
             {
                 _messageBoxStore.Show("لطفا تاریخ انتشار کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
 
-            if (!int.TryParse(_booksViewModel.PublicationDate, out _) && _booksViewModel.PublicationDate.Length != 4)
+            if (!int.TryParse(_booksStore.SelectedBook.PublicationDate, out _) && _booksStore.SelectedBook.PublicationDate.Length != 4)
             {
                 _messageBoxStore.Show("لطفا تاریخ انتشار کتاب را عدد و به طول 4 کاراکتر وارد کنید", "افزودن کتاب");
-                _booksViewModel.PublicationDate = "";
                 return;
             }
 
-            List<Book> CopiesOfBook = await _booksRepository.GetBooksByName(_booksViewModel.Name);
+            List<Book> CopiesOfBook = await _booksRepository.GetBooksByName(_booksStore.SelectedBook.Name);
             bool IsBookExists = false;
             foreach (Book book in CopiesOfBook)
             {
-                if (book.Name == _booksViewModel.Name && book.Publisher == _booksViewModel.Publisher)
+                if (book.Name == _booksStore.SelectedBook.Name && book.Publisher == _booksStore.SelectedBook.Publisher)
                 {
                     IsBookExists = true;
                 }
@@ -90,11 +85,11 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
             }
             Book NewBook = new Book()
             {
-                Name = _booksViewModel.Name,
-                Publisher = _booksViewModel.Publisher,
-                Subject = _booksViewModel.Subject,
-                PublicationDate = _booksViewModel.PublicationDate,
-                Tier = _booksViewModel.Tier,
+                Name = _booksStore.SelectedBook.Name,
+                Publisher = _booksStore.SelectedBook.Publisher,
+                Subject = _booksStore.SelectedBook.Subject,
+                PublicationDate = _booksStore.SelectedBook.PublicationDate,
+                Tier = _booksStore.SelectedBook.Tier,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };
