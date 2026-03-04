@@ -15,6 +15,10 @@ namespace MyLibrary.ViewModel.Stores
         event Action<Loan> LoanIsUpdated;
         event Action LoansUpdated;
 
+        LoanViewModel SelectedLoan { get; set; }
+        string BookName { get; set; }
+        string ClientName { get; set; }
+        int SortIndex { get; set; }
         Task AddLoan(Loan loan);
         Task GetAllLoans(string customSql = "");
         Task Load();

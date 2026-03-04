@@ -1,5 +1,4 @@
 ﻿using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
@@ -7,7 +6,6 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     {
         #region Dependencies
         private ILoansStore _loansStore;
-        private ILoansViewModel _loansViewModel;
         #endregion
 
 
@@ -15,11 +13,9 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <summary>
         /// sarch in loans lost by book name (check book exist in the loand database and then get that book)
         /// </summary>
-        /// <param name="loansViewModel"></param>
         /// <param name="loansStore"></param>
-        public SearchBookCommand(ILoansViewModel loansViewModel, ILoansStore loansStore)
+        public SearchBookCommand(ILoansStore loansStore)
         {
-            _loansViewModel = loansViewModel;
             _loansStore = loansStore;
         }
         #endregion
@@ -31,7 +27,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="parameter">no marametes needed</param>
         public override async void Execute(object parameter)
         {
-            string BookName = _loansViewModel.BookName;
+            string BookName = _loansStore.BookName;
             await _loansStore.GetAllLoans($"SELECT * FROM Loans WHERE EXISTS (SELECT 1 FROM Books WHERE Books.Name LIKE N'%{BookName}%' AND Books.Id = Loans.BookId )");
         }
         #endregion

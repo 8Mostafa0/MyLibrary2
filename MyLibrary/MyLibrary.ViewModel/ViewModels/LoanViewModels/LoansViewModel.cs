@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.Models;
-using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
@@ -17,10 +16,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         private ILoansStore _loansStore;
         private IClientsStore _clientsStore;
         private IBooksStore _booksStore;
-        private ILoanRepository _loanRepository;
-        private ISettingsStore _settingsStore;
-        private IBooksRepository _booksRepository;
-        private IReservedBooksRepository _reservedBooksRepository;
         private IMessageBoxStore _messageBoxStore;
         public IViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
         public IEnumerable<LoanViewModel> Loans => _loans;
@@ -31,6 +26,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             get => _sortIndex;
             set
             {
+                _loansStore.SortIndex = value;
                 _sortIndex = value;
             }
         }
@@ -41,6 +37,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             set
             {
                 _bookName = value;
+                _loansStore.BookName = value;
                 OnProperychanged(nameof(BookName));
             }
         }
@@ -50,6 +47,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             get => _selectedLoan;
             set
             {
+                _loansStore.SelectedLoan = value;
                 _selectedLoan = value;
             }
         }
@@ -75,10 +73,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         /// <param name="loansStore"></param>
         /// <param name="booksStore"></param>
         /// <param name="clientsStore"></param>
-        /// <param name="settingsStore"></param>
-        /// <param name="loanRepository"></param>
         /// <param name="messageBoxStore"></param>
-        /// <param name="booksRepository"></param>
         /// <param name="loadLoansCommand"></param>
         /// <param name="searchBookCommand"></param>
         /// <param name="returnedLoanCommand"></param>
@@ -87,15 +82,11 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         /// <param name="modalNavigationStore"></param>
         /// <param name="showEditLoanViewModel"></param>
         /// <param name="reloadLoansListCommand"></param>
-        /// <param name="reservedBooksRepository"></param>
         public LoansViewModel(
             ILoansStore loansStore,
             IBooksStore booksStore,
             IClientsStore clientsStore,
-            ISettingsStore settingsStore,
-            ILoanRepository loanRepository,
             IMessageBoxStore messageBoxStore,
-            IBooksRepository booksRepository,
             ILoadLoansCommand loadLoansCommand,
             ISearchBookCommand searchBookCommand,
             IReturnedLoanCommand returnedLoanCommand,
@@ -103,8 +94,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             ISortLoansListCommand sortLoansListCommand,
             IModalNavigationStore modalNavigationStore,
             IShowEditLoanViewModel showEditLoanViewModel,
-            IReloadLoansListCommand reloadLoansListCommand,
-            IReservedBooksRepository reservedBooksRepository
+            IReloadLoansListCommand reloadLoansListCommand
             )
         {
             _loans = new ObservableCollection<LoanViewModel>();
@@ -112,9 +102,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             _loansStore = loansStore;
             _booksStore = booksStore;
             _clientsStore = clientsStore;
-            _settingsStore = settingsStore;
-            _loanRepository = loanRepository;
-            _booksRepository = booksRepository;
             _messageBoxStore = messageBoxStore;
             LoadLoansCommand = loadLoansCommand;
             SearchBookCommand = searchBookCommand;
@@ -124,7 +111,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             ShowEditLoanViewModel = showEditLoanViewModel;
             ShowAddLoanModalCommand = showLoanModalCommand;
             ReloadLoansListCommand = reloadLoansListCommand;
-            _reservedBooksRepository = reservedBooksRepository;
 
 
             _loansStore.LoansUpdated += UpdateLoans;

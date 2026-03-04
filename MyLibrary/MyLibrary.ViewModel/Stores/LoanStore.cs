@@ -18,6 +18,10 @@ namespace MyLibrary.ViewModel.Stores
         private IClientsStore _clientsStore;
         private IBooksStore _booksStore;
 
+        public LoanViewModel SelectedLoan { get; set; }
+        public string BookName { get; set; }
+        public string ClientName { get; set; }
+        public int SortIndex { get; set; }
         public event Action LoansUpdated;
         public event Action<Loan> LoanIsAdded;
         public event Action<Loan> LoanIsReturned;
@@ -40,6 +44,7 @@ namespace MyLibrary.ViewModel.Stores
             _loanRepository = loanRepository;
             _clientsStore = clientsStore;
             _booksStore = booksStore;
+            SelectedLoan = new LoanViewModel(new Loan(), _clientsStore, _booksStore);
             _clientsStore.Load();
             _booksStore.Load();
         }
