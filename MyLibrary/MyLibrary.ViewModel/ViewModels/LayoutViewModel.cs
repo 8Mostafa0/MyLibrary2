@@ -18,9 +18,10 @@ namespace MyLibrary.ViewModel.ViewModels
         /// 
         /// </summary>
         /// <param name="navigationStore"></param>
-        public LayoutViewModel(INavigationStore navigationStore)
+        public LayoutViewModel(INavigationStore navigationStore, INavigationBarViewModel navigationBarViewModel)
         {
             _navigationStore = navigationStore;
+            navigationStore.MainContentViewModel = navigationBarViewModel;
             _navigationStore.ContentViewModelChanged += OnContentViewModelChanged;
             _navigationStore.MainContentViewModelChanged += OnMainContentViewModelChanged;
         }

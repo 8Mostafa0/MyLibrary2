@@ -1,6 +1,5 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
@@ -8,7 +7,6 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
     {
         #region Dependencies
         private IClientsStore _clientsStore;
-        private IClientsViewModel _clientsViewModel;
         private IMessageBoxStore _messageBoxStore;
         #endregion
 
@@ -17,15 +15,12 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// 
         ///  validate selected client then input values the edite client using clients store
         /// </summary>
-        /// <param name="clientsViewModel"></param>
         /// <param name="clientsStore"></param>
         /// <param name="messageBoxStore"></param>
         public EditClientCommand(
-            IClientsViewModel clientsViewModel,
             IClientsStore clientsStore,
             IMessageBoxStore messageBoxStore)
         {
-            _clientsViewModel = clientsViewModel;
             _clientsStore = clientsStore;
             _messageBoxStore = messageBoxStore;
         }
@@ -39,25 +34,25 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <param name="parameter">no parametes needed</param>
         public override async void Execute(object parameter)
         {
-            Client client = _clientsViewModel.SelectedClient;
+            Client client = _clientsStore.SelectedClient;
             if (client == null)
             {
                 _messageBoxStore.Show("لطفا کاربری را برای ویرایش انتخاب کنید", "ویرایش کاربر");
                 return;
             }
-            if (string.IsNullOrEmpty(_clientsViewModel.FirstName))
+            if (string.IsNullOrEmpty(_clientsStore.SelectedClient.FirstName))
             {
                 _messageBoxStore.Show("لطفا ابتدا نام را وارد کنید", "ویرایش کاربر");
                 return;
             }
-            if (string.IsNullOrEmpty(_clientsViewModel.LastName))
+            if (string.IsNullOrEmpty(_clientsStore.SelectedClient.LastName))
             {
                 _messageBoxStore.Show("لطفا ابتدا فامیلی را وارد کنید", "ویرایش کاربر");
                 return;
             }
-            client.FirstName = _clientsViewModel.FirstName;
-            client.LastName = _clientsViewModel.LastName;
-            client.Tier = _clientsViewModel.Tier;
+            client.FirstName = _clientsStore.SelectedClient.FirstName;
+            client.LastName = _clientsStore.SelectedClient.LastName;
+            client.Tier = _clientsStore.SelectedClient.Tier;
             await _clientsStore.EditClient(client);
         }
         #endregion

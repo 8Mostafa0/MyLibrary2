@@ -204,7 +204,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stores\BooksStore.cs" />
     <Compile Include="Stores\ClientsStore.cs" />
-    <Compile Include="Stores\ILoginStore.cs" />
+    <Compile Include="Stores\Interfaces\ILoginStore.cs" />
     <Compile Include="Stores\Interfaces\INavigationStore.cs" />
     <Compile Include="Stores\Interfaces\IModalNavigationStore.cs" />
     <Compile Include="Stores\Interfaces\IMessageBoxStore.cs" />

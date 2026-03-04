@@ -61,6 +61,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _tier = value;
+                SelectedClient.Tier = value;
                 OnProperychanged(nameof(Tier));
             }
         }
