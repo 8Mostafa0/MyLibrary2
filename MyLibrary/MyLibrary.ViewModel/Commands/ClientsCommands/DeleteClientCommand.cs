@@ -1,7 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels;
 using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.Commands.ClientsCommands
@@ -11,9 +10,7 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         #region Dependencies
         private ILoanRepository _loanRepository;
         private readonly IClientsStore _clientsStore;
-        private readonly IClientsViewModel _clientsViewModel;
         private IReservedBooksRepository _reservedBooksRepository;
-        private IDeleteClientCommand _deleteClientCommad;
 
         private IMessageBoxStore _messageBoxStore;
 
@@ -28,7 +25,6 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// 2_ Remove All Saved Loans Of Client
         /// 3_ Delete Client Using Clients Store
         /// </summary>
-        /// <param name="clientsViewModel"></param>
         /// <param name="clientsStore"></param>
         /// <param name="loanRepository"></param>
         /// <param name="reservedBooksRepository"></param>
@@ -37,16 +33,12 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
             IClientsStore clientsStore,
             ILoanRepository loanRepository,
             IMessageBoxStore messageBoxStore,
-            IClientsViewModel clientsViewModel,
-            IDeleteClientCommand deleteClientCommand,
             IReservedBooksRepository reservedBooksRepository
             )
         {
             _clientsStore = clientsStore;
             _loanRepository = loanRepository;
             _messageBoxStore = messageBoxStore;
-            _clientsViewModel = clientsViewModel;
-            _deleteClientCommad = deleteClientCommand;
             _reservedBooksRepository = reservedBooksRepository;
         }
         #endregion
@@ -60,12 +52,12 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
         /// <param name="parameter"></param>
         public override async void Execute(object parameter)
         {
-            if (_clientsViewModel.SelectedClient is null)
+            if (_clientsStore.SelectedClient is null)
             {
                 _messageBoxStore.Show("لطفا ابتدا کاربری را برای حذف انتخاب کنید", "حذف کاربر");
                 return;
             }
-            List<Loan> UserLoans = await _loanRepository.GetAllClientLoans(_clientsViewModel.SelectedClient.ID);
+            List<Loan> UserLoans = await _loanRepository.GetAllClientLoans(_clientsStore.SelectedClient.ID);
             if (UserLoans.Count > 0)
             {
                 _messageBoxStore.Show("این کاربر امانتی تحویل نشده دارد", "حذف کاربر");
@@ -74,13 +66,13 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
             else
             {
 
-                _messageBoxStore.Show("کاربر حذف شود؟", "حذف کاربر", "بله", "خیر", _deleteClientCommad);
+                _messageBoxStore.Show("کاربر حذف شود؟", "حذف کاربر", "بله", "خیر", this);
                 if (_messageBoxStore.MessageBoxResult)
                 {
                     _messageBoxStore.CloseMessageBox();
-                    await _reservedBooksRepository.RemoveClientReservedBooks(_clientsViewModel.SelectedClient.ID);
-                    await _loanRepository.RemoveClientLoans(_clientsViewModel.SelectedClient.ID);
-                    await _clientsStore.DeleteClient(_clientsViewModel.SelectedClient);
+                    await _reservedBooksRepository.RemoveClientReservedBooks(_clientsStore.SelectedClient.ID);
+                    await _loanRepository.RemoveClientLoans(_clientsStore.SelectedClient.ID);
+                    await _clientsStore.DeleteClient(_clientsStore.SelectedClient);
                 }
             }
         }
