@@ -1,7 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels;
 using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
@@ -11,7 +10,6 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         #region Dependencies
         private IBooksStore _booksStore;
         private ILoanRepository _loanRepository;
-        private IBooksViewModel _booksViewModel;
         private IReservedBooksRepository _reservedBooksRepository;
         private IMessageBoxStore _messageBoxStore;
         #endregion
@@ -22,13 +20,11 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// 
         /// </summary>
         /// <param name="booksStore"></param>
-        /// <param name="booksViewModel"></param>
         /// <param name="loanRepository"></param>
         /// <param name="messageBoxStore"></param>
         /// <param name="reservedBooksRepository"></param>
         public DeleteBookCommand(
             IBooksStore booksStore,
-            IBooksViewModel booksViewModel,
             ILoanRepository loanRepository,
             IMessageBoxStore messageBoxStore,
             IReservedBooksRepository reservedBooksRepository
@@ -36,7 +32,6 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
             )
         {
             _booksStore = booksStore;
-            _booksViewModel = booksViewModel;
             _loanRepository = loanRepository;
             _messageBoxStore = messageBoxStore;
             _reservedBooksRepository = reservedBooksRepository;
@@ -56,13 +51,13 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// Data : Name,Publisher,Subject,PublicationDate</param>
         public override async void Execute(object parameter)
         {
-            if (_booksViewModel.SelectedBook is null)
+            if (_booksStore.SelectedBook is null)
             {
                 _messageBoxStore.Show("لطفا کتابی را برای حذف انتخاب کنید", "حذف کتاب");
                 return;
             }
 
-            List<Loan> BookLoans = await _loanRepository.GetNotReturnedLoanOfBook(_booksViewModel.SelectedBook.ID);
+            List<Loan> BookLoans = await _loanRepository.GetNotReturnedLoanOfBook(_booksStore.SelectedBook.ID);
             if (BookLoans.Count > 0)
             {
                 _messageBoxStore.Show("این کتاب امانتی تحویل نشده فعال دارد", "حذف کتاب");
@@ -72,9 +67,9 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
             if (_messageBoxStore.MessageBoxResult)
             {
                 _messageBoxStore.CloseMessageBox();
-                await _reservedBooksRepository.DeleteReservedBookToDb(_booksViewModel.SelectedBook.ID);
-                await _loanRepository.RemoveBookLoans(_booksViewModel.SelectedBook.ID);
-                await _booksStore.DeleteBook(_booksViewModel.SelectedBook);
+                await _reservedBooksRepository.DeleteReservedBookToDb(_booksStore.SelectedBook.ID);
+                await _loanRepository.RemoveBookLoans(_booksStore.SelectedBook.ID);
+                await _booksStore.DeleteBook(_booksStore.SelectedBook);
 
             }
         }
