@@ -8,6 +8,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
     {
         #region Dependencies
         private IMessageBoxStore _messageBoxStore;
+        private ILoginStore _loginStore;
         private string _password;
         public string Password
         {
@@ -17,6 +18,7 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
                 if (!(value == "") || value.Count() >= 5)
                 {
                     _password = value;
+                    _loginStore.Password = value;
                     OnProperychanged(nameof(Password));
                 }
                 else
@@ -36,11 +38,13 @@ namespace MyLibrary.ViewModel.ViewModels.SettingsViewModels
 
         #region Contructor
         public SecuritySettingsViewModel(
+            ILoginStore loginStore,
             ISettingsStore settingsStore,
             IMessageBoxStore messageBoxStore,
             ISettingNavigationStore settingNavigationStore,
             IChangeLoginPasswordCommand changeLoginPasswordCommand)
         {
+            _loginStore = loginStore;
             _settingsStore = settingsStore;
             _messageBoxStore = messageBoxStore;
             _settingNavigationStore = settingNavigationStore;
