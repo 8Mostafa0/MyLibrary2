@@ -197,20 +197,26 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             _reservedBooksRepository = reservedBooksRepository;
             OrderBooksBySubjectCommand = orderBooksBySubjectCommand;
 
+            LoadBooksCommand.Execute(null);
+            LoadClientsCommand.Execute(null);
+
             _booksStore.BooksUpdated += OnBooksUpdated;
             _clientsStore.ClientsUpdated += OnClientsUpdated;
-            //if (loan is null)
-            //{
-            //    TitleOfLoanScreen = "امانت جدید";
-            //    ReturnDate = DateTime.Now;
-            //}
-            //else
-            //{
-            //    TitleOfLoanScreen = "ویرایش امانت";
-            //    SelectedLoan = loan;
-            //    ReturnDate = loan.ReturnDate;
-            //}
             _modalNavigationStore.CurrentViewModelChanged += ModalViewModelChange;
+
+            OnClientsUpdated();
+            OnBooksUpdated();
+            if (_loansStore.SelectedLoan.ID == 0)
+            {
+                TitleOfLoanScreen = "امانت جدید";
+                ReturnDate = DateTime.Now;
+            }
+            else
+            {
+                TitleOfLoanScreen = "ویرایش امانت";
+                SelectedLoan = _loansStore.SelectedLoan._loan;
+                ReturnDate = _loansStore.SelectedLoan.ReturnDate;
+            }
 
         }
 
@@ -247,7 +253,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         {
             if (!(_selectedLoan is null))
             {
-
+                _messageBoxStore.Show(_books.Count().ToString(), "here");
                 Book book = _books.SingleOrDefault(b => b.ID == _selectedLoan.BookId);
                 SelectedBook = book;
                 Client client = _clients.SingleOrDefault(c => c.ID == _selectedLoan.ClientId);

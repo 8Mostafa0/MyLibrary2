@@ -118,7 +118,17 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             _loansStore.LoanIsUpdated += LoanIsUpdated;
             _loansStore.LoanIsReturned += LoanIsReturned;
             _modalNavigationStore.CurrentViewModelChanged += OnModalViewModelChanged;
+
+            LoadLoansCommand.Execute(null);
+
             SelectedLoan = LoanViewModel.Empty();
+        }
+
+        private void ClearInputs()
+        {
+            BookName = "";
+            SortIndex = 0;
+            SelectedLoan = null;
         }
 
         private void LoanIsReturned(Loan loan)
@@ -126,6 +136,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             LoanViewModel loanViewModel = _loans.SingleOrDefault(t => t._loan.Id == loan.Id);
             int index = _loans.IndexOf(loanViewModel);
             _loans[index] = new LoanViewModel(loan, _clientsStore, _booksStore);
+            ClearInputs();
             _messageBoxStore.Show("امانت با موفقیت بازگشت شد", "بازگشت امانت");
         }
         #endregion
@@ -145,6 +156,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             {
                 int index = _loans.IndexOf(existing);
                 _loans[index] = updatedVm;
+                ClearInputs();
                 _messageBoxStore.Show("امانت با موفقیت ویرایش شد", "ویرایش امانت");
             }
             OnProperychanged(nameof(_loans));
@@ -159,6 +171,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             loan.Id = _loans.Any() ? _loans.Last().ID + 1 : 1;
             var vm = new LoanViewModel(loan, _clientsStore, _booksStore);
             _loans.Add(vm);
+            ClearInputs();
             _messageBoxStore.Show("امانت با موفقیت ثبت شد", "افزودن امانت");
         }
 

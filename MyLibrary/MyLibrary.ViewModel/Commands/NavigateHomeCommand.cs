@@ -10,31 +10,31 @@ namespace MyLibrary.ViewModel.Commands
         private readonly IBooksStore _booksStore;
         private readonly IClientsStore _clientsStore;
         private readonly INavigationStore _navigationStore;
-        private readonly IHomeViewModel _homeViewModel;
+        private readonly ISettingsStore _settingsStore;
         #endregion
 
         #region Contructor
         /// <summary>
         /// set current view of main navigation to home view 
         /// </summary>
-        /// <param name="navigationStore"></param>
-        /// <param name="clientsStore"></param>
         /// <param name="booksStore"></param>
         /// <param name="loansStore"></param>
-        /// <param name="homeViewModel"></param>
+        /// <param name="clientsStore"></param>
+        /// <param name="settingsStore"></param>
+        /// <param name="navigationStore"></param>
         public NavigateHomeScreenCommand(
-            INavigationStore navigationStore,
-            IClientsStore clientsStore,
-            IBooksStore booksStore,
             ILoansStore loansStore,
-            IHomeViewModel homeViewModel
+            IBooksStore booksStore,
+            IClientsStore clientsStore,
+            ISettingsStore settingsStore,
+            INavigationStore navigationStore
             )
         {
-            _navigationStore = navigationStore;
-            _clientsStore = clientsStore;
             _booksStore = booksStore;
             _loansStore = loansStore;
-            _homeViewModel = homeViewModel;
+            _clientsStore = clientsStore;
+            _settingsStore = settingsStore;
+            _navigationStore = navigationStore;
         }
         #endregion
 
@@ -47,7 +47,7 @@ namespace MyLibrary.ViewModel.Commands
             await _clientsStore.Load();
             await _booksStore.Load();
             await _loansStore.Load();
-            _navigationStore.ContentScreen = _homeViewModel;
+            _navigationStore.ContentScreen = new HomeViewModel(_booksStore, _loansStore, _settingsStore, _clientsStore);
         }
         #endregion
     }

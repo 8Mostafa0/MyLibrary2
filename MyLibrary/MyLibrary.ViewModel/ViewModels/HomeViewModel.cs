@@ -90,7 +90,9 @@ namespace MyLibrary.ViewModel.ViewModels
             _booksStore = booksStore;
             _loansStore = loansStore;
             _settingsStore = settingsStore;
-
+            _clientsStore.Load();
+            _booksStore.Load();
+            _loansStore.Load();
             Dictionary<string, bool> settings = _settingsStore.GetLayoutSettings();
             ShowClientsCount = settings["ShowClientsCount"] ? "Visible" : "Hidden";
             ShowBooksCount = settings["ShowBooksCount"] ? "Visible" : "Hidden";

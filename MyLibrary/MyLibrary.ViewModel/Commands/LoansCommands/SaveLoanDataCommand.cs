@@ -188,7 +188,6 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
                 }
                 _loansStore.SelectedBook = null;
                 _loansStore.SelectedClient = null;
-                _loansStore.SelectedLoan._loan.ReturnDate = DateTime.Now;
                 #endregion
 
                 _closeModalCommandl.Execute(null);

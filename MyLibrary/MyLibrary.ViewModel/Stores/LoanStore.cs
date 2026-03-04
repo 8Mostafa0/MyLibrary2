@@ -41,14 +41,12 @@ namespace MyLibrary.ViewModel.Stores
             ILoanRepository loanRepository
             )
         {
+            _clientsStore = clientsStore;
+            _booksStore = booksStore;
+            SelectedLoan = new LoanViewModel(new Loan() { Id = 0 }, _clientsStore, _booksStore);
             _loans = new ObservableCollection<LoanViewModel>();
             _initilizeLazy = new Lazy<Task>(Initialize);
             _loanRepository = loanRepository;
-            _clientsStore = clientsStore;
-            _booksStore = booksStore;
-            SelectedLoan = new LoanViewModel(new Loan(), _clientsStore, _booksStore);
-            _clientsStore.Load();
-            _booksStore.Load();
         }
         #endregion
 
