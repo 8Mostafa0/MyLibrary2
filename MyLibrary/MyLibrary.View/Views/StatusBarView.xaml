@@ -13,3 +13,5 @@
         <TextBlock Grid.Row="0" Text="{Binding CloclString}" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="10 0"/>
     </Grid>
 </UserControl>
+
+    
