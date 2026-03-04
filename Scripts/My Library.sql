@@ -39,7 +39,7 @@ CREATE TABLE [Loans] (
   [ClientId] INT NOT NULL,
   [BookId] INT NOT NULL,
   [ReturnDate] DateTime,
-  [ReturnedDAte] DateTime,
+  [ReturnedDate] DateTime,
   [CreatedAt] Datetime,
   [UpdatedAt] DateTime
 )

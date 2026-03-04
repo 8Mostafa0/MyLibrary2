@@ -112,7 +112,7 @@ namespace MyLibrary.ViewModel.ViewModels
             ClientsCount = _clientsStore.Clients.Count().ToString();
             BooksCount = _booksStore.Books.Count().ToString();
             LoansCount = _loansStore.Loans.Count().ToString();
-            List<LoanViewModel> dilayedLoans = _loansStore.Loans.Where(c => c.ReturnedDateTime is null || c.ReturnedDateTime == "").Where(c => c.ReturnDate < DateTime.Now).ToList();
+            List<LoanViewModel> dilayedLoans = _loansStore.Loans.Where(c => c.ReturnDate < DateTime.Now && c.ReturnedDateTime == "خیر").ToList();
             DilayedLoanCount = dilayedLoans.Any() ? dilayedLoans.Count().ToString() : "0";
         }
         #endregion
