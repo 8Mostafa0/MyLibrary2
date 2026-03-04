@@ -1,5 +1,4 @@
 ﻿using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
@@ -8,8 +7,6 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         #region Dependencies
         private IMessageBoxStore _messageBoxStore;
         private IReservedBooksStore _reservedBooksStore;
-        private IReservedBooksViewModel _reservedBooksViewModel;
-        private IRemoveReservBookCommand _removeReservBookCommand;
         #endregion
 
         #region Contructor
@@ -19,18 +16,13 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// </summary>
         /// <param name="messageBoxStore"></param>
         /// <param name="reservedBooksStore"></param>
-        /// <param name="reservedBooksViewModel"></param>
         public RemoveReservBookCommand(
             IMessageBoxStore messageBoxStore,
-            IReservedBooksStore reservedBooksStore,
-            IReservedBooksViewModel reservedBooksViewModel,
-            IRemoveReservBookCommand removeReservBookCommand
+            IReservedBooksStore reservedBooksStore
             )
         {
             _messageBoxStore = messageBoxStore;
             _reservedBooksStore = reservedBooksStore;
-            _reservedBooksViewModel = reservedBooksViewModel;
-            _removeReservBookCommand = removeReservBookCommand;
         }
         #endregion
 
@@ -40,18 +32,18 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <param name="parameter">no marametes needed</param>
         public override async void Execute(object parameter)
         {
-            if (_reservedBooksViewModel.SelectedReservedBook is null)
+            if (_reservedBooksStore.SelectedReserv is null)
             {
                 _messageBoxStore.Show("لطفا نوبتی را برای حذف انتخاب کنید", "حذف نوبت");
             }
             else
             {
 
-                _messageBoxStore.Show("آیا از حذف این نوبت مطمن هستید؟", "حذف نوبت", "بله", "خیر", _removeReservBookCommand);
+                _messageBoxStore.Show("آیا از حذف این نوبت مطمن هستید؟", "حذف نوبت", "بله", "خیر", this);
                 if (_messageBoxStore.MessageBoxResult)
                 {
                     _messageBoxStore.CloseMessageBox();
-                    await _reservedBooksStore.DeleteReservBook(_reservedBooksViewModel.SelectedReservedBook.ToReservedBook());
+                    await _reservedBooksStore.DeleteReservBook(_reservedBooksStore.SelectedReserv);
                 }
             }
         }
