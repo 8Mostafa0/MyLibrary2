@@ -1,5 +1,4 @@
 ﻿using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
@@ -7,7 +6,7 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
     {
         #region Dependencies
         private IReservedBooksStore _reservedBooksStore;
-        private IReservedBooksViewModel _reservedBooksViewModel;
+        private IMessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -16,12 +15,14 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// 
         /// search book name in reserved books list
         /// </summary>
+        /// <param name="messageBoxStore"></param>
         /// <param name="reservedBooksStore"></param>
-        /// <param name="reservedBooksViewModel"></param>
-        public SearchBookNameInReservedBookCommand(IReservedBooksStore reservedBooksStore, IReservedBooksViewModel reservedBooksViewModel)
+        public SearchBookNameInReservedBookCommand(
+            IMessageBoxStore messageBoxStore,
+            IReservedBooksStore reservedBooksStore)
         {
+            _messageBoxStore = messageBoxStore;
             _reservedBooksStore = reservedBooksStore;
-            _reservedBooksViewModel = reservedBooksViewModel;
         }
         #endregion
 
@@ -33,12 +34,14 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// <param name="parameter">no marametes needed</param>
         public override async void Execute(object parameter)
         {
-            if (!(_reservedBooksViewModel.BookName == "") && !(_reservedBooksViewModel.BookName is null))
+            if (_reservedBooksStore.SelectedBook.Name == "" && _reservedBooksStore.SelectedBook.Name is null)
             {
-                _reservedBooksStore.Clear();
-                string SearchSql = $"SELECT * FROM ReservedBooks WHERE EXISTS (SELECT 1 FROM Books WHERE Books.Name LIKE N'%{_reservedBooksViewModel.BookName}%' AND Books.Id = ReservedBooks.BookId )";
-                await _reservedBooksStore.GetReservedBooksAsync(SearchSql);
+                _messageBoxStore.Show("لطفا نام کتاب را وراد کنید", "جستجوی کتاب");
+                return;
             }
+            _reservedBooksStore.Clear();
+            string SearchSql = $"SELECT * FROM ReservedBooks WHERE EXISTS (SELECT 1 FROM Books WHERE Books.Name LIKE N'%{_reservedBooksStore.SelectedBook.Name}%' AND Books.Id = ReservedBooks.BookId )";
+            await _reservedBooksStore.GetReservedBooksAsync(SearchSql);
         }
         #endregion
     }
