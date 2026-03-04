@@ -1,5 +1,4 @@
 ﻿using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels.LoanViewModels;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
@@ -7,7 +6,6 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     {
         #region Dependencies
         private ILoansStore _loansStore;
-        private ILoansViewModel _loansViewModel;
         #endregion
 
 
@@ -20,9 +18,8 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// </summary>
         /// <param name="loansViewModel"></param>
         /// <param name="loansStore"></param>
-        public SortLoansListCommand(ILoansViewModel loansViewModel, ILoansStore loansStore)
+        public SortLoansListCommand(ILoansStore loansStore)
         {
-            _loansViewModel = loansViewModel;
             _loansStore = loansStore;
         }
         #endregion
@@ -33,7 +30,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="parameter">no marametes needed</param>
         public override async void Execute(object parameter)
         {
-            switch (_loansViewModel.SortIndex)
+            switch (_loansStore.SortIndex)
             {
                 case 0: { await _loansStore.GetAllLoans("SELECT * FROM Loans WHERE ReturnedDate IS NULL"); break; }
                 case 1: { await _loansStore.GetAllLoans("SELECT * FROM Loans WHERE ReturnDate < GETDATE() AND  ReturnedDate IS NULL"); break; }
