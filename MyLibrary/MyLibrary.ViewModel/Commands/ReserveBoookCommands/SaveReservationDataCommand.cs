@@ -1,7 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,11 +11,9 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         #region Dependencies
         private ILoanRepository _loanRepository;
         private IMessageBoxStore _messageBoxStore;
-        private IClientsRepository _clientsRepository;
         private IReservedBooksStore _reservedBookStore;
         private IModalNavigationStore _modalNavigationStore;
         private IReservedBooksRepository _reservedbooksRepository;
-        private IAddEditeReserveBookViewModel _addediteReserveBookViewModel;
         #endregion
 
 
@@ -27,28 +24,22 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         /// </summary>
         /// <param name="loanRepository"></param>
         /// <param name="messageBoxStore"></param>
-        /// <param name="clientsRepository"></param>
         /// <param name="reservedBookStore"></param>
         /// <param name="modalNavigationStore"></param>
         /// <param name="reservedbooksRepository"></param>
-        /// <param name="addEditeReserveBookViewModel"></param>
         public SaveReservationDataCommand(
             ILoanRepository loanRepository,
             IMessageBoxStore messageBoxStore,
-            IClientsRepository clientsRepository,
             IReservedBooksStore reservedBookStore,
             IModalNavigationStore modalNavigationStore,
-            IReservedBooksRepository reservedbooksRepository,
-            IAddEditeReserveBookViewModel addEditeReserveBookViewModel
+            IReservedBooksRepository reservedbooksRepository
             )
         {
             _loanRepository = loanRepository;
             _messageBoxStore = messageBoxStore;
-            _clientsRepository = clientsRepository;
             _reservedBookStore = reservedBookStore;
             _modalNavigationStore = modalNavigationStore;
             _reservedbooksRepository = reservedbooksRepository;
-            _addediteReserveBookViewModel = addEditeReserveBookViewModel;
         }
         #endregion
 
@@ -60,12 +51,12 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
         public override async void Execute(object parameter)
         {
             #region Input Validation
-            if (_addediteReserveBookViewModel.SelectedClient == null)
+            if (_reservedBookStore.SelectedClient == null)
             {
                 _messageBoxStore.Show("لطفا کاربری را انتخاب کنید", "رزرو کتاب");
                 return;
             }
-            if (_addediteReserveBookViewModel.SelectedBook == null)
+            if (_reservedBookStore.SelectedBook == null)
             {
                 _messageBoxStore.Show("لطفا کتابی را انتخاب کنید", "رزرو کتاب");
                 return;
@@ -74,21 +65,21 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 
             #region Client Validation
 
-            if (_addediteReserveBookViewModel.SelectedClient.ID != _addediteReserveBookViewModel.SelectedReservedBook.ClientId)
+            if (_reservedBookStore.SelectedClient.ID != _reservedBookStore.SelectedReserv.ClientId)
             {
 
-                if (_addediteReserveBookViewModel.SelectedClient.Tier < _addediteReserveBookViewModel.SelectedBook.Tier)
+                if (_reservedBookStore.SelectedClient.Tier < _reservedBookStore.SelectedBook.Tier)
                 {
                     _messageBoxStore.Show("فقط کاربران ویژه میتوانند کتاب رزور کنند", "رزرو کتاب");
                     return;
                 }
-                List<Loan> UserDilayedLoans = await _loanRepository.UserHaveDilayedLoan(_addediteReserveBookViewModel.SelectedClient.ID);
+                List<Loan> UserDilayedLoans = await _loanRepository.UserHaveDilayedLoan(_reservedBookStore.SelectedClient.ID);
                 if (!(UserDilayedLoans is null) && UserDilayedLoans.Count() > 0)
                 {
                     _messageBoxStore.Show("کاربر امانتی تحویل نداده و با تاخیر دارد", "رزرو کتاب");
                     return;
                 }
-                ReservedBook UserReservs = await _reservedbooksRepository.UserHaveReservedBook(_addediteReserveBookViewModel.SelectedClient.ID);
+                ReservedBook UserReservs = await _reservedbooksRepository.UserHaveReservedBook(_reservedBookStore.SelectedClient.ID);
                 if (!(UserReservs is null))
                 {
                     _messageBoxStore.Show("این کاربر کتابی را از قبل رزرو کرده است", "رزرو کتاب");
@@ -98,10 +89,10 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             #endregion
 
             #region Book Validation
-            if (_addediteReserveBookViewModel.SelectedBook.ID != _addediteReserveBookViewModel.SelectedReservedBook.BookId)
+            if (_reservedBookStore.SelectedBook.ID != _reservedBookStore.SelectedReserv.BookId)
             {
 
-                ReservedBook BookReservs = await _reservedbooksRepository.BookAlreadyRegistred(_addediteReserveBookViewModel.SelectedBook.ID);
+                ReservedBook BookReservs = await _reservedbooksRepository.BookAlreadyRegistred(_reservedBookStore.SelectedBook.ID);
                 if (!(BookReservs is null))
                 {
 
@@ -113,22 +104,22 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
             #endregion
 
             #region Edit ReservedBook
-            if (_addediteReserveBookViewModel.SelectedReservedBook.ID == 0)
+            if (_reservedBookStore.SelectedReserv.ID == 0)
             {
 
                 ReservedBook reservedBook = new ReservedBook()
                 {
-                    BookId = _addediteReserveBookViewModel.SelectedBook.ID,
-                    ClientId = _addediteReserveBookViewModel.SelectedClient.ID
+                    BookId = _reservedBookStore.SelectedBook.ID,
+                    ClientId = _reservedBookStore.SelectedClient.ID
                 };
 
                 await _reservedBookStore.AddReservBook(reservedBook);
             }
             else
             {
-                _addediteReserveBookViewModel.SelectedReservedBook.BookId = _addediteReserveBookViewModel.SelectedBook.ID;
-                _addediteReserveBookViewModel.SelectedReservedBook.ClientId = _addediteReserveBookViewModel.SelectedClient.ID;
-                await _reservedBookStore.UpdateReservedBook(_addediteReserveBookViewModel.SelectedReservedBook);
+                _reservedBookStore.SelectedReserv.BookId = _reservedBookStore.SelectedBook.ID;
+                _reservedBookStore.SelectedReserv.ClientId = _reservedBookStore.SelectedClient.ID;
+                await _reservedBookStore.UpdateReservedBook(_reservedBookStore.SelectedReserv);
             }
             #endregion
 
