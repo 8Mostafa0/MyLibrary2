@@ -73,6 +73,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 _sortOder = value;
+                _clientsStore.SortOrder = value;
                 OnProperychanged(nameof(SortOrder));
             }
         }

@@ -11,6 +11,8 @@ namespace MyLibrary.ViewModel.Stores
         string SearchClientName { get; set; }
         Client SelectedClient { get; set; }
 
+        string SortOrder { get; set; }
+
         event Action<Client> ClientAdded;
         event Action<Client> ClientEdited;
         event Action<Client> ClientRemoved;

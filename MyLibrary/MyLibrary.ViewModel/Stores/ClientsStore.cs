@@ -28,6 +28,7 @@ namespace MyLibrary.ViewModel.Stores
         public event Action ClientsUpdated;
 
         public string SearchClientName { get; set; }
+        public string SortOrder { get; set; }
 
         #endregion
 
