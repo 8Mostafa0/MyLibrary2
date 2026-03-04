@@ -22,7 +22,7 @@
                             Background="Gray" 
                             CornerRadius="5">
                             <Grid>
-                                <Border x:Name="border" Background="White" >
+                                <Border x:Name="border" Background="White">
                                     <ContentControl Content="{TemplateBinding Content}"/>
                                 </Border>
                             </Grid>
