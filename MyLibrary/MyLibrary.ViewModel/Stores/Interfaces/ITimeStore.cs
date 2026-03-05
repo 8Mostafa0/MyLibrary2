@@ -4,7 +4,7 @@ namespace MyLibrary.ViewModel.Stores
 {
     public interface ITimeStore
     {
-        DateTime CurrentTime { get; set; }
+        string CurrentTime { get; set; }
 
         event Action CurrentViewModelChanged;
     }

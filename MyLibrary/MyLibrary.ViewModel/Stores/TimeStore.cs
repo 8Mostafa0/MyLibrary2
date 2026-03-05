@@ -7,8 +7,8 @@ namespace MyLibrary.ViewModel.Stores
         #region Dependencies
         public event Action CurrentViewModelChanged;
 
-        private DateTime _currentTime;
-        public DateTime CurrentTime
+        private string _currentTime;
+        public string CurrentTime
         {
             get => _currentTime;
             set

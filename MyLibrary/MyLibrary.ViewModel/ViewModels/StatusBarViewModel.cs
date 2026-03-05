@@ -1,5 +1,6 @@
 ﻿using MyLibrary.ViewModel.Stores;
 using System;
+using System.Globalization;
 using System.Timers;
 
 namespace MyLibrary.ViewModel.ViewModels
@@ -9,14 +10,16 @@ namespace MyLibrary.ViewModel.ViewModels
         #region Dependencies
         private static System.Timers.Timer aTimer;
         private ITimeStore _timeStore;
-        public DateTime CloclString => _timeStore.CurrentTime;
+        private PersianCalendar _persianCalender;
+        public string CloclString => _timeStore.CurrentTime;
         #endregion
 
         #region Constructor
         public StatusBarViewModel(ITimeStore timeStore)
         {
+            _persianCalender = new PersianCalendar();
             _timeStore = timeStore;
-            _timeStore.CurrentTime = DateTime.Now;
+            _timeStore.CurrentTime = $"{_persianCalender.GetDayOfMonth(DateTime.Now)}/{_persianCalender.GetMonth(DateTime.Now)}/{_persianCalender.GetYear(DateTime.Now)} - {DateTime.Now.ToString("HH:mm:ss", CultureInfo.InvariantCulture)}";
             aTimer = new System.Timers.Timer(1000);
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             aTimer.Enabled = true;
@@ -26,7 +29,8 @@ namespace MyLibrary.ViewModel.ViewModels
         #region Methods
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            _timeStore.CurrentTime = DateTime.Now;
+            string dateTime = $"{_persianCalender.GetYear(DateTime.Now)}/{_persianCalender.GetDayOfMonth(DateTime.Now)}/{_persianCalender.GetMonth(DateTime.Now)} - {DateTime.Now.ToString("HH:mm:ss", CultureInfo.InvariantCulture)}";
+            _timeStore.CurrentTime = dateTime;
             OnProperychanged(nameof(CloclString));
         }
         #endregion
