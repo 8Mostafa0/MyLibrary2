@@ -48,6 +48,9 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\MyLibrary.View\packages\Microsoft.Bcl.AsyncInterfaces.10.0.3\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\MyLibrary.View\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="Serilog, Version=4.3.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
@@ -106,6 +109,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\BookApiCommands\NextBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\AddNewBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\DeleteBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\EditBookCommand.cs" />
@@ -202,8 +206,12 @@
     <Compile Include="Commands\SettingsCommands\NavigateSecuritySettingsCommand.cs" />
     <Compile Include="Commands\SettingsCommands\NavigatieToSettingsCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BookApi\BookApi.cs" />
+    <Compile Include="Services\BookApi\IBookApi.cs" />
+    <Compile Include="Stores\BookApiStore.cs" />
     <Compile Include="Stores\BooksStore.cs" />
     <Compile Include="Stores\ClientsStore.cs" />
+    <Compile Include="Stores\IBookApiStore.cs" />
     <Compile Include="Stores\Interfaces\ILoginStore.cs" />
     <Compile Include="Stores\Interfaces\INavigationStore.cs" />
     <Compile Include="Stores\Interfaces\IModalNavigationStore.cs" />
@@ -224,6 +232,7 @@
     <Compile Include="Stores\SettingsNavigationsStore.cs" />
     <Compile Include="Stores\SettingsStore.cs" />
     <Compile Include="Stores\TimeStore.cs" />
+    <Compile Include="ViewModels\BookApiViewModel.cs" />
     <Compile Include="ViewModels\BooksViewModel.cs" />
     <Compile Include="ViewModels\ClientsViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
