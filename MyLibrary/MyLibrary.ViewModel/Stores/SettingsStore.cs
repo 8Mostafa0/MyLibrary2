@@ -189,6 +189,23 @@ namespace MyLibrary.ViewModel.Stores
                 _logger.Error(ex, "SetDataToRegistry");
             }
         }
+
+        /// <summary>
+        /// Get Count of called book api for get new book data, this counter is used to get next book data from api
+        /// </summary>
+        /// <returns></returns>
+        public int GetBookApiCounter()
+        {
+            if (int.TryParse(GetDataFromRegistry("BookApiCounter"), out int counter))
+            {
+                return counter;
+            }
+            else
+            {
+                SetDataToRegistry("BookApiCounter", "0");
+                return 0;
+            }
+        }
         #endregion
     }
 }
