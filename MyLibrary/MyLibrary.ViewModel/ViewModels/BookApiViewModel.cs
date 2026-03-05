@@ -8,6 +8,7 @@ namespace MyLibrary.ViewModel.ViewModels
     {
         #region Dependencies
         private readonly IBookApiStore _bookApiStore;
+        public int ID => _bookApiStore.BookData.ID;
         public string Name => _bookApiStore.BookData.Name;
         public string Author => _bookApiStore.BookData.Publisher;
         public string Description => _bookApiStore.BookData.Desciption;
@@ -20,16 +21,16 @@ namespace MyLibrary.ViewModel.ViewModels
             _bookApiStore = bookApiStore;
             NextBookCommand = new NextBookCommand(bookApi, settingsStore);
             PreviousBookCommand = new previousBookCommand(bookApi, settingsStore, messageBoxStore);
-            _bookApiStore.BookDataChanged += GetFirstRequest;
+            _bookApiStore.BookDataChanged += OnBookDataChanged;
+            NextBookCommand.Execute(null);
         }
         #endregion
         #region Methods
         /// <summary>
-        /// get the first book data to show in the view when the view model is created
+        /// Change data on each response of reqeusts
         /// </summary>
-        private void GetFirstRequest()
+        private void OnBookDataChanged()
         {
-            NextBookCommand.Execute(null);
             OnProperychanged(nameof(Name));
             OnProperychanged(nameof(Author));
             OnProperychanged(nameof(Description));

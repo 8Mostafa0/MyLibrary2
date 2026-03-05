@@ -20,7 +20,10 @@ namespace MyLibrary.ViewModel.Stores
         }
         #endregion
         #region Constructor
-        public BookApiStore() { }
+        public BookApiStore()
+        {
+            BookData = new NewBook() { Name = "درحال بارگذاری" };
+        }
         #endregion
         #region Methods
         /// <summary>

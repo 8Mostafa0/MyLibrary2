@@ -1,7 +1,9 @@
-﻿namespace MyLibrary.ViewModel.Services.BookApi
+﻿using System.Threading.Tasks;
+
+namespace MyLibrary.ViewModel.Services.BookApi
 {
     public interface IBookApi
     {
-        void GetBookInfo(int bookNumber);
+        Task GetBookInfo(int bookNumber);
     }
 }

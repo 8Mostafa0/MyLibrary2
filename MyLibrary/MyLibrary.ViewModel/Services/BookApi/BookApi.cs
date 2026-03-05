@@ -1,7 +1,10 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Stores;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 namespace MyLibrary.ViewModel.Services.BookApi
 {
     public class BookApi : IBookApi
@@ -12,7 +15,7 @@ namespace MyLibrary.ViewModel.Services.BookApi
             _bookApiStore = bookApiStore;
         }
 
-        public async void GetBookInfo(int bookNumber)
+        public async Task GetBookInfo(int bookNumber)
         {
             const string apiUrl = "https://gutendex.com/books/";
             using (HttpClient client = new HttpClient())
@@ -24,20 +27,31 @@ namespace MyLibrary.ViewModel.Services.BookApi
                     await response.Content.ReadAsStringAsync().ContinueWith(t =>
                     {
                         JObject data = JObject.Parse(t.Result);
-                        NewBook book = new NewBook
+                        NewBook book = new NewBook();
+                        if (data.ContainsKey("ID"))
                         {
-                            ID = (int)data["id"],
-                            Name = (string)data["title"],
-                            Publisher = string.Join(", ", data["authors"][0]),
-                            Desciption = string.Join(", ", data["summaries"])
-                        };
+                            book.ID = (int)data["id"];
+                        }
+                        if (data.ContainsKey("title"))
+                        {
+                            book.Name = (string)data["title"];
+                        }
+                        if (data.ContainsKey("authors") && data["authors"].Count() > 0)
+                        {
+
+                            book.Publisher = JsonConvert.SerializeObject(data["authors"][0].Value<string>("name"));
+                        }
+                        if (data.ContainsKey("summaries") && data["summaries"].Count() > 0)
+                        {
+                            book.Desciption = string.Join(", ", data["summaries"]);
+                        }
                         _bookApiStore.BookData = book;
                     });
                 }
                 catch (HttpRequestException e)
                 {
                     _bookApiStore.BookData = new NewBook()
-                    { ID = 0, Name = "Error", Desciption = e.ToString() };
+                    { ID = 0, Name = "کتاب موجود نیست", Desciption = "خطا دریافت کتاب" + bookNumber };
                 }
             }
         }
