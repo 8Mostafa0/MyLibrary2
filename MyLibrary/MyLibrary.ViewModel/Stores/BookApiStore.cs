@@ -8,8 +8,8 @@ namespace MyLibrary.ViewModel.Stores
         #region Dependencies
         public event Action BookDataChanged;
 
-        private Book _bookData;
-        public Book BookData
+        private NewBook _bookData;
+        public NewBook BookData
         {
             get => _bookData;
             set
