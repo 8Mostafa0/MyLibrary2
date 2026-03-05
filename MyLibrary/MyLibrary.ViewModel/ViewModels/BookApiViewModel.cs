@@ -20,7 +20,7 @@ namespace MyLibrary.ViewModel.ViewModels
             _bookApiStore = bookApiStore;
             NextBookCommand = new NextBookCommand(bookApi, settingsStore);
             PreviousBookCommand = new previousBookCommand(bookApi, settingsStore, messageBoxStore);
-            GetFirstRequest();
+            _bookApiStore.BookDataChanged += GetFirstRequest;
         }
         #endregion
         #region Methods

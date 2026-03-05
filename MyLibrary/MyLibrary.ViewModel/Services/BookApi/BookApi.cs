@@ -29,7 +29,7 @@ namespace MyLibrary.ViewModel.Services.BookApi
                             ID = (int)data["id"],
                             Name = (string)data["title"],
                             Publisher = string.Join(", ", data["authors"][0]),
-                            Desciption = string.Join(", ", data["summaries"]["e"])
+                            Desciption = string.Join(", ", data["summaries"])
                         };
                         _bookApiStore.BookData = book;
                     });

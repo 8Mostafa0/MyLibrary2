@@ -35,10 +35,6 @@ namespace MyLibrary.ViewModel.ViewModels
             OnProperychanged(nameof(MainContentViewModel));
         }
 
-        private void OnIStatusBarViewModelChanged()
-        {
-            OnProperychanged(nameof(StatusBarViewModel));
-        }
 
         private void OnContentViewModelChanged()
         {

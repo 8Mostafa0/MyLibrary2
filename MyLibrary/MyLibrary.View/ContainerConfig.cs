@@ -12,6 +12,7 @@ using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Commands.MessageBoxCommands;
 using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
 using MyLibrary.ViewModel.Commands.SettingsCommands;
+using MyLibrary.ViewModel.Services.BookApi;
 using MyLibrary.ViewModel.Servicies;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
@@ -60,6 +61,7 @@ namespace MyLibrary.ViewModel
             builder.RegisterType<BookApiViewModel>().As<IBookApiViewModel>().SingleInstance();
 
             #endregion
+
             #region Commands
 
             builder.RegisterType<AddNewBookCommand>().As<IAddNewBookCommand>().SingleInstance();
@@ -123,6 +125,7 @@ namespace MyLibrary.ViewModel
             builder.RegisterType<previousBookCommand>().As<IpreviousBookCommand>().SingleInstance();
 
             #endregion
+
             #region Stores
             builder.RegisterType<NavigationStore>().As<INavigationStore>();
             builder.RegisterType<BooksStore>().As<IBooksStore>().SingleInstance();
@@ -139,6 +142,12 @@ namespace MyLibrary.ViewModel
             builder.RegisterType<LoginStore>().As<ILoginStore>().SingleInstance();
             builder.RegisterType<BookApiStore>().As<IBookApiStore>().SingleInstance();
             #endregion
+
+            #region Services
+            builder.RegisterType<BookApi>().As<IBookApi>().SingleInstance();
+
+            #endregion
+
             #region Repositorys
             builder.RegisterType<DbContextFactory>().As<IDbContextFactory>().SingleInstance();
             builder.RegisterType<ClientsRepository>().As<IClientsRepository>().SingleInstance();

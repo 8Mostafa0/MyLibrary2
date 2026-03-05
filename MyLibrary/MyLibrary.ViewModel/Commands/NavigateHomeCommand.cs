@@ -11,7 +11,7 @@ namespace MyLibrary.ViewModel.Commands
         private readonly IClientsStore _clientsStore;
         private readonly INavigationStore _navigationStore;
         private readonly ISettingsStore _settingsStore;
-        private readonly IBooksViewModel _bookApiViewModel;
+        private readonly IBookApiViewModel _bookApiViewModel;
         #endregion
 
         #region Contructor
@@ -29,7 +29,7 @@ namespace MyLibrary.ViewModel.Commands
             IClientsStore clientsStore,
             ISettingsStore settingsStore,
             INavigationStore navigationStore,
-            IBooksViewModel bookApiViewModel
+            IBookApiViewModel bookApiViewModel
             )
         {
             _booksStore = booksStore;

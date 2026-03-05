@@ -19,7 +19,9 @@ namespace MyLibrary.ViewModel.Stores
             }
         }
         #endregion
-
+        #region Constructor
+        public BookApiStore() { }
+        #endregion
         #region Methods
         /// <summary>
         /// Triger event of when data is changed to update the view
