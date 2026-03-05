@@ -27,11 +27,8 @@ namespace MyLibrary.ViewModel.Services.BookApi
                     await response.Content.ReadAsStringAsync().ContinueWith(t =>
                     {
                         JObject data = JObject.Parse(t.Result);
-                        NewBook book = new NewBook();
-                        if (data.ContainsKey("ID"))
-                        {
-                            book.ID = (int)data["id"];
-                        }
+                        NewBook book = new NewBook() { ID = bookNumber };
+
                         if (data.ContainsKey("title"))
                         {
                             book.Name = (string)data["title"];
@@ -51,7 +48,7 @@ namespace MyLibrary.ViewModel.Services.BookApi
                 catch (HttpRequestException e)
                 {
                     _bookApiStore.BookData = new NewBook()
-                    { ID = 0, Name = "کتاب موجود نیست", Desciption = "خطا دریافت کتاب" + bookNumber };
+                    { ID = bookNumber, Name = "کتاب موجود نیست", Desciption = "خطا دریافت کتاب" };
                 }
             }
         }

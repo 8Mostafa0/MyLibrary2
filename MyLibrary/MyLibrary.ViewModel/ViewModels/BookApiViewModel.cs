@@ -31,6 +31,7 @@ namespace MyLibrary.ViewModel.ViewModels
         /// </summary>
         private void OnBookDataChanged()
         {
+            OnProperychanged(nameof(ID));
             OnProperychanged(nameof(Name));
             OnProperychanged(nameof(Author));
             OnProperychanged(nameof(Description));
