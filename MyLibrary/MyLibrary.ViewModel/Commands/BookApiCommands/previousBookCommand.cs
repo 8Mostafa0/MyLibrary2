@@ -5,15 +5,27 @@ namespace MyLibrary.ViewModel.Commands.BookApiCommands
 {
     public class previousBookCommand : CommandBase, IpreviousBookCommand
     {
+        #region Dependencies
         public IBookApi _bookApi;
         private ISettingsStore _settingsStore;
         private IMessageBoxStore _messageBoxStore;
+        #endregion
+        #region Constructor
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bookApi"></param>
+        /// <param name="settingsStore"></param>
+        /// <param name="messageBoxStore"></param>
         public previousBookCommand(IBookApi bookApi, ISettingsStore settingsStore, IMessageBoxStore messageBoxStore)
         {
             _bookApi = bookApi;
             _settingsStore = settingsStore;
             _messageBoxStore = messageBoxStore;
         }
+        #endregion
+
+        #region Methods
         public override void Execute(object parameter)
         {
             int currentBookId = _settingsStore.GetBookApiCounter();
@@ -26,5 +38,6 @@ namespace MyLibrary.ViewModel.Commands.BookApiCommands
             _bookApi.GetBookInfo(currentBookId);
             _settingsStore.SaveBookApiCounter(currentBookId);
         }
+        #endregion
     }
 }
