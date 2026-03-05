@@ -4,7 +4,7 @@ using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
-    public class BookApiViewModel : ViewModelBase
+    public class BookApiViewModel : ViewModelBase, IBookApiViewModel
     {
         #region Dependencies
         private readonly IBookApiStore _bookApiStore;

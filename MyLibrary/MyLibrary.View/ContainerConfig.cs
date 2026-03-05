@@ -4,6 +4,7 @@ using MyLibrary.Model.DbContexts;
 using MyLibrary.Model.Repositories;
 using MyLibrary.View;
 using MyLibrary.ViewModel.Commands;
+using MyLibrary.ViewModel.Commands.BookApiCommands;
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Commands.LoansCommands;
@@ -56,6 +57,7 @@ namespace MyLibrary.ViewModel
             builder.RegisterType<MainViewModel>().As<IMainViewModel>().SingleInstance();
             builder.RegisterType<NavigationBarViewModel>().As<INavigationBarViewModel>().SingleInstance();
             builder.RegisterType<StatusBarViewModel>().As<IStatusBarViewModel>().SingleInstance();
+            builder.RegisterType<BookApiViewModel>().As<IBookApiViewModel>().SingleInstance();
 
             #endregion
             #region Commands
@@ -117,6 +119,9 @@ namespace MyLibrary.ViewModel
             builder.RegisterType<LoginModalCommand>().As<ILoginModalCommand>().SingleInstance();
             builder.RegisterType<NavigateHomeScreenCommand>().As<INavigateHomeScreenCommand>().SingleInstance();
 
+            builder.RegisterType<NextBookCommand>().As<INextBookCommand>().SingleInstance();
+            builder.RegisterType<previousBookCommand>().As<IpreviousBookCommand>().SingleInstance();
+
             #endregion
             #region Stores
             builder.RegisterType<NavigationStore>().As<INavigationStore>();
@@ -132,6 +137,7 @@ namespace MyLibrary.ViewModel
             builder.RegisterType<SettingsStore>().As<ISettingsStore>().SingleInstance();
             builder.RegisterType<TimeStore>().As<ITimeStore>().SingleInstance();
             builder.RegisterType<LoginStore>().As<ILoginStore>().SingleInstance();
+            builder.RegisterType<BookApiStore>().As<IBookApiStore>().SingleInstance();
             #endregion
             #region Repositorys
             builder.RegisterType<DbContextFactory>().As<IDbContextFactory>().SingleInstance();
