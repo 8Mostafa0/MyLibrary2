@@ -206,6 +206,14 @@ namespace MyLibrary.ViewModel.Stores
                 return 0;
             }
         }
+        /// <summary>
+        /// Save Count of called book api for get new book data, this counter is used to get next book data from api
+        /// </summary>
+        /// <param name="counter"></param>
+        public void SaveBookApiCounter(int counter)
+        {
+            SetDataToRegistry("BookApiCounter", counter.ToString());
+        }
         #endregion
     }
 }

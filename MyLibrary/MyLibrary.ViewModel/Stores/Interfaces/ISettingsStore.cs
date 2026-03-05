@@ -11,5 +11,7 @@ namespace MyLibrary.ViewModel.Stores
         void SaveLoanSettings(Dictionary<string, int> settings);
         void SaveNoneHashedPassword(string password);
         bool VerifyPassword(string EnteredPassword);
+        int GetBookApiCounter();
+        void SaveBookApiCounter(int counter);
     }
 }
