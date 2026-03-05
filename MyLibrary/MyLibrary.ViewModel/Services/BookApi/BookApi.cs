@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using System.Net.Http;
 namespace MyLibrary.ViewModel.Services.BookApi
 {
-    public class BookApi
+    public class BookApi : IBookApi
     {
         private IBookApiStore _bookApiStore;
         public BookApi(IBookApiStore bookApiStore)
