@@ -16,7 +16,7 @@ namespace MyLibrary.ViewModel.ViewModels
 
         private string _loansCount;
         private string _dilayedLoansCount;
-
+        public IBooksViewModel BookApiViewPlace;
         public string ShowClientsCount { get; set; }
         public string ShowDilayedLoanCount { get; set; }
         public string ShowBooksCount { get; }
@@ -79,26 +79,32 @@ namespace MyLibrary.ViewModel.ViewModels
         /// <param name="loansStore"></param>
         /// <param name="settingsStore"></param>
         /// <param name="clientsStore"></param>
+        /// <param name="bookApiViewModel"></param>
         public HomeViewModel(
             IBooksStore booksStore,
             ILoansStore loansStore,
             ISettingsStore settingsStore,
-            IClientsStore clientsStore
+            IClientsStore clientsStore,
+            IBooksViewModel bookApiViewModel
             )
         {
             _clientsStore = clientsStore;
             _booksStore = booksStore;
             _loansStore = loansStore;
             _settingsStore = settingsStore;
+            BookApiViewPlace = bookApiViewModel;
+
             _clientsStore.Load();
             _booksStore.Load();
             _loansStore.Load();
+
             Dictionary<string, bool> settings = _settingsStore.GetLayoutSettings();
             ShowClientsCount = settings["ShowClientsCount"] ? "Visible" : "Hidden";
             ShowBooksCount = settings["ShowBooksCount"] ? "Visible" : "Hidden";
             ShowLoansCount = settings["ShowLoanedBooksCount"] ? "Visible" : "Hidden";
             ShowDilayedLoanCount = settings["ShowNotReturnedLoans"] ? "Visible" : "Hidden";
 
+            OnProperychanged(nameof(BookApiViewPlace));
             OnDataUpdated();
         }
         #endregion

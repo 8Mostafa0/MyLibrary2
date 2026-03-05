@@ -11,6 +11,7 @@ namespace MyLibrary.ViewModel.Commands
         private readonly IClientsStore _clientsStore;
         private readonly INavigationStore _navigationStore;
         private readonly ISettingsStore _settingsStore;
+        private readonly IBooksViewModel _bookApiViewModel;
         #endregion
 
         #region Contructor
@@ -27,7 +28,8 @@ namespace MyLibrary.ViewModel.Commands
             IBooksStore booksStore,
             IClientsStore clientsStore,
             ISettingsStore settingsStore,
-            INavigationStore navigationStore
+            INavigationStore navigationStore,
+            IBooksViewModel bookApiViewModel
             )
         {
             _booksStore = booksStore;
@@ -35,6 +37,7 @@ namespace MyLibrary.ViewModel.Commands
             _clientsStore = clientsStore;
             _settingsStore = settingsStore;
             _navigationStore = navigationStore;
+            _bookApiViewModel = bookApiViewModel;
         }
         #endregion
 
@@ -47,7 +50,7 @@ namespace MyLibrary.ViewModel.Commands
             await _clientsStore.Load();
             await _booksStore.Load();
             await _loansStore.Load();
-            _navigationStore.ContentScreen = new HomeViewModel(_booksStore, _loansStore, _settingsStore, _clientsStore);
+            _navigationStore.ContentScreen = new HomeViewModel(_booksStore, _loansStore, _settingsStore, _clientsStore, _bookApiViewModel);
         }
         #endregion
     }
