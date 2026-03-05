@@ -1,15 +1,13 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
     public class EditBookCommand : CommandBase, IEditBookCommand
     {
         #region Dependencies
-        private IBooksStore _booksStore;
-        private IBooksViewModel _booksViewModel;
-        private IMessageBoxStore _messageBoxStore;
+        private readonly IBooksStore _booksStore;
+        private readonly IMessageBoxStore _messageBoxStore;
         #endregion
 
 
@@ -18,7 +16,6 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
         /// 
         /// </summary>
         /// <param name="booksStore"></param>
-        /// <param name="booksRepository"></param>
         /// <param name="messageBoxStore"></param>
         public EditBookCommand(
             IBooksStore booksStore,
@@ -64,8 +61,7 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
                 _messageBoxStore.Show("لطفا تاریخ انتشار کتاب را وارد کنید", "افزودن کتاب");
                 return;
             }
-            int PublicationYear = 0;
-            if (!int.TryParse(_booksStore.SelectedBook.PublicationDate, out PublicationYear) || _booksStore.SelectedBook.PublicationDate.Length != 4)
+            if (!int.TryParse(_booksStore.SelectedBook.PublicationDate, out _) || _booksStore.SelectedBook.PublicationDate.Length != 4)
             {
                 _messageBoxStore.Show("لطفا تاریخ انتشار کتاب را عدد 4 رقمی وارد کنید", "افزودن کتاب");
                 return;

@@ -6,8 +6,7 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
     public class CloseAppCommand : CommandBase, ICloseAppCommand
     {
         #region Dependencies
-        private IMessageBoxStore _messageBoxStore;
-        private ICloseAppCommand _closeAppCommand;
+        private readonly IMessageBoxStore _messageBoxStore;
         #endregion
 
         #region Contructor
