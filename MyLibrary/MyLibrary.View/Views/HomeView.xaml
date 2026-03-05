@@ -29,34 +29,71 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3" CornerRadius="20" Background="#839705" Visibility="{Binding ShowClientsCount}">
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="5" Margin="10" CornerRadius="20" Background="#839705" Visibility="{Binding ShowClientsCount}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Padding="20" FontWeight="Bold" FontSize="15" Text="تعداد کاربران"/>
 
                 <TextBlock Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Text="{Binding ClientsCount}"/>
             </StackPanel>
         </Border>
-        <Border Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3" CornerRadius="20" Background="#839705" Visibility="{Binding ShowDilayedLoanCount}">
+        <Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="5" Margin="10"  CornerRadius="20" Background="#839705" Visibility="{Binding ShowDilayedLoanCount}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Padding="20" FontWeight="Bold" FontSize="15" Text="تعداد امانت عقب افتاده"/>
 
                 <TextBlock Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"  Text="{Binding DilayedLoanCount}"/>
             </StackPanel>
         </Border>
-        <Border Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="3" CornerRadius="20" Background="#839705" Visibility="{Binding ShowBooksCount}">
+        <Border Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="5"  Margin="10"   CornerRadius="20" Background="#839705" Visibility="{Binding ShowBooksCount}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Padding="20" FontWeight="Bold" FontSize="15" Text="تعداد کتاب ها"/>
 
                 <TextBlock Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"  Text="{Binding BooksCount}"/>
             </StackPanel>
         </Border>
-        <Border Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="3" CornerRadius="20" Background="#839705" Visibility="{Binding ShowLoansCount}">
+        <Border Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="4" Grid.RowSpan="5"  Margin="10"   CornerRadius="20" Background="#839705" Visibility="{Binding ShowLoansCount}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Padding="20" FontWeight="Bold" FontSize="15" Text="تعداد کل امانت ها"/>
 
                 <TextBlock Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"  Text="{Binding LoansCount}"/>
             </StackPanel>
+        </Border>
+        <Border Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="6" Grid.RowSpan="10"  Margin="10"   CornerRadius="20" Background="#839705" Visibility="{Binding ShowLoansCount}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Text="کتاب های جدید"/>
+                <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="6" Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Text=": عنوان"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Text=""/>
+
+                <TextBlock Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="6" Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Text=": نویسنده"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Text=""/>
+
+                <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="6" Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Text=": خلاصه"/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="2" Padding="20" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Text=""/>
+                <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Content="ssss"/>
+                <Button Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" Margin="10" Content="ssss"/>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>
