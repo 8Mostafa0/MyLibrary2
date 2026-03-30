@@ -22,7 +22,7 @@ namespace MyLibrary.Model.DbContexts
         /// <param name="logger"></param>
         public DbContextFactory(ILoggerService logger)
         {
-            _connectionString = "Server=localhost;User Id=Mosielite;Password=iFSevr60k7uT;TrustServerCertificate=True;";
+            _connectionString = "Server=localhost;User Id=sa;Password=arta0@;TrustServerCertificate=True;";
             _logger = logger.logger;
         }
         #endregion
@@ -216,9 +216,9 @@ namespace MyLibrary.Model.DbContexts
             int ExecuteSqlResult = 0;
             using (SqlConnection Connection = GetConnection("", false))
             {
-                Connection.Open();
                 try
                 {
+                    Connection.Open();
                     string CreateDatabaseSql = $"CREATE  DATABASE [{_dbName}];";
                     ExecuteSqlResult = await Connection.ExecuteAsync(CreateDatabaseSql);
                     Connection.QuerySingle($"SELECT DB_NAME({_dbName})");
