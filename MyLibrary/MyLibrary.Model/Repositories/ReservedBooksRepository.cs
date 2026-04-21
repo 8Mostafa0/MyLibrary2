@@ -185,6 +185,7 @@ namespace MyLibrary.Model.Repositories
             string DeleteReservSql = $"DELETE FROM ReservedBooks WHERE BookId='{bookId}'";
             await _dbContextFactory.ExecuteQueryAsync(DeleteReservSql, "DeleteReservedBook");
         }
+        public void Dispose() { }
         #endregion
     }
 }

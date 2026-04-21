@@ -16,5 +16,7 @@ namespace MyLibrary.Model.Repositories
         Task<ReservedBook> GetReservedBook(string customSql, string executionPart);
         Task RemoveClientReservedBooks(int clientId);
         Task<ReservedBook> UserHaveReservedBook(int clientId);
+
+        void Dispose();
     }
 }
