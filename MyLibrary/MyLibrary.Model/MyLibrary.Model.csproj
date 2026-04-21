@@ -117,6 +117,7 @@
     <Compile Include="Repositories\Interfaces\IClientsRepository.cs" />
     <Compile Include="Repositories\Interfaces\ILoanRepository.cs" />
     <Compile Include="Repositories\Interfaces\IReservedBooksRepository.cs" />
+    <Compile Include="Repositories\JsonFileUnit.cs" />
     <Compile Include="Repositories\LoanRepository.cs" />
     <Compile Include="Repositories\MyLibraryDbContext.cs" />
     <Compile Include="Repositories\ReservedBooksRepository.cs" />
@@ -127,6 +128,10 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+	</ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\MyLibrary.View\packages\Serilog.4.3.1\build\Serilog.targets" Condition="Exists('..\MyLibrary.View\packages\Serilog.4.3.1\build\Serilog.targets')" />
