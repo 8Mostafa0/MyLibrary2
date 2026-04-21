@@ -141,6 +141,9 @@ namespace MyLibrary.Model.Repositories
             string DeleteClientSql = $"DELETE FROM Clients SHERE Id='{clientId}'";
             await _dbContextFactory.ExecuteQueryAsync(DeleteClientSql, "DeleteClientToDb");
         }
+
+        public void Dispose() { }
+
         #endregion
     }
 }

@@ -12,5 +12,6 @@ namespace MyLibrary.Model.Repositories
         Task EditeClientToDb(Client client);
         Task<List<Client>> GetAllClients(string customSql = "");
         Task<Client> GetClient(string customSql, string executionPart);
+        void Dispose();
     }
 }
