@@ -10,7 +10,7 @@ namespace MyLibrary.ViewModel.Stores
     {
         #region Dependencies
         private ILogger _logger;
-        private string KeyPath = $@"Softwar\MyApp\MyLibrary";
+        private string KeyPath = $@"Software\MyApp\MyLibrary";
         #endregion
 
         #region Contructor
