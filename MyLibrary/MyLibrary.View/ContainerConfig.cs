@@ -149,6 +149,7 @@ namespace MyLibrary.ViewModel
             #endregion
 
             #region Repositorys
+            builder.RegisterType<MyLibraryDbContext>().As<IMyLibraryDbContext>().SingleInstance();
             builder.RegisterType<DbContextFactory>().As<IDbContextFactory>().SingleInstance();
             builder.RegisterType<ClientsRepository>().As<IClientsRepository>().SingleInstance();
             builder.RegisterType<LoanRepository>().As<ILoanRepository>().SingleInstance();
