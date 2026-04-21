@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using MyLibrary.ViewModel.Servicies;
 using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
@@ -11,8 +12,13 @@ namespace MyLibrary.Model.DbContexts
     {
         #region Dependencies
         private ILogger _logger;
-        private string _connectionString;
-        private const string _dbName = "MyLibrary";
+        public string ServerName { get; set; }
+        public string DatabaseName { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+
+        private Dictionary<string, string> TablesName;
+        public string ConnectionString { get; set; }
         #endregion
 
         #region Contructor
@@ -20,124 +26,21 @@ namespace MyLibrary.Model.DbContexts
         /// 
         /// </summary>
         /// <param name="logger"></param>
-        public DbContextFactory(ILoggerService logger)
+        public DbContextFactory(ILoggerService logger, string serverName = ".\\Moein", string databaseName = "MyLibrary", string username = "sa", string password = "arta0@")
         {
-            _connectionString = "Server=localhost;User Id=sa;Password=arta0@;TrustServerCertificate=True;";
+            FillTablesName();
+            ServerName = serverName;
+            DatabaseName = databaseName;
+            Username = username;
+            Password = password;
+            ConnectionString = GetConnectionString();
             _logger = logger.logger;
         }
         #endregion
 
         #region Methods
 
-        /// <summary>
-        /// Get Connection To Database (SQL Server)
-        /// </summary>
-        /// <returns SqlConnection>sqlconnection to connect database</returns>
-        public SqlConnection GetConnection(string databaseName = _dbName, bool withDb = true)
-        {
-            string StringConnection = _connectionString;
-            if (withDb)
-            {
-                StringConnection += $"Database={databaseName};";
-            }
-            SqlConnection Connection = null;
-            try
-            {
-                Connection = new SqlConnection(StringConnection);
-            }
-            catch (SqlException e)
-            {
-                _logger.Error(e, "DbContext");
-            }
-            return Connection;
-        }
-
-
-        /// <summary>
-        /// Check database and app tables exists if not trying to create them
-        /// </summary>
-        /// <returns bool>true if database exists</returns>
-        public async Task CheckDatabaseExistsAsync()
-        {
-            bool IsTablesExists = true;
-            using (SqlConnection Connection = GetConnection(_dbName))
-            {
-                try
-                {
-                    if (Connection == null)
-                    {
-                        await CreateDatabaseAsync();
-                        await CreateTablesAsync();
-                        return;
-                    }
-                    Connection.Open();
-
-                    string CheckDatabaseSql = $"SELECT 1 FROM sys.databases WHERE name = {_dbName};";
-                    int SqlExecuteResult = await Connection.ExecuteScalarAsync<int>(CheckDatabaseSql);
-
-                    List<string> TablesNames = new List<string>() { "Clients", "Books", "Loans" };
-
-                    foreach (string Name in TablesNames)
-                    {
-                        if (!IsTablesExists)
-                        {
-                            Connection?.Close();
-                            await CreateDatabaseAsync();
-                            break;
-                        }
-                        string CheckTableSql = $"SELECT name FROM sys.tables WHERE name ='{Name}'";
-                        SqlExecuteResult = await Connection.ExecuteAsync(CheckTableSql);
-                        IsTablesExists = SqlExecuteResult > 0;
-                    }
-
-                    if (!IsTablesExists)
-                    {
-                        Connection?.Close();
-                        await CleanDatabaseAsync();
-                    }
-
-                }
-                catch (SqlException e)
-                {
-                    _logger.Error(e, "CheckDatabaseExistsAsync");
-                    await CreateDatabaseAsync();
-                }
-                finally
-                {
-                    Connection?.Close();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Remove all tables and remove database
-        /// </summary>
-        /// <returns></returns>
-        private async Task<bool> CleanDatabaseAsync()
-        {
-            string RemoveDatabaseSql = $"ALTER DATABASE [{_dbName}] ; DROP DATABASE [{_dbName}];";
-            int SqlExecuteResult = 0;
-            using (var Connection = GetConnection())
-            {
-                try
-                {
-                    SqlExecuteResult = await Connection.ExecuteAsync(RemoveDatabaseSql);
-
-                    return SqlExecuteResult == -1;
-
-                }
-                catch (SqlException e)
-                {
-                    _logger.Warning(e, "CleanDatabaseAsync");
-                }
-            }
-            return SqlExecuteResult == -1;
-        }
-
-        /// <summary>
-        /// Create All tables of the app need
-        /// </summary>
-        private async Task<bool> CreateTablesAsync()
+        private void FillTablesName()
         {
             const string ClientsTableSql = "CREATE TABLE Clients" +
                 "(Id INT IDENTITY(1,1) NOT NULL  PRIMARY KEY ," +
@@ -168,42 +71,234 @@ namespace MyLibrary.Model.DbContexts
 
             const string ReservedBookSql = "Create Table ReservedBooks" +
                 "(Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY," +
-                "BookId INT NOY NULL," +
+                "BookId INT NOT NULL," +
                 "ClientId INT NOT NULL," +
                 "CreatedAt Date NOT NULL," +
-                "UpdatedAt DATE NOT NYLL);";
+                "UpdatedAt DATE NOT NULL);";
 
+            TablesName = new Dictionary<string, string>() { { "Clients", ClientsTableSql }, { "Books", BooksTableSql }, { "Loans", LoansTableSql }, { "ReservedBooks", ReservedBookSql } };
+        }
+        public void intilize()
+        {
+            CreateDatabaseAsync();
+            Console.WriteLine("Tettsts");
+        }/// <summary>
+         /// Get connection string to master database (for creating/dropping databases)
+         /// </summary>
+        private string GetMasterConnectionString()
+        {
+            // Same server and credentials, but connect to 'master' database
+            string masterConnectionString = $@"data source = {ServerName};" +
+                                             $@"initial catalog = master;" +
+                                             $@"user id = {Username};" +
+                                             $@"password = {Password};" +
+                                             @"MultipleActiveResultSets=True;";
+            return masterConnectionString;
+        }
+        /// <summary>
+        /// Get a Connection to MyLibrary Database
+        /// </summary>
+        /// <returns></returns>
+        private string GetConnectionString()
+        {
+            string entityConnecitonString = @"" +
+                //@"provider = System.Data.SqlClient;" +
+                //@"provider connection string = """ +
+                $@"data source = {ServerName};" +
+                $@"initial catalog = {DatabaseName};" +
+                $@"user id = {Username};" +
+                $@"password = {Password} ;" +
+                @"MultipleActiveResultSets=True;";
 
+            return entityConnecitonString;
+
+        }
+
+        /// <summary>
+        /// Get Connection To Database (SQL Server)
+        /// </summary>
+        /// <returns SqlConnection>sqlconnection to connect database</returns>
+        public SqlConnection GetConnection()
+        {
+            SqlConnection Connection = null;
+            try
+            {
+                Connection = new SqlConnection(ConnectionString);
+            }
+            catch (SqlException e)
+            {
+                _logger.Error(e, "DbContext");
+            }
+            return Connection;
+        }
+        /// <summary>
+        /// Get SqlConnection to master database
+        /// </summary>
+        private SqlConnection GetMasterConnection()
+        {
+            SqlConnection Connection = null;
+            try
+            {
+                return new SqlConnection(GetMasterConnectionString());
+            }
+            catch (SqlException e)
+            {
+                _logger.Error(e, "DbContext");
+            }
+            return Connection;
+        }
+        /// <summary>
+        /// execute query for checking table with tableName Exist or not in data base
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
+        private async Task<bool> TableExistsAsync(SqlConnection connection, string tableName)
+        {
+            string checkTableSql = @"
+        SELECT CASE 
+            WHEN EXISTS (
+                SELECT 1 
+                FROM INFORMATION_SCHEMA.TABLES 
+                WHERE TABLE_NAME = @TableName
+            )
+            THEN 1
+            ELSE 0
+        END";
+
+            using (var command = new SqlCommand(checkTableSql, connection))
+            {
+                command.Parameters.AddWithValue("@TableName", tableName);
+
+                // Returns 1 if exists, 0 if not
+                int result = (int)await command.ExecuteScalarAsync();
+                return result == 1;
+            }
+        }
+
+        /// <summary>
+        /// Check database and app tables exists if not trying to create them
+        /// </summary>
+        /// <returns bool>true if database exists</returns>
+        public async Task CheckDatabaseExistsAsync()
+        {
+            using (SqlConnection Connection = GetConnection())
+            {
+
+                try
+                {
+                    await Connection.OpenAsync();
+                    bool IsTablesExists = true;
+                    foreach (string Name in TablesName.Keys)
+                    {
+                        bool TablesExist = await TableExistsAsync(Connection, Name);
+                        if (!TablesExist)
+                        {
+                            IsTablesExists = false;
+                            break;
+                        }
+                    }
+
+                    if (!IsTablesExists)
+                    {
+                        await CleanDatabaseAsync();
+                        await CreateDatabaseAsync();
+                        await CreateTablesAsync();
+                    }
+
+                }
+                catch (SqlException e)
+                {
+                    _logger.Error(e, "CheckDatabaseExistsAsync");
+                    await CreateDatabaseAsync();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Remove all tables and remove database
+        /// </summary>
+        /// <returns></returns>
+        private async Task<bool> CleanDatabaseAsync()
+        {
+            string forceDropSql = $@"
+                USE master;
+                
+                -- Kill all connections to the database
+                DECLARE @sql NVARCHAR(MAX) = N'';
+                SELECT @sql = @sql + 'KILL ' + CAST(session_id AS NVARCHAR(10)) + ';'
+                FROM sys.dm_exec_sessions
+                WHERE database_id = DB_ID('{DatabaseName}');
+                
+                EXEC sp_executesql @sql;
+                
+                -- Set database to SINGLE_USER mode with immediate rollback
+                ALTER DATABASE [{DatabaseName}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                
+                -- Drop the database
+                DROP DATABASE [{DatabaseName}];
+            ";
+            string RemoveDatabaseSql = $"DROP DATABASE [{DatabaseName}];";
+            int SqlExecuteResult = 0;
+            using (var Connection = GetConnection())
+            {
+                try
+                {
+                    SqlExecuteResult = await Connection.ExecuteAsync(RemoveDatabaseSql);
+
+                    return SqlExecuteResult == -1;
+
+                }
+                catch (SqlException e)
+                {
+                    _logger.Warning(e, "CleanDatabaseAsync");
+                }
+            }
+            return SqlExecuteResult == -1;
+        }
+
+        /// <summary>
+        /// Create All tables of the app need
+        /// </summary>
+        private async Task<bool> CreateTablesAsync()
+        {
             const string LoanTableClientIdForenKeyRule = "ALTER TABLE Loans ADD CONSTRAINT FK_Loans_Clients FOREIGN KEY (ClientId) REFERENCES Clients(Id);";
             const string LoanTableBookIdForenKeyRule = "ALTER TABLE Loans ADD CONSTRAINT FK_Loans_Books FOREIGN KEY (BookId) REFERENCES Books(Id);";
 
 
             const string ReservedBooksTableBookIdForenKeyRule = "ALTER TABLE ReservedBooks ADD CONSTRAINT FK_Loans_Books FOREIGN KEY (BookId) REFERENCES Books(Id);";
             const string ReservedBooksTableClientIdForenKeyRule = "ALTER TABLE ReservedBooks ADD CONSTRAINT FK_Loans_Clients FOREIGN KEY (ClientId) REFERENCES Clients(Id);";
-
-            using (SqlConnection Connection = GetConnection())
+            List<string> ForionKeys = new List<string>() { LoanTableBookIdForenKeyRule, LoanTableClientIdForenKeyRule, ReservedBooksTableBookIdForenKeyRule, ReservedBooksTableClientIdForenKeyRule };
+            using (SqlConnection connection = GetConnection())
             {
-                try
+                await connection.OpenAsync();
+                bool allTablesExists = false;
+                foreach (var Name in TablesName.Keys)
                 {
-                    await Connection.ExecuteAsync(ClientsTableSql);
-                    await Connection.ExecuteAsync(BooksTableSql);
-                    await Connection.ExecuteAsync(LoansTableSql);
-                    await Connection.ExecuteAsync(ReservedBookSql);
-                    await Connection.ExecuteAsync(LoanTableBookIdForenKeyRule);
-                    await Connection.ExecuteAsync(LoanTableClientIdForenKeyRule);
-                    await Connection.ExecuteAsync(ReservedBooksTableBookIdForenKeyRule);
-                    await Connection.ExecuteAsync(ReservedBooksTableClientIdForenKeyRule);
-                    return true;
+                    if (!await TableExistsAsync(connection, Name))
+                    {
+                        allTablesExists = await connection.ExecuteAsync(TablesName[Name]) > 0;
+                    }
                 }
-                catch (SqlException e)
+                if (!allTablesExists)
                 {
-                    _logger.Error(e, "CreateTablesAsync");
-                    return false;
+                    foreach (var key in ForionKeys)
+                    {
+                        try
+                        {
+                            allTablesExists = await connection.ExecuteAsync(key) > 0;
+                        }
+                        catch (SqlException ex)
+                        {
+                            allTablesExists = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.Error(ex, "Create Tables Forion Keys");
+                        }
+                    }
                 }
-                finally
-                {
-                    Connection.Close();
-                }
+                return allTablesExists;
             }
         }
 
@@ -214,14 +309,13 @@ namespace MyLibrary.Model.DbContexts
         private async Task<bool> CreateDatabaseAsync()
         {
             int ExecuteSqlResult = 0;
-            using (SqlConnection Connection = GetConnection("", false))
+            using (SqlConnection connection = GetMasterConnection())
             {
                 try
                 {
-                    Connection.Open();
-                    string CreateDatabaseSql = $"CREATE  DATABASE [{_dbName}];";
-                    ExecuteSqlResult = await Connection.ExecuteAsync(CreateDatabaseSql);
-                    Connection.QuerySingle($"SELECT DB_NAME({_dbName})");
+                    connection.Open();
+                    string CreateDatabaseSql = $"CREATE  DATABASE [{DatabaseName}];";
+                    ExecuteSqlResult = await connection.ExecuteAsync(CreateDatabaseSql);
                 }
                 catch (SqlException e)
                 {
@@ -229,7 +323,6 @@ namespace MyLibrary.Model.DbContexts
                 }
                 finally
                 {
-                    Connection.Close();
                     await CreateTablesAsync();
                 }
             }
@@ -244,7 +337,7 @@ namespace MyLibrary.Model.DbContexts
         /// <returns></returns>
         public async Task ExecuteQueryAsync(string sqlQuery, string executePart)
         {
-            using (SqlConnection Connection = GetConnection(_dbName))
+            using (SqlConnection Connection = GetConnection())
             {
                 Connection.Open();
                 try

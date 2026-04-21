@@ -7,6 +7,7 @@ namespace MyLibrary.Model.DbContexts
     {
         Task CheckDatabaseExistsAsync();
         Task ExecuteQueryAsync(string sqlQuery, string executePart);
-        SqlConnection GetConnection(string databaseName = "MyLibrary", bool withDb = true);
+        SqlConnection GetConnection();
+        void intilize();
     }
 }

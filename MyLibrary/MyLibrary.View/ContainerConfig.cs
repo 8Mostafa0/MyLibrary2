@@ -33,6 +33,14 @@ namespace MyLibrary.ViewModel
 
             builder.RegisterType<MainWindow>().AsSelf().SingleInstance();
 
+            #region Repositorys
+            builder.RegisterType<MyLibraryDbContext>().As<IMyLibraryDbContext>().SingleInstance();
+            builder.RegisterType<DbContextFactory>().As<IDbContextFactory>().SingleInstance();
+            builder.RegisterType<ClientsRepository>().As<IClientsRepository>().SingleInstance();
+            builder.RegisterType<LoanRepository>().As<ILoanRepository>().SingleInstance();
+            builder.RegisterType<BooksRepository>().As<IBooksRepository>().SingleInstance();
+            builder.RegisterType<ReservedBooksRepository>().As<IReservedBooksRepository>().SingleInstance();
+            #endregion
 
             #region ViewModels
             builder.RegisterType<ClientsStore>().As<IClientsStore>().SingleInstance();
@@ -148,14 +156,6 @@ namespace MyLibrary.ViewModel
 
             #endregion
 
-            #region Repositorys
-            builder.RegisterType<MyLibraryDbContext>().As<IMyLibraryDbContext>().SingleInstance();
-            builder.RegisterType<DbContextFactory>().As<IDbContextFactory>().SingleInstance();
-            builder.RegisterType<ClientsRepository>().As<IClientsRepository>().SingleInstance();
-            builder.RegisterType<LoanRepository>().As<ILoanRepository>().SingleInstance();
-            builder.RegisterType<BooksRepository>().As<IBooksRepository>().SingleInstance();
-            builder.RegisterType<ReservedBooksRepository>().As<IReservedBooksRepository>().SingleInstance();
-            #endregion
 
             #region Logger
             builder.RegisterType<LoggerService>().As<ILoggerService>().SingleInstance();

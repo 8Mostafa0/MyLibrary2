@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MyLibrary.Model.DbContexts;
 using MyLibrary.ViewModel;
 using MyLibrary.ViewModel.ViewModels;
 using System;
@@ -18,6 +19,8 @@ namespace MyLibrary.View
             using (var scope = Container.BeginLifetimeScope())
             {
                 var app = scope.Resolve<MainWindow>();
+                IDbContextFactory dbContext = scope.Resolve<IDbContextFactory>();
+                dbContext.intilize();
                 IMainViewModel mainViewModel = scope.Resolve<IMainViewModel>();
                 app.DataContext = mainViewModel;
                 app.Show();
