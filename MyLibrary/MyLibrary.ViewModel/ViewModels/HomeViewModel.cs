@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace MyLibrary.ViewModel.ViewModels
 
         private string _loansCount;
         private string _dilayedLoansCount;
+        private IMyLibraryDbContext _myLibraryDbContext { get; set; }
+
         public IBookApiViewModel BookApiViewPlace { get; set; }
         public string ShowClientsCount { get; set; }
         public string ShowDilayedLoanCount { get; set; }
@@ -85,7 +88,8 @@ namespace MyLibrary.ViewModel.ViewModels
             ILoansStore loansStore,
             ISettingsStore settingsStore,
             IClientsStore clientsStore,
-            IBookApiViewModel bookApiViewModel
+            IBookApiViewModel bookApiViewModel,
+            IMyLibraryDbContext myLibraryDbContext
             )
         {
             _clientsStore = clientsStore;
@@ -93,6 +97,7 @@ namespace MyLibrary.ViewModel.ViewModels
             _loansStore = loansStore;
             _settingsStore = settingsStore;
             BookApiViewPlace = bookApiViewModel;
+            _myLibraryDbContext = myLibraryDbContext;
 
             _clientsStore.Load();
             _booksStore.Load();
@@ -114,6 +119,7 @@ namespace MyLibrary.ViewModel.ViewModels
         /// </summary>
         private void OnDataUpdated()
         {
+            ClientsCount = _myLibraryDbContext.ClientsRepository.GetAllClients().Result.Count.ToString();
             ClientsCount = _clientsStore.Clients.Count().ToString();
             BooksCount = _booksStore.Books.Count().ToString();
             LoansCount = _loansStore.Loans.Count().ToString();

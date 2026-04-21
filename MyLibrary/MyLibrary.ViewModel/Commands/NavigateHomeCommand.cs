@@ -1,4 +1,5 @@
-﻿using MyLibrary.ViewModel.Stores;
+﻿using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels;
 
 namespace MyLibrary.ViewModel.Commands
@@ -12,6 +13,7 @@ namespace MyLibrary.ViewModel.Commands
         private readonly INavigationStore _navigationStore;
         private readonly ISettingsStore _settingsStore;
         private readonly IBookApiViewModel _bookApiViewModel;
+        private readonly IMyLibraryDbContext _myLibraryDbContext;
         #endregion
 
         #region Contructor
@@ -29,7 +31,8 @@ namespace MyLibrary.ViewModel.Commands
             IClientsStore clientsStore,
             ISettingsStore settingsStore,
             INavigationStore navigationStore,
-            IBookApiViewModel bookApiViewModel
+            IBookApiViewModel bookApiViewModel,
+            IMyLibraryDbContext myLibraryDbContext
             )
         {
             _booksStore = booksStore;
@@ -38,6 +41,7 @@ namespace MyLibrary.ViewModel.Commands
             _settingsStore = settingsStore;
             _navigationStore = navigationStore;
             _bookApiViewModel = bookApiViewModel;
+            _myLibraryDbContext = myLibraryDbContext;
         }
         #endregion
 
@@ -47,10 +51,7 @@ namespace MyLibrary.ViewModel.Commands
         /// <param name="parameter">no marametes needed</param>
         public override async void Execute(object parameter)
         {
-            await _clientsStore.Load();
-            await _booksStore.Load();
-            await _loansStore.Load();
-            _navigationStore.ContentScreen = new HomeViewModel(_booksStore, _loansStore, _settingsStore, _clientsStore, _bookApiViewModel);
+            _navigationStore.ContentScreen = new HomeViewModel(_booksStore, _loansStore, _settingsStore, _clientsStore, _bookApiViewModel, _myLibraryDbContext);
         }
         #endregion
     }

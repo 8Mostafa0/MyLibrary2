@@ -148,16 +148,16 @@ namespace MyLibrary.ViewModel.Stores
                     {
 
                         _logger.Warning("Cannot Create/Open Registery Key!");
-                        return "";
+                        return string.Empty;
                     }
                     string value = AppKey.GetValue(key) as string;
-                    return value ?? "";
+                    return value ?? string.Empty;
                 }
             }
             catch (Exception ex)
             {
                 _logger.Error(ex.Message);
-                return "";
+                return string.Empty;
             }
         }
         /// <summary>
