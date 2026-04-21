@@ -148,6 +148,9 @@ namespace MyLibrary.Model.Repositories
             string SearchSql = $"SELECT * FROM Books WHERE Name=N'{bookName}'";
             return await GetAllBooks(SearchSql);
         }
+
+        public void Dispose() { }
+
         #endregion
     }
 }

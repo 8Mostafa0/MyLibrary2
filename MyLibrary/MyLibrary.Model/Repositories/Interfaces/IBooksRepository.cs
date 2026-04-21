@@ -12,5 +12,6 @@ namespace MyLibrary.Model.Repositories
         Task<List<Book>> GetAllBooks(string customSql = "");
         Task<Book> GetBookById(int id, string customSql);
         Task<List<Book>> GetBooksByName(string bookName);
+        void Dispose();
     }
 }
