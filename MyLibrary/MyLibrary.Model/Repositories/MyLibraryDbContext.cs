@@ -17,8 +17,10 @@
 
         public void Dispose()
         {
+            ClientsRepository.Dispose();
             BooksRepository?.Dispose();
-
+            ReservedBooksRepository?.Dispose();
+            LoanRepository?.Dispose();
         }
     }
 }
