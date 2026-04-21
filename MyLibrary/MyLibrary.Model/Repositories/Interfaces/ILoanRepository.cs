@@ -17,5 +17,7 @@ namespace MyLibrary.Model.Repositories
         Task SetLoanReturned(Loan loan);
         Task UpdateLoanAtDb(Loan loan);
         Task<List<Loan>> UserHaveDilayedLoan(int clientId);
+
+        void Dispose();
     }
 }

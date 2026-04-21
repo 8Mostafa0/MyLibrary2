@@ -197,6 +197,7 @@ namespace MyLibrary.Model.Repositories
             string DeleteLoanSql = $"UPDATE Loans SET ReturnedDate=GETDATE() WHERE Id='{loan.Id}'";
             await _dbContextFactory.ExecuteQueryAsync(DeleteLoanSql, "DEleteLoanInDB");
         }
+        public void Dispose() { }
         #endregion
     }
 }
