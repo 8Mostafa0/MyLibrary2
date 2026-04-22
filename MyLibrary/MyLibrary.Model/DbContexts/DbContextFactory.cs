@@ -78,13 +78,9 @@ namespace MyLibrary.Model.DbContexts
 
             TablesName = new Dictionary<string, string>() { { "Clients", ClientsTableSql }, { "Books", BooksTableSql }, { "Loans", LoansTableSql }, { "ReservedBooks", ReservedBookSql } };
         }
-        public void intilize()
-        {
-            CreateDatabaseAsync();
-            Console.WriteLine("Tettsts");
-        }/// <summary>
-         /// Get connection string to master database (for creating/dropping databases)
-         /// </summary>
+        /// <summary>
+        /// Get connection string to master database (for creating/dropping databases)
+        /// </summary>
         private string GetMasterConnectionString()
         {
             // Same server and credentials, but connect to 'master' database
@@ -335,18 +331,19 @@ namespace MyLibrary.Model.DbContexts
         /// <param name="sqlQuery">custom sql base on schema of the tables</param>
         /// <param name="executePart">the method that call for this methods</param>
         /// <returns></returns>
-        public async Task ExecuteQueryAsync(string sqlQuery, string executePart)
+        public async Task<int> ExecuteQueryAsync(string sqlQuery, string executePart)
         {
             using (SqlConnection Connection = GetConnection())
             {
                 Connection.Open();
                 try
                 {
-                    await Connection.ExecuteAsync(sqlQuery);
+                    return await Connection.ExecuteAsync(sqlQuery);
                 }
                 catch (SqlException e)
                 {
                     _logger.Error(e, executePart);
+                    return -1;
                 }
                 finally
                 {
