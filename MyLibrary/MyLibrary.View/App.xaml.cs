@@ -20,7 +20,7 @@ namespace MyLibrary.View
             {
                 var app = scope.Resolve<MainWindow>();
                 IDbContextFactory dbContext = scope.Resolve<IDbContextFactory>();
-                dbContext.intilize();
+                dbContext.CheckDatabaseExistsAsync().Wait();
                 IMainViewModel mainViewModel = scope.Resolve<IMainViewModel>();
                 app.DataContext = mainViewModel;
                 app.Show();
