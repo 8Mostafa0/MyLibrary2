@@ -4,6 +4,6 @@ namespace MyLibrary.ViewModel.Commands.ClientsCommands
 {
     public interface IDeleteClientCommand : ICommand
     {
-        void Execute(object parameter);
+        new void Execute(object parameter);
     }
 }

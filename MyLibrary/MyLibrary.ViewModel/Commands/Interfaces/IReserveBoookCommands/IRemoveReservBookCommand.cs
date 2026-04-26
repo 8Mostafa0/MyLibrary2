@@ -4,6 +4,6 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
     public interface IRemoveReservBookCommand : ICommand
     {
-        void Execute(object parameter);
+        new void Execute(object parameter);
     }
 }

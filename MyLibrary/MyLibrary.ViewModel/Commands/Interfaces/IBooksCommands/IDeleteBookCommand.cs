@@ -4,6 +4,6 @@ namespace MyLibrary.ViewModel.Commands.BooksCommands
 {
     public interface IDeleteBookCommand : ICommand
     {
-        void Execute(object parameter);
+        new void Execute(object parameter);
     }
 }

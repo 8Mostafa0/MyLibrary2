@@ -1,9 +1,12 @@
 ﻿using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.BaseCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
@@ -18,6 +21,9 @@ namespace MyLibrary.ViewModel.ViewModels
         private Client _selectedClient;
 
         private IMessageBoxStore _messageBoxStore;
+
+        private IClientsRepository _clientsRepository;
+
         public bool IsMessageBoxOpen => _messageBoxStore.IsMessageOpen;
         public IViewModelBase CurrentMessageBox => _messageBoxStore.MessageBoxViewModel;
         public Client SelectedClient
@@ -86,7 +92,7 @@ namespace MyLibrary.ViewModel.ViewModels
         public IAddNewClientCommand AddNewClientCommand { get; }
         public IOrderClientsCommand OrderClientsCommand { get; }
 
-        public IEditClientCommand EditClientCommand { get; }
+        public AsyncRelayCommand<Client> EditClientCommand { get; }
 
         #endregion
 
@@ -110,24 +116,26 @@ namespace MyLibrary.ViewModel.ViewModels
             IDeleteClientCommand deleteClientCommand,
             IAddNewClientCommand addNewClientCommand,
             IOrderClientsCommand orderClientsCommand,
-            IReloadClientsCommand reloadClientsCommand)
+            IReloadClientsCommand reloadClientsCommand,
+            IMyLibraryDbContext db)
         {
             _clients = new ObservableCollection<Client>();
             _clientsStore = clientsStore;
             _messageBoxStore = messageBoxStore;
-            EditClientCommand = editClientCommand;
+            //EditClientCommand = editClientCommand;
+            EditClientCommand = new AsyncRelayCommand<Client>(ClientEdited, IsClientDataValid);
+
             LoadClientsCommand = loadClientsCommand;
             DeleteClientCommand = deleteClientCommand;
             AddNewClientCommand = addNewClientCommand;
             OrderClientsCommand = orderClientsCommand;
             ReloadClientsCommand = reloadClientsCommand;
-
+            _clientsRepository = db.ClientsRepository;
             SortOrder = "0";
 
             _clientsStore.ClientAdded += OnClientAdded;
             _clientsStore.ClientsUpdated += UpdateClients;
             _clientsStore.ClientRemoved += OnClientDeleted;
-            _clientsStore.ClientEdited += ClientEdited;
             _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
 
             loadClientsCommand.Execute(null);
@@ -141,25 +149,57 @@ namespace MyLibrary.ViewModel.ViewModels
         /// </summary>
         private void OnMessageBoxChanged()
         {
-
             OnProperychanged(nameof(CurrentMessageBox));
             OnProperychanged(nameof(IsMessageBoxOpen));
         }
-
         /// <summary>
-        /// called each time client update trigred and update it to clients list
+        /// Validate inputed Client Data
         /// </summary>
         /// <param name="client"></param>
-        private void ClientEdited(Client client)
+        /// <returns></returns>
+        private bool IsClientDataValid(Client client)
         {
-            int index = _clients.IndexOf(_clients.FirstOrDefault(c => c.ID == client.ID));
-            if (index >= 0)
+            if (client == null)
             {
-                _clients.RemoveAt(index);
-                _clients.Add(client);
-                int newIndex = _clients.IndexOf(_clients.FirstOrDefault(c => c.ID == client.ID));
-                _clients.Move(newIndex, index);
-                _messageBoxStore.Show("کاربر با موفقیت ویرایش شد", "ویرایش کاربر");
+                _messageBoxStore.Show("لطفا کاربری را برای ویرایش انتخاب کنید", "اطلاعات کاربر");
+                return false;
+            }
+            if (string.IsNullOrEmpty(_clientsStore.SelectedClient.FirstName))
+            {
+                _messageBoxStore.Show("لطفا ابتدا نام را وارد کنید", "اطلاعات کاربر");
+                return false;
+            }
+            if (string.IsNullOrEmpty(_clientsStore.SelectedClient.LastName))
+            {
+                _messageBoxStore.Show("لطفا ابتدا فامیلی را وارد کنید", "اطلاعات کاربر");
+                return false;
+            }
+            return true;
+
+        }
+
+        /// <summary>
+        /// Edite Client In Database and If it was successfull show success message if failed its show failed message
+        /// </summary>
+        /// <param name="client"></param>
+        private async Task ClientEdited(Client client)
+        {
+            int EffectedRows = await _clientsRepository.EditeClientToDb(client);
+            if (EffectedRows > 0)
+            {
+                int index = _clients.IndexOf(_clients.FirstOrDefault(c => c.ID == client.ID));
+                if (index >= 0)
+                {
+                    _clients.RemoveAt(index);
+                    _clients.Add(client);
+                    int newIndex = _clients.IndexOf(_clients.FirstOrDefault(c => c.ID == client.ID));
+                    _clients.Move(newIndex, index);
+                    _messageBoxStore.Show("کاربر با موفقیت ویرایش شد", "ویرایش کاربر");
+                }
+            }
+            else
+            {
+                _messageBoxStore.Show("هنگام ویرایش اطلاعات کاربر مشکلی بوجود امده است", "ویرایش کاربر");
             }
         }
         /// <summary>

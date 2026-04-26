@@ -12,7 +12,7 @@ namespace MyLibrary.View
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             var Container = ContainerConfig.Configure();
@@ -20,7 +20,7 @@ namespace MyLibrary.View
             {
                 var app = scope.Resolve<MainWindow>();
                 IDbContextFactory dbContext = scope.Resolve<IDbContextFactory>();
-                dbContext.CheckDatabaseExistsAsync().Wait();
+                await dbContext.CheckDatabaseExistsAsync();
                 IMainViewModel mainViewModel = scope.Resolve<IMainViewModel>();
                 app.DataContext = mainViewModel;
                 app.Show();

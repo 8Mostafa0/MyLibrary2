@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 
 namespace MyLibrary.Model.Repositories
@@ -29,11 +28,11 @@ namespace MyLibrary.Model.Repositories
                 {
                     try
                     {
-                        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+                        //string json = JsonConvert.SerializeObject(data, Formatting.Indented);
                         using (FileStream fs = new FileStream(_jsonFileName, FileMode.Create, FileAccess.Write, FileShare.None))
                         using (StreamWriter writer = new StreamWriter(fs))
                         {
-                            writer.Write(json);
+                            //writer.Write(json);
                         }
                     }
                     catch (Exception ex)
@@ -47,28 +46,28 @@ namespace MyLibrary.Model.Repositories
             /// Read JSON file and deserialize into <typeparamref name="T"/>.
             /// </summary>
             /// <exception cref="Exception"> throw exception if application doesn't have access to file </exception>
-            public T ReadJson<T>()
-            {
-                try
-                {
-                    if (!File.Exists(_jsonFileName))
-                    {
-                        using (File.Create(_jsonFileName)) { }
-                        return default;
-                    }
+            //public T ReadJson<T>()
+            //{
+            //    try
+            //    {
+            //        if (!File.Exists(_jsonFileName))
+            //        {
+            //            using (File.Create(_jsonFileName)) { }
+            //            return default;
+            //        }
 
-                    using (FileStream fs = new FileStream(_jsonFileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                    using (StreamReader reader = new StreamReader(fs))
-                    {
-                        string json = reader.ReadToEnd();
-                        return JsonConvert.DeserializeObject<T>(json);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"FAILED to read JSON file: {_jsonFileName}", ex);
-                }
-            }
+            //        using (FileStream fs = new FileStream(_jsonFileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            //        using (StreamReader reader = new StreamReader(fs))
+            //        {
+            //            string json = reader.ReadToEnd();
+            //            //return JsonConvert.DeserializeObject<T>(json);
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        throw new Exception($"FAILED to read JSON file: {_jsonFileName}", ex);
+            //    }
+            //}
             public void Dispose() { }
         }
     }

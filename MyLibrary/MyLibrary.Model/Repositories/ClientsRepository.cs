@@ -116,10 +116,10 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        public async Task EditeClientToDb(Client client)
+        public async Task<int> EditeClientToDb(Client client)
         {
             string EditeClientSql = $"UPDATE Clients SET FirstName=N'{client.FirstName}',LastName=N'{client.LastName}',Tier='{client.Tier}',UpdatedAt=GETDATE() WHERE Id='{client.ID}'";
-            await _dbContextFactory.ExecuteQueryAsync(EditeClientSql, "EditeClientToDb");
+            return await _dbContextFactory.ExecuteQueryAsync(EditeClientSql, "EditeClientToDb");
         }
         /// <summary>
         /// remove client from Client Table by client value

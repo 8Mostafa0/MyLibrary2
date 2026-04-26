@@ -4,6 +4,6 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
     public interface IReturnedLoanCommand : ICommand
     {
-        void Execute(object parameter);
+        new void Execute(object parameter);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Commands.BaseCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ namespace MyLibrary.ViewModel.ViewModels
         IEnumerable<Client> Clients { get; }
         IViewModelBase CurrentMessageBox { get; }
         IDeleteClientCommand DeleteClientCommand { get; }
-        IEditClientCommand EditClientCommand { get; }
+        AsyncRelayCommand<Client> EditClientCommand { get; }
         string FirstName { get; set; }
         bool IsMessageBoxOpen { get; }
         string LastName { get; set; }

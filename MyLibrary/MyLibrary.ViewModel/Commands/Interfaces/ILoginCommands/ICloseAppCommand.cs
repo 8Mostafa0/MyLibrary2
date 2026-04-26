@@ -4,6 +4,6 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
 {
     public interface ICloseAppCommand : ICommand
     {
-        void Execute(object parameter);
+        new void Execute(object parameter);
     }
 }
