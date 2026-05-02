@@ -65,6 +65,25 @@ namespace MyLibrary.Model.Repositories
                 return clients;
             }
         }
+
+        /// <summary>
+        /// get all clients tha have active loans
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Client>> GetLoanedClients()
+        {
+            return await GetAllClients("SELECT * FROM Clients WHERE ID in (SELECT BookId FROM Loans WHERE ReturnedDate=NULL)");
+        }
+
+        /// <summary>
+        /// get all clients that have delayed active loans
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Client>> GetDilayedLoansClients()
+        {
+            return await GetAllClients("SELECT * FROM Clients WHERE ID in (SELECT BookId FROM Loans WHERE ReturnedDate=NULL AND ReturnDate < GETDATE())");
+        }
+
         /// <summary>
         /// select client using sql that take as input
         /// </summary>

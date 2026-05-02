@@ -3,6 +3,7 @@ using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.BaseCommands;
 using MyLibrary.ViewModel.Stores;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -70,8 +71,8 @@ namespace MyLibrary.ViewModel.ViewModels
             }
         }
 
-        private string _sortOder;
-        public string SortOrder
+        private int _sortOder;
+        public int SortOrder
         {
             get => _sortOder;
             set
@@ -84,10 +85,9 @@ namespace MyLibrary.ViewModel.ViewModels
         #region Commands
         private AsyncRelayCommand _reloadClientsCommand;
         public AsyncRelayCommand ReloadClientsCommand => _reloadClientsCommand ?? (_reloadClientsCommand = new AsyncRelayCommand(RefreshPage));
-        public AsyncRelayCommand<Client> LoadClientsCommand { get; }
         public AsyncRelayCommand DeleteClientCommand { get; }
         public AsyncRelayCommand AddNewClientCommand { get; }
-        public AsyncRelayCommand<Client> OrderClientsCommand { get; }
+        public AsyncRelayCommand OrderClientsCommand { get; }
 
         public AsyncRelayCommand EditClientCommand { get; }
 
@@ -110,16 +110,38 @@ namespace MyLibrary.ViewModel.ViewModels
             Clients = new ObservableCollection<Client>();
 
             AddNewClientCommand = new AsyncRelayCommand(AddNewClient, ValidateInputData);
-            EditClientCommand = new AsyncRelayCommand(ClientEdited, ValidateInputData);
-            DeleteClientCommand = new AsyncRelayCommand(DelecteClient);
-
-            SortOrder = "0";
+            EditClientCommand = new AsyncRelayCommand(ClientEdited, () => { return ValidateInputData() && !(SelectedClient is null); });
+            DeleteClientCommand = new AsyncRelayCommand(DelecteClient, () => { return !(SelectedClient is null); });
+            OrderClientsCommand = new AsyncRelayCommand(SortCLientsList);
+            SortOrder = 0;
             _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
             RefreshPage();
         }
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// sort clients list base on SortOrder
+        /// </summary>
+        /// <returns></returns>
+        private async Task SortCLientsList()
+        {
+            List<Client> clients = new List<Client>();
+            Clients.Clear();
+            switch (SortOrder)
+            {
+                case 0: clients = await _db.ClientsRepository.GetAllClients(); break;
+                case 1: clients = await _db.ClientsRepository.GetLoanedClients(); break;
+                case 2: clients = await _db.ClientsRepository.GetDilayedLoansClients(); break;
+            }
+            foreach (Client client in clients)
+            {
+                Clients.Add(client);
+            }
+            ClearInputs();
+
+        }
 
         /// <summary>
         /// get called each tim change value of Messagebox Changed event trigred
@@ -159,26 +181,6 @@ namespace MyLibrary.ViewModel.ViewModels
         }
 
         /// <summary>
-        /// validate inputed client data
-        /// </summary>
-        /// <returns><bool>response</bool></returns>
-        private bool IsClientDataValid()
-        {
-            if (string.IsNullOrEmpty(FirstName))
-            {
-                _messageBoxStore.Show("لطفا ابتدا نام را وارد کنید", "اطلاعات کاربر");
-                return false;
-            }
-            if (string.IsNullOrEmpty(LastName))
-            {
-                _messageBoxStore.Show("لطفا ابتدا فامیلی را وارد کنید", "اطلاعات کاربر");
-                return false;
-            }
-            return true;
-
-        }
-
-        /// <summary>
         /// try to edit client in database
         /// </summary>
         private async Task ClientEdited()
@@ -192,18 +194,15 @@ namespace MyLibrary.ViewModel.ViewModels
             client.FirstName = FirstName;
             client.LastName = LastName;
             client.Tier = Tier;
-            if (IsClientDataValid())
+            int result = await _db.ClientsRepository.EditeClientToDb(client);
+            if (result > 0)
             {
-                int EffectedRows = await _db.ClientsRepository.EditeClientToDb(client);
-                if (EffectedRows > 0)
-                {
-                    _messageBoxStore.Show("کاربر با موفقیت ویرایش شد", "ویرایش کاربر");
-                    RefreshPage();
-                }
-                else
-                {
-                    _messageBoxStore.Show("هنگام ویرایش اطلاعات کاربر مشکلی بوجود امده است", "ویرایش کاربر");
-                }
+                _messageBoxStore.Show("کاربر با موفقیت ویرایش شد", "ویرایش کاربر");
+                RefreshPage();
+            }
+            else
+            {
+                _messageBoxStore.Show("هنگام ویرایش اطلاعات کاربر مشکلی بوجود امده است", "ویرایش کاربر");
             }
         }
 

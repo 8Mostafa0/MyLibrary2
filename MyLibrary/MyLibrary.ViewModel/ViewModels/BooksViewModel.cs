@@ -122,9 +122,9 @@ namespace MyLibrary.ViewModel.ViewModels
             _books = new ObservableCollection<Book>();
 
             _messageBoxStore = messageBoxStore;
-            EditBookCommand = new AsyncRelayCommand(EditeBook, ValidateInputData);
             AddNewBookCommand = new AsyncRelayCommand(AddNewBook, ValidateInputData);
-            DeleteBookCommand = new AsyncRelayCommand(DeleteBook, ValidateInputData);
+            EditBookCommand = new AsyncRelayCommand(EditeBook, () => { return ValidateInputData() && !(SelectedBook is null); });
+            DeleteBookCommand = new AsyncRelayCommand(DeleteBook, () => { return !(SelectedBook is null); });
             ReloadBooksCommand = new AsyncRelayCommand(RefreshPage);
             OrderBooksCommand = new AsyncRelayCommand(ChangeSortOrder);
 
@@ -135,6 +135,10 @@ namespace MyLibrary.ViewModel.ViewModels
         #region Methods
 
 
+        /// <summary>
+        /// change order of books list based on Sortindex
+        /// </summary>
+        /// <returns></returns>
         private async Task ChangeSortOrder()
         {
             ClearInputs();

@@ -14,11 +14,10 @@ namespace MyLibrary.ViewModel.ViewModels
         string FirstName { get; set; }
         bool IsMessageBoxOpen { get; }
         string LastName { get; set; }
-        AsyncRelayCommand<Client> LoadClientsCommand { get; }
-        AsyncRelayCommand<Client> OrderClientsCommand { get; }
+        AsyncRelayCommand OrderClientsCommand { get; }
         AsyncRelayCommand ReloadClientsCommand { get; }
         Client SelectedClient { get; set; }
-        string SortOrder { get; set; }
+        int SortOrder { get; set; }
         int Tier { get; set; }
     }
 }
