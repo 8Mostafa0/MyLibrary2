@@ -6,9 +6,9 @@ namespace MyLibrary.Model.Repositories
 {
     public interface IClientsRepository
     {
-        Task AddNewClientToDb(Client client);
-        Task DeleteClientToDb(Client client);
-        Task DeleteClientToDb(int clientId);
+        Task<int> AddNewClientToDb(Client client);
+        Task<int> DeleteClientToDb(Client client);
+        Task<int> DeleteClientToDb(int clientId);
         Task<int> EditeClientToDb(Client client);
         Task<List<Client>> GetAllClients(string customSql = "");
         Task<Client> GetClient(string customSql, string executionPart);

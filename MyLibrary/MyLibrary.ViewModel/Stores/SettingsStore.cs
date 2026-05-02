@@ -14,9 +14,9 @@ namespace MyLibrary.ViewModel.Stores
         #endregion
 
         #region Contructor
-        public SettingsStore(ILoggerService logger)
+        public SettingsStore()
         {
-            _logger = logger.logger;
+            _logger = LoggerService.logger;
         }
         #endregion
 

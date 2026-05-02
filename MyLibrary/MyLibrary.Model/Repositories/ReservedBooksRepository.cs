@@ -23,10 +23,10 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="dbContextFactory"></param>
         /// <param name="logger"></param>
-        public ReservedBooksRepository(IDbContextFactory dbContextFactory, ILoggerService logger)
+        public ReservedBooksRepository(IDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
-            _logger = logger.logger;
+            _logger = LoggerService.logger;
         }
         #endregion
 

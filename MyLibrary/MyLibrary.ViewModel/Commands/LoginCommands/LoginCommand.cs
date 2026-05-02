@@ -1,5 +1,4 @@
 ﻿using MyLibrary.Model.DbContexts;
-using MyLibrary.ViewModel.Servicies;
 using MyLibrary.ViewModel.Stores;
 
 namespace MyLibrary.ViewModel.Commands.LoginCommands
@@ -51,7 +50,7 @@ namespace MyLibrary.ViewModel.Commands.LoginCommands
         public override async void Execute(object parameter)
         {
             //_checkDatabaseCommand.Execute(null);
-            await new DbContextFactory(new LoggerService()).CheckDatabaseExistsAsync();
+            await new DbContextFactory().CheckDatabaseExistsAsync();
             if (_loginStore.Password == "" || _loginStore.Password is null)
             {
                 _messageBoxStore.Show("لطفا مقادیری برای رمز وارد کنید", "خطا");

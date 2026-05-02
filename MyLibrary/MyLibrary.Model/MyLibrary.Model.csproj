@@ -103,6 +103,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\Interfaces\IPropertyChangedBase.cs" />
+    <Compile Include="Base\PropertyChangedBase.cs" />
     <Compile Include="DbContexts\DbContextFactory.cs" />
     <Compile Include="DbContexts\IDbContextFactory.cs" />
     <Compile Include="Models\Book.cs" />
@@ -122,7 +124,6 @@
     <Compile Include="Repositories\LoanRepository.cs" />
     <Compile Include="Repositories\MyLibraryDbContext.cs" />
     <Compile Include="Repositories\ReservedBooksRepository.cs" />
-    <Compile Include="Services\ILoggerService.cs" />
     <Compile Include="Services\LoggerService.cs" />
   </ItemGroup>
   <ItemGroup>

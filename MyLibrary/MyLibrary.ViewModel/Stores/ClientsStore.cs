@@ -77,10 +77,11 @@ namespace MyLibrary.ViewModel.Stores
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        public async Task DeleteClient(Client client)
+        public async Task<int> DeleteClient(Client client)
         {
-            await _clientRepository.DeleteClientToDb(client);
+            int result = await _clientRepository.DeleteClientToDb(client);
             ClientRemoved?.Invoke(client);
+            return result;
         }
 
         /// <summary>
@@ -105,6 +106,11 @@ namespace MyLibrary.ViewModel.Stores
             _clients.Clear();
             _clients.AddRange(clients);
             ClientsUpdated?.Invoke();
+        }
+
+        Task IClientsStore.DeleteClient(Client client)
+        {
+            return DeleteClient(client);
         }
         #endregion
     }

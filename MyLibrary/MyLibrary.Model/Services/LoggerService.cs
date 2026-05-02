@@ -4,18 +4,22 @@ namespace MyLibrary.ViewModel.Servicies
     /// <summary>
     /// class for recording logs
     /// </summary>
-    public class LoggerService : ILoggerService
+    public class LoggerService
     {
-        private ILogger _logger;
-        public ILogger logger
+        private static ILogger _logger;
+        private static readonly object _lock = new object();
+        public static ILogger logger
         {
             get
             {
-                if (_logger is null)
+                lock (_lock)
                 {
-                    _logger = CreateLogger();
+                    if (_logger is null)
+                    {
+                        _logger = CreateLogger();
+                    }
+                    return _logger;
                 }
-                return _logger;
             }
 
         }
@@ -23,7 +27,7 @@ namespace MyLibrary.ViewModel.Servicies
         /// Create instance of serilogger and Configure it.
         /// </summary>
         /// <returns></returns>
-        public ILogger CreateLogger()
+        public static ILogger CreateLogger()
         {
             ILogger logger = new LoggerConfiguration()
                 .WriteTo.Console()

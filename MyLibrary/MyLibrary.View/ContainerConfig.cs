@@ -135,7 +135,7 @@ namespace MyLibrary.ViewModel
             #endregion
 
             #region Stores
-            builder.RegisterType<NavigationStore>().As<INavigationStore>();
+            builder.RegisterType<ApplicationStore>().As<IApplicationStore>();
             builder.RegisterType<BooksStore>().As<IBooksStore>().SingleInstance();
             builder.RegisterType<LoansStore>().As<ILoansStore>().SingleInstance();
             builder.RegisterType<SettingsStore>().As<ISettingsStore>().SingleInstance();
@@ -158,7 +158,7 @@ namespace MyLibrary.ViewModel
 
 
             #region Logger
-            builder.RegisterType<LoggerService>().As<ILoggerService>().SingleInstance();
+            builder.RegisterType<LoggerService>().SingleInstance();
             #endregion
 
             #region Modal

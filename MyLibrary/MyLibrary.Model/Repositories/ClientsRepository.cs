@@ -23,10 +23,10 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="dbContextFactory"></param>
         /// <param name="logger"></param>
-        public ClientsRepository(IDbContextFactory dbContextFactory, ILoggerService logger)
+        public ClientsRepository(IDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
-            _logger = logger.logger;
+            _logger = LoggerService.logger;
         }
         #endregion
 
@@ -106,10 +106,10 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        public async Task AddNewClientToDb(Client client)
+        public async Task<int> AddNewClientToDb(Client client)
         {
             string CreateClientSql = $"INSERT INTO Clients(FirstName,LastName,Tier,CreatedAt,UpdatedAt)VALUES(N'{client.FirstName}',N'{client.LastName}','{client.Tier}',GETDATE(),GETDATE())";
-            await _dbContextFactory.ExecuteQueryAsync(CreateClientSql, "AddNewClientToDb");
+            return await _dbContextFactory.ExecuteQueryAsync(CreateClientSql, "AddNewClientToDb");
         }
         /// <summary>
         /// edite client data to Clients Table
@@ -126,20 +126,20 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        public async Task DeleteClientToDb(Client client)
+        public async Task<int> DeleteClientToDb(Client client)
         {
             string DeleteClientSql = $"DELETE FROM Clients WHERE Id='{client.ID}'";
-            await _dbContextFactory.ExecuteQueryAsync(DeleteClientSql, "DeleteClientToDb");
+            return await _dbContextFactory.ExecuteQueryAsync(DeleteClientSql, "DeleteClientToDb");
         }
         /// <summary>
         /// remove client from Client Table by Client id
         /// </summary>
         /// <param name="clientId"></param>
         /// <returns></returns>
-        public async Task DeleteClientToDb(int clientId)
+        public async Task<int> DeleteClientToDb(int clientId)
         {
             string DeleteClientSql = $"DELETE FROM Clients SHERE Id='{clientId}'";
-            await _dbContextFactory.ExecuteQueryAsync(DeleteClientSql, "DeleteClientToDb");
+            return await _dbContextFactory.ExecuteQueryAsync(DeleteClientSql, "DeleteClientToDb");
         }
 
         public void Dispose() { }

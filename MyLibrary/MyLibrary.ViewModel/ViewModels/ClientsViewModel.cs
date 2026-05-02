@@ -1,37 +1,39 @@
-﻿using MyLibrary.Model.Models;
+﻿using MyLibrary.Model.Base;
+using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.BaseCommands;
-using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Stores;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
-    public class ClientsViewModel : ViewModelBase, IClientsViewModel
+    public class ClientsViewModel : PropertyChangedBase, IClientsViewModel
     {
         #region Dependencies
-        private ObservableCollection<Client> _clients;
-        public IEnumerable<Client> Clients => _clients;
-
-        private IClientsStore _clientsStore;
 
         private Client _selectedClient;
-
         private IMessageBoxStore _messageBoxStore;
-
-        private IClientsRepository _clientsRepository;
-
+        private IMyLibraryDbContext _db;
+        private ObservableCollection<Client> _clients;
         public bool IsMessageBoxOpen => _messageBoxStore.IsMessageOpen;
         public IViewModelBase CurrentMessageBox => _messageBoxStore.MessageBoxViewModel;
+        public ObservableCollection<Client> Clients
+        {
+            get => _clients;
+            set
+            {
+                SetField(ref _clients, value);
+            }
+        }
+
         public Client SelectedClient
         {
             get => _selectedClient;
             set
             {
-                _selectedClient = value;
+                OnClientDataChanged();
+                SetField(ref _selectedClient, value);
                 SelectedClientChanged(value);
             }
         }
@@ -42,9 +44,8 @@ namespace MyLibrary.ViewModel.ViewModels
             get => _firstName;
             set
             {
-                _firstName = value;
-                _clientsStore.SelectedClient.FirstName = value;
-                OnProperychanged(nameof(FirstName));
+                SetField(ref _firstName, value);
+                OnClientDataChanged();
             }
         }
         private string _lastName;
@@ -53,9 +54,7 @@ namespace MyLibrary.ViewModel.ViewModels
             get => _lastName;
             set
             {
-                _lastName = value;
-                _clientsStore.SelectedClient.LastName = value;
-                OnProperychanged(nameof(LastName));
+                SetField(ref _lastName, value);
             }
         }
 
@@ -66,9 +65,8 @@ namespace MyLibrary.ViewModel.ViewModels
             get => _tier;
             set
             {
-                _tier = value;
-                _clientsStore.SelectedClient.Tier = value;
-                OnProperychanged(nameof(Tier));
+                SetField(ref _tier, value);
+                OnClientDataChanged();
             }
         }
 
@@ -78,21 +76,22 @@ namespace MyLibrary.ViewModel.ViewModels
             get => _sortOder;
             set
             {
-                _sortOder = value;
-                _clientsStore.SortOrder = value;
-                OnProperychanged(nameof(SortOrder));
+                SetField(ref _sortOder, value);
             }
         }
         #endregion
 
         #region Commands
-        public IReloadClientsCommand ReloadClientsCommand { get; }
-        public ILoadClientsCommand LoadClientsCommand { get; }
-        public IDeleteClientCommand DeleteClientCommand { get; }
-        public IAddNewClientCommand AddNewClientCommand { get; }
-        public IOrderClientsCommand OrderClientsCommand { get; }
+        private AsyncRelayCommand _reloadClientsCommand;
+        public AsyncRelayCommand ReloadClientsCommand => _reloadClientsCommand ?? (_reloadClientsCommand = new AsyncRelayCommand(RefreshPage));
+        public AsyncRelayCommand<Client> LoadClientsCommand { get; }
+        public AsyncRelayCommand DeleteClientCommand { get; }
+        public AsyncRelayCommand AddNewClientCommand { get; }
+        public AsyncRelayCommand<Client> OrderClientsCommand { get; }
 
-        public AsyncRelayCommand<Client> EditClientCommand { get; }
+        public AsyncRelayCommand EditClientCommand { get; }
+
+        ObservableCollection<Client> IClientsViewModel._clients => throw new System.NotImplementedException();
 
         #endregion
 
@@ -100,45 +99,23 @@ namespace MyLibrary.ViewModel.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="clientsStore"></param>
         /// <param name="messageBoxStore"></param>
-        /// <param name="editClientCommand"></param>
-        /// <param name="loadClientsCommand"></param>
-        /// <param name="deleteClientCommand"></param>
-        /// <param name="addNewClientCommand"></param>
-        /// <param name="orderClientsCommand"></param>
-        /// <param name="reloadClientsCommand"></param>
+        /// <param name="db"></param>
         public ClientsViewModel(
-            IClientsStore clientsStore,
             IMessageBoxStore messageBoxStore,
-            IEditClientCommand editClientCommand,
-            ILoadClientsCommand loadClientsCommand,
-            IDeleteClientCommand deleteClientCommand,
-            IAddNewClientCommand addNewClientCommand,
-            IOrderClientsCommand orderClientsCommand,
-            IReloadClientsCommand reloadClientsCommand,
             IMyLibraryDbContext db)
         {
-            _clients = new ObservableCollection<Client>();
-            _clientsStore = clientsStore;
             _messageBoxStore = messageBoxStore;
-            //EditClientCommand = editClientCommand;
-            EditClientCommand = new AsyncRelayCommand<Client>(ClientEdited, IsClientDataValid);
+            _db = db;
+            Clients = new ObservableCollection<Client>();
 
-            LoadClientsCommand = loadClientsCommand;
-            DeleteClientCommand = deleteClientCommand;
-            AddNewClientCommand = addNewClientCommand;
-            OrderClientsCommand = orderClientsCommand;
-            ReloadClientsCommand = reloadClientsCommand;
-            _clientsRepository = db.ClientsRepository;
+            AddNewClientCommand = new AsyncRelayCommand(AddNewClient, ValidateInputData);
+            EditClientCommand = new AsyncRelayCommand(ClientEdited, ValidateInputData);
+            DeleteClientCommand = new AsyncRelayCommand(DelecteClient);
+
             SortOrder = "0";
-
-            _clientsStore.ClientAdded += OnClientAdded;
-            _clientsStore.ClientsUpdated += UpdateClients;
-            _clientsStore.ClientRemoved += OnClientDeleted;
             _messageBoxStore.MessageViewModelChanged += OnMessageBoxChanged;
-
-            loadClientsCommand.Execute(null);
+            RefreshPage();
         }
         #endregion
 
@@ -149,27 +126,50 @@ namespace MyLibrary.ViewModel.ViewModels
         /// </summary>
         private void OnMessageBoxChanged()
         {
-            OnProperychanged(nameof(CurrentMessageBox));
-            OnProperychanged(nameof(IsMessageBoxOpen));
+            OnPropertyChanged(nameof(CurrentMessageBox));
+            OnPropertyChanged(nameof(IsMessageBoxOpen));
         }
+
         /// <summary>
-        /// Validate inputed Client Data
+        /// validate silently inputed data
         /// </summary>
-        /// <param name="client"></param>
         /// <returns></returns>
-        private bool IsClientDataValid(Client client)
+        private bool ValidateInputData()
         {
-            if (client == null)
+            if (string.IsNullOrEmpty(FirstName))
             {
-                _messageBoxStore.Show("لطفا کاربری را برای ویرایش انتخاب کنید", "اطلاعات کاربر");
                 return false;
             }
-            if (string.IsNullOrEmpty(_clientsStore.SelectedClient.FirstName))
+            if (string.IsNullOrEmpty(LastName))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// triger event for commands to check can exceute commands or not
+        /// </summary>
+        private void OnClientDataChanged()
+        {
+
+            AddNewClientCommand.RaiseCanExecuteChanged();
+            EditClientCommand.RaiseCanExecuteChanged();
+            DeleteClientCommand.RaiseCanExecuteChanged();
+        }
+
+        /// <summary>
+        /// validate inputed client data
+        /// </summary>
+        /// <returns><bool>response</bool></returns>
+        private bool IsClientDataValid()
+        {
+            if (string.IsNullOrEmpty(FirstName))
             {
                 _messageBoxStore.Show("لطفا ابتدا نام را وارد کنید", "اطلاعات کاربر");
                 return false;
             }
-            if (string.IsNullOrEmpty(_clientsStore.SelectedClient.LastName))
+            if (string.IsNullOrEmpty(LastName))
             {
                 _messageBoxStore.Show("لطفا ابتدا فامیلی را وارد کنید", "اطلاعات کاربر");
                 return false;
@@ -179,42 +179,54 @@ namespace MyLibrary.ViewModel.ViewModels
         }
 
         /// <summary>
-        /// Edite Client In Database and If it was successfull show success message if failed its show failed message
+        /// try to edit client in database
         /// </summary>
-        /// <param name="client"></param>
-        private async Task ClientEdited(Client client)
+        private async Task ClientEdited()
         {
-            int EffectedRows = await _clientsRepository.EditeClientToDb(client);
-            if (EffectedRows > 0)
+            Client client = SelectedClient;
+            if (SelectedClient is null)
             {
-                int index = _clients.IndexOf(_clients.FirstOrDefault(c => c.ID == client.ID));
-                if (index >= 0)
+                _messageBoxStore.Show("لطفا ابتدا کاربری را برای ویرایش انتخاب کنید", "ویرایش کاربر");
+                return;
+            }
+            client.FirstName = FirstName;
+            client.LastName = LastName;
+            client.Tier = Tier;
+            if (IsClientDataValid())
+            {
+                int EffectedRows = await _db.ClientsRepository.EditeClientToDb(client);
+                if (EffectedRows > 0)
                 {
-                    _clients.RemoveAt(index);
-                    _clients.Add(client);
-                    int newIndex = _clients.IndexOf(_clients.FirstOrDefault(c => c.ID == client.ID));
-                    _clients.Move(newIndex, index);
                     _messageBoxStore.Show("کاربر با موفقیت ویرایش شد", "ویرایش کاربر");
+                    RefreshPage();
+                }
+                else
+                {
+                    _messageBoxStore.Show("هنگام ویرایش اطلاعات کاربر مشکلی بوجود امده است", "ویرایش کاربر");
                 }
             }
-            else
-            {
-                _messageBoxStore.Show("هنگام ویرایش اطلاعات کاربر مشکلی بوجود امده است", "ویرایش کاربر");
-            }
-        }
-        /// <summary>
-        /// called each time client delete event trigred and delete it from clients list
-        /// </summary>
-        /// <param name="client"></param>
-        private void OnClientDeleted(Client client)
-        {
-            ClearInputs();
-            _clients.Remove(client);
-            _messageBoxStore.Show("کاربر با موفقیت حذف شد", "حذف کاربر");
         }
 
         /// <summary>
-        /// Clear Inputs data
+        /// delete selected client from database
+        /// </summary>
+        /// <returns></returns>
+        private async Task DelecteClient()
+        {
+            int result = await _db.ClientsRepository.DeleteClientToDb(SelectedClient);
+            if (result > 0)
+            {
+                _messageBoxStore.Show("حذف کاربر با موفقیت انجام شد", "حذف کاربر");
+                RefreshPage();
+            }
+            else
+            {
+                _messageBoxStore.Show("هنگام حذف کاربر مشکلی بوجود امده است", "حذف کاربر");
+            }
+        }
+
+        /// <summary>
+        /// clear inputs data
         /// </summary>
         private void ClearInputs()
         {
@@ -224,27 +236,26 @@ namespace MyLibrary.ViewModel.ViewModels
         }
 
         /// <summary>
-        /// called each time clients list of client store get changed and fill clients list with new values
+        /// try to add new client to database
         /// </summary>
-        public void UpdateClients()
+        private async Task AddNewClient()
         {
-            ClearInputs();
-            _clients.Clear();
-            foreach (Client client in _clientsStore.Clients)
+            Client newClient = new Client()
             {
-                _clients.Add(client);
+                FirstName = FirstName,
+                LastName = LastName,
+                Tier = Tier
+            };
+            int result = await _db.ClientsRepository.AddNewClientToDb(newClient);
+            if (result > 0)
+            {
+                ClearInputs();
+                _messageBoxStore.Show("کاربر با موفقیت افزوده شد", "افزودن کاربر");
             }
-        }
-        /// <summary>
-        /// called each time add new client event trigred and add it to clients list
-        /// </summary>
-        /// <param name="client"></param>
-        private void OnClientAdded(Client client)
-        {
-            ClearInputs();
-            client.ID = _clients.Any() ? _clients.Last().ID + 1 : 1;
-            _clients.Add(client);
-            _messageBoxStore.Show("کاربر با موفقیت اضافه شد", "افزودن کاربر");
+            else
+            {
+                _messageBoxStore.Show("هنگام افزودن اطلاعات کاربر مشکلی بوجود امده است", "افزودن کاربر");
+            }
 
         }
         /// <summary>
@@ -258,9 +269,24 @@ namespace MyLibrary.ViewModel.ViewModels
                 FirstName = client.FirstName;
                 LastName = client.LastName;
                 Tier = client.Tier;
-                _clientsStore.SelectedClient = client;
             }
         }
+
+        /// <summary>
+        /// remove inputed data 
+        /// </summary>
+        /// <returns></returns>
+        private async Task RefreshPage()
+        {
+            var clients = await _db.ClientsRepository.GetAllClients();
+            Clients.Clear();
+            foreach (var client in clients)
+            {
+                Clients.Add(client);
+            }
+            ClearInputs();
+        }
+
         #endregion
 
     }

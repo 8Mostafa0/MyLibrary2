@@ -118,6 +118,7 @@
     <Compile Include="Commands\BooksCommands\AddNewBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\DeleteBookCommand.cs" />
     <Compile Include="Commands\BooksCommands\EditBookCommand.cs" />
+    <Compile Include="Commands\BaseCommands\ICommandBase.cs" />
     <Compile Include="Commands\Interfaces\IBooksCommands\IAddNewBookCommand.cs" />
     <Compile Include="Commands\Interfaces\IBooksCommands\IDeleteBookCommand.cs" />
     <Compile Include="Commands\Interfaces\IBooksCommands\IEditBookCommand.cs" />
@@ -150,7 +151,7 @@
     <Compile Include="Commands\ClientsCommands\OrderClientsCommand.cs" />
     <Compile Include="Commands\ClientsCommands\ReloadClientsCommand.cs" />
     <Compile Include="Commands\ClientsCommands\SearchClientNameCommand.cs" />
-    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\BaseCommands\CommandBase.cs" />
     <Compile Include="Commands\Interfaces\ICheckDatabaseCommand.cs" />
     <Compile Include="Commands\Interfaces\ILoginModalCommand.cs" />
     <Compile Include="Commands\Interfaces\INavigateHomeScreenCommand.cs" />
@@ -213,9 +214,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BookApi\BookApi.cs" />
     <Compile Include="Services\BookApi\IBookApi.cs" />
+    <Compile Include="Stores\ApplicationStore.cs" />
     <Compile Include="Stores\BookApiStore.cs" />
     <Compile Include="Stores\BooksStore.cs" />
     <Compile Include="Stores\ClientsStore.cs" />
+    <Compile Include="Stores\Interfaces\IApplicationStore.cs" />
     <Compile Include="Stores\IBookApiStore.cs" />
     <Compile Include="Stores\Interfaces\ILoginStore.cs" />
     <Compile Include="Stores\Interfaces\INavigationStore.cs" />
@@ -288,7 +291,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\MyLibrary.View\packages\Serilog.4.3.1\build\Serilog.targets" Condition="Exists('..\MyLibrary.View\packages\Serilog.4.3.1\build\Serilog.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

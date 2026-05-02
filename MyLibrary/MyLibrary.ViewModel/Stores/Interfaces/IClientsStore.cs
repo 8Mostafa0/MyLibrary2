@@ -17,7 +17,6 @@ namespace MyLibrary.ViewModel.Stores
         event Action<Client> ClientEdited;
         event Action<Client> ClientRemoved;
         event Action ClientsUpdated;
-
         Task AddNewClient(Client client);
         Task DeleteClient(Client client);
         Task EditClient(Client client);

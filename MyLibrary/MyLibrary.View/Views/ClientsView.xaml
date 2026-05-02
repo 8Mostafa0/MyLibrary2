@@ -49,13 +49,13 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Row="1" Margin="10" Grid.Column="0" VerticalAlignment="Center"   Text="{Binding FirstName}"/>
+                <TextBox Grid.Row="1" Margin="10" Grid.Column="0" VerticalAlignment="Center"   Text="{Binding FirstName,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="نام" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                <TextBox Grid.Row="2" Margin="10" Grid.Column="0" VerticalAlignment="Center"  Text="{Binding LastName}"/>
+                <TextBox Grid.Row="2" Margin="10" Grid.Column="0" VerticalAlignment="Center"  Text="{Binding LastName , Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="فامیلی" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                <ComboBox Grid.Row="3" Margin="10" Grid.Column="0" FlowDirection="RightToLeft" VerticalAlignment="Center"  SelectedIndex="{Binding Tier}">
+                <ComboBox Grid.Row="3" Margin="10" Grid.Column="0" FlowDirection="RightToLeft" VerticalAlignment="Center"  SelectedIndex="{Binding Tier, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                     <ComboBoxItem Content="معمولی" Tag="S" />
                     <ComboBoxItem Content="ویژه"  Tag="M" />
                 </ComboBox>

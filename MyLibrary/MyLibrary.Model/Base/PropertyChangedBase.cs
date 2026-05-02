@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace MyLibrary.Model.Base
 {
-    public class PropertyChangedBase : IPropertyChangedBase
+    public class PropertyChangedBase : IPropertyChangedBase, INotifyPropertyChanged
     {
         #region EVENTS
 

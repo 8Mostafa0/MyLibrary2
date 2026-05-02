@@ -26,7 +26,7 @@ namespace MyLibrary.Model.DbContexts
         /// 
         /// </summary>
         /// <param name="logger"></param>
-        public DbContextFactory(ILoggerService logger, string serverName = ".\\Moein", string databaseName = "MyLibrary", string username = "sa", string password = "arta0@")
+        public DbContextFactory(string serverName = ".\\Moein", string databaseName = "MyLibrary", string username = "sa", string password = "arta0@")
         {
             FillTablesName();
             ServerName = serverName;
@@ -34,7 +34,7 @@ namespace MyLibrary.Model.DbContexts
             Username = username;
             Password = password;
             ConnectionString = GetConnectionString();
-            _logger = logger.logger;
+            _logger = LoggerService.logger;
         }
         #endregion
 
