@@ -49,13 +49,13 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Row="1" Margin="10" Grid.Column="0" VerticalAlignment="Center"   Text="{Binding Name}"/>
+                <TextBox Grid.Row="1" Margin="10" Grid.Column="0" VerticalAlignment="Center"   Text="{Binding Name,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="نام کتاب" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                <TextBox Grid.Row="2" Margin="10" Grid.Column="0" VerticalAlignment="Center"  Text="{Binding Publisher}"/>
+                <TextBox Grid.Row="2" Margin="10" Grid.Column="0" VerticalAlignment="Center"  Text="{Binding Publisher,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="منتشر کننده" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                <ComboBox Grid.Row="3" Margin="10" Grid.Column="0" SelectedIndex="0" VerticalAlignment="Center"  Text="{Binding Subject}">
+                <ComboBox Grid.Row="3" Margin="10" Grid.Column="0" SelectedIndex="0" VerticalAlignment="Center"  Text="{Binding Subject,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ComboBoxItem Content="رمان" Tag="رمان"/>
                     <ComboBoxItem Content="قصه" Tag="قصه"/>
                     <ComboBoxItem Content="آموزشی" Tag="آموزشی"/>
@@ -65,10 +65,10 @@
                 </ComboBox>
                 <TextBlock Text="نوع کتاب" Grid.Row="3"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                <TextBox Grid.Row="4" Margin="10" Grid.Column="0" VerticalAlignment="Center"  Text="{Binding PublicationDate}"/>
+                <TextBox Grid.Row="4" Margin="10" Grid.Column="0" VerticalAlignment="Center"  Text="{Binding PublicationDate,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="سال انتشار" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                <ComboBox Grid.Row="5" Margin="10" Grid.Column="0" VerticalAlignment="Center"  SelectedIndex="{Binding Tier}">
+                <ComboBox Grid.Row="5" Margin="10" Grid.Column="0" VerticalAlignment="Center"  SelectedIndex="{Binding Tier,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ComboBoxItem Content="کاربران معمولی"/>
                     <ComboBoxItem Content="کاربران ویژه"/>
                 </ComboBox>
@@ -82,7 +82,7 @@
                     </Grid.ColumnDefinitions>
                     <Button Margin="5" FlowDirection="RightToLeft"  VerticalAlignment="Center"  Grid.Column="0" Content="مرتب" Command="{Binding OrderBooksCommand}"/>
 
-                    <ComboBox Margin="5" Grid.Column="1"  VerticalAlignment="Center" FlowDirection="RightToLeft" SelectedIndex="{Binding SortIndex}">
+                    <ComboBox Margin="5" Grid.Column="1"  VerticalAlignment="Center" FlowDirection="RightToLeft" SelectedIndex="{Binding SortIndex,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ComboBoxItem Content="همه کتاب ها" />
                         <ComboBoxItem Content="امانت برده ها"  />
                         <ComboBoxItem Content="دیرکرد ها" />

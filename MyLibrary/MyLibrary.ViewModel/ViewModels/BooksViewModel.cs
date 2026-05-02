@@ -1,17 +1,19 @@
-﻿using MyLibrary.Model.Models;
-using MyLibrary.ViewModel.Commands.BooksCommands;
+﻿using MyLibrary.Model.Base;
+using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.BaseCommands;
 using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.ViewModels
 {
-    public class BooksViewModel : ViewModelBase, IBooksViewModel
+    public class BooksViewModel : PropertyChangedBase, IBooksViewModel
     {
         #region Dependencies
-        private IBooksStore _booksStore;
         private ObservableCollection<Book> _books;
+        private IMyLibraryDbContext _db;
         private Book _selectedBook;
         private IMessageBoxStore _messageBoxStore;
         public Book SelectedBook
@@ -22,16 +24,14 @@ namespace MyLibrary.ViewModel.ViewModels
                 if (value != null)
                 {
 
-                    _selectedBook = value;
                     Name = value.Name;
                     Subject = value.Subject;
                     Publisher = value.Publisher;
-                    PublicationDate = value.PublicationDate;
                     Tier = value.Tier;
-                    _booksStore.SelectedBook = value;
+                    PublicationDate = value.PublicationDate;
+                    SetField(ref _selectedBook, value);
+                    OnBookDataChanged();
                 }
-
-                OnProperychanged(nameof(SelectedBook));
             }
         }
         public IEnumerable<Book> Books => _books;
@@ -41,9 +41,9 @@ namespace MyLibrary.ViewModel.ViewModels
             get { return _name; }
             set
             {
-                _name = value;
-                _booksStore.SelectedBook.Name = value;
-                OnProperychanged(nameof(Name));
+                SetField(ref _name, value);
+                OnBookDataChanged();
+
             }
         }
         private string _publisher;
@@ -52,9 +52,8 @@ namespace MyLibrary.ViewModel.ViewModels
             get => _publisher;
             set
             {
-                _publisher = value;
-                _booksStore.SelectedBook.Publisher = value;
-                OnProperychanged(nameof(Publisher));
+                SetField(ref _publisher, value);
+                OnBookDataChanged();
             }
         }
 
@@ -64,9 +63,8 @@ namespace MyLibrary.ViewModel.ViewModels
             get => _subject;
             set
             {
-                _subject = value;
-                _booksStore.SelectedBook.Subject = value;
-                OnProperychanged(nameof(Subject));
+                SetField(ref _subject, value);
+                OnBookDataChanged();
             }
         }
 
@@ -76,9 +74,8 @@ namespace MyLibrary.ViewModel.ViewModels
             get => _publicationDate;
             set
             {
-                _publicationDate = value;
-                _booksStore.SelectedBook.PublicationDate = value;
-                OnProperychanged(nameof(PublicationDate));
+                SetField(ref _publicationDate, value);
+                OnBookDataChanged();
             }
         }
 
@@ -88,9 +85,8 @@ namespace MyLibrary.ViewModel.ViewModels
             get => _tier;
             set
             {
-                _tier = value;
-                _booksStore.SelectedBook.Tier = value;
-                OnProperychanged(nameof(Tier));
+                SetField(ref _tier, value);
+                OnBookDataChanged();
             }
         }
 
@@ -100,110 +96,165 @@ namespace MyLibrary.ViewModel.ViewModels
             get => _sortIndex;
             set
             {
-                _sortIndex = value;
-                _booksStore.SortIndex = value;
-                OnProperychanged(nameof(SortIndex));
+                SetField(ref _sortIndex, value);
             }
         }
         #endregion
 
         #region Commands
-        public ILoadBooksCommand LoadBooksCommand { get; }
-        public IAddNewBookCommand AddNewBookCommand { get; }
+        public AsyncRelayCommand AddNewBookCommand { get; }
 
-        public IDeleteBookCommand DeleteBookCommand { get; }
-        public IEditBookCommand EditBookCommand { get; }
-        public IOrderBooksByStateCommand OrderBooksCommand { get; }
+        public AsyncRelayCommand DeleteBookCommand { get; }
+        public AsyncRelayCommand EditBookCommand { get; }
+        public AsyncRelayCommand OrderBooksCommand { get; }
 
-        public IReloadBooksCommand ReloadBooksCommand { get; }
+        public AsyncRelayCommand ReloadBooksCommand { get; }
 
         #endregion
 
         #region Constructor
         public BooksViewModel(
-            IBooksStore booksStore,
-            IEditBookCommand editBookCommand,
-            IMessageBoxStore messageBoxStore,
-            ILoadBooksCommand loadBooksCommand,
-            IDeleteBookCommand deleteBookCommand,
-            IAddNewBookCommand addNewBookCommand,
-            IReloadBooksCommand reloadBooksCommand,
-            IOrderBooksByStateCommand orderBooksByStateCommand
+            IMyLibraryDbContext db,
+            IMessageBoxStore messageBoxStore
             )
         {
+            _db = db;
             _books = new ObservableCollection<Book>();
 
-            _booksStore = booksStore;
             _messageBoxStore = messageBoxStore;
-            EditBookCommand = editBookCommand;
-            LoadBooksCommand = loadBooksCommand;
-            AddNewBookCommand = addNewBookCommand;
-            DeleteBookCommand = deleteBookCommand;
-            ReloadBooksCommand = reloadBooksCommand;
-            OrderBooksCommand = orderBooksByStateCommand;
+            EditBookCommand = new AsyncRelayCommand(EditeBook, ValidateInputData);
+            AddNewBookCommand = new AsyncRelayCommand(AddNewBook, ValidateInputData);
+            DeleteBookCommand = new AsyncRelayCommand(DeleteBook, ValidateInputData);
+            ReloadBooksCommand = new AsyncRelayCommand(RefreshPage);
+            OrderBooksCommand = new AsyncRelayCommand(ChangeSortOrder);
 
-            _booksStore.BooksUpdated += UpdateBooks;
-            _booksStore.BookEdited += BookEdited;
-            _booksStore.BookAdded += AddNewBook;
-            _booksStore.BookDeleted += BookDeleted;
-
-            loadBooksCommand.Execute(null);
-
-            Subject = "رمان";
+            RefreshPage();
         }
         #endregion
 
         #region Methods
 
 
+        private async Task ChangeSortOrder()
+        {
+            ClearInputs();
+            _books.Clear();
+            List<Book> books = new List<Book>();
+
+            /// 0 همه کتاب ها
+            /// 1 امانت برد ها
+            /// 2 دیرکرد ها
+
+            switch (SortIndex)
+            {
+                case 0: books = await _db.BooksRepository.GetAllBooks(); break;
+                case 1: books = await _db.BooksRepository.GetLoanedBooks(); break;
+                case 2: books = await _db.BooksRepository.GetDilayedBook(); break;
+            }
+
+            foreach (Book book in books)
+            {
+                _books.Add(book);
+            }
+            ClearInputs();
+        }
+
+        /// <summary>
+        /// triger OnCanExecute event of commands
+        /// </summary>
+        private void OnBookDataChanged()
+        {
+            AddNewBookCommand.RaiseCanExecuteChanged();
+            EditBookCommand.RaiseCanExecuteChanged();
+            DeleteBookCommand.RaiseCanExecuteChanged();
+        }
+
+        /// <summary>
+        /// check that data is valid or not for executing commands
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateInputData()
+        {
+            if (string.IsNullOrEmpty(Name)) return false;
+            if (string.IsNullOrEmpty(Publisher)) return false;
+            if (string.IsNullOrEmpty(Subject)) return false;
+            if (Tier < 0) return false;
+            if (string.IsNullOrEmpty(PublicationDate)) return false;
+            return true;
+        }
+
         /// <summary>
         /// Clear all inouts and set default values
         /// </summary>
         private void ClearInputs()
         {
-            Name = "";
-            Publisher = "";
+            Name = string.Empty;
+            Publisher = string.Empty;
             Subject = "رمان";
-            PublicationDate = "";
+            PublicationDate = string.Empty;
             Tier = 0;
+            SelectedBook = null;
         }
         /// <summary>
         /// called each time a book delete event get trigered and delete book from books list
         /// </summary>
         /// <param name="book"></param>
-        private void BookDeleted(Book book)
+        private async Task DeleteBook()
         {
+            if (SelectedBook == null)
+            {
+                _messageBoxStore.Show("لطفا ابتدا کتابی را انتخاب کنید", "حذف کتاب");
+                return;
+            }
             ClearInputs();
-            _books.Remove(book);
-            _messageBoxStore.Show("کتاب با موفقیت حذف شد", "حذف کتاب");
-            //_messageBox.Show();
+            int result = await _db.BooksRepository.DeleteBookInDb(SelectedBook);
+            if (result > 0)
+            {
+                _messageBoxStore.Show("کتاب با موفقیت حذف شد", "حذف کتاب");
+                RefreshPage();
+            }
+            else
+            {
+                _messageBoxStore.Show("هنگام حذف کتاب مشکلی بوجود امده است", "حذف کتاب");
+            }
         }
 
         /// <summary>
         /// called each time a book edited event trigred and update it in the books list
         /// </summary>
         /// <param name="book"></param>
-        private void BookEdited(Book book)
+        private async Task EditeBook()
         {
-            int index = _books.IndexOf(_books.FirstOrDefault(c => c.ID == book.ID));
-            if (index >= 0)
+            if (SelectedBook == null)
             {
-                _books.RemoveAt(index);
-                _books.Add(book);
-                int newIndex = _books.IndexOf(_books.FirstOrDefault(c => c.ID == book.ID));
-                _books.Move(newIndex, index);
-                _messageBoxStore.Show("کتاب با موفقیت ویرایش شد", "ویرایش کتاب");
+                _messageBoxStore.Show("لطفا ابتدا کتابی را برای ویرایش انتخاب کنید", "ویرایش کتاب");
+                return;
+            }
+            SelectedBook.Name = Name;
+            SelectedBook.Publisher = Publisher;
+            SelectedBook.Subject = Subject;
+            SelectedBook.Tier = Tier;
+            SelectedBook.PublicationDate = PublicationDate;
+            int result = await _db.BooksRepository.EditeBookInDb(SelectedBook);
+            if (result > 0)
+            {
+                _messageBoxStore.Show("ویرایش کتاب با موفقیت انجام شد", "ویرایش کتاب");
+                RefreshPage();
+            }
+            else
+            {
+                _messageBoxStore.Show("هنگام ویرایش کتاب مشکلی بوجود امده است", "ویرایش کتاب");
             }
         }
 
         /// <summary>
         /// called each time books list in store get changed and update books list
         /// </summary>
-        public void UpdateBooks()
+        public async Task RefreshPage()
         {
             ClearInputs();
             _books.Clear();
-            foreach (Book book in _booksStore.Books)
+            foreach (Book book in await _db.BooksRepository.GetAllBooks())
             {
                 _books.Add(book);
             }
@@ -211,13 +262,26 @@ namespace MyLibrary.ViewModel.ViewModels
         /// <summary>
         /// get called each time a new book event trigred and add new book to books list
         /// </summary>
-        /// <param name="book"></param>
-        public void AddNewBook(Book book)
+        public async Task AddNewBook()
         {
-            ClearInputs();
-            book.ID = _books.Any() ? _books.Last().ID + 1 : 1;
-            _books.Add(book);
-            _messageBoxStore.Show("کتاب با موفقیت افزوده شد", "افزودن کتاب");
+            Book newBook = new Book()
+            {
+                Name = _name,
+                Subject = _subject,
+                Publisher = _publisher,
+                PublicationDate = _publicationDate,
+                Tier = _tier
+            };
+            int result = await _db.BooksRepository.AddNewBookToDb(newBook);
+            if (result > 0)
+            {
+                _messageBoxStore.Show("کتاب جدید با موفقیت افزوده شد", "افزودن کتاب");
+                RefreshPage();
+            }
+            else
+            {
+                _messageBoxStore.Show("هنگام افزودن کتاب جدید مشکلی بوجود امده است", "افزودن کتاب");
+            }
         }
         #endregion
     }

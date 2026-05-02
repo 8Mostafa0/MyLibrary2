@@ -6,10 +6,12 @@ namespace MyLibrary.Model.Repositories
 {
     public interface IBooksRepository
     {
-        Task AddNewBookToDb(Book book);
-        Task DeleteBookInDb(Book book);
-        Task EditeBookInDb(Book book);
+        Task<int> AddNewBookToDb(Book book);
+        Task<int> DeleteBookInDb(Book book);
+        Task<int> EditeBookInDb(Book book);
         Task<List<Book>> GetAllBooks(string customSql = "");
+        Task<List<Book>> GetLoanedBooks();
+        Task<List<Book>> GetDilayedBook();
         Task<Book> GetBookById(int id, string customSql);
         Task<List<Book>> GetBooksByName(string bookName);
         void Dispose();

@@ -68,6 +68,16 @@ namespace MyLibrary.Model.Repositories
             }
         }
 
+        public async Task<List<Book>> GetLoanedBooks()
+        {
+            return await GetAllBooks("SELECT * FROM Books WHERE ID in (SELECT BookId FROM Loans WHERE ReturnedDate=NULL AND ReturnDate < GETDATE())");
+        }
+
+        public async Task<List<Book>> GetDilayedBook()
+        {
+            return await GetAllBooks("SELECT * FROM Books WHERE ID in (SELECT BookId FROM Loans WHERE ReturnedDate=NULL AND ReturnDate < GETDATE())");
+        }
+
         /// <summary>
         /// Select book by its ID
         /// </summary>
@@ -110,10 +120,10 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="book"></param>
         /// <returns></returns>
-        public async Task AddNewBookToDb(Book book)
+        public async Task<int> AddNewBookToDb(Book book)
         {
             string NewBookSql = $"INSERT INTO Books(Name,Publisher,Subject,PublicationDate,Tier,CreatedAt,UpdatedAt)VALUES(N'{book.Name}',N'{book.Publisher}',N'{book.Subject}','{book.PublicationDate}','{book.Tier}',GETDATE(),GETDATE())";
-            await _dbContextFactory.ExecuteQueryAsync(NewBookSql, "AddNewBookToDb");
+            return await _dbContextFactory.ExecuteQueryAsync(NewBookSql, "AddNewBookToDb");
         }
 
         /// <summary>
@@ -121,10 +131,10 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="book"></param>
         /// <returns></returns>
-        public async Task EditeBookInDb(Book book)
+        public async Task<int> EditeBookInDb(Book book)
         {
             string EditeSql = $"UPDATE books SET Name=N'{book.Name}',Subject=N'{book.Subject}',Publisher=N'{book.Publisher}',PublicationDate='{book.PublicationDate}',Tier='{book.Tier}',UpdatedAt=GETDATE() WHERE Id='{book.ID}'";
-            await _dbContextFactory.ExecuteQueryAsync(EditeSql, "EditeBookInDb");
+            return await _dbContextFactory.ExecuteQueryAsync(EditeSql, "EditeBookInDb");
         }
 
         /// <summary>
@@ -132,10 +142,10 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="book"></param>
         /// <returns></returns>
-        public async Task DeleteBookInDb(Book book)
+        public async Task<int> DeleteBookInDb(Book book)
         {
             string DeleteSql = $"DELETE FROM books WHERE ID='{book.ID}'";
-            await _dbContextFactory.ExecuteQueryAsync(DeleteSql, "DeleteBookInDb");
+            return await _dbContextFactory.ExecuteQueryAsync(DeleteSql, "DeleteBookInDb");
         }
 
         /// <summary>
@@ -148,6 +158,7 @@ namespace MyLibrary.Model.Repositories
             string SearchSql = $"SELECT * FROM Books WHERE Name=N'{bookName}'";
             return await GetAllBooks(SearchSql);
         }
+
 
         public void Dispose() { }
 
