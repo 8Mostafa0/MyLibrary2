@@ -109,7 +109,7 @@ namespace MyLibrary.Model.Repositories
         /// <returns></returns>
         public async Task AddNewLoanToDb(Loan loan)
         {
-            string AddLoanSql = $"INSERT INTO Loans(ClientId,BookId,ReturnDate,ReturnedDate,CreatedAt,UpdatedAt)VALUES('{loan.ClientId}','{loan.BookId}','{loan.ReturnDate}',NULL,GETDATE(),GETDATE())";
+            string AddLoanSql = $"INSERT INTO Loans(ClientId,ClientName,BookId,BookNAme,ReturnDate,ReturnedDate,CreatedAt,UpdatedAt)VALUES('{loan.ClientId}',{loan.ClientName},'{loan.BookId}','{loan.BookName}','{loan.ReturnDate}',NULL,GETDATE(),GETDATE())";
             await _dbContextFactory.ExecuteQueryAsync(AddLoanSql, "AddNewLoan");
         }
         /// <summary>
@@ -119,7 +119,7 @@ namespace MyLibrary.Model.Repositories
         /// <returns></returns>
         public async Task UpdateLoanAtDb(Loan loan)
         {
-            string UpdateLoanSql = $"UPDATE Loans SET ClientId='{loan.ClientId}',BookId='{loan.BookId}',ReturnDate='{loan.ReturnDate}',UpdatedAt=GETDATE() WHERE Id='{loan.Id}'";
+            string UpdateLoanSql = $"UPDATE Loans SET ClientId='{loan.ClientId}',ClientName='{loan.ClientName}',BookId='{loan.BookId}',BookName='{loan.BookName}',ReturnDate='{loan.ReturnDate}',UpdatedAt=GETDATE() WHERE Id='{loan.Id}'";
             await _dbContextFactory.ExecuteQueryAsync(UpdateLoanSql, "DeleteLoanAtDb");
         }
 

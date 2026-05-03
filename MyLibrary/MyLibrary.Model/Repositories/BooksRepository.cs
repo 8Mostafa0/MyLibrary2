@@ -84,23 +84,14 @@ namespace MyLibrary.Model.Repositories
         /// <param name="id"></param>
         /// <param name="customSql"></param>
         /// <returns Book></returns>
-        public async Task<Book> GetBookById(int id, string customSql)
+        public async Task<Book> GetBookById(int id)
         {
             Book Book = new Book();
             using (SqlConnection Connection = _dbContextFactory.GetConnection())
             {
                 try
                 {
-                    string GetBookSQl = "";
-                    if (string.IsNullOrEmpty(customSql))
-                    {
-                        GetBookSQl = $"SELECT * FROM Books WHERE Id='{id}'";
-                    }
-                    else
-                    {
-                        GetBookSQl = customSql;
-                    }
-                    Book = Connection.QuerySingle<Book>(GetBookSQl);
+                    Book = Connection.QuerySingle<Book>($"SELECT * FROM Books WHERE Id='{id}'");
                 }
                 catch (SqlException e)
                 {

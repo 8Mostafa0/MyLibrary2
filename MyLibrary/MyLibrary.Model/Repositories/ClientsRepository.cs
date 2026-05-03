@@ -160,7 +160,15 @@ namespace MyLibrary.Model.Repositories
             string DeleteClientSql = $"DELETE FROM Clients SHERE Id='{clientId}'";
             return await _dbContextFactory.ExecuteQueryAsync(DeleteClientSql, "DeleteClientToDb");
         }
-
+        /// <summary>
+        /// get Client by its ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Client> GetClientById(int id)
+        {
+            return await GetClient($"SELECT * FROM Clients WHERE ID='{id}'", "GetClientById");
+        }
         public void Dispose() { }
 
         #endregion

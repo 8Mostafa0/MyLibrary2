@@ -12,7 +12,7 @@ namespace MyLibrary.Model.Repositories
         Task<List<Book>> GetAllBooks(string customSql = "");
         Task<List<Book>> GetLoanedBooks();
         Task<List<Book>> GetDilayedBook();
-        Task<Book> GetBookById(int id, string customSql);
+        Task<Book> GetBookById(int id);
         Task<List<Book>> GetBooksByName(string bookName);
         void Dispose();
     }

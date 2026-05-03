@@ -63,7 +63,9 @@ namespace MyLibrary.Model.DbContexts
             const string LoansTableSql = "CREATE TABLE Loans" +
                 "(Id INT IDENTITY(1,1) NOT NULL   PRIMARY KEY," +
                 "ClientId INT NOT NULL," +
+                "ClientName NVARCHAR(200) NOT NULL," +
                 "BookId INT NOT NULL," +
+                "BookName NVARCHAR(200) NOT NULL," +
                 "ReturnDate DATE NULL," +
                 "ReturnedDate Date NULL," +
                 "CreatedAt DATETIME2(2) NOT NULL," +

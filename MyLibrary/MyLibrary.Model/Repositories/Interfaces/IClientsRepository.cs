@@ -14,6 +14,7 @@ namespace MyLibrary.Model.Repositories
         Task<List<Client>> GetLoanedClients();
         Task<List<Client>> GetDilayedLoansClients();
         Task<Client> GetClient(string customSql, string executionPart);
+        Task<Client> GetClientById(int id);
         void Dispose();
     }
 }
