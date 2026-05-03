@@ -33,8 +33,8 @@ namespace MyLibrary.ViewModel.ViewModels
             get => _selectedClient;
             set
             {
-                OnClientDataChanged();
                 SetField(ref _selectedClient, value);
+                OnClientDataChanged();
                 SelectedClientChanged(value);
             }
         }
@@ -56,6 +56,7 @@ namespace MyLibrary.ViewModel.ViewModels
             set
             {
                 SetField(ref _lastName, value);
+                OnClientDataChanged();
             }
         }
 
@@ -248,8 +249,8 @@ namespace MyLibrary.ViewModel.ViewModels
             int result = await _db.ClientsRepository.AddNewClientToDb(newClient);
             if (result > 0)
             {
-                ClearInputs();
                 _messageBoxStore.Show("کاربر با موفقیت افزوده شد", "افزودن کاربر");
+                RefreshPage();
             }
             else
             {
