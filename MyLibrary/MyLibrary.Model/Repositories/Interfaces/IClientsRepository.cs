@@ -11,6 +11,7 @@ namespace MyLibrary.Model.Repositories
         Task<int> DeleteClientToDb(int clientId);
         Task<int> EditeClientToDb(Client client);
         Task<List<Client>> GetAllClients(string customSql = "");
+        Task<List<Client>> GetClientsByName(string name);
         Task<List<Client>> GetLoanedClients();
         Task<List<Client>> GetDilayedLoansClients();
         Task<Client> GetClient(string customSql, string executionPart);

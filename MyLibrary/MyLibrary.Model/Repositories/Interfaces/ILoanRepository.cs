@@ -6,7 +6,7 @@ namespace MyLibrary.Model.Repositories
 {
     public interface ILoanRepository
     {
-        Task AddNewLoanToDb(Loan loan);
+        Task<int> AddNewLoanToDb(Loan loan);
         Task DeleteLoanInDB(Loan loan);
         Task<List<Loan>> GetAllClientLoans(int clientId);
         Task<List<Loan>> GetAllLoans(string customSql = "");

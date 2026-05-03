@@ -1,6 +1,7 @@
 ﻿using MyLibrary.Model.Base;
 using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.BaseCommands;
 using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
@@ -54,8 +55,8 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 
         #region Commands
 
-        public IShowLoanModalCommand ShowAddLoanModalCommand { get; }
-        public IShowEditLoanViewModel ShowEditLoanViewModel { get; }
+        public AsyncRelayCommand ShowAddLoanModalCommand { get; }
+        public AsyncRelayCommand ShowEditLoanViewModel { get; }
         public ILoadLoansCommand LoadLoansCommand { get; }
         public ISearchBookCommand SearchBookCommand { get; }
         public IReturnedLoanCommand ReturnedLoanCommand { get; }
@@ -80,6 +81,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         /// <param name="showEditLoanViewModel"></param>
         /// <param name="reloadLoansListCommand"></param>
         public LoansViewModel(
+            IMyLibraryDbContext db,
             ILoansStore loansStore,
             IBooksStore booksStore,
             IClientsStore clientsStore,
@@ -95,15 +97,15 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             )
         {
             _loans = new ObservableCollection<Loan>();
-
+            _db = db;
             _messageBoxStore = messageBoxStore;
             LoadLoansCommand = loadLoansCommand;
             SearchBookCommand = searchBookCommand;
             ReturnedLoanCommand = returnedLoanCommand;
             SortLoansListCommand = sortLoansListCommand;
             _modalNavigationStore = modalNavigationStore;
-            ShowEditLoanViewModel = showEditLoanViewModel;
-            ShowAddLoanModalCommand = showLoanModalCommand;
+            ShowEditLoanViewModel = new AsyncRelayCommand(ShowEditeLoanViewModel);
+            ShowAddLoanModalCommand = new AsyncRelayCommand(ShowAddLoanViewModel);
             ReloadLoansListCommand = reloadLoansListCommand;
 
 
@@ -114,6 +116,17 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             SelectedLoan = Loan.Empty();
         }
 
+        private async Task ShowEditeLoanViewModel()
+        {
+            IAddEditeLoanViewModel viewModel = await AddEditeLoanViewModel.InitlizeViewModel(_db, _applicationStore, _messageBoxStore, _modalNavigationStore);
+            viewModel.SelectedLoan = SelectedLoan;
+            _modalNavigationStore.CurrentViewModel = viewModel;
+        }
+        private async Task ShowAddLoanViewModel()
+        {
+            IAddEditeLoanViewModel viewModel = await AddEditeLoanViewModel.InitlizeViewModel(_db, _applicationStore, _messageBoxStore, _modalNavigationStore);
+            _modalNavigationStore.CurrentViewModel = viewModel;
+        }
         private void ClearInputs()
         {
             BookName = "";

@@ -66,8 +66,8 @@ namespace MyLibrary.Model.DbContexts
                 "ClientName NVARCHAR(200) NOT NULL," +
                 "BookId INT NOT NULL," +
                 "BookName NVARCHAR(200) NOT NULL," +
-                "ReturnDate DATE NULL," +
-                "ReturnedDate Date NULL," +
+                "ReturnDate DATETIME2(2) NULL," +
+                "ReturnedDate DATETIME2(2) NULL," +
                 "CreatedAt DATETIME2(2) NOT NULL," +
                 "UpdatedAt DATETIME2(2) NULL);";
 

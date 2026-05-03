@@ -1,34 +1,30 @@
-﻿using MyLibrary.Model.Models;
+﻿using MyLibrary.Model.Base;
+using MyLibrary.Model.Models;
 using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.BaseCommands;
 using MyLibrary.ViewModel.Commands.BooksCommands;
-using MyLibrary.ViewModel.Commands.ClientsCommands;
-using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 {
-    public class AddEditeLoanViewModel : ViewModelBase, IAddEditeLoanViewModel
+    public class AddEditeLoanViewModel : PropertyChangedBase, IAddEditeLoanViewModel
     {
 
         #region Dependencies
+        private Book _selectedBook;
         private Loan _selectedLoan;
-        private IClientsStore _clientsStore;
-        private IBooksStore _booksStore;
+        private Client _seletedClient;
+        private IMyLibraryDbContext _db;
+        private IMessageBoxStore _messageBoxStore;
+        private IApplicationStore _applicationStore;
+        private IModalNavigationStore _modalNavigationStore;
         private ObservableCollection<Book> _books;
         private ObservableCollection<Client> _clients;
-        private Client _seletedClient;
-        private Book _selectedBook;
-        private ILoansStore _loansStore;
-        private ILoanRepository _loanRepository;
-        private IModalNavigationStore _modalNavigationStore;
-        private ISettingsStore _settingsStore;
-        private IBooksRepository _booksRepository;
-        private IReservedBooksRepository _reservedBooksRepository;
-        private IMessageBoxStore _messageBoxStore;
         private string _titleOfLoanScreen;
 
         public Loan SelectedLoan
@@ -36,27 +32,41 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             get => _selectedLoan;
             set
             {
-                _selectedLoan = value;
-                SetDataOfSelectedReservedBook();
+                SetField(ref _selectedLoan, value);
+                SetDataOfSelectedLoan();
+                OnLoanDataChanged();
             }
         }
         public string TitleOfLoanScreen
         {
             get => _titleOfLoanScreen; set
             {
-                _titleOfLoanScreen = value;
-                OnProperychanged(nameof(TitleOfLoanScreen));
+                SetField(ref _titleOfLoanScreen, value);
             }
         }
-        public IEnumerable<Book> Books => _books;
-        public IEnumerable<Client> Clients => _clients;
+        public ObservableCollection<Book> Books
+        {
+            get => _books;
+            set
+            {
+                SetField(ref _books, value);
+            }
+        }
+        public ObservableCollection<Client> Clients
+        {
+            get => _clients;
+            set
+            {
+                SetField(ref _clients, value);
+            }
+        }
         public Client SelectedClient
         {
             get => _seletedClient;
             set
             {
-                _seletedClient = value;
-                OnProperychanged(nameof(SelectedClient));
+                SetField(ref _seletedClient, value);
+                OnLoanDataChanged();
             }
         }
 
@@ -66,8 +76,8 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             get => _selectedBook;
             set
             {
-                _selectedBook = value;
-                OnProperychanged(nameof(SelectedBook));
+                SetField(ref _selectedBook, value);
+                OnLoanDataChanged();
             }
         }
 
@@ -78,8 +88,12 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             get => _bookSearch;
             set
             {
-                _bookSearch = value;
-                OnProperychanged(nameof(BookSearch));
+                if (string.IsNullOrEmpty(value))
+                {
+                    LoadBooks();
+                }
+                SetField(ref _bookSearch, value);
+                SearchBookNameCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -89,8 +103,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             get => _booksSortOrder;
             set
             {
-                _booksSortOrder = value;
-                OnProperychanged(nameof(_booksSortOrder));
+                SetField(ref _booksSortOrder, value);
             }
         }
 
@@ -100,8 +113,12 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             get => _clientSearch;
             set
             {
-                _clientSearch = value;
-                OnProperychanged(nameof(ClientSearch));
+                if (string.IsNullOrEmpty(value))
+                {
+                    LoadClients();
+                }
+                SetField(ref _clientSearch, value);
+                SearchClientNameCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -111,8 +128,8 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             get => _returnDate;
             set
             {
-                _returnDate = value;
-                OnProperychanged(nameof(ReturnDate));
+                SetField(ref _returnDate, DateTime.Parse(value.ToString("O")));
+                OnLoanDataChanged();
             }
         }
         #endregion
@@ -122,128 +139,192 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 
         public IViewModelBase CurrentModelViewModel => _modalNavigationStore.CurrentViewModel;
         public ILoadBooksCommand LoadBooksCommand { get; }
-        public ILoadClientsCommand LoadClientsCommand { get; }
-        public ICloseModalCommand CloseModalCommand { get; }
-        public ISaveLoanDataCommand SaveLoanDataCommand { get; }
-        public ISearchBookNameCommand SearchBookNameCommand { get; }
-        public IOrderBooksBySubjectCommand OrderBooksBySubjectCommand { get; }
-        public ISearchClientNameCommand SearchClientNameCommand { get; }
+        public RelayCommand CloseModalCommand { get; }
+        public AsyncRelayCommand SaveLoanDataCommand { get; }
+        public AsyncRelayCommand SearchBookNameCommand { get; }
+        public AsyncRelayCommand OrderBooksBySubjectCommand { get; }
+        public AsyncRelayCommand SearchClientNameCommand { get; }
         #endregion
 
         #region Contructor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="booksStore"></param>
-        /// <param name="loansStore"></param>
-        /// <param name="clientsStore"></param>
-        /// <param name="settingsStore"></param>
-        /// <param name="loanRepository"></param>
-        /// <param name="booksRepository"></param>
+        /// <param name="db"></param>
+        /// <param name="applicationStore"></param>
         /// <param name="messageBoxStore"></param>
-        /// <param name="loadBooksCommand"></param>
-        /// <param name="closeModalCommand"></param>
-        /// <param name="loadClientsCommand"></param>
-        /// <param name="saveLoanDataCommand"></param>
         /// <param name="modalNavigationStore"></param>
-        /// <param name="searchBookNameCommand"></param>
-        /// <param name="reservedBooksRepository"></param>
-        /// <param name="searchClientNameCommand"></param>
-        /// <param name="orderBooksByStateCommand"></param>
-        /// <param name="orderBooksBySubjectCommand"></param>
         public AddEditeLoanViewModel(
-            IBooksStore booksStore,
-            ILoansStore loansStore,
-            IClientsStore clientsStore,
-            ISettingsStore settingsStore,
-            ILoanRepository loanRepository,
-            IBooksRepository booksRepository,
+            IMyLibraryDbContext db,
+            IApplicationStore applicationStore,
             IMessageBoxStore messageBoxStore,
-            ILoadBooksCommand loadBooksCommand,
-            ICloseModalCommand closeModalCommand,
-            ILoadClientsCommand loadClientsCommand,
-            ISaveLoanDataCommand saveLoanDataCommand,
-            IModalNavigationStore modalNavigationStore,
-            ISearchBookNameCommand searchBookNameCommand,
-            IReservedBooksRepository reservedBooksRepository,
-            ISearchClientNameCommand searchClientNameCommand,
-            IOrderBooksByStateCommand orderBooksByStateCommand,
-            IOrderBooksBySubjectCommand orderBooksBySubjectCommand
+            IModalNavigationStore modalNavigationStore
             )
         {
+            _db = db;
+            _applicationStore = applicationStore;
+            _messageBoxStore = messageBoxStore;
+            _modalNavigationStore = modalNavigationStore;
+
             _books = new ObservableCollection<Book>();
             _clients = new ObservableCollection<Client>();
 
-            _booksStore = booksStore;
-            _loansStore = loansStore;
-            _clientsStore = clientsStore;
-            _settingsStore = settingsStore;
-            _loanRepository = loanRepository;
-            _booksRepository = booksRepository;
-            _messageBoxStore = messageBoxStore;
-            LoadBooksCommand = loadBooksCommand;
-            CloseModalCommand = closeModalCommand;
-            LoadClientsCommand = loadClientsCommand;
-            SaveLoanDataCommand = saveLoanDataCommand;
-            _modalNavigationStore = modalNavigationStore;
-            SearchBookNameCommand = searchBookNameCommand;
-            SearchClientNameCommand = searchClientNameCommand;
-            _reservedBooksRepository = reservedBooksRepository;
-            OrderBooksBySubjectCommand = orderBooksBySubjectCommand;
+            CloseModalCommand = new RelayCommand(CloseModal);
+            SaveLoanDataCommand = new AsyncRelayCommand(SaveNewLoan, ValidateLoanData);
+            SearchBookNameCommand = new AsyncRelayCommand(SearchBooksName, () => { return BookSearch != ""; });
+            SearchClientNameCommand = new AsyncRelayCommand(SearchClientName, () => { return ClientSearch != ""; });
+            OrderBooksBySubjectCommand = new AsyncRelayCommand(OrderBooksBySubject);
 
-            LoadBooksCommand.Execute(null);
-            LoadClientsCommand.Execute(null);
-
-            _booksStore.BooksUpdated += OnBooksUpdated;
-            _clientsStore.ClientsUpdated += OnClientsUpdated;
             _modalNavigationStore.CurrentViewModelChanged += ModalViewModelChange;
-
-            OnClientsUpdated();
-            OnBooksUpdated();
-            if (_loansStore.SelectedLoan.ID == 0)
+            BooksSortOrder = 0;
+            if (_applicationStore is null || _applicationStore.SelectedLoan is null || _applicationStore.SelectedLoan.Id == 0)
             {
                 TitleOfLoanScreen = "امانت جدید";
-                ReturnDate = DateTime.Now;
+                ReturnDate = DateTime.Now.ToLocalTime();
             }
             else
             {
                 TitleOfLoanScreen = "ویرایش امانت";
-                SelectedLoan = _loansStore.SelectedLoan._loan;
-                ReturnDate = _loansStore.SelectedLoan.ReturnDate;
+                SelectedLoan = _applicationStore.SelectedLoan;
+                ReturnDate = _applicationStore.SelectedLoan.ReturnDate;
             }
+        }
+
+
+        private async Task OrderBooksBySubject()
+        {
+            string Subject = "";
+            switch (BooksSortOrder)
+            {
+                case 0: Subject = ""; break;
+                case 1: Subject = "رمان"; break;
+                case 2: Subject = "قصه"; break;
+                case 3: Subject = "آموزشی"; break;
+                case 4: Subject = "معمایی"; break;
+                case 5: Subject = "خودشناسی"; break;
+                case 6: Subject = "شکرگزاری"; break;
+            }
+            List<Book> books = await _db.BooksRepository.GetBoooksBySubject(Subject);
+            _books.Clear();
+            foreach (Book book in books)
+            {
+                _books.Add(book);
+            }
+        }
+
+        private void OnLoanDataChanged()
+        {
+            SaveLoanDataCommand.RaiseCanExecuteChanged();
+        }
+
+        private bool ValidateLoanData()
+        {
+            if (SelectedBook is null) return false;
+            if (SelectedClient is null) return false;
+            if (ReturnDate <= DateTime.Now) return false;
+            return true;
+        }
+        private async Task SaveNewLoan()
+        {
+            Loan newLoan = new Loan()
+            {
+                ClientId = SelectedClient.ID,
+                ClientName = SelectedClient.FirstName + " " + SelectedClient.LastName,
+                BookId = SelectedBook.ID,
+                BookName = SelectedBook.Name,
+                ReturnDate = ReturnDate
+            };
+
+            int result = await _db.LoanRepository.AddNewLoanToDb(newLoan);
+            if (result > 0)
+            {
+                _messageBoxStore.Show("امانت با موفقیت ثبت شد", "ثبت امانت");
+            }
+            else
+            {
+                _messageBoxStore.Show("هنگام ثبت امانت مشکلی بوجود امده است", "ثبت امانت");
+            }
+        }
+
+        public static async Task<IAddEditeLoanViewModel> InitlizeViewModel(
+            IMyLibraryDbContext db,
+            IApplicationStore applicationStore,
+            IMessageBoxStore messageBoxStore,
+            IModalNavigationStore modalNavigationStore)
+        {
+            AddEditeLoanViewModel viewModel = new AddEditeLoanViewModel(db, applicationStore, messageBoxStore, modalNavigationStore);
+            await viewModel.RefreshPage();
+            return viewModel;
 
         }
 
         #endregion
 
         #region Methods
-        /// <summary>
-        /// called after a book been updated
-        /// </summary>
-        private void OnBooksUpdated()
+
+        private async Task SearchClientName()
         {
-            _books.Clear();
-            foreach (Book book in _booksStore.Books)
-            {
-                _books.Add(book);
-            }
-        }
-        /// <summary>
-        /// update each time store clients list get changed
-        /// </summary>
-        private void OnClientsUpdated()
-        {
+            List<Client> clients = await _db.ClientsRepository.GetClientsByName(ClientSearch);
             _clients.Clear();
-            foreach (Client client in _clientsStore.Clients)
+            foreach (Client client in clients)
             {
                 _clients.Add(client);
             }
         }
 
+        private async Task SearchBooksName()
+        {
+            List<Book> books = await _db.BooksRepository.GetBooksByName(BookSearch);
+            _books.Clear();
+            foreach (Book book in books)
+            {
+                _books.Add(book);
+            }
+        }
+
+        private void CloseModal()
+        {
+            _modalNavigationStore?.Close();
+        }
+        private async Task LoadBooks()
+        {
+            List<Book> books = await _db.BooksRepository.GetAllBooks();
+            _books.Clear();
+            foreach (Book book in books)
+            {
+                _books.Add(book);
+            }
+
+        }
+
+        private async Task LoadClients()
+        {
+            List<Client> clients = await _db.ClientsRepository.GetAllClients();
+            Clients.Clear();
+            foreach (Client client in clients)
+            {
+                Clients.Add(client);
+            }
+        }
+
+        private void ClearInputs()
+        {
+            BookSearch = "";
+            ClientSearch = "";
+        }
+
+        public async Task RefreshPage()
+        {
+            await LoadBooks();
+            await LoadClients();
+            ClearInputs();
+        }
+
+
         /// <summary>
         /// fill data of selected loans to Book and Client
         /// </summary>
-        private void SetDataOfSelectedReservedBook()
+        private void SetDataOfSelectedLoan()
         {
             if (!(_selectedLoan is null))
             {
@@ -259,7 +340,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         /// </summary>
         private void ModalViewModelChange()
         {
-            OnProperychanged(nameof(CurrentModelViewModel));
+            OnPropertyChanged(nameof(CurrentModelViewModel));
         }
 
         #endregion

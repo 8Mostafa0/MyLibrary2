@@ -13,8 +13,8 @@ namespace MyLibrary.ViewModel.Stores
 
         #region Dependencies
         private IMyLibraryDbContext _db;
-        private ObservableCollection<LoanViewModel> _loans;
-        public IEnumerable<LoanViewModel> Loans => _loans;
+        private ObservableCollection<Loan> _loans;
+        public IEnumerable<Loan> Loans => _loans;
         private ILoanRepository _loanRepository;
         private IClientsStore _clientsStore;
         private IBooksStore _booksStore;
@@ -47,7 +47,7 @@ namespace MyLibrary.ViewModel.Stores
             _clientsStore = clientsStore;
             _booksStore = booksStore;
             SelectedLoan = LoanViewModel.Empty();
-            _loans = new ObservableCollection<LoanViewModel>();
+            _loans = new ObservableCollection<Loan>();
             _initilizeLazy = new Lazy<Task>(Initialize);
             _loanRepository = loanRepository;
         }
@@ -108,8 +108,7 @@ namespace MyLibrary.ViewModel.Stores
             _loans.Clear();
             foreach (Loan loan in loans)
             {
-                LoanViewModel loanViewModel = await new LoanViewModel().LoanViewModelAsync(loan, _db);
-                _loans.Add(loanViewModel);
+                _loans.Add(loan);
             }
             LoansUpdated?.Invoke();
         }
@@ -124,8 +123,7 @@ namespace MyLibrary.ViewModel.Stores
             _loans.Clear();
             foreach (Loan loan in loans)
             {
-                LoanViewModel loanViewModel = await new LoanViewModel().LoanViewModelAsync(loan, _db);
-                _loans.Add(loanViewModel);
+                _loans.Add(loan);
             }
             LoansUpdated?.Invoke();
         }

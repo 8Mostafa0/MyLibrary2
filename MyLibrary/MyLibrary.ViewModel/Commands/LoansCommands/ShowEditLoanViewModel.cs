@@ -9,12 +9,8 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     public class ShowEditLoanViewModel : CommandBase, IShowEditLoanViewModel
     {
         #region Dependencies
-        private IBooksStore _booksStore;
-        private ILoansStore _loansStore;
-        private IClientsStore _clientsStore;
-        private ISettingsStore _settingsStore;
-        private ILoanRepository _loanRepository;
-        private IBooksRepository _booksRepository;
+        private IApplicationStore _applicationStore;
+        private IMyLibraryDbContext _db;
         private IMessageBoxStore _messageBoxStore;
         private ILoadBooksCommand _loadBooksCommand;
         private ICloseModalCommand _closeModalCommand;
@@ -23,7 +19,6 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         private IModalNavigationStore _modalNavigationStore;
         private IAddEditeLoanViewModel _addEditeLoanViewModel;
         private ISearchBookNameCommand _searchBookNameCommand;
-        private IReservedBooksRepository _reservedBooksRepository;
         private ISearchClientNameCommand _searchClientNameCommand;
         private IOrderBooksByStateCommand _orderBooksByStateCommand;
         private IOrderBooksBySubjectCommand _orderBooksBySubjectCommand;
@@ -53,10 +48,8 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="orderBooksByStateCommand"></param>
         /// <param name="orderBooksBySubjectCommand"></param>
         public ShowEditLoanViewModel(
-            IBooksStore booksStore,
-            ILoansStore loansStore,
-            IClientsStore clientsStore,
-            ISettingsStore settingsStore,
+            IMyLibraryDbContext db,
+            IApplicationStore applicationStore,
             ILoanRepository loanRepository,
             IBooksRepository booksRepository,
             IMessageBoxStore messageBoxStore,
@@ -70,27 +63,19 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             ISearchClientNameCommand searchClientNameCommand,
             IOrderBooksByStateCommand orderBooksByStateCommand,
             IOrderBooksBySubjectCommand orderBooksBySubjectCommand
-
-
             )
         {
-            _booksStore = booksStore;
-            _loansStore = loansStore;
-            _clientsStore = clientsStore;
-            _settingsStore = settingsStore;
-            _loanRepository = loanRepository;
-            _booksRepository = booksRepository;
+            _db = db;
+            _applicationStore = applicationStore;
             _messageBoxStore = messageBoxStore;
             _loadBooksCommand = loadBooksCommand;
             _closeModalCommand = closeModalCommand;
             _loadClientsCommand = loadClientsCommand;
             _saveLoanDataCommand = saveLoanDataCommand;
-            _searchBookNameCommand = searchBookNameCommand;
-            _reservedBooksRepository = reservedBooksRepository;
-            _searchClientNameCommand = searchClientNameCommand;
-            _orderBooksByStateCommand = orderBooksByStateCommand;
-            _orderBooksBySubjectCommand = orderBooksBySubjectCommand;
             _modalNavigationStore = modalNavigationStore;
+            _searchBookNameCommand = searchBookNameCommand;
+            _searchClientNameCommand = searchClientNameCommand;
+            _orderBooksBySubjectCommand = orderBooksBySubjectCommand;
         }
         #endregion
 
@@ -102,41 +87,15 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         public override async void Execute(object parameter)
         {
 
-            if (_loansStore.SelectedLoan is null || _loansStore.SelectedLoan._loan is null)
-            {
-                _messageBoxStore.Show("لطفا ابتدا امانتی را انتخاب کنید", "ویرایش نوبت");
-            }
-            else if (!(_loansStore.SelectedLoan.ReturnedDateTime is null) && _loansStore.SelectedLoan.ReturnedDateTime != "خیر")
-            {
-                _messageBoxStore.Show("این امانت تحویل داده شده است", "ویرایش نوبت");
-            }
-            else
-            {
-                _addEditeLoanViewModel = new AddEditeLoanViewModel(
-                    _booksStore,
-                    _loansStore,
-                    _clientsStore,
-                    _settingsStore,
-                    _loanRepository,
-                    _booksRepository,
-                    _messageBoxStore,
-                    _loadBooksCommand,
-                    _closeModalCommand,
-                    _loadClientsCommand,
-                    _saveLoanDataCommand,
-                    _modalNavigationStore,
-                    _searchBookNameCommand,
-                    _reservedBooksRepository,
-                    _searchClientNameCommand,
-                    _orderBooksByStateCommand,
-                    _orderBooksBySubjectCommand
-                    )
-                {
-                    SelectedLoan = _loansStore.SelectedLoan._loan
-                };
-                _modalNavigationStore.CurrentViewModel = _addEditeLoanViewModel;
-            }
+            _addEditeLoanViewModel = await AddEditeLoanViewModel.InitlizeViewModel(
+                _db,
+                _applicationStore,
+                _messageBoxStore,
+                _modalNavigationStore
+                );
+            _modalNavigationStore.CurrentViewModel = _addEditeLoanViewModel;
         }
-        #endregion
     }
+    #endregion
 }
+

@@ -29,4 +29,19 @@ namespace MyLibrary.ViewModel.Commands.BaseCommands
             remove => CommandManager.RequerySuggested -= value;
         }
     }
+
+    public class RelayCommand : RelayCommand<object>
+    {
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
+
+        public RelayCommand(Action execute, Func<bool> canExecute = null) :
+            base(
+                (token) => execute(),
+                canExecute != null ? new Func<object, bool>(_ => canExecute()) : null)
+        {
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
+        }
+    }
 }

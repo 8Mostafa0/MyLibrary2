@@ -3,6 +3,7 @@ using MyLibrary.Model.DbContexts;
 using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Servicies;
 using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -146,10 +147,16 @@ namespace MyLibrary.Model.Repositories
         /// <returns List<Book>></returns>
         public async Task<List<Book>> GetBooksByName(string bookName)
         {
-            string SearchSql = $"SELECT * FROM Books WHERE Name=N'{bookName}'";
+            string SearchSql = $"SELECT * FROM Books WHERE Name LIKE '%{bookName}%'";
             return await GetAllBooks(SearchSql);
         }
 
+        public async Task<List<Book>> GetBoooksBySubject(string subject)
+        {
+            string getSql = $"SELECT * FROM Books WHERE Subject LIKE '%{subject}%'";
+            Console.WriteLine(getSql);
+            return await GetAllBooks(getSql);
+        }
 
         public void Dispose() { }
 

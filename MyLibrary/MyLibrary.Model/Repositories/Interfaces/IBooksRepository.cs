@@ -14,6 +14,7 @@ namespace MyLibrary.Model.Repositories
         Task<List<Book>> GetDilayedBook();
         Task<Book> GetBookById(int id);
         Task<List<Book>> GetBooksByName(string bookName);
+        Task<List<Book>> GetBoooksBySubject(string subject);
         void Dispose();
     }
 }

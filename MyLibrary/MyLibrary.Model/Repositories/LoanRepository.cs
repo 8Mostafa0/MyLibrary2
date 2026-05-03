@@ -3,6 +3,7 @@ using MyLibrary.Model.DbContexts;
 using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Servicies;
 using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -107,10 +108,11 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="loan"></param>
         /// <returns></returns>
-        public async Task AddNewLoanToDb(Loan loan)
+        public async Task<int> AddNewLoanToDb(Loan loan)
         {
-            string AddLoanSql = $"INSERT INTO Loans(ClientId,ClientName,BookId,BookNAme,ReturnDate,ReturnedDate,CreatedAt,UpdatedAt)VALUES('{loan.ClientId}',{loan.ClientName},'{loan.BookId}','{loan.BookName}','{loan.ReturnDate}',NULL,GETDATE(),GETDATE())";
-            await _dbContextFactory.ExecuteQueryAsync(AddLoanSql, "AddNewLoan");
+            string AddLoanSql = $"INSERT INTO Loans(ClientId,ClientName,BookId,BookName,ReturnDate,ReturnedDate,CreatedAt,UpdatedAt)VALUES('{loan.ClientId}','{loan.ClientName}','{loan.BookId}','{loan.BookName}','{loan.ReturnDate.ToString("O")}',NULL,GETDATE(),GETDATE())";
+            Console.WriteLine(AddLoanSql);
+            return await _dbContextFactory.ExecuteQueryAsync(AddLoanSql, "AddNewLoan");
         }
         /// <summary>
         /// edite loan data from Loan table

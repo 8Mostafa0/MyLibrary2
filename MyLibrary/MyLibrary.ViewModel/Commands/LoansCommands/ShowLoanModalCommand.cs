@@ -10,7 +10,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
     {
         #region Dependencies
         private IMyLibraryDbContext _db;
-        private IBooksStore _booksStore;
+        private IApplicationStore _applicationStore;
         private ILoansStore _loansStore;
         private IClientsStore _clientsStore;
         private ISettingsStore _settingsStore;
@@ -40,7 +40,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="addEditeLoanViewModel"></param>
         public ShowLoanModalCommand(
             IMyLibraryDbContext db,
-            IBooksStore booksStore,
+            IApplicationStore applicationStore,
             ILoansStore loansStore,
             IClientsStore clientsStore,
             ISettingsStore settingsStore,
@@ -60,7 +60,6 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             )
         {
             _db = db;
-            _booksStore = booksStore;
             _loansStore = loansStore;
             _clientsStore = clientsStore;
             _settingsStore = settingsStore;
@@ -87,26 +86,13 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="parameter">no marametes needed</param>
         public override void Execute(object parameter)
         {
-            _addEditeLoanViewModel = new AddEditeLoanViewModel(
-                _booksStore,
-                _loansStore,
-                _clientsStore,
-                _settingsStore,
-                _loanRepository,
-                _booksRepository,
-                _messageBoxStore,
-                _loadBooksCommand,
-                _closeModalCommand,
-                _loadClientsCommand,
-                _saveLoanDataCommand,
-                _modalNavigationStore,
-                _searchBookNameCommand,
-                _reservedBooksRepository,
-                _searchClientNameCommand,
-                _orderBooksByStateCommand,
-                _orderBooksBySubjectCommand
-                );
-            _modalNavigationStore.CurrentViewModel = _addEditeLoanViewModel;
+            //_addEditeLoanViewModel = AddEditeLoanViewModel.InitlizeViewModel(
+            //    _db,
+            //    _applicationStore,
+            //    _messageBoxStore,
+            //    _modalNavigationStore
+            //    );
+            //_modalNavigationStore.CurrentViewModel = _addEditeLoanViewModel;
         }
         #endregion
     }

@@ -8,7 +8,7 @@ namespace MyLibrary.ViewModel.Stores
 {
     public interface ILoansStore
     {
-        IEnumerable<LoanViewModel> Loans { get; }
+        IEnumerable<Loan> Loans { get; }
 
         event Action<Loan> LoanIsAdded;
         event Action<Loan> LoanIsReturned;

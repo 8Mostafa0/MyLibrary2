@@ -1,4 +1,5 @@
 ﻿using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Commands.BaseCommands;
 using MyLibrary.ViewModel.Commands.LoansCommands;
 using System.Collections.Generic;
 
@@ -15,8 +16,8 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         IReturnedLoanCommand ReturnedLoanCommand { get; }
         ISearchBookCommand SearchBookCommand { get; }
         Loan SelectedLoan { get; set; }
-        IShowLoanModalCommand ShowAddLoanModalCommand { get; }
-        IShowEditLoanViewModel ShowEditLoanViewModel { get; }
+        AsyncRelayCommand ShowAddLoanModalCommand { get; }
+        AsyncRelayCommand ShowEditLoanViewModel { get; }
         int SortIndex { get; set; }
         ISortLoansListCommand SortLoansListCommand { get; }
     }

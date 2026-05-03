@@ -169,6 +169,12 @@ namespace MyLibrary.Model.Repositories
         {
             return await GetClient($"SELECT * FROM Clients WHERE ID='{id}'", "GetClientById");
         }
+
+        public async Task<List<Client>> GetClientsByName(string name)
+        {
+            string searchSql = $"SELECT * FROM Clients WHERE FirstName LIKE '%{name}%' OR LastName LIKE '%{name}%'";
+            return await GetAllClients(searchSql);
+        }
         public void Dispose() { }
 
         #endregion
