@@ -1,24 +1,25 @@
-﻿using MyLibrary.Model.Models;
+﻿using MyLibrary.Model.Base;
+using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 {
-    public class LoansViewModel : ViewModelBase, ILoansViewModel
+    public class LoansViewModel : PropertyChangedBase, ILoansViewModel
     {
         #region Dependencies
+        private IMyLibraryDbContext _db;
+        private ApplicationStore _applicationStore;
         private IModalNavigationStore _modalNavigationStore;
-        private ObservableCollection<LoanViewModel> _loans;
-        private ILoansStore _loansStore;
-        private IClientsStore _clientsStore;
-        private IBooksStore _booksStore;
+        private ObservableCollection<Loan> _loans;
         private IMessageBoxStore _messageBoxStore;
         public IViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
-        public IEnumerable<LoanViewModel> Loans => _loans;
+        public IEnumerable<Loan> Loans => _loans;
 
         private int _sortIndex;
         public int SortIndex
@@ -26,8 +27,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             get => _sortIndex;
             set
             {
-                _loansStore.SortIndex = value;
-                _sortIndex = value;
+                SetField(ref _sortIndex, value);
             }
         }
         private string _bookName;
@@ -36,19 +36,16 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             get => _bookName;
             set
             {
-                _bookName = value;
-                _loansStore.BookName = value;
-                OnProperychanged(nameof(BookName));
+                SetField(ref _bookName, value);
             }
         }
-        private LoanViewModel _selectedLoan;
-        public LoanViewModel SelectedLoan
+        private Loan _selectedLoan;
+        public Loan SelectedLoan
         {
             get => _selectedLoan;
             set
             {
-                _loansStore.SelectedLoan = value;
-                _selectedLoan = value;
+                SetField(ref _selectedLoan, value);
             }
         }
         public bool IsModalOpen => _modalNavigationStore.IsModalOpen;
@@ -97,11 +94,8 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             IReloadLoansListCommand reloadLoansListCommand
             )
         {
-            _loans = new ObservableCollection<LoanViewModel>();
+            _loans = new ObservableCollection<Loan>();
 
-            _loansStore = loansStore;
-            _booksStore = booksStore;
-            _clientsStore = clientsStore;
             _messageBoxStore = messageBoxStore;
             LoadLoansCommand = loadLoansCommand;
             SearchBookCommand = searchBookCommand;
@@ -113,29 +107,25 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             ReloadLoansListCommand = reloadLoansListCommand;
 
 
-            _loansStore.LoansUpdated += UpdateLoans;
-            _loansStore.LoanIsAdded += LoanAdded;
-            _loansStore.LoanIsUpdated += LoanIsUpdated;
-            _loansStore.LoanIsReturned += LoanIsReturned;
             _modalNavigationStore.CurrentViewModelChanged += OnModalViewModelChanged;
 
             LoadLoansCommand.Execute(null);
 
-            SelectedLoan = LoanViewModel.Empty();
+            SelectedLoan = Loan.Empty();
         }
 
         private void ClearInputs()
         {
             BookName = "";
             SortIndex = 0;
-            SelectedLoan = new LoanViewModel(new Loan() { Id = 0 }, _clientsStore, _booksStore);
+            SelectedLoan = Loan.Empty();
         }
 
         private void LoanIsReturned(Loan loan)
         {
-            LoanViewModel loanViewModel = _loans.SingleOrDefault(t => t._loan.Id == loan.Id);
-            int index = _loans.IndexOf(loanViewModel);
-            _loans[index] = new LoanViewModel(loan, _clientsStore, _booksStore);
+            Loan selectedLoan = _loans.SingleOrDefault(t => t.Id == loan.Id);
+            int index = _loans.IndexOf(selectedLoan);
+            _loans[index] = loan;
             ClearInputs();
             _messageBoxStore.Show("امانت با موفقیت بازگشت شد", "بازگشت امانت");
         }
@@ -149,17 +139,16 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         /// <param name="loan"></param>
         private void LoanIsUpdated(Loan loan)
         {
-            var updatedVm = new LoanViewModel(loan, _clientsStore, _booksStore);
 
-            var existing = _loans.FirstOrDefault(l => l.ID == loan.Id);
+            var existing = _loans.FirstOrDefault(l => l.Id == loan.Id);
             if (existing != null)
             {
                 int index = _loans.IndexOf(existing);
-                _loans[index] = updatedVm;
+                _loans[index] = loan;
                 ClearInputs();
                 _messageBoxStore.Show("امانت با موفقیت ویرایش شد", "ویرایش امانت");
             }
-            OnProperychanged(nameof(_loans));
+            SetField(ref _loans, _loans);
         }
 
         /// <summary>
@@ -168,9 +157,8 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         /// <param name="loan"></param>
         private void LoanAdded(Loan loan)
         {
-            loan.Id = _loans.Any() ? _loans.Last().ID + 1 : 1;
-            var vm = new LoanViewModel(loan, _clientsStore, _booksStore);
-            _loans.Add(vm);
+            loan.Id = _loans.Any() ? _loans.Last().Id + 1 : 1;
+            _loans.Add(loan);
             ClearInputs();
             _messageBoxStore.Show("امانت با موفقیت ثبت شد", "افزودن امانت");
         }
@@ -180,16 +168,16 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         /// </summary>
         private void OnModalViewModelChanged()
         {
-            OnProperychanged(nameof(CurrentModalViewModel));
-            OnProperychanged(nameof(IsModalOpen));
+            OnPropertyChanged(nameof(CurrentModalViewModel));
+            OnPropertyChanged(nameof(IsModalOpen));
         }
         /// <summary>
         /// called each time loans list get updated
         /// </summary>
-        public void UpdateLoans()
+        public async Task UpdateLoans()
         {
             _loans.Clear();
-            foreach (LoanViewModel loan in _loansStore.Loans)
+            foreach (Loan loan in await _db.LoanRepository.GetAllLoans())
             {
                 _loans.Add(loan);
             }

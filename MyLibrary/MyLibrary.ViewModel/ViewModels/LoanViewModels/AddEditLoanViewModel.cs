@@ -56,7 +56,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             set
             {
                 _seletedClient = value;
-                _loansStore.SelectedClient = value;
                 OnProperychanged(nameof(SelectedClient));
             }
         }
@@ -68,7 +67,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             set
             {
                 _selectedBook = value;
-                _loansStore.SelectedBook = value;
                 OnProperychanged(nameof(SelectedBook));
             }
         }
@@ -81,7 +79,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             set
             {
                 _bookSearch = value;
-                _booksStore.SearchBookName = value;
                 OnProperychanged(nameof(BookSearch));
             }
         }
@@ -93,7 +90,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             set
             {
                 _booksSortOrder = value;
-                _booksStore.SearchSubject = value;
                 OnProperychanged(nameof(_booksSortOrder));
             }
         }
@@ -105,7 +101,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             set
             {
                 _clientSearch = value;
-                _clientsStore.SearchClientName = value;
                 OnProperychanged(nameof(ClientSearch));
             }
         }
@@ -117,7 +112,6 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
             set
             {
                 _returnDate = value;
-                _loansStore.SelectedLoan._loan.ReturnDate = value;
                 OnProperychanged(nameof(ReturnDate));
             }
         }

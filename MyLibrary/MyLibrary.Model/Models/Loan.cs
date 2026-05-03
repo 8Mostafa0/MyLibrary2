@@ -13,5 +13,10 @@ namespace MyLibrary.Model.Models
         public DateTime? ReturnedDate { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        public static Loan Empty()
+        {
+            return new Loan() { Id = 0, ClientId = 0, BookId = 0 };
+        }
     }
 }

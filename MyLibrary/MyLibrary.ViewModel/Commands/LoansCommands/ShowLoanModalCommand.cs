@@ -1,16 +1,15 @@
-﻿using MyLibrary.Model.Models;
-using MyLibrary.Model.Repositories;
+﻿using MyLibrary.Model.Repositories;
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Stores;
 using MyLibrary.ViewModel.ViewModels.LoanViewModels;
-using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
 
 namespace MyLibrary.ViewModel.Commands.LoansCommands
 {
     public class ShowLoanModalCommand : CommandBase, IShowLoanModalCommand
     {
         #region Dependencies
+        private IMyLibraryDbContext _db;
         private IBooksStore _booksStore;
         private ILoansStore _loansStore;
         private IClientsStore _clientsStore;
@@ -40,6 +39,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="modalNavigationStore"></param>
         /// <param name="addEditeLoanViewModel"></param>
         public ShowLoanModalCommand(
+            IMyLibraryDbContext db,
             IBooksStore booksStore,
             ILoansStore loansStore,
             IClientsStore clientsStore,
@@ -59,6 +59,7 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
             IOrderBooksBySubjectCommand orderBooksBySubjectCommand
             )
         {
+            _db = db;
             _booksStore = booksStore;
             _loansStore = loansStore;
             _clientsStore = clientsStore;
@@ -86,7 +87,6 @@ namespace MyLibrary.ViewModel.Commands.LoansCommands
         /// <param name="parameter">no marametes needed</param>
         public override void Execute(object parameter)
         {
-            _loansStore.SelectedLoan = new LoanViewModel(new Loan() { Id = 0 }, _clientsStore, _booksStore);
             _addEditeLoanViewModel = new AddEditeLoanViewModel(
                 _booksStore,
                 _loansStore,

@@ -1,48 +1,45 @@
 ﻿using MyLibrary.Model.Models;
-using MyLibrary.ViewModel.Stores;
+using MyLibrary.Model.Repositories;
 using System;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
 {
     public class LoanViewModel : ViewModelBase
     {
         #region Properties
-        private IClientsStore _clientsStore;
-        private IBooksStore _booksStore;
+        private IMyLibraryDbContext _db;
         public Loan _loan;
-        public int ID => _loan.Id;
-        public int ClientID => _loan.ClientId;
-        public string ClientName { get; }
-        public int BookID => _loan.BookId;
-        public string BookName { get; }
-        public string BookSubject { get; }
+        public int ID { get; set; }
+        public int ClientID { get; set; }
+        public string ClientName { get; set; }
+        public int BookID { get; set; }
+        public string BookName { get; set; }
+        public string BookSubject { get; set; }
 
-        public DateTime ReturnDate => _loan.ReturnDate;
+        public DateTime ReturnDate { get; set; }
         public string ReturnedDateTime { get; set; }
 
-        public DateTime CreatedAt => _loan.CreatedAt;
-        public DateTime UpdatedAt => _loan.UpdatedAt;
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         #endregion
 
         #region Contructor
 
-        public LoanViewModel(Loan loan, IClientsStore clientsStore, IBooksStore booksStore)
+        public async Task<LoanViewModel> LoanViewModelAsync(Loan loan, IMyLibraryDbContext db)
         {
-            if (!(clientsStore is null) && !(booksStore is null))
+            if (!(db is null))
             {
 
                 _loan = loan ?? throw new ArgumentNullException(nameof(loan));
-                _clientsStore = clientsStore ?? throw new ArgumentNullException(nameof(clientsStore));
-                _booksStore = booksStore ?? throw new ArgumentNullException(nameof(booksStore));
 
-                var client = clientsStore.Clients.FirstOrDefault(c => c.ID == loan.ClientId);
+                Client client = await db.ClientsRepository.GetClientById(loan.ClientId);
                 ClientName = client != null
                     ? $"{client.FirstName} {client.LastName}".Trim()
                     : $"Client #{loan.ClientId} (not found)";
 
-                var book = booksStore.Books.FirstOrDefault(b => b.ID == loan.BookId);
+                Book book = GetLoanBook(loan.BookId).Result;
                 BookName = book?.Name ?? $"Book #{loan.BookId} (not found)";
 
                 BookSubject = book?.Subject ?? $"Book #{loan.BookId} (not found)";
@@ -50,11 +47,38 @@ namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
                 ReturnedDateTime = loan.ReturnedDate.HasValue
                     ? loan.ReturnedDate.Value.ToString("yyyy-MM-dd")
                     : "خیر";
+                return new LoanViewModel()
+                {
+                    BookName = BookName,
+                    BookSubject = BookSubject,
+                    ClientName = ClientName
+                };
+            }
+            else
+            {
+                return new LoanViewModel()
+                {
+                    BookName = "Error",
+                    BookSubject = "Error",
+                    ClientName = "Error"
+                };
             }
         }
+
         #endregion
 
         #region Methods
+
+        private async Task<Book> GetLoanBook(int id)
+        {
+            return await _db.BooksRepository.GetBookById(id);
+        }
+
+        private async Task<Client> GetLoanClient(int id)
+        {
+            return await _db.ClientsRepository.GetClientById(id);
+        }
+
         public Loan ToLoan()
         {
             DateTime? ReturnedDateTime;
@@ -85,7 +109,13 @@ namespace MyLibrary.ViewModel.ViewModels.ModelsViewModels
         /// <returns></returns>
         public static LoanViewModel Empty()
         {
-            return new LoanViewModel(new Loan() { Id = 0, BookId = 0, ClientId = 0 }, null, null);
+            LoanViewModel loanViewModel = new LoanViewModel
+            {
+                ID = 0,
+                BookID = 0,
+                ClientID = 0
+            };
+            return loanViewModel;
         }
         #endregion
     }
