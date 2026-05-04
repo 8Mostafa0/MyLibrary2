@@ -60,7 +60,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="نام کتاب" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
-                    <TextBox Grid.Column="1" Margin="5 10" VerticalAlignment="Center" Text="{Binding BookName}"/>
+                    <TextBox Grid.Column="1" Margin="5 10" VerticalAlignment="Center" Text="{Binding BookName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     <Button Grid.Column="2" Content="جستجو" Margin="5 10" VerticalAlignment="Center" Command="{Binding SearchBookNameInReservedBookCommand}"/>
                 </Grid>
                 <Button Grid.Row="8" Grid.Column="0" Content="رزرو کردن" Margin="5" VerticalAlignment="Center"  Command="{Binding AddNewReservBookCommand}"/>

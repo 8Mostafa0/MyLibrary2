@@ -1,32 +1,35 @@
-﻿using MyLibrary.Model.Models;
-using MyLibrary.ViewModel.Commands.BooksCommands;
-using MyLibrary.ViewModel.Commands.ClientsCommands;
-using MyLibrary.ViewModel.Commands.LoansCommands;
-using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
+﻿using MyLibrary.Model.Base;
+using MyLibrary.Model.Models;
+using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands.BaseCommands;
 using MyLibrary.ViewModel.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 {
-    public class AddEditeReserveBookViewModel : ViewModelBase, IAddEditeReserveBookViewModel
+    public class AddEditeReserveBookViewModel : PropertyChangedBase, IAddEditeReserveBookViewModel
     {
         #region Dependencies
+        private IMyLibraryDbContext _db;
+        private IApplicationStore _applicationStore;
+
         private Book _selectedBook;
         private Client _selectedClient;
-        private IBooksStore _booksStore;
-        private IClientsStore _clientsStore;
+
         private IMessageBoxStore _messageBoxStore;
         private ReservedBook _selectedReservedBook;
-        private IReservedBooksStore _reservedBooksStore;
         private IModalNavigationStore _modalNavigationStore;
+
+        private ObservableCollection<Book> _books;
+        private ObservableCollection<Client> _clients;
+
         private string _bookName;
         private string _clientName;
         private int _bookSubject;
 
-        private ObservableCollection<Book> _books;
-        private ObservableCollection<Client> _clients;
 
         public IEnumerable<Book> Books => _books;
         public IEnumerable<Client> Clients => _clients;
@@ -36,9 +39,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             get => _bookName;
             set
             {
-                _bookName = value;
-                _booksStore.SearchBookName = value;
-                OnProperychanged(nameof(BookName));
+                SetField(ref _bookName, value);
             }
         }
 
@@ -47,9 +48,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             get => _clientName;
             set
             {
-                _clientName = value;
-                _clientsStore.SearchClientName = value;
-                OnProperychanged(nameof(ClientName));
+                SetField(ref _clientName, value);
             }
         }
 
@@ -58,10 +57,8 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             get => _selectedBook;
             set
             {
-
-                _selectedBook = value;
-                _reservedBooksStore.SelectedBook = value;
-                OnProperychanged(nameof(SelectedBook));
+                SetField(ref _selectedBook, value);
+                SaveReservedBookDataCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -70,9 +67,8 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             get => _selectedClient;
             set
             {
-                _selectedClient = value;
-                _reservedBooksStore.SelectedClient = value;
-                OnProperychanged(nameof(SelectedClient));
+                SetField(ref _selectedClient, value);
+                SaveReservedBookDataCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -81,7 +77,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             get => _selectedReservedBook;
             set
             {
-                _selectedReservedBook = value;
+                SetField(ref _selectedReservedBook, value);
                 SetDataOfSelectedReservedBook();
             }
         }
@@ -90,9 +86,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
             get => _bookSubject;
             set
             {
-                _bookSubject = value;
-                _booksStore.SearchSubject = value;
-                OnProperychanged(nameof(BookSubject));
+                SetField(ref _bookSubject, value);
             }
         }
 
@@ -102,15 +96,11 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 
         #region Commands
 
-        private ILoadReservedBooksCommand _loadReservedBooksCommand;
-        public ICloseModalCommand CloseModalCommand { get; }
-        public ISaveReservationDataCommand SaveReservedBookDataCommand { get; }
-        public ISearchBookNameInReservedBookCommand SearchBookNameCommand { get; }
-        public ISearchClientNameCommand SearchClientNameCommand { get; }
-        public ILoadClientsCommand LoadClientsCommand { get; }
-        public ILoadBooksCommand LoadBooksCommand { get; }
-        public IOrderBooksBySubjectCommand OrderBooksCommand { get; }
-        public IOrderBooksBySubjectCommand OrderBooksBySubjectCommand { get; }
+        public RelayCommand CloseModalCommand { get; }
+        public AsyncRelayCommand SaveReservedBookDataCommand { get; }
+        public AsyncRelayCommand SearchBookNameCommand { get; }
+        public AsyncRelayCommand SearchClientNameCommand { get; }
+        public AsyncRelayCommand OrderBooksBySubjectCommand { get; }
 
 
         #endregion
@@ -119,96 +109,196 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="booksStore"></param>
-        /// <param name="clientsStore"></param>
+        /// <param name="db"></param>
+        /// <param name="applicationStore"></param>
         /// <param name="messageBoxStore"></param>
-        /// <param name="loadBooksCommand"></param>
-        /// <param name="closeModalCommand"></param>
-        /// <param name="reservedBooksStore"></param>
-        /// <param name="loadClientsCommand"></param>
         /// <param name="modalNavigationStore"></param>
-        /// <param name="searchBookNameInReservedBookCommand"></param>
-        /// <param name="searchClientNameCommand"></param>
-        /// <param name="orderBooksByStateCommand"></param>
-        /// <param name="orderBooksBySubjectCommand"></param>
-        /// <param name="saveReservationDataCommand"></param>
         public AddEditeReserveBookViewModel(
-            IBooksStore booksStore,
-            IClientsStore clientsStore,
+            IMyLibraryDbContext db,
+            IApplicationStore applicationStore,
             IMessageBoxStore messageBoxStore,
-            ILoadBooksCommand loadBooksCommand,
-            ICloseModalCommand closeModalCommand,
-            IReservedBooksStore reservedBooksStore,
-            ILoadClientsCommand loadClientsCommand,
-            IModalNavigationStore modalNavigationStore,
-            ISearchClientNameCommand searchClientNameCommand,
-            IOrderBooksByStateCommand orderBooksByStateCommand,
-            ILoadReservedBooksCommand loadReservedBooksCommand,
-            IOrderBooksBySubjectCommand orderBooksBySubjectCommand,
-            ISaveReservationDataCommand saveReservationDataCommand,
-            ISearchBookNameInReservedBookCommand searchBookNameInReservedBookCommand
+            IModalNavigationStore modalNavigationStore
 
             )
         {
+            _db = db;
+            _applicationStore = applicationStore;
+            _messageBoxStore = messageBoxStore;
+            _modalNavigationStore = modalNavigationStore;
+
             _clients = new ObservableCollection<Client>();
             _books = new ObservableCollection<Book>();
 
-            _booksStore = booksStore;
-            _clientsStore = clientsStore;
-            _messageBoxStore = messageBoxStore;
-            LoadBooksCommand = loadBooksCommand;
-            CloseModalCommand = closeModalCommand;
-            LoadClientsCommand = loadClientsCommand;
-            _reservedBooksStore = reservedBooksStore;
-            _modalNavigationStore = modalNavigationStore;
-            OrderBooksCommand = orderBooksBySubjectCommand;
-            SearchClientNameCommand = searchClientNameCommand;
-            _loadReservedBooksCommand = loadReservedBooksCommand;
-            OrderBooksBySubjectCommand = orderBooksBySubjectCommand;
-            SaveReservedBookDataCommand = saveReservationDataCommand;
-            SearchBookNameCommand = searchBookNameInReservedBookCommand;
-            _booksStore.BooksUpdated += OnBooksUpdated;
-            _clientsStore.ClientsUpdated += OnClientsUpdated;
-
-            SelectedReservedBook = _reservedBooksStore.SelectedReserv;
-
-            if (_reservedBooksStore.SelectedReserv.ID != 0)
-            {
-                TitleOfLoanScreen = "ویرایش نوبت رزرو";
-
-            }
-            else
-            {
-                TitleOfLoanScreen = "رزرو نوبت جدید";
-            }
+            TitleOfLoanScreen = "رزرو نوبت جدید";
+            CloseModalCommand = new RelayCommand(CloseModal);
+            SearchBookNameCommand = new AsyncRelayCommand(SearchBookName, () => { return !string.IsNullOrEmpty(BookName); });
+            SearchClientNameCommand = new AsyncRelayCommand(SearchClientName, () => { return !string.IsNullOrEmpty(ClientName); });
+            OrderBooksBySubjectCommand = new AsyncRelayCommand(OrderBooksBySubject, ValidateReservdBookData);
+            SaveReservedBookDataCommand = new AsyncRelayCommand(SaveReservedBooksData, ValidateReservdBookData);
         }
         #endregion
 
 
         #region Methods
 
-        /// <summary>
-        /// get called each time books list of books store get chagned
-        /// </summary>
-        private void OnBooksUpdated()
+        private bool ValidateReservdBookData()
         {
+            if (SelectedBook is null) return false;
+            if (SelectedClient is null) return false;
+            return true;
+        }
+
+        private async Task SaveReservedBooksData()
+        {
+
+            if (SelectedReservedBook.ID == ReservedBook.Empty().ID)
+            {
+                ReservedBook reservBook = new ReservedBook()
+                {
+                    BookId = SelectedBook.ID,
+                    BookName = SelectedBook.Name,
+                    ClientId = SelectedClient.ID,
+                    ClientName = SelectedClient.FirstName + " " + SelectedClient.LastName
+                };
+
+                int result = await _db.ReservedBooksRepository.AddNewReservedBookToDb(reservBook);
+                if (result > 0)
+                {
+                    _messageBoxStore.Show("رزرو کتاب با موفقیت انجام شد", "رزرو کتاب");
+                    CloseModal();
+                }
+                else
+                {
+
+                    _messageBoxStore.Show("هنگام رزرو کتاب مشکلی بوجود امده است", "رزرو کتاب");
+                }
+            }
+            else
+            {
+                SelectedReservedBook.BookId = SelectedBook.ID;
+                SelectedReservedBook.BookName = SelectedBook.Name;
+                SelectedReservedBook.ClientId = SelectedClient.ID;
+                SelectedReservedBook.ClientName = SelectedClient.FirstName + " " + SelectedClient.LastName;
+                int result = await _db.ReservedBooksRepository.EditReservBookToDb(SelectedReservedBook);
+                if (result > 0)
+                {
+                    _messageBoxStore.Show("ویرایش با موفقیت انجام شد", "ویرایش رزرو کتاب");
+                    CloseModal();
+                }
+                else
+                {
+                    _messageBoxStore.Show("هنگام ویرایش رزرو مشکلی بوحود امده است", "ویرایش رزرو کتاب");
+                }
+            }
+        }
+
+        /// <summary>
+        /// get list of books by subject
+        /// </summary>
+        /// <returns></returns>
+        private async Task OrderBooksBySubject()
+        {
+            List<Book> books = await _db.BooksRepository.GetBoooksBySubject(BookSubject);
             _books.Clear();
-            foreach (Book book in _booksStore.Books)
+            foreach (Book book in books)
+            {
+                _books.Add(book);
+            }
+        }
+
+        /// <summary>
+        /// Get All Clients which name of them contain the ClientName string
+        /// </summary>
+        /// <returns></returns>
+        private async Task SearchClientName()
+        {
+            List<Client> clientes = await _db.ClientsRepository.GetClientsByName(ClientName);
+            _clients.Clear();
+            foreach (Client client in clientes)
+            {
+
+                _clients.Add(client);
+            }
+        }
+
+        /// <summary>
+        /// Get Books that contain BookName string
+        /// </summary>
+        /// <returns></returns>
+        private async Task SearchBookName()
+        {
+            List<Book> books = await _db.BooksRepository.GetBooksByName(BookName);
+            _books.Clear();
+            foreach (Book book in books)
+            {
+                _books.Add(book);
+            }
+        }
+
+
+        /// <summary>
+        /// Initialize ViewModel in the async way
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="applicationStore"></param>
+        /// <param name="messageBoxStore"></param>
+        /// <param name="modalNavigationStore"></param>
+        /// <returns></returns>
+        public static async Task<AddEditeReserveBookViewModel> InitializeViewModel(
+            IMyLibraryDbContext db,
+            IApplicationStore applicationStore,
+            IMessageBoxStore messageBoxStore,
+            IModalNavigationStore modalNavigationStore)
+        {
+            AddEditeReserveBookViewModel viewModel = new AddEditeReserveBookViewModel(db, applicationStore, messageBoxStore, modalNavigationStore);
+            await viewModel.RefreshPage();
+            return viewModel;
+        }
+
+
+
+        private void CloseModal()
+        {
+            _modalNavigationStore.Close();
+        }
+
+        /// <summary>
+        /// Refresh the page data
+        /// </summary>
+        /// <returns></returns>
+        private async Task RefreshPage()
+        {
+            await LoadBooks();
+            await LoadClients();
+        }
+
+        /// <summary>
+        /// load all books
+        /// </summary>
+        /// <returns></returns>
+        private async Task LoadBooks()
+        {
+            List<Book> books = await _db.BooksRepository.GetAllBooks();
+            _books.Clear();
+            foreach (Book book in books)
             {
                 _books.Add(book);
             }
         }
         /// <summary>
-        /// called each time clients list of clients store get chagned
+        /// load all clients
         /// </summary>
-        private void OnClientsUpdated()
+        /// <returns></returns>
+        private async Task LoadClients()
         {
+            List<Client> clients = await _db.ClientsRepository.GetAllClients();
             _clients.Clear();
-            foreach (Client client in _clientsStore.Clients)
+            foreach (Client client in clients)
             {
                 _clients.Add(client);
             }
         }
+
         /// <summary>
         /// fill data for inputed reservedbooks
         /// </summary>
@@ -216,6 +306,7 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         {
             if (!(_selectedReservedBook is null))
             {
+                TitleOfLoanScreen = "ویرایش نوبت رزرو";
                 Book book = _books.SingleOrDefault(b => b.ID == _selectedReservedBook.BookId);
                 SelectedBook = book;
                 Client client = _clients.SingleOrDefault(c => c.ID == _selectedReservedBook.ClientId);

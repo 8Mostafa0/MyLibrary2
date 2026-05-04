@@ -74,7 +74,9 @@ namespace MyLibrary.Model.DbContexts
             const string ReservedBookSql = "Create Table ReservedBooks" +
                 "(Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY," +
                 "BookId INT NOT NULL," +
+                "BookName NVARCHAR(200) NOT NULL," +
                 "ClientId INT NOT NULL," +
+                "ClientName NVARCHAR(200) NOT NULL," +
                 "CreatedAt Date NOT NULL," +
                 "UpdatedAt DATE NOT NULL);";
 

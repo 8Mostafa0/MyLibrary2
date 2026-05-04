@@ -1,22 +1,21 @@
-﻿using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
-using MyLibrary.ViewModel.ViewModels.ModelsViewModels;
+﻿using MyLibrary.Model.Models;
+using MyLibrary.ViewModel.Commands.BaseCommands;
 using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
 {
     public interface IReservedBooksViewModel : IViewModelBase
     {
-        IAddNewReservBookCommand AddNewReservBookCommand { get; }
+        AsyncRelayCommand AddNewReservBookCommand { get; }
         string BookName { get; set; }
         IViewModelBase CurrentModalViewModel { get; }
-        IEditeReservBookCommand EditeReservBookCommand { get; }
+        AsyncRelayCommand EditeReservBookCommand { get; }
         bool IsModalOpen { get; }
-        ILoadReservedBooksCommand LoadReservedBooksCommand { get; }
-        IRemoveReservBookCommand RemoveReservBookCommand { get; }
-        IEnumerable<ReservedBookViewModel> ReservedBooks { get; }
-        IResetReservBookCommand ResetReservBookCommand { get; }
-        ISearchBookNameInReservedBookCommand SearchBookNameInReservedBookCommand { get; }
-        ReservedBookViewModel SelectedReservedBook { get; set; }
+        AsyncRelayCommand RemoveReservBookCommand { get; }
+        IEnumerable<ReservedBook> ReservedBooks { get; }
+        AsyncRelayCommand ResetReservBookCommand { get; }
+        AsyncRelayCommand SearchBookNameInReservedBookCommand { get; }
+        ReservedBook SelectedReservedBook { get; set; }
 
     }
 }

@@ -193,18 +193,7 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 
         private async Task OrderBooksBySubject()
         {
-            string Subject = "";
-            switch (BooksSortOrder)
-            {
-                case 0: Subject = ""; break;
-                case 1: Subject = "رمان"; break;
-                case 2: Subject = "قصه"; break;
-                case 3: Subject = "آموزشی"; break;
-                case 4: Subject = "معمایی"; break;
-                case 5: Subject = "خودشناسی"; break;
-                case 6: Subject = "شکرگزاری"; break;
-            }
-            List<Book> books = await _db.BooksRepository.GetBoooksBySubject(Subject);
+            List<Book> books = await _db.BooksRepository.GetBoooksBySubject(BooksSortOrder);
             _books.Clear();
             foreach (Book book in books)
             {

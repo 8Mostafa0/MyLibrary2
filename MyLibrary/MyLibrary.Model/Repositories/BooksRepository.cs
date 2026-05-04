@@ -151,8 +151,20 @@ namespace MyLibrary.Model.Repositories
             return await GetAllBooks(SearchSql);
         }
 
-        public async Task<List<Book>> GetBoooksBySubject(string subject)
+        public async Task<List<Book>> GetBoooksBySubject(int subjectID)
         {
+            string subject = "";
+            switch (subjectID)
+            {
+                case 0: subject = ""; break;
+                case 1: subject = "رمان"; break;
+                case 2: subject = "قصه"; break;
+                case 3: subject = "آموزشی"; break;
+                case 4: subject = "معمایی"; break;
+                case 5: subject = "خودشناسی"; break;
+                case 6: subject = "شکرگزاری"; break;
+            }
+
             string getSql = $"SELECT * FROM Books WHERE Subject LIKE '%{subject}%'";
             Console.WriteLine(getSql);
             return await GetAllBooks(getSql);

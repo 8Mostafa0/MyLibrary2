@@ -1,8 +1,5 @@
 ﻿using MyLibrary.Model.Models;
-using MyLibrary.ViewModel.Commands.BooksCommands;
-using MyLibrary.ViewModel.Commands.ClientsCommands;
-using MyLibrary.ViewModel.Commands.LoansCommands;
-using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
+using MyLibrary.ViewModel.Commands.BaseCommands;
 using System.Collections.Generic;
 
 namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
@@ -14,14 +11,11 @@ namespace MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels
         int BookSubject { get; set; }
         string ClientName { get; set; }
         IEnumerable<Client> Clients { get; }
-        ICloseModalCommand CloseModalCommand { get; }
-        ILoadBooksCommand LoadBooksCommand { get; }
-        ILoadClientsCommand LoadClientsCommand { get; }
-        IOrderBooksBySubjectCommand OrderBooksBySubjectCommand { get; }
-        IOrderBooksBySubjectCommand OrderBooksCommand { get; }
-        ISaveReservationDataCommand SaveReservedBookDataCommand { get; }
-        ISearchBookNameInReservedBookCommand SearchBookNameCommand { get; }
-        ISearchClientNameCommand SearchClientNameCommand { get; }
+        RelayCommand CloseModalCommand { get; }
+        AsyncRelayCommand OrderBooksBySubjectCommand { get; }
+        AsyncRelayCommand SaveReservedBookDataCommand { get; }
+        AsyncRelayCommand SearchBookNameCommand { get; }
+        AsyncRelayCommand SearchClientNameCommand { get; }
         Book SelectedBook { get; set; }
         Client SelectedClient { get; set; }
         ReservedBook SelectedReservedBook { get; set; }

@@ -109,30 +109,30 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="reservedBook"></param>
         /// <returns></returns>
-        public async Task AddNewReservedBookToDb(ReservedBook reservedBook)
+        public async Task<int> AddNewReservedBookToDb(ReservedBook reservedBook)
         {
-            string AddReservSql = $"INSERT INTO ReservedBooks(BookId,ClientId,CreatedAt,UpdatedAt)VALUES('{reservedBook.BookId}','{reservedBook.ClientId}',GETDATE(),GETDATE())";
-            await _dbContextFactory.ExecuteQueryAsync(AddReservSql, "AddNewReservedBook");
+            string AddReservSql = $"INSERT INTO ReservedBooks(BookId,BookName,ClientId,ClientName,CreatedAt,UpdatedAt)VALUES('{reservedBook.BookId}','{reservedBook.BookName}','{reservedBook.ClientId}','{reservedBook.ClientName}',GETDATE(),GETDATE())";
+            return await _dbContextFactory.ExecuteQueryAsync(AddReservSql, "AddNewReservedBook");
         }
         /// <summary>
         /// edite reservation data from ReservedBook Table
         /// </summary>
         /// <param name="reservedBook"></param>
         /// <returns></returns>
-        public async Task EditReservBookToDb(ReservedBook reservedBook)
+        public async Task<int> EditReservBookToDb(ReservedBook reservedBook)
         {
-            string EditeReservSql = $"UPDATE ReservedBooks SET BookId='{reservedBook.BookId}',ClientId='{reservedBook.ClientId}',UpdatedAt=GETDATE() WHERE Id='{reservedBook.ID}'";
-            await _dbContextFactory.ExecuteQueryAsync(EditeReservSql, "EditReservBookToDb");
+            string EditeReservSql = $"UPDATE ReservedBooks SET BookId='{reservedBook.BookId}',BookName='{reservedBook.BookName}',ClientId='{reservedBook.ClientId}',ClientName='{reservedBook.ClientName}',UpdatedAt=GETDATE() WHERE Id='{reservedBook.ID}'";
+            return await _dbContextFactory.ExecuteQueryAsync(EditeReservSql, "EditReservBookToDb");
         }
         /// <summary>
         /// delete reservation dedicated to book and client from ReservedBooks Table
         /// </summary>
         /// <param name="reservedBook"></param>
         /// <returns></returns>
-        public async Task DeleteReservedBookWithClientToDb(ReservedBook reservedBook)
+        public async Task<int> DeleteReservedBookWithClientToDb(ReservedBook reservedBook)
         {
             string DeleteReservSql = $"DELETE FROM ReservedBooks WHERE Id='{reservedBook.ID}' AND ClientId='{reservedBook.ClientId}'";
-            await _dbContextFactory.ExecuteQueryAsync(DeleteReservSql, "DeleteReservedBook");
+            return await _dbContextFactory.ExecuteQueryAsync(DeleteReservSql, "DeleteReservedBook");
         }
         /// <summary>
         ///Check dose user have reservation and if so return ir
@@ -169,10 +169,10 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="clientId"></param>
         /// <returns></returns>
-        public async Task RemoveClientReservedBooks(int clientId)
+        public async Task<int> RemoveClientReservedBooks(int clientId)
         {
             string deleteSql = $"DELETE FROM ReservedBooks WHERE ClientId='{clientId}'";
-            await _dbContextFactory.ExecuteQueryAsync(deleteSql, "RemoveUserReservedBooks");
+            return await _dbContextFactory.ExecuteQueryAsync(deleteSql, "RemoveUserReservedBooks");
         }
 
         /// <summary>
@@ -180,10 +180,16 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="bookId"></param>
         /// <returns></returns>
-        public async Task DeleteReservedBookToDb(int bookId)
+        public async Task<int> DeleteReservedBookToDb(int bookId)
         {
             string DeleteReservSql = $"DELETE FROM ReservedBooks WHERE BookId='{bookId}'";
-            await _dbContextFactory.ExecuteQueryAsync(DeleteReservSql, "DeleteReservedBook");
+            return await _dbContextFactory.ExecuteQueryAsync(DeleteReservSql, "DeleteReservedBook");
+        }
+
+        public async Task<List<ReservedBook>> SearchBookNameInReservedBooks(string bookName)
+        {
+            string searchSql = $"SELECT * FROM ReservedBooks WHERE BookName LIKE '%{bookName}%'";
+            return await GetAllReservedBooks(searchSql);
         }
         public void Dispose() { }
         #endregion

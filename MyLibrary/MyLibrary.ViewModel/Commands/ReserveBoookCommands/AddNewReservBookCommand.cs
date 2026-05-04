@@ -3,7 +3,6 @@ using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Stores;
-using MyLibrary.ViewModel.ViewModels.ReservedBooksViewModels;
 
 namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 {
@@ -91,25 +90,25 @@ namespace MyLibrary.ViewModel.Commands.ReserveBoookCommands
 
         public override void Execute(object parameter)
         {
-            IAddEditeReserveBookViewModel ViewModel = new AddEditeReserveBookViewModel(
-                _booksStore,
-                _clientsStore,
-                _messageBoxStore,
-                _loadBooksCommand,
-                _closeModalCommand,
-                _reservedBooksStore,
-                _loadClientsCommand,
-                _modalNavigationStore,
-                _searchClientNameCommand,
-                _orderBooksByStateCommand,
-                _loadReservedBooksCommand,
-                _orderBooksBySubjectCommand,
-                _saveReservationDataCommand,
-                _searchBookNameInReservedBookCommand
-                );
-            ViewModel.LoadBooksCommand.Execute(null);
-            ViewModel.LoadClientsCommand.Execute(null);
-            _modalNavigationStore.CurrentViewModel = ViewModel;
+            //IAddEditeReserveBookViewModel ViewModel = new AddEditeReserveBookViewModel(
+            //    _booksStore,
+            //    _clientsStore,
+            //    _messageBoxStore,
+            //    _loadBooksCommand,
+            //    _closeModalCommand,
+            //    _reservedBooksStore,
+            //    _loadClientsCommand,
+            //    _modalNavigationStore,
+            //    _searchClientNameCommand,
+            //    _orderBooksByStateCommand,
+            //    _loadReservedBooksCommand,
+            //    _orderBooksBySubjectCommand,
+            //    _saveReservationDataCommand,
+            //    _searchBookNameInReservedBookCommand
+            //    );
+            //ViewModel.LoadBooksCommand.Execute(null);
+            //ViewModel.LoadClientsCommand.Execute(null);
+            //_modalNavigationStore.CurrentViewModel = ViewModel;
         }
         #endregion
     }

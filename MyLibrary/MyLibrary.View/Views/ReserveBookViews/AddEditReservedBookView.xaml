@@ -58,6 +58,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalAlignment="Center"  Content="دسته بندی کتاب"/>
             <ComboBox Grid.Column="1" VerticalAlignment="Center" SelectedIndex="{Binding BookSubject}">
+                <ComboBoxItem Content="همه" Tag="همه"/>
                 <ComboBoxItem Content="رمان" Tag="رمان"/>
                 <ComboBoxItem Content="قصه" Tag="قصه"/>
                 <ComboBoxItem Content="آموزشی" Tag="آموزشی"/>
