@@ -1,4 +1,6 @@
-﻿using MyLibrary.ViewModel.Commands;
+﻿using MyLibrary.Model.Repositories;
+using MyLibrary.ViewModel.Commands;
+using MyLibrary.ViewModel.Commands.BaseCommands;
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
 using MyLibrary.ViewModel.Commands.LoansCommands;
@@ -6,6 +8,8 @@ using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
 using MyLibrary.ViewModel.Commands.SettingsCommands;
 using MyLibrary.ViewModel.Stores;
+using MyLibrary.ViewModel.ViewModels.LoanViewModels;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MyLibrary.ViewModel.ViewModels
@@ -13,6 +17,8 @@ namespace MyLibrary.ViewModel.ViewModels
     public class NavigationBarViewModel : ViewModelBase, INavigationBarViewModel
     {
         #region Dependencies
+        private IMyLibraryDbContext _db;
+        private IApplicationStore _applicationStore;
         private readonly INavigationStore _navigationStore;
         private readonly IModalNavigationStore _modalNavigationStore;
         private IReservedBooksStore _reservedBooksStore;
@@ -31,7 +37,7 @@ namespace MyLibrary.ViewModel.ViewModels
         public INavigateBooksCommand NavigateBooksCommand { get; }
 
         public ICommand OpenModalCommand { get; }
-        public INavigateLoansCommand NavigateLoansCommand { get; }
+        public AsyncRelayCommand NavigateLoansCommand { get; }
         public INavigateToSettingsCommand NavigateToSettingsCommand { get; }
         public INavigateReservedBooksCommand NavigateReservedBooksCommand { get; }
         public ICloseAppCommand CloseAppCommand { get; }
@@ -56,6 +62,8 @@ namespace MyLibrary.ViewModel.ViewModels
         /// <param name="navigateToSettingsCommand"></param>
         /// <param name="closeAppCommand"></param>
         public NavigationBarViewModel(
+            IMyLibraryDbContext db,
+            IApplicationStore applicationStore,
             INavigationStore navigationStore,
             IReservedBooksStore reservedBooksStore,
             IClientsStore clientsStore,
@@ -72,6 +80,8 @@ namespace MyLibrary.ViewModel.ViewModels
             ICloseAppCommand closeAppCommand
             )
         {
+            _db = db;
+            _applicationStore = applicationStore;
             _navigationStore = navigationStore;
             _reservedBooksStore = reservedBooksStore;
             _clientsStore = clientsStore;
@@ -83,12 +93,19 @@ namespace MyLibrary.ViewModel.ViewModels
             NavigateHomeCommand = navigateHomeScreenCommand;
             ClientsCreenCommand = navigateClientScreenCommand;
             NavigateBooksCommand = navigateBooksCommand;
-            NavigateLoansCommand = navigateLoansCommand;
+            NavigateLoansCommand = new AsyncRelayCommand(LoadLoanViewModel);
             NavigateReservedBooksCommand = navigateReservedBooksCommand;
             NavigateToSettingsCommand = navigateToSettingsCommand;
             CloseAppCommand = closeAppCommand;
 
             NavigateHomeCommand.Execute(null);
+        }
+        #endregion
+
+        #region METHODS
+        private async Task LoadLoanViewModel()
+        {
+            _navigationStore.ContentScreen = await LoansViewModel.InitializeViewModel(_db, _applicationStore, _messageBoxStore, _modalNavigationStore);
         }
         #endregion
     }

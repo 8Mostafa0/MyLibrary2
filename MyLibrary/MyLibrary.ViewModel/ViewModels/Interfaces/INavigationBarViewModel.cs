@@ -1,7 +1,7 @@
 ﻿using MyLibrary.ViewModel.Commands;
+using MyLibrary.ViewModel.Commands.BaseCommands;
 using MyLibrary.ViewModel.Commands.BooksCommands;
 using MyLibrary.ViewModel.Commands.ClientsCommands;
-using MyLibrary.ViewModel.Commands.LoansCommands;
 using MyLibrary.ViewModel.Commands.LoginCommands;
 using MyLibrary.ViewModel.Commands.ReserveBoookCommands;
 using MyLibrary.ViewModel.Commands.SettingsCommands;
@@ -16,7 +16,7 @@ namespace MyLibrary.ViewModel.ViewModels
         ICommand DatabaseCommand { get; }
         INavigateBooksCommand NavigateBooksCommand { get; }
         INavigateHomeScreenCommand NavigateHomeCommand { get; }
-        INavigateLoansCommand NavigateLoansCommand { get; }
+        AsyncRelayCommand NavigateLoansCommand { get; }
         INavigateReservedBooksCommand NavigateReservedBooksCommand { get; }
         INavigateToSettingsCommand NavigateToSettingsCommand { get; }
         ICommand OpenModalCommand { get; }

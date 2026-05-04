@@ -119,10 +119,11 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="loan"></param>
         /// <returns></returns>
-        public async Task UpdateLoanAtDb(Loan loan)
+        public async Task<int> UpdateLoanAtDb(Loan loan)
         {
-            string UpdateLoanSql = $"UPDATE Loans SET ClientId='{loan.ClientId}',ClientName='{loan.ClientName}',BookId='{loan.BookId}',BookName='{loan.BookName}',ReturnDate='{loan.ReturnDate}',UpdatedAt=GETDATE() WHERE Id='{loan.Id}'";
-            await _dbContextFactory.ExecuteQueryAsync(UpdateLoanSql, "DeleteLoanAtDb");
+            string UpdateLoanSql = $"UPDATE Loans SET ClientId='{loan.ClientId}',ClientName='{loan.ClientName}',BookId='{loan.BookId}',BookName='{loan.BookName}',ReturnDate='{loan.ReturnDate.ToString("O")}',UpdatedAt=GETDATE() WHERE Id='{loan.Id}'";
+            Console.WriteLine(UpdateLoanSql);
+            return await _dbContextFactory.ExecuteQueryAsync(UpdateLoanSql, "DeleteLoanAtDb");
         }
 
         /// <summary>
@@ -194,10 +195,33 @@ namespace MyLibrary.Model.Repositories
         /// </summary>
         /// <param name="loan"></param>
         /// <returns></returns>
-        public async Task SetLoanReturned(Loan loan)
+        public async Task<int> SetLoanReturned(Loan loan)
         {
             string DeleteLoanSql = $"UPDATE Loans SET ReturnedDate=GETDATE() WHERE Id='{loan.Id}'";
-            await _dbContextFactory.ExecuteQueryAsync(DeleteLoanSql, "DEleteLoanInDB");
+            return await _dbContextFactory.ExecuteQueryAsync(DeleteLoanSql, "DEleteLoanInDB");
+        }
+        public async Task<List<Loan>> GetNotReturnedLoans()
+        {
+            string customSql = "SELECT * FROM loans WHERE ReturnedDate IS NULL";
+            return await GetAllLoans(customSql);
+        }
+
+        public async Task<List<Loan>> GetDilayedLoans()
+        {
+            string CusomtSql = "SELECT * FROM loans WHERE ReturnedDate IS NULL AND ReturnDate < GETDATE()";
+            return await GetAllLoans(CusomtSql);
+        }
+
+        public async Task<List<Loan>> GetReturnedLoans()
+        {
+            string customSql = "SELECT * FROM loans WHERE ReturnedDate IS NOT NULL";
+            return await GetAllLoans(customSql);
+        }
+
+        public async Task<List<Loan>> GetLoansByBookName(string bookName)
+        {
+            string searchSql = $"SELECT * FROM Loans WHERE BookName LIKE '%{bookName}%'";
+            return await GetAllLoans(searchSql);
         }
         public void Dispose() { }
         #endregion

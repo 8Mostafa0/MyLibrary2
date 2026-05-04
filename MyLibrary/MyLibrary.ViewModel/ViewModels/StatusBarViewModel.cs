@@ -11,7 +11,7 @@ namespace MyLibrary.ViewModel.ViewModels
         private static System.Timers.Timer aTimer;
         private ITimeStore _timeStore;
         private PersianCalendar _persianCalender;
-        public string CloclString => _timeStore.CurrentTime;
+        public string CloclString => DateTime.Now.ToString();
         #endregion
 
         #region Constructor

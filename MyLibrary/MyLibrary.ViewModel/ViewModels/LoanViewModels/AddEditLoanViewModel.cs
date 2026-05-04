@@ -168,19 +168,19 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 
             _books = new ObservableCollection<Book>();
             _clients = new ObservableCollection<Client>();
-
             CloseModalCommand = new RelayCommand(CloseModal);
             SaveLoanDataCommand = new AsyncRelayCommand(SaveNewLoan, ValidateLoanData);
             SearchBookNameCommand = new AsyncRelayCommand(SearchBooksName, () => { return BookSearch != ""; });
             SearchClientNameCommand = new AsyncRelayCommand(SearchClientName, () => { return ClientSearch != ""; });
             OrderBooksBySubjectCommand = new AsyncRelayCommand(OrderBooksBySubject);
-
             _modalNavigationStore.CurrentViewModelChanged += ModalViewModelChange;
+
             BooksSortOrder = 0;
             if (_applicationStore is null || _applicationStore.SelectedLoan is null || _applicationStore.SelectedLoan.Id == 0)
             {
                 TitleOfLoanScreen = "امانت جدید";
-                ReturnDate = DateTime.Now.ToLocalTime();
+                ReturnDate = DateTime.Now;
+                SelectedLoan = Loan.Empty();
             }
             else
             {
@@ -228,21 +228,31 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         {
             Loan newLoan = new Loan()
             {
+                Id = SelectedLoan.Id,
                 ClientId = SelectedClient.ID,
                 ClientName = SelectedClient.FirstName + " " + SelectedClient.LastName,
                 BookId = SelectedBook.ID,
                 BookName = SelectedBook.Name,
                 ReturnDate = ReturnDate
             };
-
-            int result = await _db.LoanRepository.AddNewLoanToDb(newLoan);
-            if (result > 0)
+            int result = 0;
+            if (SelectedLoan.Id == Loan.Empty().Id)
             {
-                _messageBoxStore.Show("امانت با موفقیت ثبت شد", "ثبت امانت");
+                result = await _db.LoanRepository.AddNewLoanToDb(newLoan);
             }
             else
             {
-                _messageBoxStore.Show("هنگام ثبت امانت مشکلی بوجود امده است", "ثبت امانت");
+                result = await _db.LoanRepository.UpdateLoanAtDb(newLoan);
+            }
+
+            if (result > 0)
+            {
+                _messageBoxStore.Show($"{TitleOfLoanScreen} با موفقیت انجام شد", TitleOfLoanScreen);
+                CloseModal();
+            }
+            else
+            {
+                _messageBoxStore.Show($"هنگام {TitleOfLoanScreen} مشکلی بوجود امده است", TitleOfLoanScreen);
             }
         }
 

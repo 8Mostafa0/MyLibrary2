@@ -12,12 +12,16 @@ namespace MyLibrary.Model.Repositories
         Task<List<Loan>> GetAllLoans(string customSql = "");
         Task<Loan> GetLoan(string customSql, string executionPart);
         Task<List<Loan>> GetNotReturnedLoanOfBook(int bookId);
+        Task<List<Loan>> GetNotReturnedLoans();
+        Task<List<Loan>> GetDilayedLoans();
+        Task<List<Loan>> GetReturnedLoans();
+
         Task RemoveBookLoans(int bookId);
         Task RemoveClientLoans(int id);
-        Task SetLoanReturned(Loan loan);
-        Task UpdateLoanAtDb(Loan loan);
+        Task<int> SetLoanReturned(Loan loan);
+        Task<int> UpdateLoanAtDb(Loan loan);
         Task<List<Loan>> UserHaveDilayedLoan(int clientId);
-
+        Task<List<Loan>> GetLoansByBookName(string bookName);
         void Dispose();
     }
 }

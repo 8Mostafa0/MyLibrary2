@@ -78,6 +78,7 @@
                     <Button Margin="0 5" FlowDirection="RightToLeft"  VerticalAlignment="Center"  Grid.Column="0" Content="مرتب کردن" Command="{Binding SortLoansListCommand}"/>
 
                     <ComboBox VerticalAlignment="Center" Margin="5 0" Grid.Column="1" SelectedIndex="{Binding SortIndex}" >
+                        <ComboBoxItem Content="همه"/>
                         <ComboBoxItem Content="درجریان"/>
                         <ComboBoxItem Content="دیر کرد"/>
                         <ComboBoxItem Content="اتمام شده"/>
@@ -86,14 +87,14 @@
                     <TextBlock Text="دسته بندی" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Grid>
 
-                <Button Grid.Row="8" Grid.Column="0" Content="امانت دادن" Margin="5" VerticalAlignment="Center"  Command="{Binding ShowAddLoanModalCommand}"/>
+                <Button Grid.Row="8" Grid.Column="0" Content="امانت دادن" Margin="5" VerticalAlignment="Center"  Command="{Binding ShowAddLoanViewModalCommand}"/>
                 <Button Grid.Row="8" Grid.Column="1" Content="برگشت کتاب" Margin="5" VerticalAlignment="Center"  Command="{Binding ReturnedLoanCommand}"/>
-                <Button Grid.Row="9" Grid.Column="0" Content="ویرایش امانت" Margin="5" VerticalAlignment="Center"  Command="{Binding ShowEditLoanViewModel}"/>
+                <Button Grid.Row="9" Grid.Column="0" Content="ویرایش امانت" Margin="5" VerticalAlignment="Center"  Command="{Binding ShowEditLoanViewModelCommand}"/>
                 <Button Grid.Row="9" Grid.Column="1" Content="ریست" Margin="5" VerticalAlignment="Center"  Command="{Binding ReloadLoansListCommand}"/>
             </Grid>
         </Border>
 
-        <ListView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" Grid.RowSpan="8" Margin="10" FlowDirection="RightToLeft" ItemsSource="{Binding Loans}" SelectedItem="{Binding SelectedLoan}">
+        <ListView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" Grid.RowSpan="8" Margin="10" FlowDirection="RightToLeft" ItemsSource="{Binding Loans}" SelectedItem="{Binding SelectedLoan,UpdateSourceTrigger=PropertyChanged}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem" >
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -104,7 +105,7 @@
                     <GridViewColumn Header="آیدی" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  HorizontalAlignment="Center" Text="{Binding ID}"/>
+                                <TextBlock  HorizontalAlignment="Center" Text="{Binding Id}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -112,7 +113,7 @@
                     <GridViewColumn Header="ایدی مشتری" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  HorizontalAlignment="Center" Text="{Binding ClientID}"/>
+                                <TextBlock  HorizontalAlignment="Center" Text="{Binding ClientId}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -126,7 +127,7 @@
                     <GridViewColumn Header="ایدی کتاب" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding BookID}"/>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding BookId}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -134,13 +135,6 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock HorizontalAlignment="Center" Text="{Binding BookName}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="نوع کتاب" Width="80">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding BookSubject}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -155,7 +149,7 @@
                     <GridViewColumn Header="برگشت شده" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding ReturnedDateTime}"/>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding ReturnedDate}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

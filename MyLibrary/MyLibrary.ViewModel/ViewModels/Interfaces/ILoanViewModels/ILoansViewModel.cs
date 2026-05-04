@@ -1,7 +1,6 @@
 ﻿using MyLibrary.Model.Models;
 using MyLibrary.ViewModel.Commands.BaseCommands;
-using MyLibrary.ViewModel.Commands.LoansCommands;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
 {
@@ -10,15 +9,14 @@ namespace MyLibrary.ViewModel.ViewModels.LoanViewModels
         string BookName { get; set; }
         IViewModelBase CurrentModalViewModel { get; }
         bool IsModalOpen { get; }
-        ILoadLoansCommand LoadLoansCommand { get; }
-        IEnumerable<Loan> Loans { get; }
-        IReloadLoansListCommand ReloadLoansListCommand { get; }
-        IReturnedLoanCommand ReturnedLoanCommand { get; }
-        ISearchBookCommand SearchBookCommand { get; }
+        ObservableCollection<Loan> Loans { get; }
+        AsyncRelayCommand ReloadLoansListCommand { get; }
+        AsyncRelayCommand ReturnedLoanCommand { get; }
+        AsyncRelayCommand SearchBookCommand { get; }
         Loan SelectedLoan { get; set; }
-        AsyncRelayCommand ShowAddLoanModalCommand { get; }
-        AsyncRelayCommand ShowEditLoanViewModel { get; }
+        AsyncRelayCommand ShowAddLoanViewModalCommand { get; }
+        AsyncRelayCommand ShowEditLoanViewModelCommand { get; }
         int SortIndex { get; set; }
-        ISortLoansListCommand SortLoansListCommand { get; }
+        AsyncRelayCommand SortLoansListCommand { get; }
     }
 }
